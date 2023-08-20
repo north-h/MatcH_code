@@ -1,0 +1,30 @@
+[
+	{
+		"correct_answers":
+		[
+			"37"
+		],
+		"test": "5\nred\nblack\npink\nred\nred\n"
+	},
+	{
+		"correct_answers":
+		[
+			"18"
+		],
+		"test": "3\nblue\nblack\npink\n"
+	},
+	{
+		"correct_answers":
+		[
+			"34"
+		],
+		"test": "8\nyellow\ngreen\nbrown\nred\nred\nred\nred\nred\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1"
+		],
+		"test": "2\nred\nred\n"
+	}
+]
