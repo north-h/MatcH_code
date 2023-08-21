@@ -1,15 +1,16 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-21 10:10:09
- * Problem : cf-762-E
+ * Time : ctrl+shift+t
  * =====================================
- *                   _   _         _
- *  _ __   ___  _ __| |_| |__     | |__
- * | '_ \ / _ \| '__| __| '_ \    | '_ \
- * | | | | (_) | |  | |_| | | |   | | | |
- * |_| |_|\___/|_|   \__|_| |_|___|_| |_|
- *                           |_____|
+ * Thirty years east, thirty years west,
+ * don't you dare bully me because I'm poor now.
+ *                  _   _         _
+ * _ __   ___  _ __| |_| |__     | |__
+ *| '_ \ / _ \| '__| __| '_ \    | '_ \
+ *| | | | (_) | |  | |_| | | |   | | | |
+ *|_| |_|\___/|_|   \__|_| |_|___|_| |_|
+ *                          |_____|
  */
 
 #pragma GCC optimize(3)
@@ -21,7 +22,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -31,7 +32,7 @@
 #define PCI pair<char,int>
 #define PSI pair<string,int>
 #define ALL(a) a.begin(),a.end()
-#define rALL(a) a.rbegin(),a.rend()
+#define rALL(a) a.begin(),a.end()
 #define int128 __int128
 #define endl '\n'
 const int N = 10010;
@@ -43,34 +44,27 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> can;
-    map<int, int> mp;
-    for(int i = 0; i < n; i++) {
-        int x;
-        cin >> x;
-        mp[x]++;
+    string s;
+    cin >> s;
+    string ans;
+    if(s.size() == 1) {
+        if(s == "a")cout << "YES" << endl;
+        else cout << "NO" << endl;
+        return ;
     }
-    int sum = 0;
+    for(int i = 0, j = s.size() - 1; i <= j;) {
+        if(s[i] == s[j])ans += s[i], i++;
+        else if(s[i] > s[j])ans += s[i], i++;
+        else ans += s[j], j--;
+    }
+    // cout << ans << endl;
+    reverse(ALL(ans));
     bool ok = true;
-    bool f = true;
-    for(int i = 0; i <= n; i++) {
-        if(!ok) {
-            cout << -1 << ' ';
-            continue;
-        }
-        cout << sum + mp[i] << ' ';
-        // cout << i << ' ' << mp[i] << endl;
-        for(int j = 1; j <= mp[i]; j++)can.push_back(i);
-        mp[i] = 0;
-        if(!can.size())ok = false;
-        else {
-            sum += i - can.back();
-            can.pop_back();
-        }
+    for(int i = 1; i < ans.size(); i++) {
+        if(ans[i] != ans[i - 1] + 1)ok = false;
     }
-    cout << endl;
+    if(!ok || ans[0] != 'a')cout << "NO" << endl;
+    else cout << "YES" << endl;
 }
 
 int32_t main() {

@@ -1,15 +1,16 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-21 10:09:41
- * Problem :
+ * Time : ctrl+shift+t
  * =====================================
- *                   _   _         _
- *  _ __   ___  _ __| |_| |__     | |__
- * | '_ \ / _ \| '__| __| '_ \    | '_ \
- * | | | | (_) | |  | |_| | | |   | | | |
- * |_| |_|\___/|_|   \__|_| |_|___|_| |_|
- *                           |_____|
+ * Thirty years east, thirty years west,
+ * don't you dare bully me because I'm poor now.
+ *                  _   _         _
+ * _ __   ___  _ __| |_| |__     | |__
+ *| '_ \ / _ \| '__| __| '_ \    | '_ \
+ *| | | | (_) | |  | |_| | | |   | | | |
+ *|_| |_|\___/|_|   \__|_| |_|___|_| |_|
+ *                          |_____|
  */
 
 #pragma GCC optimize(3)
@@ -31,7 +32,7 @@
 #define PCI pair<char,int>
 #define PSI pair<string,int>
 #define ALL(a) a.begin(),a.end()
-#define rALL(a) a.rbegin(),a.rend()
+#define rALL(a) a.begin(),a.end()
 #define int128 __int128
 #define endl '\n'
 const int N = 10010;
@@ -43,7 +44,21 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n + 1), t(n + 1);
+    vector<ll> dp(n + 1, 1e18);
+    for(int i = 1; i <= k; i++)cin >> a[i];
+    for(int i = 1; i <= k; i++)cin >> t[i];
+    for(int i = 1; i <= k; i++)dp[a[i]] = t[i];
+    for(int i = 2; i <= n; i++) {
+        dp[i] = min(dp[i], dp[i - 1] + 1);
+    }
+    for(int i = n - 1; i >= 0; i--) {
+        dp[i] = min(dp[i], dp[i + 1] + 1);
+    }
+    for(int i = 1; i <= n; i++)cout << dp[i] << ' ';
+    cout << endl;
 }
 
 int32_t main() {

@@ -2,12 +2,12 @@
 //  Author : north_h
 //  File : B.cpp
 //  Time : 2023/7/25/12:57
-//                  _   _         _     
-// _ __   ___  _ __| |_| |__     | |__  
+//                  _   _         _
+// _ __   ___  _ __| |_| |__     | |__
 //| '_ \ / _ \| '__| __| '_ \    | '_ \ 
 //| | | | (_) | |  | |_| | | |   | | | |
 //|_| |_|\___/|_|   \__|_| |_|___|_| |_|
-//                          |_____|     
+//                          |_____|
 
 #pragma GCC optimize(3)
 
@@ -27,7 +27,7 @@
 #define PDD pair<double,double>
 #define PCI pair<char,int>
 #define ALL(a) a.begin(),a.end()
-#define rALL(a) a.begin(),a.end()
+#define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
 const int N = 10010;
@@ -42,21 +42,26 @@ void solve() {
     int n;
     cin >> n;
     vector<int> a(n);
-    for (int i = 0; i < n; i++)cin >> a[i];
-    sort(ALL(a));
-    int sum1 = 0;
-    int sum2 = 0;
-    for (int i = 1; i < n; i += 2) {
-        sum1 += a[i];
-        sum2 += a[i - 1];
-    }
-    if (n % 2 != 0) {
-        if (abs(abs(sum1 - sum2) - a[n - 1]) <= 1)cout << "YES" << endl;
+    map<int, int> mp;
+    for (int i = 0; i < n; i++)cin >> a[i], mp[a[i]];
+    if(n == 1) {
+        if(a[0] <= 1)cout << "YES" << endl;
         else cout << "NO" << endl;
-    } else {
-        if (abs(sum1 - sum2) <= 1)cout << "YES" << endl;
-        else cout << "No" << endl;
+        return ;
     }
+    vector<int> ans;
+    for(auto [x, y] : mp) {
+        ans.push_back(x);
+    }
+    for(auto i : ans)cout << i << ' ';
+    cout << endl;
+    for(int i = 1; i < ans.size(); i++) {
+        if(ans[i - 1] + 1 != ans[i]) {
+            cout << "NO" << endl;
+            return ;
+        }
+    }
+    cout << "YES" << endl;
 }
 
 int32_t main() {

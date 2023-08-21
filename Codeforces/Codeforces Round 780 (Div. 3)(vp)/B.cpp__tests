@@ -1,0 +1,19 @@
+[
+	{
+		"correct_answers":
+		[
+			"YES\nNO\nNO\nYES\nYES\nYES"
+		],
+		"test": "6\n2\n2 3\n1\n2\n5\n1 6 2 4 3\n4\n2 2 2 1\n3\n1 1000000000 999999999\n1\n1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"YES"
+		],
+		"test": "1\n13\n9 1 10 15 3 6 15 7 3 4 13 6 5\n"
+	},
+	{
+		"test": "1\n20\n6 5 6 12 10 1 2 8 11 7 4 9 7 1 2 2 13 3 15 12\n"
+	}
+]

@@ -1,15 +1,16 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-21 10:09:41
- * Problem :
+ * Time : ctrl+shift+t
  * =====================================
- *                   _   _         _
- *  _ __   ___  _ __| |_| |__     | |__
- * | '_ \ / _ \| '__| __| '_ \    | '_ \
- * | | | | (_) | |  | |_| | | |   | | | |
- * |_| |_|\___/|_|   \__|_| |_|___|_| |_|
- *                           |_____|
+ * Thirty years east, thirty years west,
+ * don't you dare bully me because I'm poor now.
+ *                  _   _         _
+ * _ __   ___  _ __| |_| |__     | |__
+ *| '_ \ / _ \| '__| __| '_ \    | '_ \
+ *| | | | (_) | |  | |_| | | |   | | | |
+ *|_| |_|\___/|_|   \__|_| |_|___|_| |_|
+ *                          |_____|
  */
 
 #pragma GCC optimize(3)
@@ -31,7 +32,7 @@
 #define PCI pair<char,int>
 #define PSI pair<string,int>
 #define ALL(a) a.begin(),a.end()
-#define rALL(a) a.rbegin(),a.rend()
+#define rALL(a) a.begin(),a.end()
 #define int128 __int128
 #define endl '\n'
 const int N = 10010;
@@ -43,8 +44,15 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-
+    int x1, y1, x2, y2, x3, y3;
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+    int dis = abs(x1 - x2) + abs(y1 - y2);
+    bool ok = true;
+    if(x3 < min(x1, x2) || x3 > max(x1, x2) || y3 < min(y1, y2) || y3 > max(y1, y2))ok = false;
+    if(((x3 == x1 && x3 == x2) || (y3 == y2 && y3 == y1)) && ok)dis += 2;
+    cout << dis << endl;
 }
+
 
 int32_t main() {
     IOS;
