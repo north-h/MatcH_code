@@ -1,1 +1,10 @@
-[{"correct_answers": ["4\n1\n6\n32591\n32590\n23125"], "test": "6\n10\n1\n25\n1000000000\n999999999\n500000000\n"}]
+[
+	{
+		"correct_answers":
+		[
+			"NO\nYES\nNO\nYES\nYES\nYES\nNO\nNO\nNO\nYES",
+			"4\n1\n6\n32591\n32590\n23125"
+		],
+		"test": "10\na\naa\naaa\naaaa\nabab\nabcabc\nabacaba\nxxyy\nxyyx\nxyxy\n"
+	}
+]
