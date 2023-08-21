@@ -42,26 +42,11 @@ void solve() {
     int n;
     cin >> n;
     vector<int> a(n);
-    map<int, int> mp;
-    for (int i = 0; i < n; i++)cin >> a[i], mp[a[i]];
-    if(n == 1) {
-        if(a[0] <= 1)cout << "YES" << endl;
-        else cout << "NO" << endl;
-        return ;
-    }
-    vector<int> ans;
-    for(auto [x, y] : mp) {
-        ans.push_back(x);
-    }
-    for(auto i : ans)cout << i << ' ';
-    cout << endl;
-    for(int i = 1; i < ans.size(); i++) {
-        if(ans[i - 1] + 1 != ans[i]) {
-            cout << "NO" << endl;
-            return ;
-        }
-    }
-    cout << "YES" << endl;
+    for (int i = 0; i < n; i++)cin >> a[i];
+    if(n == 1)a.push_back(0);
+    sort(ALL(a));
+    if(a[a.size() - 1] - a[a.size() - 2] <= 1)cout << "YES" << endl;
+    else cout << "NO" << endl;
 }
 
 int32_t main() {
