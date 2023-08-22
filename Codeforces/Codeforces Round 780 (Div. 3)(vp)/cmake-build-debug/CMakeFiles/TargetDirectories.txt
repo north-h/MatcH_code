@@ -1,0 +1,5 @@
+C:/Users/jkxy/CLionProjects/Match/Codeforces Round 780 (Div. 3)(vp)/cmake-build-debug/CMakeFiles/Codeforces_Round_780__Div__3__vp_.dir
+C:/Users/jkxy/CLionProjects/Match/Codeforces Round 780 (Div. 3)(vp)/cmake-build-debug/CMakeFiles/A.dir
+C:/Users/jkxy/CLionProjects/Match/Codeforces Round 780 (Div. 3)(vp)/cmake-build-debug/CMakeFiles/B.dir
+C:/Users/jkxy/CLionProjects/Match/Codeforces Round 780 (Div. 3)(vp)/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/jkxy/CLionProjects/Match/Codeforces Round 780 (Div. 3)(vp)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
