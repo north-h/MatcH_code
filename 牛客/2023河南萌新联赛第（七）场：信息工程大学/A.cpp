@@ -1,10 +1,8 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-22 15:54:50
+ * Time : 2023-08-23 12:40:20
  * =====================================
- * Thirty years east, thirty years west,
- * don't you dare bully me because I'm poor now.
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
  *| '_ \ / _ \| '__| __| '_ \    | '_ \
@@ -22,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -32,7 +30,7 @@
 #define PCI pair<char,int>
 #define PSI pair<string,int>
 #define ALL(a) a.begin(),a.end()
-#define rALL(a) a.begin(),a.end()
+#define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
 const int N = 10010;
@@ -43,14 +41,34 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int fa[N];
+
+int find(int x) {
+    if(fa[x] != x)fa[x] = find(fa[x]);
+    return x;
+}
+
 void solve() {
-   
+    int n, m;
+    cin >> n >> m;
+    for(int i = 1; i <= n; i++)fa[i] = i;
+    set<int> st;
+    for(int i = 0; i < m; i++) {
+        int a, b;
+        cin >> a >> b;
+        fa[find(a)] = find(b);
+    }
+    for(int i = 1; i <= n; i++) {
+        cout << fa[i] << ' ';
+        st.insert(find(fa[i]));
+    }
+    cout << st.size() << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

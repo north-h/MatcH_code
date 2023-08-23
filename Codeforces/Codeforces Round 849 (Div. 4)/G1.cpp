@@ -1,10 +1,8 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-22 15:54:50
+ * Time : 2023-08-23 16:40:57
  * =====================================
- * Thirty years east, thirty years west,
- * don't you dare bully me because I'm poor now.
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
  *| '_ \ / _ \| '__| __| '_ \    | '_ \
@@ -22,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -32,7 +30,7 @@
 #define PCI pair<char,int>
 #define PSI pair<string,int>
 #define ALL(a) a.begin(),a.end()
-#define rALL(a) a.begin(),a.end()
+#define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
 const int N = 10010;
@@ -44,7 +42,21 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-   
+    int n, m;
+    cin >> n >> m;
+    vector<ll> a;
+    for(int i = 1; i <= n; i++) {
+        int x;
+        cin >> x;
+        a.push_back(x + i);
+    }
+    sort(ALL(a));
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        if(a[i] <= m)ans++, m -= a[i];
+        else break;
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {
