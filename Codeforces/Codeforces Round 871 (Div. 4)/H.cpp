@@ -42,31 +42,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n + 1), s(n + 1);
-    for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-    }
-    sort(a.begin() + 1, a.end());
-    for(int i = 1; i <= n; i++) {
-        s[i] = s[i - 1] + a[i];
-    }
-    if(a[1] != 1) {
-        cout << "NO" << endl;
-        return ;
-    }
-    // for(int i = 1; i <= n; i++)cout << a[i] << ' ';
-    // cout << endl;
-    // for(int i = 0; i <= n; i++)cout << s[i] << ' ';
-    // cout << endl;
-    for(int i = 2; i <= n; i++) {
-        if(a[i] > s[i - 1]) {
-            cout << "NO" << endl;
-            return ;
-        }
-    }
-    cout << "YES" << endl;
+    
 }
 
 int32_t main() {
