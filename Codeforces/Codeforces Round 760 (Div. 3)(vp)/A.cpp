@@ -48,24 +48,7 @@ void solve() {
     for(int i = 0; i < 7; i++) {
         cin >> a[i];
     }
-    sort(ALL(a));
-    int mx = a[6];
-    vector<int> ans;
-    for(int i = 0; i < 7; i++) {
-        if(ans.size() < 3) {
-            sum += a[i];
-            ans.push_back(a[i]);
-            // cout << a[i] << ' ';
-        }
-        if(ans.size() == 3) {
-            if(sum < mx) {
-                sum -= a[i];
-                ans.pop_back();
-            } else break;
-        }
-    }
-    for(auto i : ans)cout << i << ' ';
-    cout << endl;
+    cout << a[0] << ' ' << a[1] << ' ' << a[6] - a[0] - a[1] << endl;
 }
 
 int32_t main() {

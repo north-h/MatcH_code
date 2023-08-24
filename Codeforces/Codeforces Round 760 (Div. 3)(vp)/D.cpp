@@ -51,15 +51,11 @@ void solve() {
         mp[a[i]]++;
     }
     sort(rALL(a));
-    // for(auto i : a)cout << i << ' ';
-    // cout << endl;
     int ans = 0;
     for(int i = 0, j = k; i < k; i++, j++) {
-        // while(a[j]>=a[i]&&j<n)j++;
         ans += a[j] / a[i];
         a[i] = 0;
         a[j] = 0;
-
     }
     for(auto i : a)ans += i;
     cout << ans << endl;
