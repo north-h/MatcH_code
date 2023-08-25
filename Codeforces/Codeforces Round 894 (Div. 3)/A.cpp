@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 17:11:16
+ * Time : 2023-08-24 22:04:59
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -42,23 +42,24 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    map<int, int> mp;
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        mp[a[i]]++;
+    int n, m;
+    cin >> n >> m;
+    vector<string> a(n);
+    vector<char> ans = {'a', 'k', 'i', 'v'};
+    for(int i = 0; i < n; i++)cin >> a[i];
+    //    for(auto i : ans)cout << i << ' ';
+    //    cout << endl;
+    for(int j = 0; j < m; j++) {
+        for(int i = 0; i < n; i++) {
+            if(a[i][j] == ans.back()) {
+                ans.pop_back();
+                break;
+            }
+        }
+        if(ans.size() == 0)break;
     }
-    sort(rALL(a));
-    int ans = 0;
-    for(int i = 0, j = k; i < k; i++, j++) {
-        ans += a[j] / a[i];
-        a[i] = 0;
-        a[j] = 0;
-    }
-    for(auto i : a)ans += i;
-    cout << ans << endl;
+    if(ans.size() == 0)cout << "YES" << endl;
+    else cout << "NO" << endl;
 }
 
 int32_t main() {
@@ -67,5 +68,4 @@ int32_t main() {
     cin >> h_h;
     while (h_h--)solve();
     return 0;
-}  
-                     4
+}

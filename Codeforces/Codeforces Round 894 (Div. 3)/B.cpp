@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 17:11:16
+ * Time : 2023-08-24 22:44:12
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -42,23 +42,21 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    map<int, int> mp;
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        mp[a[i]]++;
+    int n;
+    cin >> n;
+    vector<int> a(n), ans;
+    for(auto &i : a)cin >> i;
+    // cout << a[0] << ' ';
+    ans.push_back(a[0]);
+    for(int i = 1; i < n; i++) {
+        if(a[i] < a[i - 1]) {
+            ans.push_back(a[i]);
+            ans.push_back(a[i]);
+        } else ans.push_back(a[i]);
     }
-    sort(rALL(a));
-    int ans = 0;
-    for(int i = 0, j = k; i < k; i++, j++) {
-        ans += a[j] / a[i];
-        a[i] = 0;
-        a[j] = 0;
-    }
-    for(auto i : a)ans += i;
-    cout << ans << endl;
+    cout << ans.size() << endl;
+    for(auto i : ans)cout << i << ' ';
+    cout << endl;
 }
 
 int32_t main() {
@@ -67,5 +65,4 @@ int32_t main() {
     cin >> h_h;
     while (h_h--)solve();
     return 0;
-}  
-                     4
+}

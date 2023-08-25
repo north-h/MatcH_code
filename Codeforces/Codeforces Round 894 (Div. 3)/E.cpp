@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 17:11:16
+ * Time : 2023-08-25 15:59:11
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -42,22 +42,24 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    map<int, int> mp;
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        mp[a[i]]++;
-    }
-    sort(rALL(a));
+    int n, m, d;
+    cin >> n >> m >> d;
+    multiset<int> s;
+    int sum = 0;
     int ans = 0;
-    for(int i = 0, j = k; i < k; i++, j++) {
-        ans += a[j] / a[i];
-        a[i] = 0;
-        a[j] = 0;
+    for(int i = 1; i <= n; i++) {
+        int x;
+        cin >> x;
+        if(x > 0) {
+            s.insert(x);
+            sum += x;
+        }
+        if(s.size() > m) {
+            sum -= *s.begin();
+            s.erase(s.begin());
+        }
+        ans = max(ans, sum - d * i);
     }
-    for(auto i : a)ans += i;
     cout << ans << endl;
 }
 
@@ -67,5 +69,4 @@ int32_t main() {
     cin >> h_h;
     while (h_h--)solve();
     return 0;
-}  
-                     4
+}
