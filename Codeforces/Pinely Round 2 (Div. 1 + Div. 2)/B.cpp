@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 22:58:00
+ * Time : 2023-08-31 14:10:39
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -41,28 +41,37 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n);
-    map<int, int> mp;
-    for(auto &i : a)cin >> i, mp[i]++;
-    vector<int> ans;
-    int h = n;
-    int cnt = 0;
-    reverse(ALL(a));
-    for(auto[x, y] : mp) {
-        for(int j = 0; j < x - cnt; j++) {
-            if(a.back() != h) {
-                cout << "NO" << endl;
-                return ;
-            }
-            a.pop_back();
-        }
-        cnt = x;
-        h -= y;
+    map<int, int> ump;
+    for(int i = 1; i <= n; i++) {
+        int x;
+        cin >> x;
+        ump[x] = i;
     }
-    cout << "YES" << endl;
+    int ans = n - 1;
+    // for(auto [x, y] : ump) {
+    //     cout << x << ' ' << y << endl;
+    // }
+    for(int i = n; i > 1; i--) {
+        if(ump[i] > ump[i - 1])ans--;
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {

@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 22:58:00
+ * Time : 2023-08-30 13:13:48
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -33,7 +33,7 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-const int N = 10010;
+const int N = 100100;
 const int M = 1910;
 const int MOD = 98244353;
 const int EPS = 1e-8;
@@ -41,32 +41,26 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int a[N], s[N];
+
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    map<int, int> mp;
-    for(auto &i : a)cin >> i, mp[i]++;
-    vector<int> ans;
-    int h = n;
-    int cnt = 0;
-    reverse(ALL(a));
-    for(auto[x, y] : mp) {
-        for(int j = 0; j < x - cnt; j++) {
-            if(a.back() != h) {
-                cout << "NO" << endl;
-                return ;
-            }
-            a.pop_back();
-        }
-        cnt = x;
-        h -= y;
-    }
-    cout << "YES" << endl;
+    int l, r;
+    cin >> l >> r;
+    cout << s[r] - s[l - 1] << endl;
 }
 
 int32_t main() {
     IOS;
+    for(int i = 1; i < N; i++)a[i] = 1;
+    a[1] = 0;
+    for(int i = 2; i * i < N; i++) {
+        if(a[i]) {
+            for(int j = i + i; j < N; j += i) {
+                a[j] = 0;
+            }
+        }
+    }
+    for(int i = 0; i < N; i++)s[i] = s[i - 1] + a[i];
     int h_h = 1;
     cin >> h_h;
     while (h_h--)solve();

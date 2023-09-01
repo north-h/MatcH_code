@@ -46,7 +46,6 @@ void solve() {
     cin >> n;
     vector<int> a(n), ans;
     for(auto &i : a)cin >> i;
-    // cout << a[0] << ' ';
     ans.push_back(a[0]);
     for(int i = 1; i < n; i++) {
         if(a[i] < a[i - 1]) {

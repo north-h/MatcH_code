@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 22:58:00
+ * Time : 2023-08-26 22:00:35
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -42,27 +42,18 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    map<int, int> mp;
-    for(auto &i : a)cin >> i, mp[i]++;
-    vector<int> ans;
-    int h = n;
-    int cnt = 0;
-    reverse(ALL(a));
-    for(auto[x, y] : mp) {
-        for(int j = 0; j < x - cnt; j++) {
-            if(a.back() != h) {
-                cout << "NO" << endl;
-                return ;
-            }
-            a.pop_back();
-        }
-        cnt = x;
-        h -= y;
+    int x, y, n;
+    cin >> x >> y >> n;
+    if(n * (n - 1) / 2 > abs(x - y))cout << -1 << endl;
+    else {
+        vector<int> ans;
+        ans.push_back(y);
+        for(int i = 1; i <= n - 2; i++)ans.push_back(ans.back() - i);
+        ans.push_back(x);
+        reverse(ALL(ans));
+        for(auto i : ans)cout << i << ' ';
+        cout << endl;
     }
-    cout << "YES" << endl;
 }
 
 int32_t main() {

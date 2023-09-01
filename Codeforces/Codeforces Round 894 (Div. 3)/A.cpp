@@ -47,8 +47,6 @@ void solve() {
     vector<string> a(n);
     vector<char> ans = {'a', 'k', 'i', 'v'};
     for(int i = 0; i < n; i++)cin >> a[i];
-    //    for(auto i : ans)cout << i << ' ';
-    //    cout << endl;
     for(int j = 0; j < m; j++) {
         for(int i = 0; i < n; i++) {
             if(a[i][j] == ans.back()) {

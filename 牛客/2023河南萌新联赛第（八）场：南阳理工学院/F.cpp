@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 22:58:00
+ * Time : 2023-08-30 13:19:52
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -42,33 +42,38 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    map<int, int> mp;
-    for(auto &i : a)cin >> i, mp[i]++;
-    vector<int> ans;
-    int h = n;
-    int cnt = 0;
-    reverse(ALL(a));
-    for(auto[x, y] : mp) {
-        for(int j = 0; j < x - cnt; j++) {
-            if(a.back() != h) {
-                cout << "NO" << endl;
-                return ;
-            }
-            a.pop_back();
-        }
-        cnt = x;
-        h -= y;
+    int n, q;
+    cin >> n >> q;
+    vector<int> a(n + 1), s(n + 1), ss(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        s[i] = s[i - 1] | a[i];
+        if(i == 1)ss[i] = s[i];
+        else ss[i] = ss[i - 1] & s[i];
     }
-    cout << "YES" << endl;
+    // for(int i = 1; i <= n; i++)cout << s[i] << ' ';
+    // cout << endl;
+    // for(int i = 1; i <= n; i++)cout << ss[i] << ' ';
+    // cout << endl;
+    while(q--) {
+        int l, r, x;
+        cin >> l >> r >> x;
+        int ans = 0;
+        for(int i = 0; i < 60; i++) {
+            int x1 = (s[l - 1] >> i & 1);
+            int y1 = (s[r] >> i & 1);
+            (ss[l - 1] >> i & 1);
+            int y2 = (s[r] >> i & 1);
+            if(x1 == 0 && y1 == 1 || (x1 == 1 && y1 == 1 && y2 == 1))ans += pow(2ll, i);
+        }
+        cout << (ans | x) << endl;
+    }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

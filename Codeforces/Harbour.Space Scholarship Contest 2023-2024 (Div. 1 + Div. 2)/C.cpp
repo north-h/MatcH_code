@@ -1,7 +1,7 @@
 /*
  * =====================================
  * Author : north_h
- * Time : 2023-08-24 22:58:00
+ * Time : 2023-08-26 23:48:16
  * =====================================
  *                  _   _         _
  * _ __   ___  _ __| |_| |__     | |__
@@ -44,25 +44,22 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n);
-    map<int, int> mp;
-    for(auto &i : a)cin >> i, mp[i]++;
     vector<int> ans;
-    int h = n;
-    int cnt = 0;
-    reverse(ALL(a));
-    for(auto[x, y] : mp) {
-        for(int j = 0; j < x - cnt; j++) {
-            if(a.back() != h) {
-                cout << "NO" << endl;
-                return ;
-            }
-            a.pop_back();
-        }
-        cnt = x;
-        h -= y;
+    int x;
+    if(n % 2 == 0)x = n;
+    else x = n - 1;
+    ans.push_back(1);
+    for(int i = ans.back() * 2; i <= x; i *= 2) {
+        ans.push_back(i);
     }
-    cout << "YES" << endl;
+    for(int i = ans.back() / 2; i >= 1; i /= 2) {
+        if(i + ans.back() <= x)ans.push_back(i + ans.back());
+    }
+    if(ans.back() != n)ans.push_back(n);
+    reverse(ALL(ans));
+    cout << ans.size() << endl;
+    for(auto i : ans)cout << i << ' ';
+    cout << endl;
 }
 
 int32_t main() {
