@@ -1,7 +1,0 @@
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/Codeforces_Round_776__Div__3_.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/A.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/B.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/C.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/D.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 776 (Div. 3)/cmake-build-debug/CMakeFiles/rebuild_cache.dir
