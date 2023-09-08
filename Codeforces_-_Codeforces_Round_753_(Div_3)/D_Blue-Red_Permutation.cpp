@@ -1,13 +1,13 @@
 /* 
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-07 12:49:31
+ * Time:    2023-09-08 16:00:30
  *
- * Problem: F. Four Suits
- * Contest: Codeforces - Educational Codeforces Round 154 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1861/problem/F
- * MemoryL: 1024 MB
- * TimeL:   6000 ms
+ * Problem: D. Blue-Red Permutation
+ * Contest: Codeforces - Codeforces Round 753 (Div. 3)
+ * URL:     https://codeforces.com/contest/1607/problem/D
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
  

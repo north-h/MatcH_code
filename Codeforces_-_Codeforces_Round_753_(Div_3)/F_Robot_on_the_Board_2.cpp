@@ -1,13 +1,13 @@
 /* 
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-07 12:49:31
+ * Time:    2023-09-08 16:00:38
  *
- * Problem: F. Four Suits
- * Contest: Codeforces - Educational Codeforces Round 154 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1861/problem/F
- * MemoryL: 1024 MB
- * TimeL:   6000 ms
+ * Problem: F. Robot on the Board 2
+ * Contest: Codeforces - Codeforces Round 753 (Div. 3)
+ * URL:     https://codeforces.com/contest/1607/problem/F
+ * MemoryL: 256 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
  

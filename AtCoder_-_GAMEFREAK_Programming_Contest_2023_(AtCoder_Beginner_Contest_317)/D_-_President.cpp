@@ -1,13 +1,13 @@
 /* 
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-07 12:49:31
+ * Time:    2023-09-07 12:52:59
  *
- * Problem: F. Four Suits
- * Contest: Codeforces - Educational Codeforces Round 154 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1861/problem/F
+ * Problem: D - President
+ * Contest: AtCoder - GAMEFREAK Programming Contest 2023 (AtCoder Beginner Contest 317)
+ * URL:     https://atcoder.jp/contests/abc317/tasks/abc317_d
  * MemoryL: 1024 MB
- * TimeL:   6000 ms
+ * TimeL:   2000 ms
  * ==================================================================================
  */
  

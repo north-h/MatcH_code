@@ -1,16 +1,16 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-07 12:49:31
+ * Time:    2023-09-08 16:00:21
  *
- * Problem: F. Four Suits
- * Contest: Codeforces - Educational Codeforces Round 154 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1861/problem/F
- * MemoryL: 1024 MB
- * TimeL:   6000 ms
+ * Problem: B. Odd Grasshopper
+ * Contest: Codeforces - Codeforces Round 753 (Div. 3)
+ * URL:     https://codeforces.com/contest/1607/problem/B
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,7 +41,17 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    ll x0, n;
+    cin >> x0 >> n;
+    ll res = n - n % 4 + 1;
+    // cout << res << endl;
+    for(ll i = res; i <= n; i++) {
+        if(x0 & 1)x0 += i;
+        else x0 -= i;
+    }
+    cout << x0 << endl;
+}
 
 int32_t main() {
     IOS;

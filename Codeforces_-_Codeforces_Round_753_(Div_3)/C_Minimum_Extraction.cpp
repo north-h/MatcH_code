@@ -1,16 +1,16 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-07 12:49:31
+ * Time:    2023-09-08 16:00:26
  *
- * Problem: F. Four Suits
- * Contest: Codeforces - Educational Codeforces Round 154 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1861/problem/F
- * MemoryL: 1024 MB
- * TimeL:   6000 ms
+ * Problem: C. Minimum Extraction
+ * Contest: Codeforces - Codeforces Round 753 (Div. 3)
+ * URL:     https://codeforces.com/contest/1607/problem/C
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,7 +41,20 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    int  mn = INT_MAX;
+    int mx = INT_MIN;
+    for(auto &i : a) {
+        cin >> i;
+        mn = min(mn, i);
+        mx = max(mx, i);
+    }
+    if(mn <= 0)mx + abs(mn);
+    cout << mx << endl;
+}
 
 int32_t main() {
     IOS;

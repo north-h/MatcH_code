@@ -1,16 +1,16 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-07 12:49:31
+ * Time:    2023-09-08 16:00:17
  *
- * Problem: F. Four Suits
- * Contest: Codeforces - Educational Codeforces Round 154 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1861/problem/F
- * MemoryL: 1024 MB
- * TimeL:   6000 ms
+ * Problem: A. Linear Keyboard
+ * Contest: Codeforces - Codeforces Round 753 (Div. 3)
+ * URL:     https://codeforces.com/contest/1607/problem/A
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,7 +41,21 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    string a, b;
+    cin >> a >> b;
+    map<char, int> mp;
+    for(int i = 0; i < a.size(); i++) {
+        mp[a[i]] = i + 1;
+    }
+    int ans = 0;
+    int pos = mp[b[0]];
+    for(int i = 1; i < b.size(); i++) {
+        ans += abs(mp[b[i]] - pos);
+        pos = mp[b[i]];
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
