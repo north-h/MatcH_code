@@ -67,5 +67,5 @@ int32_t main() {
     cin >> h_h;
     while (h_h--)solve();
     return 0;
-}  
-                     4
+}
+4
