@@ -1,4 +1,0 @@
-D:/HM/CLionProjects/Acwing/week114/cmake-build-debug/CMakeFiles/week114.dir
-D:/HM/CLionProjects/Acwing/week114/cmake-build-debug/CMakeFiles/A.dir
-D:/HM/CLionProjects/Acwing/week114/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/HM/CLionProjects/Acwing/week114/cmake-build-debug/CMakeFiles/rebuild_cache.dir

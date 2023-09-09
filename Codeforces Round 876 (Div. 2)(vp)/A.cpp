@@ -44,7 +44,7 @@ using namespace std;
 
 void solve() {
     int n, k;
-    cin 
+    cin
 }
 
 int32_t main() {

@@ -50,7 +50,7 @@ void solve() {
     // cout << endl;
     sort(ALL(a));
     if(n == 1)cout << 0 << endl;
-    else cout << a[n-1] - a[0] << endl;
+    else cout << a[n - 1] - a[0] << endl;
 }
 
 int32_t main() {
