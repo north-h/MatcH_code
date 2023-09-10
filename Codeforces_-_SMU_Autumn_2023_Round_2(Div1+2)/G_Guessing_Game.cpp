@@ -1,16 +1,16 @@
-/*
+/* 
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-08 16:00:26
+ * Time:    2023-09-10 12:12:06
  *
- * Problem: C. Minimum Extraction
- * Contest: Codeforces - Codeforces Round 753 (Div. 3)
- * URL:     https://codeforces.com/contest/1607/problem/C
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: G. Guessing Game
+ * Contest: Codeforces - SMU Autumn 2023 Round 2(Div.1+2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/472110/problem/G
+ * MemoryL: 512 MB
+ * TimeL:   3000 ms
  * ==================================================================================
  */
-
+ 
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,23 +41,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
-    sort(ALL(a));
-    int ans = a[0];
-    int sum = a[0];
-    for(int i = 1; i < n; i++) {
-        a[i] -= sum;
-        ans = max(ans, a[i]);
-        sum += a[i];
-    }
-    cout << ans << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;

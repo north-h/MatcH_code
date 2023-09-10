@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-08 16:00:26
+ * Time:    2023-09-09 16:33:40
  *
- * Problem: C. Minimum Extraction
- * Contest: Codeforces - Codeforces Round 753 (Div. 3)
- * URL:     https://codeforces.com/contest/1607/problem/C
+ * Problem: B. Array Stabilization
+ * Contest: Codeforces - SMU Autumn 2023 Round 1(Div.2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/470092/problem/B
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -42,27 +42,22 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
+    int  n;
     cin >> n;
     vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    for(auto &i : a)cin >> i;
+    if(n == 2) {
+        cout << 0 << endl;
+        return ;
     }
     sort(ALL(a));
-    int ans = a[0];
-    int sum = a[0];
-    for(int i = 1; i < n; i++) {
-        a[i] -= sum;
-        ans = max(ans, a[i]);
-        sum += a[i];
-    }
-    cout << ans << endl;
+    cout << min(a[n - 2] - a[0], a[n - 1] - a[1]) << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

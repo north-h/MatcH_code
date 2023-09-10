@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-08 16:00:26
+ * Time:    2023-09-10 12:12:14
  *
- * Problem: C. Minimum Extraction
- * Contest: Codeforces - Codeforces Round 753 (Div. 3)
- * URL:     https://codeforces.com/contest/1607/problem/C
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: I. Improving IT
+ * Contest: Codeforces - SMU Autumn 2023 Round 2(Div.1+2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/472110/problem/I
+ * MemoryL: 512 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -42,27 +42,29 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    int n, m;
+    cin >> n >> m;
+
+    vector<int> dp(n + 2);
+    for(int i = 1; i <= n + 1; i++)dp[i] = LLONG_MAX;
+    dp[1] = 0;
+    for(int i = 1; i <= n; i++) {
+        int x;
+        cin >> x;
+        dp[i] += x;
+        for(int j = 1; j <= min(m, n - i + 1); j++) {
+            int y;
+            cin >> y;
+            dp[i + j] = min(dp[i + j], dp[i] - y);
+        }
     }
-    sort(ALL(a));
-    int ans = a[0];
-    int sum = a[0];
-    for(int i = 1; i < n; i++) {
-        a[i] -= sum;
-        ans = max(ans, a[i]);
-        sum += a[i];
-    }
-    cout << ans << endl;
+    cout << dp[n + 1] << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

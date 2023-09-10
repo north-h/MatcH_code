@@ -1,0 +1,26 @@
+[
+	{
+		"correct_answers":
+		[
+			"AAAA\nBBCC\nBBCC\nDDDD"
+		],
+		"test": "4 4 4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"GGGGGBBBBBBBBBB\nGGGGGAAAAAAAAAA\nIIIIIIIIIIEEEEE\nFFFFFFFFFFEEEEE\nCCCCCDDDDDHHHHH\nCCCCCDDDDDHHHHH"
+		],
+		"test": "6 15 9\n"
+	},
+	{
+		"correct_answers":
+		[
+			"IMPOSSIBLE"
+		],
+		"test": "100 100 26\n"
+	},
+	{
+		"test": "1 1 1\n"
+	}
+]

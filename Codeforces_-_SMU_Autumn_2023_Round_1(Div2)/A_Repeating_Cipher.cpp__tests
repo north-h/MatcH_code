@@ -1,0 +1,23 @@
+[
+	{
+		"correct_answers":
+		[
+			"bab"
+		],
+		"test": "6\nbaabbb\n"
+	},
+	{
+		"correct_answers":
+		[
+			"oops"
+		],
+		"test": "10\nooopppssss\n"
+	},
+	{
+		"correct_answers":
+		[
+			"z"
+		],
+		"test": "1\nz\n"
+	}
+]

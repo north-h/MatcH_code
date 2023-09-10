@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-06 17:57:51
@@ -10,7 +10,7 @@
  * TimeL:   2000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,7 +41,34 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(auto &i : a)cin >> i;
+    // for(auto i : a)cout << i << ' ';
+    // cout << endl;
+    int ans = INF;
+    for(int i = 0; i <= 1; i++) {
+        for(int j = 0; j <= 2; j++) {
+            int res = 0;
+            for(auto k : a) {
+                int cnt = INF;
+                for(int ii = 0; ii <= i; ii++) {
+                    for(int jj = 0; jj <= j; jj++) {
+                        int x = k - ii - jj * 2;
+                        if(x >= 0 && x % 3 == 0) {
+                            cnt = min(cnt, x / 3);
+                        }
+                    }
+                }
+                res = max(res, cnt);
+            }
+            ans = min(ans, res + i + j);
+        }
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

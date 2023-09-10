@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-08 16:00:26
+ * Time:    2023-09-10 12:11:15
  *
- * Problem: C. Minimum Extraction
- * Contest: Codeforces - Codeforces Round 753 (Div. 3)
- * URL:     https://codeforces.com/contest/1607/problem/C
- * MemoryL: 256 MB
+ * Problem: E. Enjoyable Entree
+ * Contest: Codeforces - SMU Autumn 2023 Round 2(Div.1+2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/472110/problem/E
+ * MemoryL: 512 MB
  * TimeL:   1000 ms
  * ==================================================================================
  */
@@ -44,25 +44,26 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    double a = 100, b = 0;
+    if(n == 1)cout << "100 0" << endl;
+    else if(n == 2)cout << "0 100" << endl;
+    else if(n <= 35) {
+        for (int i = 3; i <= n; i++) {
+            if(i == n) {
+                printf("%.6f %.6f", a * 1.0 / 2 + b * 1.0 / 2, 100 - (a * 1.0 / 2 + b * 1.0 / 2));
+            }
+            double t = a;
+            a = b;
+            b = t / 2 + b / 2;
+        }
+    } else {
+        cout << "33.333333 66.666667" << endl;
     }
-    sort(ALL(a));
-    int ans = a[0];
-    int sum = a[0];
-    for(int i = 1; i < n; i++) {
-        a[i] -= sum;
-        ans = max(ans, a[i]);
-        sum += a[i];
-    }
-    cout << ans << endl;
 }
-
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

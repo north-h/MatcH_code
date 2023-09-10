@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-08 16:00:26
+ * Time:    2023-09-10 12:12:23
  *
- * Problem: C. Minimum Extraction
- * Contest: Codeforces - Codeforces Round 753 (Div. 3)
- * URL:     https://codeforces.com/contest/1607/problem/C
- * MemoryL: 256 MB
+ * Problem: K. K.O. Kids
+ * Contest: Codeforces - SMU Autumn 2023 Round 2(Div.1+2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/472110/problem/K
+ * MemoryL: 512 MB
  * TimeL:   1000 ms
  * ==================================================================================
  */
@@ -42,27 +42,28 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    int n, k;
+    cin >> n >> k;
+    string  s;
+    cin >> s;
+    bool ok = true;
+    int res = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(ok) {
+            ok = false;
+            if(s[i] != 'L')k--, ok = true;
+        } else {
+            ok = true;
+            if(s[i] != 'R')k--, ok = false;
+        }
     }
-    sort(ALL(a));
-    int ans = a[0];
-    int sum = a[0];
-    for(int i = 1; i < n; i++) {
-        a[i] -= sum;
-        ans = max(ans, a[i]);
-        sum += a[i];
-    }
-    cout << ans << endl;
+    cout << max(k, 0) << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-08 16:00:30
@@ -10,7 +10,7 @@
  * TimeL:   1000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,7 +41,41 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n), B, R;
+    for(int i = 0; i < n; i++)cin >> a[i];
+    string s;
+    cin >> s;
+    for(int i = 0; i < n; i++) {
+        if(s[i] == 'B')B.push_back(a[i]);
+        else R.push_back(a[i]);
+    }
+    sort(rALL(B));
+    sort(rALL(R));
+    // for(auto i : B)cout << i << ' ';
+    // cout << endl;
+    // for(auto i : R)cout << i << ' ';
+    // cout << endl;
+    for(int i = 1; i <= n; i++) {
+        if(B.size()) {
+            if(B.back() < i) {
+                cout << "NO" << endl;
+                return ;
+            }
+            B.pop_back();
+        } else {
+            // cout << i << ' ';
+            if(R.back() > i) {
+                cout << "NO" << endl;
+                return ;
+            }
+            R.pop_back();
+        }
+    }
+    cout << "YES" << endl;
+}
 
 int32_t main() {
     IOS;
