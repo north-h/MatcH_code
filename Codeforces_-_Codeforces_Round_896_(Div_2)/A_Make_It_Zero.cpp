@@ -43,7 +43,30 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), s(n + 1, 0);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        s[i] = s[i - 1] ^ a[i];
+    }
+    vector<PII> b;
+    PII pos;
+    for(int i = 1; i <= n; i++) {
+        for(int j = i; j <= n; j++) {
+            if(s[i - 1]^s[j] == 0 ) {
+                b.push_back({i, j});
+                if(j - i > pos.se - pos.fi)pos = {i, j};
+            }
+        }
+    }
+    cout << pos.fi - 1 + n - pos.se + 1 << endl;
+    for(int i = 1; i < pos.fi; i++)cout << i << ' ' << i << endl;
+    cout << pos.fi << ' ' << pos.se << endl;
+    for(int i = pos.se + 1; i <= n; i++)cout << i << ' ' << i << endl;
+    cout << "--------------" << endl;
+    for(auto [x, y] : b)cout << x << ' ' << y << endl;
+    cout << endl;
 }
 
 int32_t main() {
