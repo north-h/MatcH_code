@@ -41,7 +41,17 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin>>n;
+    if(n==1)cout<<"100 0"<<endl;
+    else if(n==2)cout<<"0 100"<<endl;
+    else if(n==3)cout<<"50 50"<<endl;
+    else {
+        int x=n-3;
+        
+    }
+}
 
 int32_t main() {
     IOS;

@@ -1,16 +1,16 @@
-/*
+/* 
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-10 10:26:17
+ * Time:    2023-09-12 13:14:31
  *
- * Problem: B - Measure
- * Contest: AtCoder - AtCoder Beginner Contest 319
- * URL:     https://atcoder.jp/contests/abc319/tasks/abc319_b
- * MemoryL: 1024 MB
+ * Problem: C. Building a Fence
+ * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/C
+ * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
-
+ 
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -33,18 +33,15 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-#define lcm(x,y) x*y/__gcd(x,y)
 const int N = 10010;
 const int M = 1910;
-const int MOD = 998244353;
+const int MOD = 98244353;
 const double EPS = 1e-8;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    
-}
+void solve() {}
 
 int32_t main() {
     IOS;

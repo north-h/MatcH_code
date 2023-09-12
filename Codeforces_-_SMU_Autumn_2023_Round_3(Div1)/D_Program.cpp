@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-10 10:26:17
+ * Time:    2023-09-12 13:14:35
  *
- * Problem: B - Measure
- * Contest: AtCoder - AtCoder Beginner Contest 319
- * URL:     https://atcoder.jp/contests/abc319/tasks/abc319_b
- * MemoryL: 1024 MB
+ * Problem: D. Program
+ * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/D
+ * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -33,17 +33,37 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-#define lcm(x,y) x*y/__gcd(x,y)
 const int N = 10010;
 const int M = 1910;
-const int MOD = 998244353;
+const int MOD = 98244353;
 const double EPS = 1e-8;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-    
+    int n, m;
+    cin >> n >> m;
+    string str;
+    cin >> str;
+    int sum = 0;
+    set<int> st;
+    st.insert(0);
+    vector<int> a(n + 1, 0), s(n + 1, 0);
+    for(int i = 0; i < n; i++) {
+        if(str[i] == '-')sum--;
+        else sum++;
+        st.insert(sum);
+        a[i + 1] = st.size();
+    }
+    for(int i = 1; i <= n; i++)cout << a[i] << ' ';
+    cout << endl;
+    while(m--) {
+        int l, r;
+        cin >> l >> r;
+        int ans = a[l - 1] + a[n] - a[r - 1];
+        cout << ans << endl;
+    }
 }
 
 int32_t main() {
