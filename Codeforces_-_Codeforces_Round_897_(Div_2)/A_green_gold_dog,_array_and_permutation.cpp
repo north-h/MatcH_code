@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-10 22:31:53
+ * Time:    2023-09-12 08:47:14
  *
- * Problem: A. Make It Zero
- * Contest: Codeforces - Codeforces Round 896 (Div. 2)
- * URL:     https://codeforces.com/contest/1869/problem/A
+ * Problem: A. green_gold_dog, array and permutation
+ * Contest: Codeforces - Codeforces Round 897 (Div. 2)
+ * URL:     https://codeforces.com/contest/1867/problem/A
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -45,18 +45,21 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n + 1), s(n + 1, 0);
-    for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-        s[i] = s[i - 1] ^ a[i];
+    vector<PII> a(n), b;
+    for(int i = 0; i < n; i++) {
+        cin >> a[i].fi;
+        a[i].se = i;
     }
-    vector<PII> b;
-    PII pos;
-    for(int i = 1; i <= n; i++) {
-        for(int j = i; j <= n; j++) {
-            
-        }
+    sort(ALL(a));
+    b = a;
+    for(int i = 0; i < n; i++) {
+        b[i].fi = n - i;
     }
+    sort(ALL(b), [](PII x, PII y) {
+        return x.se < y.se;
+    });
+    for(auto [x, y] : b)cout << x << ' ';
+    cout << endl;
 }
 
 int32_t main() {

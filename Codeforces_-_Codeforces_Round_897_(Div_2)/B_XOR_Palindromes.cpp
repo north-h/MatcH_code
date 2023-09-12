@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-10 22:31:53
+ * Time:    2023-09-12 08:47:18
  *
- * Problem: A. Make It Zero
- * Contest: Codeforces - Codeforces Round 896 (Div. 2)
- * URL:     https://codeforces.com/contest/1869/problem/A
+ * Problem: B. XOR Palindromes
+ * Contest: Codeforces - Codeforces Round 897 (Div. 2)
+ * URL:     https://codeforces.com/contest/1867/problem/B
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -45,18 +45,23 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n + 1), s(n + 1, 0);
-    for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-        s[i] = s[i - 1] ^ a[i];
+    string s;
+    cin >> s;
+    int ans = 0;
+    for(int i = 0, j = n - 1; i < j; i++, j--) {
+        if(s[i] != s[j])ans++;
     }
-    vector<PII> b;
-    PII pos;
-    for(int i = 1; i <= n; i++) {
-        for(int j = i; j <= n; j++) {
-            
+    string sans;
+    for(int i = 0; i <= n; i++) {
+        if(i < ans || i > n - ans)sans += '0';
+        else sans += '1';
+    }
+    if(n & 1 && ans != 0) {
+        for(int i = 0; i < n; i++) {
+            if(sans[i] == '1')sans[i + 1] = '0';
         }
     }
+    cout << sans << endl;
 }
 
 int32_t main() {

@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-10 22:31:53
+ * Time:    2023-09-12 08:47:40
  *
- * Problem: A. Make It Zero
- * Contest: Codeforces - Codeforces Round 896 (Div. 2)
- * URL:     https://codeforces.com/contest/1869/problem/A
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: F. Most Different Tree
+ * Contest: Codeforces - Codeforces Round 897 (Div. 2)
+ * URL:     https://codeforces.com/contest/1867/problem/F
+ * MemoryL: 512 MB
+ * TimeL:   4000 ms
  * ==================================================================================
  */
 
@@ -43,20 +43,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n + 1), s(n + 1, 0);
-    for(int i = 1; i <= n; i++) {
-        cin >> a[i];
-        s[i] = s[i - 1] ^ a[i];
-    }
-    vector<PII> b;
-    PII pos;
-    for(int i = 1; i <= n; i++) {
-        for(int j = i; j <= n; j++) {
-            
-        }
-    }
+    
 }
 
 int32_t main() {
