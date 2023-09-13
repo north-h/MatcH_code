@@ -33,7 +33,7 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-const int N = 10010;
+const int N = 400010;
 const int M = 1910;
 const int MOD = 98244353;
 const double EPS = 1e-8;
@@ -41,44 +41,52 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+vector<int> g[N];
+int r[N];
+int dg[N];
+
 void solve() {
     int n, k;
     cin >> n >> k;
-    vector<vector<int>> g(n + 1, vector<int> (n + 1, 0));
-    vector<int> vis(n + 1, 0), dg(n + 1, 0);
+    for(int i = 1; i <= n; i++) {
+        g[i].clear();
+        r[i] = dg[i] = 0;
+    }
     for(int i = 1; i < n; i++) {
         int a, b;
         cin >> a >> b;
-        if(a > b)swap(a, b);
         g[a].push_back(b);
         g[b].push_back(a);
         dg[a]++;
         dg[b]++;
     }
-    // for(int i = 1; i <= n; i++) {
-    //     if(dg[i] == 0)cout << i << ' ';
-    // }
-    // cout << endl;
-    set<int> st;
-    int ans = n;
-    for(int i = 1; i <= n; i++) {
-        if(dg[i] == 1) {
-            st.insert(i);
-        }
-    }
-    // for(int i = 1; i <= n; i++)cout << dg[i] << ' ';
-    // cout << endl;
-    for(int i = 1; i <= min(n, k); i++) {
-        set<int> temp;
-        for(auto j : st) {
-            for(auto k : g[j]) {
-                dg[k]--;
-                if(dg[k] == 1)temp.insert(k);
+    auto topsort = [&]() {
+        queue<int> q;
+        for(int i = 1; i <= n; i++) {
+            if(dg[i] == 1) {
+                r[i] = 1;
+                q.push(i);
             }
         }
-        ans -= st.size();
-        st = temp;
+        while(q.size()) {
+            auto t = q.front();
+            q.pop();
+            for(auto i : g[t]) {
+                dg[i]--;
+                if(dg[i] == 1) {
+                    q.push(i);
+                    r[i] = r[t] + 1;
+                }
+            }
+        }
+    };
+    int ans = n;
+    topsort();
+    for(int i = 1; i <= n; i++) {
+        ans -= (r[i] <= k);
+        // cout << rank[i] << ' ';
     }
+    // cout << endl;
     cout << ans << endl;
 }
 int32_t main() {
