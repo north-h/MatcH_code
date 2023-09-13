@@ -41,6 +41,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+<<<<<<< HEAD
 int f[N][M], g[N][M], log_2[N], a[N];
 int n, m;
 string s;
@@ -53,6 +54,22 @@ void init() {
             f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
             g[i][j] = min(g[i][j - 1], g[i + (1 << (j - 1))][j - 1]);
         }
+=======
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    string str;
+    cin >> str;
+    int sum = 0;
+    set<int> st;
+    st.insert(0);
+    vector<int> a(n + 1, 0), s(n + 1, 0);
+    for(int i = 0; i < n; i++) {
+        if(str[i] == '-')sum--;         
+        else sum++;
+        st.insert(sum);
+        a[i + 1] = st.size();
+>>>>>>> 39c8f836599fc367f574831d93a57b1719b5155f
     }
 }
 
