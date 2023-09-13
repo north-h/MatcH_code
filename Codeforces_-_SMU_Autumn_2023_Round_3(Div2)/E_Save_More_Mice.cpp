@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-12 13:14:35
+ * Time:    2023-09-13 16:09:46
  *
- * Problem: D. Program
- * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/D
+ * Problem: E. Save More Mice
+ * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/470094/problem/E
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   4000 ms
  * ==================================================================================
  */
 
@@ -42,28 +42,21 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    string str;
-    cin >> str;
-    int sum = 0;
-    set<int> st;
-    st.insert(0);
-    vector<int> a(n + 1, 0), s(n + 1, 0);
-    for(int i = 0; i < n; i++) {
-        if(str[i] == '-')sum--;         
-        else sum++;
-        st.insert(sum);
-        a[i + 1] = st.size();
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(k);
+    for(int i = 0; i < k; i++)cin >> a[i];
+    sort(ALL(a));
+    // for(auto i : a)cout << i << ' ';
+    // cout << endl;
+    int ans = 0;
+    for(int pos = 0, j = k - 1; j >= 0; j--) {
+        if(pos < a[j]) {
+            ans++;
+            pos += n - a[j];
+        } else break;
     }
-    for(int i = 1; i <= n; i++)cout << a[i] << ' ';
-    cout << endl;
-    while(m--) {
-        int l, r;
-        cin >> l >> r;
-        int ans = a[l - 1] + a[n] - a[r - 1];
-        cout << ans << endl;
-    }
+    cout << ans << endl;
 }
 
 int32_t main() {

@@ -1,16 +1,16 @@
-/*
+/* 
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-12 13:14:35
+ * Time:    2023-09-13 16:10:10
  *
- * Problem: D. Program
- * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/D
+ * Problem: K. Make it Divisible by 25
+ * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/470094/problem/K
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ==================================================================================
  */
-
+ 
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,30 +41,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, m;
-    cin >> n >> m;
-    string str;
-    cin >> str;
-    int sum = 0;
-    set<int> st;
-    st.insert(0);
-    vector<int> a(n + 1, 0), s(n + 1, 0);
-    for(int i = 0; i < n; i++) {
-        if(str[i] == '-')sum--;         
-        else sum++;
-        st.insert(sum);
-        a[i + 1] = st.size();
-    }
-    for(int i = 1; i <= n; i++)cout << a[i] << ' ';
-    cout << endl;
-    while(m--) {
-        int l, r;
-        cin >> l >> r;
-        int ans = a[l - 1] + a[n] - a[r - 1];
-        cout << ans << endl;
-    }
-}
+void solve() {}
 
 int32_t main() {
     IOS;

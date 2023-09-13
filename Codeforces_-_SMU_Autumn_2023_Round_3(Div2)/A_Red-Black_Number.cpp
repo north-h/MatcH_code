@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-12 13:14:35
+ * Time:    2023-09-13 16:05:27
  *
- * Problem: D. Program
- * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/D
+ * Problem: A. Red-Black Number
+ * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.2)
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/470094/problem/A
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -42,28 +42,10 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    string str;
-    cin >> str;
-    int sum = 0;
-    set<int> st;
-    st.insert(0);
-    vector<int> a(n + 1, 0), s(n + 1, 0);
-    for(int i = 0; i < n; i++) {
-        if(str[i] == '-')sum--;         
-        else sum++;
-        st.insert(sum);
-        a[i + 1] = st.size();
-    }
-    for(int i = 1; i <= n; i++)cout << a[i] << ' ';
-    cout << endl;
-    while(m--) {
-        int l, r;
-        cin >> l >> r;
-        int ans = a[l - 1] + a[n] - a[r - 1];
-        cout << ans << endl;
-    }
+    vector<int> a(3);
+    cin >> a[0] >> a[1] >> a[2];
+    sort(a.begin(), a.end());
+    cout << a[2] - a[0] + 1 << ' ' << a[2] - a[1] + 1 << ' ' << 0 << endl;
 }
 
 int32_t main() {
