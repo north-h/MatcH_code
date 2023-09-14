@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-12 13:14:23
+ * Time:    2023-09-14 15:05:19
  *
- * Problem: A. Find The Array
- * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/A
+ * Problem: B. Ordinary Numbers
+ * Contest: Codeforces - Codeforces Round 719 (Div. 3)
+ * URL:     https://codeforces.com/contest/1520/problem/B
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -33,7 +33,7 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-const int N = 10010;
+const int N =  100010;
 const int M = 1910;
 const int MOD = 98244353;
 const double EPS = 1e-8;
@@ -41,33 +41,28 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+map<int, int> mp;
+
 void solve() {
-    int n;
+    int  n;
     cin >> n;
-    vector<int> a(n);
-    int sum1 = 0;
-    int sum2 = 0;
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        if(i % 2 == 0)sum1 += a[i];
-        else sum2 += a[i];
+    int ans = 0;
+    for(auto [x, y] : mp) {
+        if(x <= n)ans++;
+        else break;
     }
-    if(sum1 < sum2) {
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 0)cout << 1 << ' ';
-            else cout << a[i] << ' ';
-        }
-    } else {
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 0)cout << a[i] << ' ';
-            else cout << 1 << ' ';
-        }
-    }
-    cout << endl;
+    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
+    for(int i = 1; i <= 9; i++) {
+        for(int j = i; j <= 1e9; j = j *  10 + i) {
+            mp[j] = 1;
+        }
+    }
+    // for(auto [x, y] : mp)cout << x << ' ';
+    // cout << endl;
     int h_h = 1;
     cin >> h_h;
     while (h_h--)solve();

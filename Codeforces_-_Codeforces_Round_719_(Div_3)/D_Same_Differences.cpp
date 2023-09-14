@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-12 13:14:23
+ * Time:    2023-09-14 15:05:27
  *
- * Problem: A. Find The Array
- * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/A
+ * Problem: D. Same Differences
+ * Contest: Codeforces - Codeforces Round 719 (Div. 3)
+ * URL:     https://codeforces.com/contest/1520/problem/D
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -44,26 +44,17 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n);
-    int sum1 = 0;
-    int sum2 = 0;
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        if(i % 2 == 0)sum1 += a[i];
-        else sum2 += a[i];
+    map<int, int> mp;
+    for(int i = 1; i <= n; i++) {
+        int x;
+        cin >> x;
+        mp[x - i]++;
     }
-    if(sum1 < sum2) {
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 0)cout << 1 << ' ';
-            else cout << a[i] << ' ';
-        }
-    } else {
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 0)cout << a[i] << ' ';
-            else cout << 1 << ' ';
-        }
+    int ans = 0;
+    for(auto [x, y] : mp) {
+        ans += y * (y - 1) / 2;
     }
-    cout << endl;
+    cout << ans << endl;
 }
 
 int32_t main() {

@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-12 13:14:23
+ * Time:    2023-09-14 15:05:32
  *
- * Problem: A. Find The Array
- * Contest: Codeforces - SMU Autumn 2023 Round 3(Div.1)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/471657/problem/A
+ * Problem: E. Arranging The Sheep
+ * Contest: Codeforces - Codeforces Round 719 (Div. 3)
+ * URL:     https://codeforces.com/contest/1520/problem/E
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -44,26 +44,18 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n);
-    int sum1 = 0;
-    int sum2 = 0;
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        if(i % 2 == 0)sum1 += a[i];
-        else sum2 += a[i];
+    string s;
+    cin >> s;
+    vector<int> pos;
+    s = " " + s;
+    for(int i = 1; i <= n; i++) {
+        if(s[i] == '*')pos.push_back(i);
     }
-    if(sum1 < sum2) {
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 0)cout << 1 << ' ';
-            else cout << a[i] << ' ';
-        }
-    } else {
-        for(int i = 0; i < n; i++) {
-            if(i % 2 == 0)cout << a[i] << ' ';
-            else cout << 1 << ' ';
-        }
-    }
-    cout << endl;
+    int res = pos.size() / 2;
+    int ans = 0;
+    for(int i = res - 1, l = 1; i >= 0; i--, l++)ans += pos[res] - pos[i] - l;
+    for(int i = res + 1, l = 1; i < pos.size(); i++, l++)ans += pos[i] - pos[res] - l;
+    cout << ans << endl;
 }
 
 int32_t main() {
