@@ -1,18 +1,14 @@
 /*
- * =====================================
+ * ==================================================================================
  * Author:  north_h
- * Problem: H. Happy Sets
- * Time:    2023-09-04 13:19:16
+ * Time:    2023-09-15 13:25:14
  *
+ * Problem: A. Spy Detected!
+ * Contest: Codeforces - Codeforces Round 713 (Div. 3)
+ * URL:     https://codeforces.com/contest/1512/problem/A
  * MemoryL: 256 MB
- * TimeL:   1000 ms
- * =====================================
- *                  _   _         _
- * _ __   ___  _ __| |_| |__     | |__
- *| '_ \ / _ \| '__| __| '_ \    | '_ \
- *| | | | (_) | |  | |_| | | |   | | | |
- *|_| |_|\___/|_|   \__|_| |_|___|_| |_|
- *                          |_____|
+ * TimeL:   2000 ms
+ * ==================================================================================
  */
 
 #pragma GCC optimize("Ofast")
@@ -45,21 +41,22 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
-        x += 0x9e3779b97f4a7c15;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-        return x ^ (x >> 31);
+void solve() {
+    map<int, int> mp;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+        mp[a[i]] = i + 1;
     }
-
-    size_t operator()(uint64_t x) const {
-        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64(x + FIXED_RANDOM);
+    sort(ALL(a));
+    if(a[0] != a[1]) {
+        cout << mp[a[0]] << endl;
+    } else {
+        cout << mp[a[n - 1]] << endl;
     }
-};
-
-void solve() {}
+}
 
 int32_t main() {
     IOS;

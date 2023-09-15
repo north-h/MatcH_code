@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-14 15:05:32
+ * Time:    2023-09-15 13:25:27
  *
- * Problem: E. Arranging The Sheep
- * Contest: Codeforces - Codeforces Round 719 (Div. 3)
- * URL:     https://codeforces.com/contest/1520/problem/E
+ * Problem: D. Corrupted Array
+ * Contest: Codeforces - Codeforces Round 713 (Div. 3)
+ * URL:     https://codeforces.com/contest/1512/problem/D
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -33,7 +33,8 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-const int N = 10010;
+#define debug(a, b) cout<<(string)a<<'='<<b<<endl;
+const int N = 200010;
 const int M = 1910;
 const int MOD = 98244353;
 const double EPS = 1e-8;
@@ -41,21 +42,45 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int a[N], s[N];
+
 void solve() {
     int n;
     cin >> n;
-    string s;
-    cin >> s;
-    vector<int> pos;
-    s = " " + s;
+    n += 2;
     for(int i = 1; i <= n; i++) {
-        if(s[i] == '*')pos.push_back(i);
+        cin >> a[i];
     }
-    int res = pos.size() / 2;
-    int ans = 0;
-    for(int i = res - 1, l = 1; i >= 0; i--, l++)ans += pos[res] - pos[i] - l;
-    for(int i = res + 1, l = 1; i < pos.size(); i++, l++)ans += pos[i] - pos[res] - l;
-    cout << ans << endl;
+    sort(a + 1, a + n + 1);
+    // for(int i = 1; i <= n; i++)cout << a[i] << ' ';
+    // cout << endl;
+    for(int i = 1; i <= n; i++) {
+        s[i] = s[i - 1] + a[i];
+        // cout << s[i] << ' ';
+    }
+    // cout << endl;
+    int ans = -1;
+    for(int i = 1; i < n; i++) {
+        int res = s[n - 1] - s[i] + s[i - 1];
+        // cout << i << ' ' << res << endl;
+        if(res == a[n]) {
+            ans = i;
+            break;
+        }
+    }
+    if(ans != -1) {
+        for(int j = 1; j < n; j++) {
+            if(j != ans)cout << a[j] << ' ';
+        }
+        cout << endl;
+        return ;
+    }
+    if(a[n - 1] == s[n - 2]) {
+        for(int j = 1; j <= n - 2; j++)cout << a[j] << ' ';
+        cout << endl;
+        return ;
+    }
+    cout << -1 << endl;
 }
 
 int32_t main() {

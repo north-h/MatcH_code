@@ -42,21 +42,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    map<char, int> mp;
-    for(int i = 0; i < n; i++) {
-        if(!mp.count(s[i]))mp[s[i]] = 1;
-        else {
-            if(mp[s[i]] + 1 != i) {
-                cout << "NO" << endl;
-                return ;
-            }
-        }
-    }
-    cout << "YES" << endl;
+    
 }
 
 int32_t main() {

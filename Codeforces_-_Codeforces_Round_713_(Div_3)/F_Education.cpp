@@ -1,20 +1,16 @@
-/*
- * =====================================
+/* 
+ * ==================================================================================
  * Author:  north_h
- * Problem: L. Lihmuf Balling
- * Time:    2023-09-04 13:19:20
+ * Time:    2023-09-15 13:25:35
  *
+ * Problem: F. Education
+ * Contest: Codeforces - Codeforces Round 713 (Div. 3)
+ * URL:     https://codeforces.com/contest/1512/problem/F
  * MemoryL: 256 MB
  * TimeL:   2000 ms
- * =====================================
- *                  _   _         _
- * _ __   ___  _ __| |_| |__     | |__
- *| '_ \ / _ \| '__| __| '_ \    | '_ \
- *| | | | (_) | |  | |_| | | |   | | | |
- *|_| |_|\___/|_|   \__|_| |_|___|_| |_|
- *                          |_____|
+ * ==================================================================================
  */
-
+ 
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -44,20 +40,6 @@ const double EPS = 1e-8;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
-
-struct custom_hash {
-    static uint64_t splitmix64(uint64_t x) {
-        x += 0x9e3779b97f4a7c15;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-        return x ^ (x >> 31);
-    }
-
-    size_t operator()(uint64_t x) const {
-        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64(x + FIXED_RANDOM);
-    }
-};
 
 void solve() {}
 
