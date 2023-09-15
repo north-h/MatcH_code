@@ -42,16 +42,43 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    ll n;
-    cin >> n;
     string s;
-    s = to_string(n);
-    string ans;
-    for(auto i : s) {
-        if(i == '0' || i == '2' || i == '5' || i == '7' || i == '1')
-            ans += i;
+    cin >> s;
+    int ans1 = 0;
+    for(int i = s.size() - 1; i >= 0; i--) {
+        if(s[i] != '0')ans1++;
+        else {
+            int j = i - 1;
+            int res1 = 0;
+            while(s[j] != '0' && j >= 0)res1++, j--;
+            if(s[j] != '0' || j < 0)res1 = INF;
+            j = i - 1;
+            int res2 = 0;
+            while(s[j] != '5' && j >= 0)res2++, j--;
+            if(s[j] != '5' || j < 0)res2 = INF;
+            ans1 += min(res1, res2);
+            break;
+        }
     }
-    cout << ans << endl;
+    int ans2 = 0;
+    for(int i = s.size() - 1; i >= 0; i--) {
+        if(s[i] != '5')ans2++;
+        else {
+            int j = i - 1;
+            int res1 = 0;
+            while(s[j] != '2' && j >= 0)res1++, j--;
+            if(s[j] != '2' || j < 0)res1 = INF;
+            j = i - 1;
+            int res2 = 0;
+            while(s[j] != '7' && j >= 0)res2++, j--;
+            if(s[j] != '7' || j < 0)res2 = INF;
+            // cout << res1 << ' ' << res2 << endl;
+            ans2 += min(res1, res2);
+            break;
+        }
+    }
+    // cout << ans1 << ' ' << ans2 << endl;
+    cout << min(ans1, ans2) << endl;
 }
 
 int32_t main() {
