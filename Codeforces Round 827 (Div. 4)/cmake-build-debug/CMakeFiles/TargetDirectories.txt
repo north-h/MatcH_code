@@ -1,9 +1,0 @@
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/Codeforces_Round_827__Div__4_.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/A.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/B.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/C.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/D.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/E.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/G.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/jkxy/CLionProjects/Match/Codeforces Round 827 (Div. 4)/cmake-build-debug/CMakeFiles/rebuild_cache.dir

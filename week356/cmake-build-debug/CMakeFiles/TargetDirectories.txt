@@ -1,3 +1,0 @@
-D:/HM/CLionProjects/leetcode/week356/cmake-build-debug/CMakeFiles/week356.dir
-D:/HM/CLionProjects/leetcode/week356/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/HM/CLionProjects/leetcode/week356/cmake-build-debug/CMakeFiles/rebuild_cache.dir
