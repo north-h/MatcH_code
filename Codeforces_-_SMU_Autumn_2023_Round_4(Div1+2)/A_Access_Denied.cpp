@@ -52,7 +52,7 @@ int32_t main() {
         // getchar();
         string temp;
         getline(cin, temp);
-        if(temp == "ACCESS GRANTED")return 0;
+        // if(temp == "ACCESS GRANTED")return 0;
         // cout << temp << endl;
         for(auto &k : temp) {
             if(k >= '0' && k <= '9')x = x * 10 + (k - '0');
@@ -75,7 +75,7 @@ int32_t main() {
             string temp;
             // scanf("ACCESS DENIED (%d ms)", &x);
             getline(cin, temp);
-            if(temp == "ACCESS GRANTED")return 0;
+            // if(temp == "ACCESS GRANTED")return 0;
             // cout << temp << endl;
             for(auto &k : temp) {
                 if(k >= '0' && k <= '9')x = x * 10 + (k - '0');
