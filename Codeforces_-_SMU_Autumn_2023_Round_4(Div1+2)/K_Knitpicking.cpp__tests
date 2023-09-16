@@ -1,0 +1,1 @@
+[{"test": "3\nfuzzy any 10\nwool left 6\nwool right 4\n", "correct_answers": ["8"]}, {"test": "3\nsports any 1\nblack left 6\nwhite right 6\n", "correct_answers": ["impossible"]}, {"test": "2\nwarm any 5\nwarm left 3\n", "correct_answers": ["4"]}]
