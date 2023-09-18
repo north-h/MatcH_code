@@ -15,12 +15,12 @@
 
 #include<bits/stdc++.h>
 
-#define IOS ios::sync_with_stdio(false),cin.tie(nullptr), cout.tie(nullptr);
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
 #define met_0(a) memset(a,0,sizeof a)
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define lll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -47,6 +47,7 @@ void solve() {
     vector<PII > a(n + 1);
     for (int i = 0; i < n; i++) {
         cin >> a[i].fi >> a[i].se;
+        a[i].se += 180;
     }
     vector<int> ans(1000, 0);
     vector<int> ans1(1000, 0);
@@ -56,32 +57,25 @@ void solve() {
             cout << "yes" << endl;
             return;
         }
-        int ll = a[i - 1].se + 180;
-        int rr = a[i].se + 180;
-//        cout<<ll<<' '<<rr<<endl;
-        int l = min(ll, rr);
-        int r = max(ll, rr);
-        // int res = min(r - l, 360 - r + l);
-        // int re = abs(90 - a[i].fi) + abs(90 - a[i - 1].fi);
-        // re = min(re, abs(-90 - a[i].fi) + abs(-90 - a[i - 1].fi));
-        // re = re * 2;
-        // cout << res << ' ' << re << endl;
-        if (360 - r + l > r - l) {
-            for (int j = l; j <= r; j++)ans[j] = 1, ans1[j] = 1;
+        int l = min(a[i - 1].se, a[i].se);
+        int r = max(a[i - 1].se, a[i].se);
+        // cout << l << ' ' << r << endl;
+        if(abs(l - r) > 180) {
+            for(int i = 0; i <= l; i++)ans[i] = ans1[i] = 1;
+            for(int i = r; i <= 360; i++)ans[i] = ans1[i] = 1;
         } else {
-            for (int j = 0; j < l; j++)ans[j] = 1, ans1[j] = 1;
-            for (int j = r + 1; j <= 360; j++)ans[j] = 1, ans1[j] = 1;
+            for(int i = l; i <= r; i++)ans[i] = ans1[i] = 1;
         }
     }
-    for (int i = 0; i < 360; i++) {
+    for (int i = 0; i <= 360; i++) {
         if (!ans[i]) {
             printf("no %.1f\n", (i - 180) * 1.0);
             return;
         }
     }
-    for (int i = 0; i < 360; i++) {
+    for (int i = 0; i <= 360; i++) {
         if (!ans1[i]) {
-            printf("no %.1f\n", (i - 180) * 1.0);
+            printf("no %.1f\n", (i + 0.5 - 180) * 1.0);
             return;
         }
     }
