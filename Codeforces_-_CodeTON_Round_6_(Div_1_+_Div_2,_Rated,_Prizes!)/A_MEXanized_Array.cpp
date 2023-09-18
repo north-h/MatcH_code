@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-16 22:16:20
+ * Time:    2023-09-18 22:36:13
  *
- * Problem: C. Pair of Topics
- * Contest: Codeforces - SMU Autumn 2023 Round 4(Div.2)
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/473587/problem/C
+ * Problem: A. MEXanized Array
+ * Contest: Codeforces - CodeTON Round 6 (Div. 1 + Div. 2, Rated, Prizes!)
+ * URL:     https://codeforces.com/contest/1870/problem/A
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -45,38 +45,20 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n), b(n), c(n), d;
-    map<int, int> mp;
-    for(auto &i : a)cin >> i;
-    for(auto &i : b)cin >> i;
-    for(int i = 0; i < n; i++) {
-        c[i] = a[i] - b[i];
-        cout << c[i] << ' ';
-    }
-    cout << endl;
-    d = c;
-    sort(ALL(d),greater<int>());
-    for(int i = 0; i < n; i++) {
-        cout << d[i] << ' ';
-        mp[d[i]] = i;
-    }
-    cout << endl;
-    ll ans = 0;
-    bool ok = true;
-    for(auto [x, y] : mp)cout << x << ' ' << y << endl;
-    for(int i = 0; i < n; i++) {
-        ans += mp[c[i]] - 1;
-        cout << mp[c[i]] << ' ';
-    }
-    cout << ans << endl;
+    int n, k, x;
+    cin >> n >> k >> x;
+    int sum = (k - 1) * k / 2;
+    int res = 0;
+    if(x != k)res = x;
+    else res = x - 1;
+    if(k - 1 > x || n < k)cout << -1 << endl;
+    else cout << sum + max((n - k), 0) * res << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
