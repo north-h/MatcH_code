@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-10 12:12:10
@@ -10,7 +10,7 @@
  * TimeL:   2000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -32,7 +32,7 @@
 #define ALL(a) a.begin(),a.end()
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
-#define endl '\n'
+// #define endl '\n'
 const int N = 10010;
 const int M = 1910;
 const int MOD = 98244353;
@@ -41,12 +41,39 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    cout << "? ";
+    for(auto i = 'a'; i <= 'z'; i++)cout << i;
+    cout << endl;
+    int n;
+    // cin >> n;
+    vector<char> a(n + 1);
+    for(int i = 4; i >= 0; i--) {
+        cout << "? ";
+        for(int j = 0; j < 26; j++) {
+            if((j >> i) & 1) {
+                // cout << j << ' ';
+                cout << (char)('a' + j);
+            }
+        }
+        cout << endl;
+        int t;
+        // cin >> t;
+        for(int j = 0; j < t; j++) {
+            int  x;
+            // cin >> x;
+            a[x] |= (1 << j);
+        }
+    }
+    cout << "! ";
+    for(int i = 0; i < n; i++)cout << a[i];
+    cout << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
