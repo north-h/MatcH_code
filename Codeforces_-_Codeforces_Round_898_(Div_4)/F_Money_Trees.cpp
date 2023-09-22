@@ -51,10 +51,7 @@ void solve() {
     for(int i = 1; i <= n; i++)cin >> a[i], s[i] = s[i - 1] + a[i];
     for(int i = 1; i <= n; i++)cin >> b[i];
     for(int i = 1; i <= n; i++)pmax[i] = i;
-    // for(int i = 1; i <= n; i++)cout << pmax[i] << ' ';
-    // cout << endl;
     for(int i = n; i > 1; i--) {
-        // cout << a[i - 1] << ' ' << a[i] << endl;
         if(b[i - 1] % b[i] == 0)pmax[i - 1] = pmax[i];
     }
     int res = 0;
@@ -67,8 +64,6 @@ void solve() {
         }
         res = max(res, ans - i + 1);
     }
-    // for(int i = 1; i <= n; i++)cout << pmax[i] << ' ';
-    // cout << endl;
     cout << res << endl;
 }
 

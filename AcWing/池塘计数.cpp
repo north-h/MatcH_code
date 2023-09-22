@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-21 22:36:14
+ * Time:    2023-09-22 16:10:11
  *
- * Problem: G. ABBC or BACB
- * Contest: Codeforces - Codeforces Round 898 (Div. 4)
- * URL:     https://codeforces.com/contest/1873/problem/G
- * MemoryL: 256 MB
+ * Problem: 池塘计数
+ * Contest: AcWing
+ * URL:     https://www.acwing.com/problem/content/1099/
+ * MemoryL: 64 MB
  * TimeL:   1000 ms
  * ==================================================================================
  */
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -35,6 +35,7 @@
 #define endl '\n'
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug(a) cout << #a << '=' << a << endl;
+#define lf(x)   fixed << setprecision(x)
 const double PI = 3.1415926;
 const int N = 10010;
 const int M = 1910;
@@ -45,28 +46,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    string s;
-    cin >> s;
-    vector<int> a, b;
-    int cnt = 0;
-    for(auto i : s) {
-        if(i == 'A')cnt++;
-        else {
-            if(cnt)a.push_back(cnt);
-            cnt = 0;
-        }
-    }
-    if(cnt)a.push_back(cnt);
-    for(auto i : s) {
-        if(i == 'B')b.push_back(1);
-    }
-    sort(ALL(a));
-    int ans = 0;
-    for(auto i : a)ans += i;
-    if(b.size() == 0 || a.size() == 0)cout << 0 << endl;
-    else if(b.size() < a.size())cout << ans - a[0] << endl;
-    else cout << ans << endl;
-    // debug(ans);
+
 }
 
 int32_t main() {

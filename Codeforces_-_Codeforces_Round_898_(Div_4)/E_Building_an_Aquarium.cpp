@@ -51,14 +51,14 @@ void solve() {
     vector<int> a(n);
     for(auto &i : a)cin >> i;
     auto check = [&](int mid) {
-        int128 res = 0;
+        int res = 0;
         for(auto i : a) {
             res += max(0ll, mid - i);
         }
         // cout << res << "----" << endl;;
         return res <= x;
     };
-    int l = 0, r = 1e18, ans = 0;
+    int l = 0, r = 2e9, ans = 0;
     while(l <= r) {
         int mid = l + r >> 1;
         // cout << l << ' ' << r << endl;
