@@ -5,31 +5,39 @@ using namespace std;
 #define int long long
 
 int32_t main() {
-    cout << "? ";
-    for (char i = 'a'; i <= 'z'; i++) cout << i;
-    cout << endl;
-    int n;
-    // cin >> n;
-    // for (int i = 1, x; i <= n; i++) cin >> x;
-    vector<int> a(n + 1);
-    for (int i = 0, t; i < 5; i++) {
-        cout << "? ";
-        for (int j = 0; j < 26; j++) {
-            if (j & (1 << i)) {
-                // cout << j << ' ';
-                cout << (char) ('a' + j);
+    int T;
+    cin >> T;
+    while(T--) {
+        int n;
+        cin >> n;
+        vector<vector<int>> g(n + 1, vector<int>(n + 1));
+        int sum = 0;
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= n; j++) {
+                cin >> g[i][j];
+                if(g[i][j] < 0)sum += g[i][j];
             }
         }
-        cout << endl;
-        // cin >> t;
-        for (int j = 1, x; j <= t; j++) {
-            // cin >> x;
-            // a[x] |= (1 << i);
+        int ans = INT_MAX;
+        int res = 0;
+        for(int i = 1; i <= n; i++) {
+            int  mn = INT_MAX;
+            for(int j = 1; j <= n; j++) {
+                mn = min(mn, g[i][j]);
+            }
+            if(mn >= 0)res += mn;
         }
+        ans = min(ans, res);
+        res = 0;
+        for(int i = 1; i <= n; i++) {
+            int  mn = INT_MAX;
+            for(int j = 1; j <= n; j++) {
+                mn = min(mn, g[j][i]);
+            }
+            if(mn >= 0)res += mn;
+        }
+        ans = min(ans, res);
+        cout << ans + sum << endl;
     }
-    // cout << "! ";
-    // for (int i = 1; i <= n; i++)
-    //     cout << (char) ('a' + a[i]);
-    cout << endl;
     return 0;
 }

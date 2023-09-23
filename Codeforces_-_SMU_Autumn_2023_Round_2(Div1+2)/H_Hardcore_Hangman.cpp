@@ -46,9 +46,12 @@ void solve() {
     for(auto i = 'a'; i <= 'z'; i++)cout << i;
     cout << endl;
     int n;
-    // cin >> n;
+    cin >> n;
     vector<char> a(n + 1);
-    for(int i = 4; i >= 0; i--) {
+    for(int i = 1, x; i <= n; i++) {
+        cin >> x;
+    }
+    for(int i = 4, t; i >= 0; i--) {
         cout << "? ";
         for(int j = 0; j < 26; j++) {
             if((j >> i) & 1) {
@@ -57,21 +60,19 @@ void solve() {
             }
         }
         cout << endl;
-        int t;
-        // cin >> t;
-        for(int j = 0; j < t; j++) {
-            int  x;
-            // cin >> x;
-            a[x] |= (1 << j);
+        cin >> t;
+        for(int j = 0, x; j < t; j++) {
+            cin >> x;
+            a[x] |= (1 << i);
         }
     }
     cout << "! ";
-    for(int i = 0; i < n; i++)cout << a[i];
-    cout << endl;
+    for(int i = 1; i <= n; i++)cout << (char)('a' + a[i]);
+    // cout << endl;
 }
 
 int32_t main() {
-    IOS;
+    // IOS;
     int h_h = 1;
     // cin >> h_h;
     while (h_h--)solve();
