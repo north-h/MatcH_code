@@ -1,0 +1,45 @@
+[
+	{
+		"correct_answers":
+		[
+			"70"
+		],
+		"test": "5 180\n40 60 80 50\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "3 100\n100 100\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "5 200\n0 0 99 99\n"
+	},
+	{
+		"correct_answers":
+		[
+			"45"
+		],
+		"test": "10 480\n59 98 88 54 70 24 8 94 46\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0",
+			"-1"
+		],
+		"test": "5 2\n1 1 1 1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "7 5\n8 3 9 7 10 5 \n"
+	}
+]
