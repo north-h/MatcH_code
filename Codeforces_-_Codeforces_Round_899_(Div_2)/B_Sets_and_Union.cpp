@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-24 22:35:23
+ * Time:    2023-09-25 22:35:39
  *
- * Problem: A. Rigged!
- * Contest: Codeforces - Educational Codeforces Round 155 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1879/problem/A
+ * Problem: B. Sets and Union
+ * Contest: Codeforces - Codeforces Round 899 (Div. 2)
+ * URL:     https://codeforces.com/contest/1882/problem/B
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -48,17 +48,28 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int>s(n), c(n);
-    for(int i = 0; i < n; i++) {
-        cin >> s[i] >> c[i];
-    }
-    for(int i = 1; i < n; i++) {
-        if(s[i] >= s[0] && c[i] >= c[0]) {
-            cout << -1 << endl;
-            return ;
+    vector<set<int>> a(n);
+    set<int> st;
+    for(int i = 0, k; i < n; i++) {
+        cin >> k;
+        while(k--) {
+            int x;
+            cin >> x;
+            a[i].insert(x);
+            st.insert(x);
         }
     }
-    cout << s[0] << endl;
+    int ans = 0;
+    for(auto i : st) {
+        set<int> t;
+        for(int j = 0; j < n; j++) {
+            if(!a[j].count(i)) {
+                for(auto k : a[j])t.insert(k);
+            }
+        }
+        ans = max(ans, (int)t.size());
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {

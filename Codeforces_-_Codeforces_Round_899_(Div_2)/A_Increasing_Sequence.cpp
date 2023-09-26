@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-09-24 22:35:23
+ * Time:    2023-09-25 22:35:35
  *
- * Problem: A. Rigged!
- * Contest: Codeforces - Educational Codeforces Round 155 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1879/problem/A
+ * Problem: A. Increasing Sequence
+ * Contest: Codeforces - Codeforces Round 899 (Div. 2)
+ * URL:     https://codeforces.com/contest/1882/problem/A
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define itn long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,19 +46,15 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
+    int ans = 1;
     int n;
     cin >> n;
-    vector<int>s(n), c(n);
-    for(int i = 0; i < n; i++) {
-        cin >> s[i] >> c[i];
+    for(int i = 1; i <= n; i++, ans++) {
+        int x;
+        cin >> x;
+        if(x == ans)ans++;
     }
-    for(int i = 1; i < n; i++) {
-        if(s[i] >= s[0] && c[i] >= c[0]) {
-            cout << -1 << endl;
-            return ;
-        }
-    }
-    cout << s[0] << endl;
+    cout << ans - 1 << endl;
 }
 
 int32_t main() {
