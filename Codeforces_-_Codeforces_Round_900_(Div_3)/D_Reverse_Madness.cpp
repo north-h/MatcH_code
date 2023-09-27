@@ -91,8 +91,7 @@ void solve() {
     ans.push_back({li, ri});
     for(auto [l, r] : ans) {
         for(int i = l; i <= (l + r) / 2; i++) {
-            if(ss[i] % 2 == 0)continue;
-            else swap(s[i], s[l + r - i]);
+            if(ss[i] % 2)swap(s[i], s[l + r - i]);
         }
     }
     cout << s.substr(1) << endl;
