@@ -1,7 +1,7 @@
 /*
  * =======================================================================
  * Author:  north_h
- * Time:    2023-09-29 10:37:07 
+ * Time:    2023-09-29 10:37:07
  *
  * Problem: A. Average Sleep Time
  * Contest: Codeforces - SMU Autumn 2023 Trial 3
@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -45,12 +45,25 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n + 1), s(n + 1);
+    double ans = 0;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        s[i] = s[i - 1] + a[i];
+    }
+    for(int i = k; i <= n; i++) {
+        ans += s[i] - s[i - k];
+    }
+    cout << lf(10) << ans / (n - k + 1) << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,7 +1,7 @@
 /*
  * =======================================================================
  * Author:  north_h
- * Time:    2023-09-29 10:37:16 
+ * Time:    2023-09-29 10:37:16
  *
  * Problem: C. Longest k-Good Segment
  * Contest: Codeforces - SMU Autumn 2023 Trial 3
@@ -37,7 +37,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 const double PI = 3.1415926;
-const int N = 1010;
+const int N = 1000010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -45,12 +45,38 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+// int mp[N];
+
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<int>a (n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    unordered_map<int, int> mp;
+    int ans = 0;
+    int l, r;
+    for(int i = 0, j = 0; i < n; i++) {
+        mp[a[i]]++;
+        while(j < n && mp.size() > k ) {
+            mp[a[j]]--;
+            if(mp[a[j]] == 0)mp.erase(a[j]);
+            j++;
+        }
+        if(ans < i - j + 1) {
+            ans = i - j + 1;
+            l = j;
+            r = i;
+        }
+    }
+    cout << l + 1 << ' ' << r + 1 << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

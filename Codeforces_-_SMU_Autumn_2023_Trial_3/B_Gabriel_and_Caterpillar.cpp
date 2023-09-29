@@ -1,7 +1,7 @@
 /*
  * =======================================================================
  * Author:  north_h
- * Time:    2023-09-29 10:37:12 
+ * Time:    2023-09-29 10:37:12
  *
  * Problem: B. Gabriel and Caterpillar
  * Contest: Codeforces - SMU Autumn 2023 Trial 3
@@ -45,12 +45,25 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int h1, h2, a, b;
+    cin >> h1 >> h2 >> a >> b;
+    if(h2 - h1 <= a * 8)cout << 0 << endl;
+    else if(a <= b)cout << -1 << endl;
+    else {
+        int res = h1 + (8 * a - 12 * b);
+        // cout << res << endl;
+        int x = a * 12;
+        int y = b * 12;
+        int ans = h2 - res - x;
+        cout << (ans + x - y - 1) / (x - y) + 1 << endl;
+    }
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

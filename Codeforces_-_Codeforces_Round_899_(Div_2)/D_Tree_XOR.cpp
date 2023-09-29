@@ -46,13 +46,26 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), s(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        s[i] = s[i - 1] ^ a[i];
+    }
+    for(int i = 1; i <= n; i++) {
+        cout << a[i] << ": ";
+        for(int j = 30; j >= 0; j--) {
+            cout << (a[i] >> j & 1) << ' ';
+        }
+        cout << endl;
+    }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

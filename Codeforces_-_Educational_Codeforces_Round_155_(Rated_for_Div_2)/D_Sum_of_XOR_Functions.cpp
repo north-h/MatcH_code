@@ -143,13 +143,13 @@ void solve() {
         cin >> a[i];
         s[i] = s[i - 1] ^ a[i];
     }
-    mint ans = 0;
     for(int i = 1; i <= n; i++) {
-        for(int j = i; j <= n; j++) {
-            ans += (ll)(s[j] ^ s[i - 1]) * (j - i + 1);
+        cout << a[i] << ": ";
+        for(int j = 30; j >= 0; j--) {
+            cout << (a[i] >> j & 1) << ' ';
         }
+        cout << endl;
     }
-    cout << ans << endl;
 }
 
 int32_t main() {
