@@ -54,6 +54,7 @@ void solve() {
     for(auto &i : a) {
         while(i % 10 != 2 && i % 10 != 0)i += i % 10;
         if(i % 10 != 0)i %= 20;
+        // else i %= 10;
     }
     for(int i = 1; i < n; i++) {
         if(a[i] != a[i - 1]) {
