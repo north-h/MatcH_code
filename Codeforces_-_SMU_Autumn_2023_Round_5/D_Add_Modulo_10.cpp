@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -33,9 +33,14 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
-const int N = 10010;
+#define lcm(x,y) x*y/__gcd(x,y)
+#define debug1(a) cout<<#a<<'='<<a<<endl
+#define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
+#define lf(x)   fixed << setprecision(x)
+const double PI = 3.1415926;
+const int N = 1010;
 const int M = 1910;
-const int MOD = 98244353;
+const int MOD = 998244353;
 const double EPS = 1e-8;
 const int INF = 0x3f3f3f3f;
 
@@ -44,39 +49,14 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    int goal = -1;
-    set<int> st;
     vector<int> a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    for(auto &i : a)cin >> i;
+    for(auto &i : a) {
+        while(i % 10 != 2 && i % 10 != 0)i += i % 10;
+        if(i % 10 != 0)i %= 20;
     }
-    st.insert(4);
-    st.insert(8);
-    st.insert(6);
-    for(int i = 0; i < n; i++) {
-        int res = a[i] % 10;
-        if(res == 1 || res == 2) {
-            goal = 1;
-            st.insert(1);
-            st.insert(2);
-            break;
-        } else if(res == 3) {
-            goal = 3;
-            st.insert(3);
-            break;
-        } else if(res == 7) {
-            goal = 7;
-            st.insert(7);
-            break;
-        } else if(res == 5 || res == 10) {
-            goal = 5;
-            st.insert(5);
-            st.insert(10);
-            break;
-        }
-    }
-    for(int i = 0; i < n; i++) {
-        if(!st.count(a[i] % 10)) {
+    for(int i = 1; i < n; i++) {
+        if(a[i] != a[i - 1]) {
             cout << "NO" << endl;
             return ;
         }
