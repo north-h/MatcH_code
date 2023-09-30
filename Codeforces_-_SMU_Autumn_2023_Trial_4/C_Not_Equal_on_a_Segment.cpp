@@ -37,7 +37,7 @@
 #define debug(a) cout << #a << '=' << a << endl;
 #define lf(x)   fixed << setprecision(x)
 const double PI = 3.1415926;
-const int N = 10010;
+const int N = 1000010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,7 +46,21 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n + 1), pre(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        pre[i] = pre[i - 1];
+        if(a[i] != a[i - 1])pre[i] = i;
+    }
+    while(m--) {
+        int l, r, x;
+        cin >> l >> r >> x;
+        if(pre[l] == pre[r] && a[l] == x)cout << -1 << endl;
+        else if(a[r] != x)cout << r << endl;
+        else cout << pre[r] - 1 << endl;
+    }
 }
 
 int32_t main() {

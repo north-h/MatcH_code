@@ -48,31 +48,27 @@ using namespace std;
 void solve() {
     int  n, m, k;
     cin >> n >> m >> k;
-    // vector<int> pos(100);
     vector<int> a(k);
     map <int, int> mp;
     for(int i = 0; i < k; i++) {
         cin >> a[i];
-        mp[a[i]] = i;
+        mp[a[i]] = i + 1;
     }
     int ans = 0;
     for(int i = 0; i < n; i++) {
-        set<int> st;
         for(int j = 0, x; j < m; j++) {
+            vector<int> temp;
             cin >> x;
-            st.insert(x);
-            debug(mp[x]);
-            ans += mp[x] + 1;
-            mp[x] = 1;
-            int kk = st.size();
+            ans += mp[x];
+            temp.push_back(x);
             for(int l = 0; l < k; l++) {
-                if(!st.count(x)) {
-                    mp[a[l]] = kk;
-                    kk++;
+                if(a[l] != x) {
+                    temp.push_back(a[l]);
                 }
             }
+            a = temp;
+            for(int l = 0; l < k; l++)mp[a[l]] = l + 1;
         }
-
     }
     cout << ans << endl;
 }
