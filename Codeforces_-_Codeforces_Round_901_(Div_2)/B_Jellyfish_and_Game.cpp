@@ -61,7 +61,6 @@ void solve() {
     sort(ALL(b));
     if(k & 1) {
         if(a[0] < b[m - 1])swap(a[0], b[m - 1]);
-
     } else {
         if(a[0] >= b[m - 1]) {
             swap(a[n - 1], b[0]);
