@@ -1,0 +1,74 @@
+[
+	{
+		"correct_answers":
+		[
+			"0\n-1\n2\n5"
+		],
+		"test": "4\n10 5\n1 5\n10 4\n3 4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"3"
+		],
+		"test": "1\n5 4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"9",
+			"4"
+		],
+		"test": "1\n3 12\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "1\n2 2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1",
+			"8189"
+		],
+		"test": "1\n4099 4096\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "1\n87 113\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "1\n15 44\n"
+	},
+	{
+		"correct_answers":
+		[
+			"9"
+		],
+		"test": "1\n117 18\n"
+	},
+	{
+		"correct_answers":
+		[
+			"216"
+		],
+		"test": "1\n40 128\n"
+	},
+	{
+		"correct_answers":
+		[
+			"55"
+		],
+		"test": "1\n121 44\n"
+	}
+]
