@@ -59,9 +59,9 @@ void solve() {
     while(mp.count(mex))mex++;
     vector<int> dp(mex + 1, LLONG_MAX);
     dp[mex] = 0;
-    for(int i = mex - 1; i >= 0; i--) {
-        for(int j = i + 1; j <= mex; j++) {
-            dp[i] = min(dp[i], dp[j] + (mp[i] - 1) * j + i);
+    for(int i = mex; i >= 0; i--) {
+        for(int j = 0; j <= i; j++) {
+            dp[j] = min(dp[j], dp[i] + (mp[j] - 1) * i + j);
         }
     }
     cout << dp[0] << endl;
