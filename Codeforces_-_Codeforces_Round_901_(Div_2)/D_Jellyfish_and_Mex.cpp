@@ -13,7 +13,7 @@
 
 #pragma GCC optimize("Ofast")
 
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 #define IOS ios::sync_with_stdio(false),cin.tie(nullptr), cout.tie(nullptr);
 #define met_0(a) memset(a,0,sizeof a)
@@ -47,30 +47,30 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    unordered_map<int, int> mp;
-    for(auto &i : a) {
-        cin >> i;
-        mp[i]++;
-    }
-    int mex = 0;
-    while(mp.count(mex))mex++;
-    vector<int> dp(mex + 1, LLONG_MAX);
-    dp[mex] = 0;
-    for(int i = mex; i >= 0; i--) {
-        for(int j = 0; j <= i; j++) {
-            dp[j] = min(dp[j], dp[i] + (mp[j] - 1) * i + j);
-        }
-    }
-    cout << dp[0] << endl;
+	int n;
+	cin >> n;
+	vector<int> a(n);
+	unordered_map<int, int> mp;
+	for (auto &i : a) {
+		cin >> i;
+		mp[i]++;
+	}
+	int mex = 0;
+	while (mp.count(mex))mex++;
+	vector<int> dp(mex + 1, LLONG_MAX);
+	dp[mex] = 0;
+	for (int i = mex; i >= 0; i--) {
+		for (int j = 0; j <= i; j++) {
+			dp[j] = min(dp[j], dp[i] + (mp[j] - 1) * i + j);
+		}
+	}
+	cout << dp[0]<< endl;
 }
 
 int32_t main() {
-    IOS;
-    int h_h = 1;
-    cin >> h_h;
-    while (h_h--)solve();
-    return 0;
+	IOS;
+	int h_h = 1;
+	cin >> h_h;
+	while (h_h--)solve();
+	return 0;
 }
