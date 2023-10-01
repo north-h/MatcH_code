@@ -50,16 +50,15 @@ void solve() {
     int n, m;
     cin >> n >> m;
     int ans = 0;
-    int cnt = n % m;
+    n %= m;
     for (int i = 0; i < 30; i++) {
-        ans += cnt;
-        //        n *= 2;
-        cnt *= 2;
-        if (cnt % m == 0) {
+        ans += n;
+        n *= 2;
+        if (n % m == 0) {
             cout << ans << endl;
             return;
         }
-        cnt %= m;
+        n %= m;
     }
     cout << -1 << endl;
 }
