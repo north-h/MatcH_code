@@ -46,12 +46,41 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    int t = n;
+    vector<bool> vis(n + 1, false);
+    int pos = 1;
+    for(int i = 0; i < m; i++, t--) {
+        int x;
+        cin >> x;
+        x %= t;
+        if(x != 0)pos++;
+        if(pos > n)pos = 1;
+        for(int j = 1; j <= x; j++, pos++) {
+            // debug1(pos);
+            if(pos > n)pos = 1;
+            while(vis[pos]) {
+                pos++;
+                if(pos > n)pos = 1;
+            }
+        }
+        if(x != 0)pos--;
+        vis[pos] = true;
+        cout << pos << ' ';
+        while(vis[pos]) {
+            pos++;
+            if(pos > n)pos = 1;
+        }
+    }
+    cout << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

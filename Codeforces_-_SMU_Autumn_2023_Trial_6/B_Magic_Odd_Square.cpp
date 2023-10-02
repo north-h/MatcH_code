@@ -38,7 +38,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 10010;
+const int N = 50;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,12 +46,41 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+int g[N][N];
+
+void solve() {
+    int n;
+    cin >> n;
+    if(n == 1) {
+        cout << 1 << endl;
+        return ;
+    }
+    int a = 1, b = 2;
+    for(int i = 1; i <= n; i++)g[(n + 1) / 2][i] = a, a += 2;
+    for(int i = n / 2, t = 1; i >= 1; i--, t++) {
+        for(int j = 1; j <= n; j++) {
+            if(j <= t || j >= n - t + 1)g[i][j] = b, b += 2;
+            else g[i][j] = a, a += 2;
+        }
+    }
+    for(int i = n / 2 + 2, t = 1; i <= n; i++, t++) {
+        for(int j = 1; j <= n; j++) {
+            if(j <= t || j >= n - t + 1)g[i][j] = b, b += 2;
+            else g[i][j] = a, a += 2;
+        }
+    }
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= n; j++) {
+            cout << g[i][j] << ' ';
+        }
+        cout << endl;
+    }
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

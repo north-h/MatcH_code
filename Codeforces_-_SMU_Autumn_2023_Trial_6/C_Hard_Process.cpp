@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,12 +46,36 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    int ans = 0;
+    PII lr;
+    int sum = 0;
+    for(int i = 1, j = 1; i <= n; i++) {
+        sum += !a[i];
+        while(j <= n && sum > k)sum -= !a[j], j++;
+        if(i - j + 1 > ans) {
+            ans = i - j + 1;
+            lr = {j, i};
+        }
+    }
+    cout << ans << endl;
+    for(int i = 1; i <= n; i++) {
+        if(i >= lr.fi && i <= lr.se)cout << 1 << ' ';
+        else cout << a[i] << ' ';
+    }
+    cout << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
