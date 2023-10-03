@@ -1,1 +1,37 @@
-[{"test": "aab\n", "correct_answers": ["bab"]}, {"test": "caaab\n", "correct_answers": ["cabab"]}, {"test": "zscoder\n", "correct_answers": ["zscoder"]}]
+[
+	{
+		"correct_answers":
+		[
+			"bab"
+		],
+		"test": "aab\n"
+	},
+	{
+		"correct_answers":
+		[
+			"cabab"
+		],
+		"test": "caaab\n"
+	},
+	{
+		"correct_answers":
+		[
+			"zscoder"
+		],
+		"test": "zscoder\n"
+	},
+	{
+		"test": "rxxxrrxrxxxxxrrrrrxxxxrrrrxrxxrxxrxrxrrrxrrxrrxrxxxrxrrxrrxrxrxxxxxrxxxxrrrxrxxrxxrxxxrrrrrxrrxrrxrr\n",
+		"uncorrect_answers":
+		[
+			"1 3\n4 5\n8 12\n13 17\n18 21\n22 25\n28 29\n31 32\n37 39\n41 42\n44 45\n48 50\n53 54\n56 57\n62 66\n68 71\n72 74\n77 78\n80 81\n83 85\n86 90\n92 93\n95 96\n98 99\nrxyxyrxrxyxyxrsrsrsxsxyryrxrsxrsxrxrxrsrxyrxyrxrxyxrxyrxyrxrxrxyxyxrsxsxrsrxrsxrsxrxyxrsrsrxyrxyrxyr"
+		]
+	},
+	{
+		"test": "bbabbbbfbbbfbabfbfabbbaa\n",
+		"uncorrect_answers":
+		[
+			"0 1\n3 6\n8 10\n19 21\n22 23\ncbacbcbfbcbfbabfbfabcbca"
+		]
+	}
+]

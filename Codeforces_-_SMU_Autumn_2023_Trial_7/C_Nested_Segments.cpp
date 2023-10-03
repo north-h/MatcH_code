@@ -36,7 +36,7 @@
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
-#define lf(x)   fixed << setprecision(x)
+#define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
 const int N = 10010;
 const int M = 1910;
@@ -46,12 +46,37 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<PII> a(n), b;
+    for(int i = 0; i < n; i++) {
+        cin >> a[i].fi >> a[i].se;
+    }
+    b = a;
+    sort(ALL(b));
+    vector<int> c;
+    for(auto [x, y] : b)c.push_back(y - x + 1);
+    vector<int> s(n);
+    for(int i = 0; i < n; i++) {
+        if(i == 0)s[i] = c[i];
+        else s[i] = s[i - 1] + c[i];
+    }
+    for(int i = 0; i < n; i++) {
+        int l = upper_bound(ALL(b), a[i]) - b.begin();
+        int ans = 0;
+        int len = a[i].se - b[l].fi;
+        for(int j = l; j < n; j++) {
+            if(b[j].se < a[i].se)ans++;
+        }
+        cout << ans << endl;
+    }
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -46,12 +46,54 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    string s;
+    cin >> s;
+    vector<PII> a;
+    int r = 0;
+    int cnt = 1;
+    for(int i = 1; i < s.size(); i++) {
+        if(s[i] == s[i - 1]) {
+            cnt++;
+            r = i;
+        } else {
+            if(cnt > 1)a.push_back({r - cnt + 1, r});
+            cnt = 1;
+        }
+    }
+    if(cnt)a.push_back({r - cnt + 1, r});
+    for(auto [x, y] : a) {
+        char op = s[x];
+        // cout << x << ' ' << y << endl;
+        // debug1(op);
+        int len = y - x + 1;
+        if(len & 1) {
+            if(op == 'z')op = 'a';
+            else op++;
+            for(int i = x + 1; i <= y; i += 2) {
+                // debug2(i, s[i]);
+                s[i] = op;
+            }
+        } else {
+            if(x != 0)op = s[x - 1];
+            if(op == 'z')op = 'a';
+            else op++;
+            while(op == s[x]) {
+                op++;
+                if(op > 'z')op = 'a';
+            }
+            for(int i = x; i <= y; i += 2) {
+                s[i] = op;
+            }
+        }
+    }
+    cout << s << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
