@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 19:54:31
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
- * MemoryL: 256 MB
+ * Problem: A. Extra-terrestrial Intelligence
+ * Contest: Codeforces - Codeforces Beta Round 36
+ * URL:     https://codeforces.com/contest/36/problem/A
+ * MemoryL: 64 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -47,15 +47,23 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    int n;
+    string s;
+    cin >> n >> s;
+    vector<int> ans;
+    for(int i = 0; i < n; i++) {
+        if(s[i] == '1')ans.push_back(i);
+    }
+    int goal = ans[1] - ans[0];
+    for(int i = 1; i < ans.size(); i++) {
+        if(ans[i] - ans[i - 1] != goal) {
+            cout << "NO" << endl;
             return ;
         }
     }
-    cout << "No solution" << endl;
+    cout << "YES" << endl;
 }
 
 int32_t main() {

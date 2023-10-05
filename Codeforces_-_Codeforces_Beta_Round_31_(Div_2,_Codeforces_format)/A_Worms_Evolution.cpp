@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 16:17:34
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: A. Worms Evolution
+ * Contest: Codeforces - Codeforces Beta Round 31 (Div. 2, Codeforces format)
+ * URL:     https://codeforces.com/contest/31/problem/A
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,15 +47,28 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
-            return ;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++)cin >> a[i];
+    // sort(ALL(a));
+    for(int i = 0; i < n; i++) {
+        for(int j = i + 1; j < n; j++) {
+            for(int k = j + 1; k < n; k++) {
+                if(a[i] + a[j] == a[k]) {
+                    cout << k + 1 << ' ' << j + 1 << ' ' << i + 1 << endl;
+                    return ;
+                } else if(a[i] + a[k] == a[j]) {
+                    cout << j + 1 << ' ' << k + 1 << ' ' << i + 1 << endl;
+                    return ;
+                } else if(a[k] + a[j] == a[i]) {
+                    cout << i + 1 << ' ' << k + 1 << ' ' << j + 1 << endl;
+                    return ;
+                }
+            }
         }
     }
-    cout << "No solution" << endl;
+    cout << -1 << endl;
 }
 
 int32_t main() {

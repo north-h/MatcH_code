@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 19:07:36
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: C. Blinds
+ * Contest: Codeforces - School Personal Contest #1 (Winter Computer School 2010/11) - Codeforces Beta Round 38 (ACM-ICPC Rules)
+ * URL:     https://codeforces.com/contest/38/problem/C
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,15 +47,19 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
-            return ;
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++)cin >> a[i];
+    int ans = 0;
+    for(int i = m; i <= 100; i++) {
+        int sum = 0;
+        for(int j = 0; j < n; j++) {
+            sum += a[j] / i;
         }
+        ans = max(ans, sum * i);
     }
-    cout << "No solution" << endl;
+    cout << ans << endl;
 }
 
 int32_t main() {

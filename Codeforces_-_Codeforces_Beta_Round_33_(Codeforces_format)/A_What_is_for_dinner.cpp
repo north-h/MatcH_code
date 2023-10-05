@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 17:03:19
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: A. What is for dinner?
+ * Contest: Codeforces - Codeforces Beta Round 33 (Codeforces format)
+ * URL:     https://codeforces.com/contest/33/problem/A
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,15 +47,18 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
-            return ;
-        }
+    int n, m, k;
+    cin >> n >> m >> k;
+    map<int, int> mp;
+    for(int i = 1; i <= m; i++)mp[i] = INF;
+    for(int i = 0; i < n; i++) {
+        int r, c;
+        cin >> r >> c;
+        mp[r] = min(mp[r], c);
     }
-    cout << "No solution" << endl;
+    int sum = 0;
+    for(auto [x, y] : mp)sum += y;
+    cout << min(sum, k) << endl;
 }
 
 int32_t main() {

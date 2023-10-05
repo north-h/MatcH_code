@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 17:30:27
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: C. Page Numbers
+ * Contest: Codeforces - Codeforces Beta Round 34 (Div. 2)
+ * URL:     https://codeforces.com/contest/34/problem/C
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,15 +47,31 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
-            return ;
+    vector<int> a;
+    string s;
+    cin >> s;
+    int num = 0;
+    for(auto i : s) {
+        if(i >= '0' && i <= '9')num = num * 10 + i - '0';
+        else a.push_back(num), num = 0;
+    }
+    if(num)a.push_back(num);
+    sort(ALL(a));
+    a.erase(unique(ALL(a)), a.end());
+    // for(auto i : a)cout << i << " ";
+    // cout << endl;
+    int l = 0, r = 0;
+    for(int i = 1; i < a.size(); i++) {
+        if(a[i] == a[i - 1] + 1)r = i;
+        else {
+            if(l == r)cout << a[l], l++, r++;
+            else cout << a[l] << '-' << a[r], r++, l = r;
+            if(i < a.size())cout << ',';
+            else cout << endl;
         }
     }
-    cout << "No solution" << endl;
+    if(l == r)cout << a[l];
+    else cout << a[l] << '-' << a[r];
 }
 
 int32_t main() {

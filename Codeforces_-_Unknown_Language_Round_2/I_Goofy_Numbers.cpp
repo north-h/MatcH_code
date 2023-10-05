@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 17:18:21
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: I. Goofy Numbers
+ * Contest: Codeforces - Unknown Language Round 2
+ * URL:     https://codeforces.com/contest/72/problem/I
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,15 +47,16 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
-            return ;
-        }
+    int n;
+    cin >> n;
+    int ans = 0;
+    string s = to_string(n);
+    for(int i = 0; i < s.size(); i++) {
+        if(n % (s[i] - '0') == 0)ans++;
     }
-    cout << "No solution" << endl;
+    if(ans == s.size())cout << "happier" << endl;
+    else if(ans > 0)cout << "happy" << endl;
+    else cout << "upset" << endl;
 }
 
 int32_t main() {

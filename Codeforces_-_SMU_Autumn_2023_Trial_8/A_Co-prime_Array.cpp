@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 10:13:54
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: A. Co-prime Array
+ * Contest: Codeforces - SMU Autumn 2023 Trial 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/475594/problem/A
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -47,15 +47,25 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
-            return ;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    vector<int> ans;
+    ans.push_back(a[0]);
+    for(int i = 1; i < n; i++) {
+        int x = __gcd(a[i - 1], a[i]);
+        if(x == 1)    ans.push_back(a[i]);
+        else {
+            ans.push_back(1);
+            ans.push_back(a[i]);
         }
     }
-    cout << "No solution" << endl;
+    cout << ans.size() - n << endl;
+    for(auto i : ans)cout << i << ' ';
+    cout << endl;
 }
 
 int32_t main() {

@@ -1,0 +1,37 @@
+[
+	{
+		"correct_answers":
+		[
+			"a@a,a@a"
+		],
+		"test": "a@aa@a\n"
+	},
+	{
+		"correct_answers":
+		[
+			"No solution"
+		],
+		"test": "a@a@a\n"
+	},
+	{
+		"correct_answers":
+		[
+			"No solution"
+		],
+		"test": "@aa@a\n"
+	},
+	{
+		"correct_answers":
+		[
+			"11@h,jd@k,dk@kdnk"
+		],
+		"test": "11@hjd@kdk@kdnk\n"
+	},
+	{
+		"correct_answers":
+		[
+			"No solution"
+		],
+		"test": "g\n"
+	}
+]

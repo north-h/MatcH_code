@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-01 17:36:35
+ * Time:    2023-10-04 16:35:49
  *
- * Problem: A. Accounting
- * Contest: Codeforces - Codeforces Beta Round 30 (Codeforces format)
- * URL:     https://codeforces.com/contest/30/problem/A
+ * Problem: B. Sysadmin Bob
+ * Contest: Codeforces - Codeforces Beta Round 31 (Div. 2, Codeforces format)
+ * URL:     https://codeforces.com/contest/31/problem/B
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   500 ms
  * ==================================================================================
  */
 
@@ -47,15 +47,30 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n;
-    cin >> a >> b >> n;
-    for(int i = -abs(b); i <= abs(b); i++) {
-        if(b == pow(i, n)*a) {
-            cout << i << endl;
+    string s;
+    cin >> s;
+    vector<int> a;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] == '@')a.push_back(i);
+    }
+    if(!a.size() || s[0] == '@' || s.back() == '@') {
+        cout << "No solution" << endl;
+        return ;
+    }
+    vector<string> ans;
+    for(int i = 1; i < a.size(); i++) {
+        if((a[i] - a[i - 1] - 1) < 2) {
+            cout << "No solution" << endl;
             return ;
         }
     }
-    cout << "No solution" << endl;
+    int l = 0;
+    for(int i = 0; i < a.size(); i++) {
+        if(i < a.size() - 1) {
+            cout << s.substr(l, a[i] - l + 2) << ",";
+            l = a[i] + 2;
+        } else cout << s.substr(l) << endl;
+    }
 }
 
 int32_t main() {
