@@ -49,22 +49,19 @@ using namespace std;
 void solve() {
     string a, b;
     cin >> a >> b;
-    if(a.size()>b.size()){
-        cout<<a<<endl;
-        return ;
+    set<char> st;
+    map<char,int> p1,p2;
+    for(auto i:b){
+        p1[i]++;
+        st.insert(i);
     }
-    int sum = 0;
-    for(auto i : a) {
-        if(i == '?')sum++;
-    }
-    map<char,int> mp;
-    for(auto i:b)mp[i]++;
-    vector<int> ans;
+    vector<char> ans;
+    int sum=0;
     for(auto i:a){
-        if(mp.count(i)){
-            
-        }
-    }    
+        if(st.count(i))p2[i]++;
+        if(i=='?')sum++;
+    }
+    
 }
 
 int32_t main() {
