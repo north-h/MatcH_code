@@ -1,1 +1,24 @@
-[{"test": "?aa?\nab\n", "correct_answers": ["baab"]}, {"test": "??b?\nza\n", "correct_answers": ["azbz"]}, {"test": "abcd\nabacaba\n", "correct_answers": ["abcd"]}]
+[
+	{
+		"correct_answers":
+		[
+			"baab"
+		],
+		"test": "?aa?\nab\n"
+	},
+	{
+		"correct_answers":
+		[
+			"azbz",
+			"azba"
+		],
+		"test": "??b?\nza\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abcd"
+		],
+		"test": "abcd\nabacaba\n"
+	}
+]

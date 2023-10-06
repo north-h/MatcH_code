@@ -15,7 +15,7 @@
 
 #include<bits/stdc++.h>
 
-#define IOS ios::sync_with_stdio(false),cin.tie(nullptr), cout.tie(nullptr);
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
 #define met_0(a) memset(a,0,sizeof a)
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
@@ -49,25 +49,50 @@ using namespace std;
 void solve() {
     string a, b;
     cin >> a >> b;
-    set<char> st;
-    map<char,int> p1,p2;
-    for(auto i:b){
-        p1[i]++;
-        st.insert(i);
+    map<char, int> pa, pb;
+    int sum = 0;
+    for(auto i : a) {
+        pa[i]++;
+        if(i == '?')sum++;
     }
+    for(auto i : b) {
+        pb[i]++;
+    }
+    // for(auto [x, y] : pb)cout << x << ' ' << y << endl;
     vector<char> ans;
-    int sum=0;
-    for(auto i:a){
-        if(st.count(i))p2[i]++;
-        if(i=='?')sum++;
+    // cout << endl;
+    // for(auto [x, y] : pa)cout << x << ' ' << y << endl;
+    // debug1(sum);
+    if(sum == 0) {
+        cout << a << endl;
+        return ;
     }
-    
+    while(sum) {
+        for(auto [x, y] : pb) {
+            if(pa[x] >= y)pa[x] -= y;
+            else {
+                int res = y - pa[x];
+                for(int i = 0; i < res; i++)ans.push_back(x);
+                sum -= res;
+                if(sum <= 0)break;
+            }
+        }
+    }
+    reverse(ALL(ans));
+    for(auto i : a) {
+        if(i != '?')cout << i;
+        else {
+            cout << ans.back();
+            ans.pop_back();
+        }
+    }
+    cout << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
