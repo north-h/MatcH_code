@@ -56,27 +56,22 @@ void solve() {
         if(i == '?')sum++;
     }
     for(auto i : b) {
+        if(!pa.count(i))pa[i] = 0;
         pb[i]++;
     }
-    // for(auto [x, y] : pb)cout << x << ' ' << y << endl;
     vector<char> ans;
-    // cout << endl;
-    // for(auto [x, y] : pa)cout << x << ' ' << y << endl;
-    // debug1(sum);
-    if(sum == 0) {
-        cout << a << endl;
-        return ;
-    }
-    while(sum) {
+    while(1) {
         for(auto [x, y] : pb) {
             if(pa[x] >= y)pa[x] -= y;
             else {
                 int res = y - pa[x];
+                pa[x] = 0;
                 for(int i = 0; i < res; i++)ans.push_back(x);
                 sum -= res;
                 if(sum <= 0)break;
             }
         }
+        if(sum <= 0)break;
     }
     for(auto i : a) {
         if(i != '?')cout << i;

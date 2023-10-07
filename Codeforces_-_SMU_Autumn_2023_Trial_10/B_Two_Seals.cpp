@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,12 +46,44 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, A, B;
+    cin >> n >> A >> B;
+    vector<PII> a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i].fi >> a[i].se;
+    }
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        int x = a[i].fi, y = a[i].se;
+        // debug2(x, y);
+        for(int j = i + 1; j < n; j++) {
+            int z = a[j].fi, w = a[j].se;
+            // debug2(z, w);
+            int x1 = x + z;
+            int y1 = max(y, w);
+            int x2 = max(x, z);
+            int y2 = y + w;
+            int x3 = x + w;
+            int y3 = max(y, z);
+            int x4 = max(x, w);
+            int y4 = y + z;
+            // debug2(x1, y1);
+            // debug2(x2, y2);
+            if(x1 <= A && y1 <= B || x2 <= A && y2 <= B || x3 <= A && y3 <= B || x4 <= A && y4 <= B || x1 <= B && y1 <= A || x2 <= B && y2 <= A || x3 <= B && y3 <= A || x4 <= B && y4 <= A) {
+                ans = max(ans, x * y + z * w);
+            }
+            // debug1(ans);
+        }
+        // cout << endl;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

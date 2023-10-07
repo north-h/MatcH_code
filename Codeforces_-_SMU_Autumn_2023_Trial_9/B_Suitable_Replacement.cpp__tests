@@ -9,8 +9,8 @@
 	{
 		"correct_answers":
 		[
-			"azbz",
-			"azba"
+			"azba",
+			"azbz"
 		],
 		"test": "??b?\nza\n"
 	},
@@ -20,5 +20,8 @@
 			"abcd"
 		],
 		"test": "abcd\nabacaba\n"
+	},
+	{
+		"test": "???????bb\nabaa\n"
 	}
 ]
