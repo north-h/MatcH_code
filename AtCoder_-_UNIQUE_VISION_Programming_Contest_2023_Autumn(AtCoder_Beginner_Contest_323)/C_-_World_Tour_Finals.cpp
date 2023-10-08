@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-06 10:13:50
+ * Time:    2023-10-08 14:35:23
  *
- * Problem: C. The Same Calendar
- * Contest: Codeforces - SMU Autumn 2023 Trial 10
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/475598/problem/C
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: C - World Tour Finals
+ * Contest: AtCoder - UNIQUE VISION Programming Contest 2023 Autumn(AtCoder Beginner Contest 323)
+ * URL:     https://atcoder.jp/contests/abc323/tasks/abc323_c
+ * MemoryL: 1024 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -46,21 +46,43 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-bool check(int n) {
-    if(n % 400 == 0 || n % 4 == 0 && n % 100 != 0)return true;
-    return false;
-}
-
 void solve() {
-    int n;
-    cin >> n;
-    int ans = 0;
-    for(int i = n + 1;; i++) {
-        if(check(i - 1))ans++;
-        if(((i - n) * 365 + ans) % 7 == 0 && (check(i) == check(n))) {
-            cout << i << endl;
-            return ;
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(m + 1);
+    for(int i = 1; i <= m; i++) {
+        cin >> a[i];
+    }
+    vector<int> b(m + 1);
+    vector<string> s(n + 1);
+    int mx = 0;
+    for(int i = 1; i <= n; i++) {
+        cin >> s[i];
+        // debug1(s[i]);
+        int score = 0;
+        for(int j = 0; j < s.size(); j++) {
+            if(s[i][j] == 'o')score += a[j + 1];
         }
+        debug1(score);
+        b[i] = score;
+        mx = max(score, mx);
+    }
+    for(int i = 1; i <= n; i++) {
+        if(mx != b[i]) {
+            int res = mx - b[i];
+            debug1(res);
+            int cnt = 0;
+            int sum=0;
+            for(int j = s[i].size() - 1; j >= 0; j--) {
+                if(a[j+1]>)
+                if(s[i][j] == 'x') {
+                    if(sum < res)cnt++, sum += a[j + 1];
+                    else break;
+                }
+            }
+            // mx=max(sum)
+            cout << cnt << endl;
+        } else cout << 0 << endl;
     }
 }
 

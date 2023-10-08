@@ -1,1 +1,23 @@
-[{"test": "2016\n", "correct_answers": ["2044"]}, {"test": "2000\n", "correct_answers": ["2028"]}, {"test": "50501\n", "correct_answers": ["50507"]}]
+[
+	{
+		"correct_answers":
+		[
+			"2044"
+		],
+		"test": "2016\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2028"
+		],
+		"test": "2000\n"
+	},
+	{
+		"correct_answers":
+		[
+			"50507"
+		],
+		"test": "50501\n"
+	}
+]

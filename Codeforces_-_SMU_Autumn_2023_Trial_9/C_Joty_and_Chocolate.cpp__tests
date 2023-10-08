@@ -1,1 +1,16 @@
-[{"test": "5 2 3 12 15\n", "correct_answers": ["39"]}, {"test": "20 2 3 3 5\n", "correct_answers": ["51"]}]
+[
+	{
+		"correct_answers":
+		[
+			"39"
+		],
+		"test": "5 2 3 12 15\n"
+	},
+	{
+		"correct_answers":
+		[
+			"51"
+		],
+		"test": "20 2 3 3 5\n"
+	}
+]

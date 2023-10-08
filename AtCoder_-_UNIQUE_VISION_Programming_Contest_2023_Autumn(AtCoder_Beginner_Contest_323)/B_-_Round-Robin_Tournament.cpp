@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-06 10:13:50
+ * Time:    2023-10-08 14:35:18
  *
- * Problem: C. The Same Calendar
- * Contest: Codeforces - SMU Autumn 2023 Trial 10
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/475598/problem/C
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: B - Round-Robin Tournament
+ * Contest: AtCoder - UNIQUE VISION Programming Contest 2023 Autumn(AtCoder Beginner Contest 323)
+ * URL:     https://atcoder.jp/contests/abc323/tasks/abc323_b
+ * MemoryL: 1024 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -46,22 +46,32 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-bool check(int n) {
-    if(n % 400 == 0 || n % 4 == 0 && n % 100 != 0)return true;
-    return false;
-}
-
 void solve() {
     int n;
     cin >> n;
-    int ans = 0;
-    for(int i = n + 1;; i++) {
-        if(check(i - 1))ans++;
-        if(((i - n) * 365 + ans) % 7 == 0 && (check(i) == check(n))) {
-            cout << i << endl;
-            return ;
+    map<int, int> mp;
+    for(int i = 1; i <= n; i++)mp[i] = 0;
+    for(int i = 1; i <= n; i++) {
+        string s;
+        cin >> s;
+        s = " " + s;
+        for(int j = 1; j < s.size(); j++) {
+            if(i == j)continue;
+            if(s[j] == 'o')mp[i]++;
+            else mp[j]++;
         }
     }
+    vector<PII> a;
+    for(auto [x, y] : mp) {
+        // cout << x << ' ' << y << endl;
+        a.push_back({y, x});
+    }
+    sort(ALL(a), [](PII x, PII y) {
+        if(x.fi == y.fi)return x.se < y.se;
+        return x.fi > y.fi;
+    });
+    for(auto [x, y] : a)cout << y << ' ';
+    cout << endl;
 }
 
 int32_t main() {

@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-06 10:13:50
+ * Time:    2023-10-08 14:35:14
  *
- * Problem: C. The Same Calendar
- * Contest: Codeforces - SMU Autumn 2023 Trial 10
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/475598/problem/C
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: A - Weak Beats
+ * Contest: AtCoder - UNIQUE VISION Programming Contest 2023 Autumn(AtCoder Beginner Contest 323)
+ * URL:     https://atcoder.jp/contests/abc323/tasks/abc323_a
+ * MemoryL: 1024 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -46,22 +46,18 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-bool check(int n) {
-    if(n % 400 == 0 || n % 4 == 0 && n % 100 != 0)return true;
-    return false;
-}
-
 void solve() {
-    int n;
-    cin >> n;
-    int ans = 0;
-    for(int i = n + 1;; i++) {
-        if(check(i - 1))ans++;
-        if(((i - n) * 365 + ans) % 7 == 0 && (check(i) == check(n))) {
-            cout << i << endl;
+    string s;
+    cin >> s;
+    s = " " + s;
+    for(int i = 2; i < s.size(); i += 2) {
+        if(s[i] == '1') {
+            // cout << i << endl;
+            cout << "No" << endl;
             return ;
         }
     }
+    cout << "Yes" << endl;
 }
 
 int32_t main() {

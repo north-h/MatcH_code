@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-06 10:13:50
+ * Time:    2023-10-08 14:35:35
  *
- * Problem: C. The Same Calendar
- * Contest: Codeforces - SMU Autumn 2023 Trial 10
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/475598/problem/C
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: F - Push and Carry
+ * Contest: AtCoder - UNIQUE VISION Programming Contest 2023 Autumn(AtCoder Beginner Contest 323)
+ * URL:     https://atcoder.jp/contests/abc323/tasks/abc323_f
+ * MemoryL: 1024 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -46,28 +46,12 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-bool check(int n) {
-    if(n % 400 == 0 || n % 4 == 0 && n % 100 != 0)return true;
-    return false;
-}
-
-void solve() {
-    int n;
-    cin >> n;
-    int ans = 0;
-    for(int i = n + 1;; i++) {
-        if(check(i - 1))ans++;
-        if(((i - n) * 365 + ans) % 7 == 0 && (check(i) == check(n))) {
-            cout << i << endl;
-            return ;
-        }
-    }
-}
+void solve() {}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

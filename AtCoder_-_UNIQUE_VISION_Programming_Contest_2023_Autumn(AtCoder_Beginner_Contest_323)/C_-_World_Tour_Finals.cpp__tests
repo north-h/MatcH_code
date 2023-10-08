@@ -1,0 +1,23 @@
+[
+	{
+		"correct_answers":
+		[
+			"0\n1\n1"
+		],
+		"test": "3 4\n1000 500 700 2000\nxxxo\nooxx\noxox\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1\n1\n1\n1\n0"
+		],
+		"test": "5 5\n1000 1500 2000 2000 2500\nxxxxx\noxxxx\nxxxxx\noxxxx\noxxxx\n"
+	},
+	{
+		"correct_answers":
+		[
+			"7\n6\n5\n4\n3\n2\n0"
+		],
+		"test": "7 8\n500 500 500 500 500 500 500 500\nxxxxxxxx\noxxxxxxx\nooxxxxxx\noooxxxxx\nooooxxxx\noooooxxx\nooooooxx\n"
+	}
+]
