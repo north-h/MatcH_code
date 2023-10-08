@@ -1,0 +1,44 @@
+[
+	{
+		"correct_answers":
+		[
+			"TAK"
+		],
+		"test": "oXoxoXo\n"
+	},
+	{
+		"correct_answers":
+		[
+			"TAK"
+		],
+		"test": "bod\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NIE"
+		],
+		"test": "ER\n"
+	},
+	{
+		"correct_answers":
+		[
+			"TAK"
+		],
+		"test": "o\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NIE"
+		],
+		"test": "a\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NIE"
+		],
+		"test": "opo\n"
+	}
+]
