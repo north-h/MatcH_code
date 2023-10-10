@@ -36,6 +36,7 @@
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
+#define debug cout<<"=========================="<<endl;
 #define lf(x)   fixed << setprecision(x)
 const int N = 1010;
 const int M = 1910;
@@ -45,7 +46,42 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n);
+    vector<int> b = {2, 2, 3};
+    for (auto &i : a)cin >> i;
+    sort(ALL(a));
+    ll ans = 0;
+    do {
+        ll res = 0;
+        ll sum = m;
+        vector<int> temp = b;
+        for (auto i : a) {
+            // for(auto i : b)cout << i << ' ';
+            // cout << endl;
+            if (sum > i) {
+                res++;
+                sum += i / 2;
+            } else {
+                while (sum <= i && temp.size()) {
+                    sum *= temp.back();
+                    temp.pop_back();
+                }
+                if(sum > i) {
+                    sum += i / 2;
+                    res++;
+                }
+            }
+            //     debug1(sum);
+            // debug2(i, res);
+            // debug;
+        }
+        ans = max(ans, res);
+    } while (next_permutation(ALL(b)));
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

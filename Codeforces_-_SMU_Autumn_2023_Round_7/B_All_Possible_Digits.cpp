@@ -45,7 +45,49 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, p;
+    cin >> n >> p;
+    vector<int> a(n);
+    for(auto &i : a) {
+        cin >> i;
+        if(i == 0)i = p;
+    }
+    set<int> pre, post;
+    for(auto i : a) {
+        if(i < a.back())pre.insert(i);
+        if(i > a.back())post.insert(i);
+    }
+    // for(auto i : pre)cout << i << ' ';
+    // cout << endl;
+    // for(auto i : post)cout << i << ' ';
+    // cout << endl;
+    int le = pre.size();
+    int lt = post.size();
+    // debug2(le, lt);
+    if(le + lt + 1 == p) {
+        cout << 0 << endl;
+        return ;
+    }
+    // set<int> se, st;
+    // if(se.size())mxe = *max_element(ALL(se));
+    // if(st.size())mxt = *max_element(ALL(st));
+    int ans = 0;
+    int mxe = -1, mxt = -1;
+    for(int i = 1; i < a.back(); i++) {
+        if(!pre.count(i))mxe = max(mxe, i);
+    }
+    for(int i = a.back() + 1; i <= p; i++) {
+        if(!post.count(i))mxt = max(mxt, i);
+    }
+    debug2(mxe, mxt);
+    if(mxe == -1 && mxt != -1) {
+        ans += mxt - a.back();
+    } else {
+        ans += p - a.back() + mxe;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

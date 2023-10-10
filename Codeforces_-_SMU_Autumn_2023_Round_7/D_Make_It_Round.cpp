@@ -48,104 +48,18 @@ using namespace std;
 void solve() {
     int n, m;
     cin >> n >> m;
-    if(n & 1 && n % 10 != 5)cout << n *m << endl;
-    else {
-        int x = n;
-        string s = to_string(m);
-        int res;
-        while(x % 10 == 0)x /= 10;
-        res = x % 100;
-        debug1(x);
-        string ans;
-        for(int i = 0; i < max((int)s.size() - 2, 0ll); i++)ans += '0';
-        if(res == 25) {
-            if(s.size() >= 2) {
-                int x = (s[0] - '0') * 10 + (s[1] - '0');
-                // debug1(x);
-                if(x >= 80) {
-                    ans += "08";
-                } else if(x >= 40) {
-                    ans += "04";
-                } else {
-                    for(int i = x; i >= 1; i--) {
-                        if(i % 2 == 0) {
-                            string s = to_string(i);
-                            reverse(ALL(s));
-                            ans += s;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                for(int i = s[0] - '0'; i >= 1; i--) {
-                    if(i % 2 == 0) {
-                        string s = to_string(i);
-                        reverse(ALL(s));
-                        ans += s;
-                        break;
-                    }
-                }
-            }
-        } else if(res == 5) {
-            if(s.size() >= 2) {
-                int x = (s[0] - '0') * 10 + (s[1] - '0');
-                // debug1(x);
-                if(x >= 80) {
-                    ans += "08";
-                } else if(x >= 60) {
-                    ans += "06";
-                } else if(x >= 40) {
-                    ans += "04";
-                } else if(x >= 20) {
-                    ans += "02";
-                } else {
-                    for(int i = x; i >= 1; i--) {
-                        if(i % 2 == 0) {
-                            string s = to_string(i);
-                            reverse(ALL(s));
-                            ans += s;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                for(int i = s[0] - '0'; i >= 1; i--) {
-                    if(i % 2 == 0) {
-                        string s = to_string(i);
-                        reverse(ALL(s));
-                        ans += s;
-                        break;
-                    }
-                }
-            }
-        } else {
-            if(s.size() >= 2) {
-                int x = (s[0] - '0') * 10 + (s[1] - '0');
-                if(x >= 50) {
-                    ans += "05";
-                } else if(x >= 25) {
-                    ans += "52";
-                } else {
-                    for(int i = x - 1;; i--) {
-                        if(i % 10 == 0 || i % 10 == 5) {
-                            ans += to_string(i);
-                            break;
-                        }
-                    }
-                }
-            } else {
-                for(int i = s[0] - '0';; i--) {
-                    if(i % 10 == 0 || i % 10 == 5) {
-                        ans += to_string(i);
-                        break;
-                    }
-                }
-            }
-        }
-        reverse(ALL(ans));
-        debug1(ans);
-        cout << n *stoi(ans) << endl;
-    }
+    int m2 = 0, m5 = 0;
+    int t = n;
+    while(t % 2 == 0 && t > 0)m2++, t /= 2;
+    t = n;
+    while(t % 5 == 0 && t > 0)m5++, t /= 5;
+    // debug2(m2, m5);
+    int sum = 1;
+    while(m5 < m2 && sum * 5 <= m)m5++, sum *= 5;
+    while(m2 < m5 && sum * 2 <= m)m2++, sum *= 2;
+    // debug1(sum);
+    while(sum * 10 <= m)sum *= 10;
+    cout << sum *n * (m / sum) << endl;
 }
 
 int32_t main() {

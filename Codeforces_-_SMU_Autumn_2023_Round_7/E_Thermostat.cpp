@@ -45,7 +45,17 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int l, r, x, a, b;
+    cin >> l >> r >> x >> a >> b;
+    int l1 = b - x;
+    int r1 = b + x;
+    if(a == b)cout << 0 << endl;
+    else if(abs(a - b) >= x)cout << 1 << endl;
+    else if(l1 < l && r1 > r || abs(l - a) < x && abs(r - a) < x)cout << -1 << endl;
+    else if((abs(a - r) >= x && abs(b - r) >= x) || ((abs(a - l) >= x && abs(b - l) >= x)))cout << 2 << endl;
+    else cout << 3 << endl;
+}
 
 int32_t main() {
     IOS;
