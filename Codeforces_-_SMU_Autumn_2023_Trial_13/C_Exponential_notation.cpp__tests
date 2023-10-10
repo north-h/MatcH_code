@@ -1,0 +1,1 @@
+[{"test": "16\n", "correct_answers": ["1.6E1"]}, {"test": "01.23400\n", "correct_answers": ["1.234"]}, {"test": ".100\n", "correct_answers": ["1E-1"]}, {"test": "100.\n", "correct_answers": ["1E2"]}]
