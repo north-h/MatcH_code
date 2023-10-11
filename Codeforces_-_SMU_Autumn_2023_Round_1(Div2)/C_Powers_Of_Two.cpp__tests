@@ -1,1 +1,37 @@
-[{"test": "9 4\n", "correct_answers": ["YES\n1 2 2 4"]}, {"test": "8 1\n", "correct_answers": ["YES\n8"]}, {"test": "5 1\n", "correct_answers": ["NO"]}, {"test": "3 7\n", "correct_answers": ["NO"]}]
+[
+	{
+		"correct_answers":
+		[
+			"YES\n1 2 2 4"
+		],
+		"test": "9 4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"YES\n8"
+		],
+		"test": "8 1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NO"
+		],
+		"test": "5 1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NO"
+		],
+		"test": "3 7\n"
+	},
+	{
+		"correct_answers":
+		[
+			"YES\n1 2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536 131072 262144 524288 1048576 2097152 4194304 8388608 16777216 33554432 67108864 134217728 268435456"
+		],
+		"test": "536870911 29\n"
+	}
+]

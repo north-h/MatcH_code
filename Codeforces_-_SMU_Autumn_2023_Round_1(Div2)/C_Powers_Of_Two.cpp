@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-09 16:33:45
@@ -10,7 +10,7 @@
  * TimeL:   4000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -41,12 +41,45 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+int lg2[32];
+
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> ans;
+    queue<int> q;
+    int sum = n;
+    for(int i = 30; i >= 0; i--) {
+        if(n >= lg2[i]) {
+            n -= lg2[i];
+            ans.push_back(lg2[i]);
+            // q.push(lg2[i]);
+        }
+    }
+    // for(auto i : ans)cout << i << ' ';
+    // cout << endl;
+    if((int)ans.size() > k || sum < k)cout << "NO" << endl;
+    else  {
+        cout << "YES" << endl;
+        for(int i = 0; ans.size() < k; i++) {
+            while(ans[i] != 1 && ans.size() < k) {
+                ans[i] /= 2;
+                ans.push_back(ans[i]);
+            }
+            if(ans.size() == k)break;
+        }
+        sort(ALL(ans));
+        for(auto i : ans)cout << i << ' ';
+        cout << endl;
+    }
+}
 
 int32_t main() {
+    lg2[0] = 1;
+    for(int i = 1, j = 1; i <= 1e9; i *= 2, j++)lg2[j] = i;
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
