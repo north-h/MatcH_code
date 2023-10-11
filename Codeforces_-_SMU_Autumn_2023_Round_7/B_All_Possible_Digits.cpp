@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -45,54 +45,51 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int cnt = 0;
+int t;
+
 void solve() {
+    cnt++;
     int n, p;
     cin >> n >> p;
-    vector<int> a(n);
-    for(auto &i : a) {
-        cin >> i;
-        if(i == 0)i = p;
+    vector<int> a(n + 1);
+    map<int, int> mp;
+    a[0] = 0;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        mp[a[i]] = 1;
     }
-    set<int> pre, post;
-    for(auto i : a) {
-        if(i < a.back())pre.insert(i);
-        if(i > a.back())post.insert(i);
+    bool ok = true;
+    for(int i = 0; i < a[n]; i++) {
+        if(!mp.count(i)) {
+            ok = false;
+            break;
+        }
     }
-    // for(auto i : pre)cout << i << ' ';
-    // cout << endl;
-    // for(auto i : post)cout << i << ' ';
-    // cout << endl;
-    int le = pre.size();
-    int lt = post.size();
-    // debug2(le, lt);
-    if(le + lt + 1 == p) {
-        cout << 0 << endl;
-        return ;
-    }
-    // set<int> se, st;
-    // if(se.size())mxe = *max_element(ALL(se));
-    // if(st.size())mxt = *max_element(ALL(st));
-    int ans = 0;
-    int mxe = -1, mxt = -1;
-    for(int i = 1; i < a.back(); i++) {
-        if(!pre.count(i))mxe = max(mxe, i);
-    }
-    for(int i = a.back() + 1; i <= p; i++) {
-        if(!post.count(i))mxt = max(mxt, i);
-    }
-    debug2(mxe, mxt);
-    if(mxe == -1 && mxt != -1) {
-        ans += mxt - a.back();
+    if(ok) {
+        int t = p - 1;
+        while(mp[t])t--;
+        cout << max(0ll, t - a[n]) << endl;
     } else {
-        ans += p - a.back() + mxe;
+        int ans = p - a[n];
+        mp[0] = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            a[i]++;
+            if(a[i] == p)a[i] = 0;
+            else break;
+        }
+        for(int i = 0; i <= n; i++)mp[a[i]] = 1;
+        int t = a[n] - 1;
+        while(mp.count(t))t--;
+        cout << ans + max(0ll, t) << endl;
     }
-    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
     cin >> h_h;
+    t = h_h;
     while (h_h--)solve();
     return 0;
 }

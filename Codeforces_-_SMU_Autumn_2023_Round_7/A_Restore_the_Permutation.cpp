@@ -45,7 +45,39 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    set<int> a;
+    unordered_map<int, int> up;
+    vector<int> s(n / 2 + 1);
+    for (int i = 1, x; i <= n / 2; i++) {
+        cin >> s[i];
+        up[s[i]] = 1;
+    }
+    if(up.size() != n / 2) {
+        cout << -1 << endl;
+        return ;
+    }
+    for (int i = 1; i <= n; i++) {
+        if (!up.count(i))
+            a.insert(i);
+    }
+    vector<int> ans;
+    for (int i = n / 2; i >= 1; i--) {
+        ans.push_back(s[i]);
+        auto pos = a.upper_bound(s[i]);
+        if (pos == a.begin()) {
+            cout << -1 << endl;
+            return;
+        }
+        pos--;
+        ans.push_back(*pos);
+        a.erase(pos);
+    }
+    reverse(ALL(ans));
+    for (auto i : ans)cout << i << " \n"[i == ans.back()];
+}
 
 int32_t main() {
     IOS;
