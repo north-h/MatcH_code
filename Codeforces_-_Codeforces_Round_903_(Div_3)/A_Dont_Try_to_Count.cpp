@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-12 00:15:03
+ * Time:    2023-10-12 22:37:57
  *
- * Problem: H. Advertising Agency
- * Contest: Codeforces - SMU Autumn 2023 Round 6
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/476122/problem/H
+ * Problem: A. Don't Try to Count
+ * Contest: Codeforces - Codeforces Round 903 (Div. 3)
+ * URL:     https://codeforces.com/contest/1881/problem/A
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,7 +47,15 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    
+    int n, m;
+    cin >> n >> m;
+    string s, x;
+    cin >> s >> x;
+    int ans = 0;
+    while(s.size() < x.size())s += s, ans++;
+    debug2(s, x);
+    if(s.find(x))cout << ans << endl;
+    else cout << -1 << endl;
 }
 
 int32_t main() {

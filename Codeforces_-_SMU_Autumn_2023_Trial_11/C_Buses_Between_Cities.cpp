@@ -46,12 +46,27 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int a, ta, b, tb;
+    cin >> a >> ta >> b >> tb;
+    string s;
+    cin >> s;
+    int h = (s[0] - '0') * 10 + s[1] - '0';
+    int m = (s[3] - '0') * 10 + s[4] - '0';
+    int as = h * 60 + m;
+    int ae = min(1439, as + ta);
+    int ans = 0;
+    int bs = 300;
+    for(int i = 300; i < 1439; i += b) {
+        if(i > as && i < ae)ans++;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

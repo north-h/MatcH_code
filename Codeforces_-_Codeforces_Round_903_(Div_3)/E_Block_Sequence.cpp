@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-12 00:15:03
+ * Time:    2023-10-12 22:38:14
  *
- * Problem: H. Advertising Agency
- * Contest: Codeforces - SMU Autumn 2023 Round 6
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/476122/problem/H
+ * Problem: E. Block Sequence
+ * Contest: Codeforces - Codeforces Round 903 (Div. 3)
+ * URL:     https://codeforces.com/contest/1881/problem/E
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -46,9 +46,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    
-}
+void solve() {}
 
 int32_t main() {
     IOS;
