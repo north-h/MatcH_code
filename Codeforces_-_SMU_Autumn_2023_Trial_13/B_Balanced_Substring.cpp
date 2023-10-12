@@ -38,7 +38,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 10010;
+const int N = 100010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,12 +46,34 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+// int mp[N];
+
+void solve() {
+    int n;
+    string  ss;
+    map<int, int> mp;
+    cin >> n >> ss;
+    vector<int> s(n + 1);
+    for(int i = 0; i < n; i++) {
+        if(ss[i] == '1')s[i + 1] = 1;
+        else s[i + 1] = -1;
+    }
+    for(int i = 1; i <= n; i++) {
+        s[i] += s[i - 1];
+        // debug1(s[i]);
+        mp[s[i]] = max(mp[s[i]], i);
+    }
+    int ans = 0;
+    for(int i = 1; i <= n; i++) {
+        ans = max(ans, mp[s[i - 1]] - i + 1);
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,1 +1,30 @@
-[{"test": "8\n11010111\n", "correct_answers": ["4"]}, {"test": "3\n111\n", "correct_answers": ["0"]}]
+[
+	{
+		"correct_answers":
+		[
+			"4"
+		],
+		"test": "8\n11010111\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "3\n111\n"
+	},
+	{
+		"correct_answers":
+		[
+			"10"
+		],
+		"test": "10\n1010101010\n"
+	},
+	{
+		"correct_answers":
+		[
+			"10"
+		],
+		"test": "14\n00000100101011\n"
+	}
+]
