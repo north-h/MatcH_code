@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-09 16:34:10
@@ -10,7 +10,7 @@
  * TimeL:   1000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,12 +41,22 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int  n, x, y;
+    cin >> n >> x >> y;
+    int ans = 0;
+    for(int i = 0, x0; i < n; i++) {
+        cin >> x0;
+        if(x0 <= x)ans++;
+    }
+    if(x > y)cout << n << endl;
+    else cout << (ans + 1) / 2 << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

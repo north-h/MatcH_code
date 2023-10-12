@@ -1,1 +1,16 @@
-[{"test": "5\n3 5\n1 4\n2 4\n1 5\n2 3\n", "correct_answers": ["3 2 4 1 5"]}, {"test": "3\n2 3\n3 1\n1 2\n", "correct_answers": ["3 1 2"]}]
+[
+	{
+		"correct_answers":
+		[
+			"3 2 4 1 5"
+		],
+		"test": "5\n3 5\n1 4\n2 4\n1 5\n2 3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"3 1 2"
+		],
+		"test": "3\n2 3\n3 1\n1 2\n"
+	}
+]

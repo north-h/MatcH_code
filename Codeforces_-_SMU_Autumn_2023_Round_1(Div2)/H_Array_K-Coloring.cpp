@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-09 16:34:06
@@ -10,7 +10,7 @@
  * TimeL:   2000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -41,12 +41,40 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<PII> a(n);
+    map<int, int>  mp;
+    int res = 0;
+    for(int i = 0; i < n; i++) {
+        cin >> a[i].fi;
+        a[i].se = i;
+        mp[a[i].fi]++;
+    }
+    sort(ALL(a));
+    int mx = 0;
+    for(auto [x, y] : mp)mx = max(mx, y);
+    if(mx > k || n < k)cout << "NO" << endl;
+    else {
+        vector<int> ans(n);
+        int t = k;
+        for(int i = 1; i < n; i++) {
+            ans[a[i - 1].se] = t;
+            t--;
+            if(t == 0)t = k;
+        }
+        ans[a[n - 1].se] = t;
+        cout << "YES" << endl;
+        for(auto i : ans)cout << i << ' ';
+        cout << endl;
+    }
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,4 +1,4 @@
-/* 
+/*
  * ==================================================================================
  * Author:  north_h
  * Time:    2023-09-09 16:33:49
@@ -10,7 +10,7 @@
  * TimeL:   3000 ms
  * ==================================================================================
  */
- 
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -33,6 +33,7 @@
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
 #define endl '\n'
+#define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl;
 const int N = 10010;
 const int M = 1910;
 const int MOD = 98244353;
@@ -41,12 +42,39 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), b(n + 1), ans;
+    for(int i = 1; i <= n; i++)cin >> a[i] >> b[i];
+    if(n == 3) {
+        cout << "1 2 3" << endl;
+        return ;
+    }
+    set<int> st;
+    st.insert(1);
+    ans.push_back(1);
+    for(int i = 0; ans.size() < n; i++) {
+        int x = a[ans[i]], y = b[ans[i]];
+        // debug2(x, y);
+        if(a[x] != y && b[x] != y) {
+            if(!st.count(y))ans.push_back(y);
+            if(!st.count(x))ans.push_back(x);
+        } else {
+            if(!st.count(x))ans.push_back(x);
+            if(!st.count(y))ans.push_back(y);
+        }
+        st.insert(x);
+        st.insert(y);
+    }
+    for(auto i : ans)cout << i << ' ';
+    cout << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
