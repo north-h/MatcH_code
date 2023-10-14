@@ -46,47 +46,53 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int get(int x) {
-    int ans = 0;
-    while(x) {
-        ans++;
-        x /= 10;
-    }
-    return ans;
-}
-
 void solve() {
     string s;
     cin >> s;
-    while(s.back() == '0')s.pop_back();
-    reverse(ALL(s));
-    while(s.back() == '0')s.pop_back();
-    reverse(ALL(s));
-    cout << s << endl;
-    int pos;
-    for(int i = 0; i < s.size(); i++) {
-        if(s[i] == '.') {
-            pos = i;
+    bool ok = true;
+    for(auto i : s) {
+        if(i == '.') {
+            ok = false;
             break;
         }
     }
-    int pre = 0;
-    int post = 0;
-    for(int i = 0; i < pos; i++)pre = pre * 10 + (s[i] - '0');
-    for(int i = pos + 1; i < s.size(); i++)post = post * 10 + (s[i] - '0');
-    int len = 0;
-    for(int i = pos + 1; i < s.size(); i++) {
-        if(s[i] == '0')len++;
-        else break;
-    }
-    string str = s.substr(0, pos + 1);
-    if(pre != 0) {
-        cout << s.substr(0, 1) << '.' << s.substr(2, pos - 2) << 'E' << str.size() - 1 << endl;
+    if(!ok)while(s.back() == '0')s.pop_back();
+    reverse(ALL(s));
+    while(s.back() == '0')s.pop_back();
+    reverse(ALL(s));
+    // debug2(s, ok);
+    if(s[0] == '.') {
+        int pos;
+        for(int i = 1; i < s.size(); i++) {
+            if(s[i] != '0') {
+                pos = i;
+                break;
+            }
+        }
+        string s1 = s.substr(pos, 1) + '.' + s.substr(pos + 1);
+        while(s1.back() == '0')s1.pop_back();
+        if(s1.back() == '.')s1.pop_back();
+        cout << s1 << 'E' << -pos << endl;
     } else {
-
+        if(ok)s += '.';
+        int pos;
+        for(int i = 0; i < s.size(); i++) {
+            if(s[i] == '.') {
+                pos = i;
+                break;
+            }
+        }
+        string s1;
+        for(int i = 0; i < s.size(); i++) {
+            if(s[i] != '.')s1 += s[i];
+        }
+        string s2 = s1.substr(0, 1) + '.' + s1.substr(1);
+        while(s2.back() == '0')s2.pop_back();
+        if(s2.back() == '.')s2.pop_back();
+        if(pos - 1 == 0)cout << s2 << endl;
+        else cout << s2 << 'E' << pos - 1 << endl;
     }
 }
-
 int32_t main() {
     IOS;
     int h_h = 1;

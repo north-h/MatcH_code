@@ -1,0 +1,37 @@
+[
+	{
+		"correct_answers":
+		[
+			"2"
+		],
+		"test": "abacaba\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1"
+		],
+		"test": "zzzzz\n"
+	},
+	{
+		"correct_answers":
+		[
+			"3"
+		],
+		"test": "abcde\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1"
+		],
+		"test": "a\n"
+	},
+	{
+		"correct_answers":
+		[
+			"8"
+		],
+		"test": "bbbbbbajsklsmm\n"
+	}
+]
