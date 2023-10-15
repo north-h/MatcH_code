@@ -1,11 +1,11 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-14 14:01:49
+ * Time:    2023-10-15 13:03:08
  *
- * Problem: C. Magic Ship
- * Contest: Codeforces - SMU Autumn 2023 Trial 14
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/478090/problem/C
+ * Problem: E. Permutation Sort
+ * Contest: Codeforces - SMU Autumn 2023 Round 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/479563/problem/E
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ===========================================================================
@@ -45,29 +45,29 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int check(int x1, int y1, int x2, int y2) {
-    if(x2 >= x1 && y2 >= y1)return 1;
-    else if(x2 <= x1 && y2 >= y1)return 2;
-    else if(x2 <= x1 && y2 <= y1)return 3;
-    if(x2 >= x1 && y2 <= y1)return 4;
-}
-
 void solve() {
-    int x1, y1, x2, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
     int n;
     cin >> n;
-    string s;
-    cin >> s;
-    int xx=check(x1,y1,x2,y2);
-    
-
+    vector<int> a(n + 1), b(n + 1);
+    int l = n, r = 1;
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        if(a[i] != i) {
+            l = min(l, i);
+            r = max(r, i);
+        }
+    }
+    // debug2(l, r);
+    if(l == n && r == 1)cout << 0 << endl;
+    else if(l > 1 && r <= n || l >= 1 && r < n)cout << 1 << endl;
+    else if(l == 1 && r == n && (a[n] == 1 && a[1] == n))cout << 3 << endl;
+    else cout << 2 << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

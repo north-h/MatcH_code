@@ -1,13 +1,13 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-14 14:01:49
+ * Time:    2023-10-15 13:03:16
  *
- * Problem: C. Magic Ship
- * Contest: Codeforces - SMU Autumn 2023 Trial 14
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/478090/problem/C
+ * Problem: G. Digits Sequence Dividing
+ * Contest: Codeforces - SMU Autumn 2023 Round 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/479563/problem/G
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ===========================================================================
  */
 #pragma GCC optimize("Ofast")
@@ -45,29 +45,22 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int check(int x1, int y1, int x2, int y2) {
-    if(x2 >= x1 && y2 >= y1)return 1;
-    else if(x2 <= x1 && y2 >= y1)return 2;
-    else if(x2 <= x1 && y2 <= y1)return 3;
-    if(x2 >= x1 && y2 <= y1)return 4;
-}
-
 void solve() {
-    int x1, y1, x2, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
     int n;
-    cin >> n;
     string s;
-    cin >> s;
-    int xx=check(x1,y1,x2,y2);
-    
-
+    cin >> n >> s;
+    if(n == 2 && s[0] >= s[1])cout << "NO" << endl;
+    else {
+        cout << "YES" << endl;
+        cout << 2 << endl;
+        cout << s[0] << ' ' << s.substr(1) << endl;
+    }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

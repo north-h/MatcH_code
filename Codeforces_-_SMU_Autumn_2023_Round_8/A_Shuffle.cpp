@@ -1,13 +1,13 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-14 14:01:49
+ * Time:    2023-10-15 13:02:16
  *
- * Problem: C. Magic Ship
- * Contest: Codeforces - SMU Autumn 2023 Trial 14
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/478090/problem/C
+ * Problem: A. Shuffle
+ * Contest: Codeforces - SMU Autumn 2023 Round 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/479563/problem/A
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ===========================================================================
  */
 #pragma GCC optimize("Ofast")
@@ -45,29 +45,45 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int check(int x1, int y1, int x2, int y2) {
-    if(x2 >= x1 && y2 >= y1)return 1;
-    else if(x2 <= x1 && y2 >= y1)return 2;
-    else if(x2 <= x1 && y2 <= y1)return 3;
-    if(x2 >= x1 && y2 <= y1)return 4;
-}
+//0 0 0 1 0 0
 
 void solve() {
-    int x1, y1, x2, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    int xx=check(x1,y1,x2,y2);
-    
-
+    int n, x, m;
+    cin >> n >> x >> m;
+    vector<PII> a;
+    bool ok = true;
+    while(m--) {
+        int lx, ly;
+        cin >> lx >> ly;
+        if(ok) {
+            if(x >= lx && x <= ly)ok = false;
+            else continue;
+        }
+        a.push_back({lx, ly});
+    }
+    // sort(ALL(a));
+    // for(auto [x, y] : a)cout << x << ' ' << y << endl;
+    if(a.size() == 0) {
+        cout << 1 << endl;
+        return  ;
+    }
+    int l = a[0].fi, r = a[0].se;
+    for(int i = 1; i < a.size(); i++) {
+        if(a[i].fi > r || a[i].se < l) {
+            continue;
+        } else {
+            l = min(l, a[i].fi);
+            r = max(r, a[i].se);
+        }
+    }
+    ll ans = r - l + 1;
+    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

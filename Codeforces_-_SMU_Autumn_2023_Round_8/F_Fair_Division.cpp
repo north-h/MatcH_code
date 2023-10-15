@@ -1,11 +1,11 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-14 14:01:49
+ * Time:    2023-10-15 13:03:12
  *
- * Problem: C. Magic Ship
- * Contest: Codeforces - SMU Autumn 2023 Trial 14
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/478090/problem/C
+ * Problem: F. Fair Division
+ * Contest: Codeforces - SMU Autumn 2023 Round 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/479563/problem/F
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ===========================================================================
@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -45,29 +45,25 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int check(int x1, int y1, int x2, int y2) {
-    if(x2 >= x1 && y2 >= y1)return 1;
-    else if(x2 <= x1 && y2 >= y1)return 2;
-    else if(x2 <= x1 && y2 <= y1)return 3;
-    if(x2 >= x1 && y2 <= y1)return 4;
-}
-
 void solve() {
-    int x1, y1, x2, y2;
-    cin >> x1 >> y1 >> x2 >> y2;
     int n;
     cin >> n;
-    string s;
-    cin >> s;
-    int xx=check(x1,y1,x2,y2);
-    
-
+    int v1 = 0, v2 = 0;
+    for(int i = 0, x; i < n; i++) {
+        cin >> x;
+        if(x == 1)v1++;
+        else v2++;
+    }
+    int x = v1 / 2;//0 1 2 3
+    int y = v2 % 2;//0 1
+    if(y == 1 && x == 0 || v1 & 1)cout << "NO" << endl;
+    else cout << "YES" << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
