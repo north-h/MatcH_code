@@ -12,5 +12,40 @@
 			"abdc"
 		],
 		"test": "acdb\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abcdefg"
+		],
+		"test": "abcdefg\n"
+	},
+	{
+		"correct_answers":
+		[
+			"aaacdhhhhkvv"
+		],
+		"test": "avvakahhhcdh\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abckkkk"
+		],
+		"test": "abckkkk\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abckk"
+		],
+		"test": "cbakk\n"
+	},
+	{
+		"correct_answers":
+		[
+			"aaacccddddd"
+		],
+		"test": "acacacddddd\n"
 	}
 ]

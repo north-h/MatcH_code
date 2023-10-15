@@ -47,9 +47,32 @@ using namespace std;
 
 void solve() {
     string s;
-    cin>>s;
-    map<char,int> mp;
-
+    cin >> s;
+    map<char, int> mp;
+    for(auto i : s)mp[i]++;
+    vector<char> b;
+    for(auto[x, y] : mp) {
+        // cout << x << ' ' << y << endl;
+        b.push_back(x);
+    }
+    reverse(ALL(b));
+    string t, u;
+    for(auto i : s) {
+        mp[i]--;
+        if(i <= b.back()) {
+            u += i;
+        } else t += i;
+        while(b.size() && !mp[b.back()]) {
+            b.pop_back();
+        }
+        while(t.size() && t.back() <= b.back()) {
+            u += t.back();
+            t.pop_back();
+        }
+    }
+    reverse(ALL(t));
+    for(auto i : t)u += i;
+    cout << u << endl;
 }
 
 int32_t main() {
