@@ -48,62 +48,53 @@ using namespace std;
 void solve() {
     int a, b;
     cin >> a >> b;
-    if(a < b)swap(a, b);
-    // for(int i = 0; i <= b / 3; i++) {
-    //     cout << i << ':';
-    //     int x = a - i * 3;
-    //     int y = b - i * 3;
-    //     cout << i * 2 + min(x / 2, y) << endl;
-    //     debug2(x, y);
-    //     debug1(x * 1.0 / y);
-    //     // ans = max(ans, i * 2 + min(x / 2, y));
-    // }
-    // // cout << ans << endl;
-    if(a == 0 || b == 0) {
-        cout << 0 << endl;
-        return ;
-    }
-    if(a == b) {
-        int x = a / 3;
-        int y = a % 3;
-        cout << x * 2 + (y >= 2) << endl;
-        return ;
-    }
-    int l = 0, r = b / 3, res = 0;
-    // debug2(l, r);
-    while(l <= r) {
-        int mid = l + r >> 1;
-        int x = a - mid * 3;
-        int y = b - mid * 3;
-        // debug1(x * 1.0 / y);
-        if((x * 1.0 / y) >= 2)r = mid - 1, res = mid;
-        else l = mid + 1;
-    }
-    // debug1(res);
-    int x = a - res * 3;
-    int y = b - res * 3;
-    int ans = res * 2 + min(x / 2, y);
-    if(res >= 1) {
-        x = a - (res - 1) * 3;
-        y = b - (res - 1) * 3;
-        ans = max(ans, (res - 1) * 2 + min(x / 2, y));
-    }
-    if(res >= 2) {
-        x = a - (res - 2) * 3;
-        y = b - (res - 2) * 3;
-        ans = max(ans, (res - 2) * 2 + min(x / 2, y));
-    }
-    if(res <= b / 3) {
-        x = a - (res + 1) * 3;
-        y = b - (res + 1) * 3;
-        ans = max(ans, (res + 1) * 2 + min(x / 2, y));
-    }
-    if(res <= b / 3) {
-        x = a - (res + 2) * 3;
-        y = b - (res + 2) * 3;
-        ans = max(ans, (res + 2) * 2 + min(x / 2, y));
-    }
-    cout << ans << endl;
+    cout << min((a + b) / 3, min(a, b)) << endl;
+    //     if(a < b)swap(a, b);
+    //     if(a == 0 || b == 0) {
+    //         cout << 0 << endl;
+    //         return ;
+    //     }
+    //     if(a == b) {
+    //         int x = a / 3;
+    //         int y = a % 3;
+    //         cout << x * 2 + (y >= 2) << endl;
+    //         return ;
+    //     }
+    //     int l = 0, r = b / 3, res = 0;
+    //     // debug2(l, r);
+    //     while(l <= r) {
+    //         int mid = l + r >> 1;
+    //         int x = a - mid * 3;
+    //         int y = b - mid * 3;
+    //         // debug1(x * 1.0 / y);
+    //         if((x * 1.0 / y) >= 2)r = mid - 1, res = mid;
+    //         else l = mid + 1;
+    //     }
+    //     // debug1(res);
+    //     int x = a - res * 3;
+    //     int y = b - res * 3;
+    //     int ans = res * 2 + min(x / 2, y);
+    //     if(res >= 1) {
+    //         x = a - (res - 1) * 3;
+    //         y = b - (res - 1) * 3;
+    //         ans = max(ans, (res - 1) * 2 + min(x / 2, y));
+    //     }
+    //     if(res >= 2) {
+    //         x = a - (res - 2) * 3;
+    //         y = b - (res - 2) * 3;
+    //         ans = max(ans, (res - 2) * 2 + min(x / 2, y));
+    //     }
+    //     if(res <= b / 3) {
+    //         x = a - (res + 1) * 3;
+    //         y = b - (res + 1) * 3;
+    //         ans = max(ans, (res + 1) * 2 + min(x / 2, y));
+    //     }
+    //     if(res <= b / 3) {
+    //         x = a - (res + 2) * 3;
+    //         y = b - (res + 2) * 3;
+    //         ans = max(ans, (res + 2) * 2 + min(x / 2, y));
+    //     }
+    //     cout << ans << endl;
 }
 
 int32_t main() {
