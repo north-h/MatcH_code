@@ -54,17 +54,38 @@ void solve() {
         cin >> a[i];
     }
     vector<int> b(n + 1, 0);
+    set<int> st;
     for(int i = 1; i < m; i++) {
         if(a[i - 1] < a[i]) {
             // b.push_back(a[i] - a[i - 1]);
+            if(b[a[i - 1]] != 0 && b[a[i - 1]] != a[i] - a[i - 1]) {
+                cout << -1 << endl;
+                return ;
+            }
             b[a[i - 1]] = a[i] - a[i - 1];
+            st.insert(a[i] - a[i - 1]);
         } else {
             // b.push_back(n - a[i - 1] + a[i]);
+            if(b[a[i - 1]] != 0 && b[a[i - 1]] != n - a[i - 1] + a[i]) {
+                cout << -1 << endl;
+                return ;
+            }
             b[a[i - 1]] = n - a[i - 1] + a[i];
+            st.insert(n - a[i - 1] + a[i]);
         }
     }
-    for(int i = 1; i <= n; i++)cout << b[i] << ' ';
-    cout << endl;
+    // for(int i = 1; i <= n; i++)cout << b[i] << ' ';
+    // cout << endl;
+    vector<int> d;
+    for(int i = 1; i <= n; i++) {
+        if(!st.count(i))d.push_back(i);
+    }
+    for(int i = 1; i <= n; i++) {
+        if(b[i] == 0) {
+            b[i] = d.back();
+            d.pop_back();
+        }
+    }
     vector<int> c = b;
     sort(ALL(c));
     for(int i = 1; i <= n; i++) {
@@ -73,6 +94,8 @@ void solve() {
             return ;
         }
     }
+    for(int i = 1; i <= n; i++)cout << b[i] << ' ';
+    cout << endl;
 }
 
 int32_t main() {

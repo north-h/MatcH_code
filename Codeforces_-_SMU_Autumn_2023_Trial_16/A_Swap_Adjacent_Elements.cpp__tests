@@ -1,1 +1,23 @@
-[{"correct_answers": ["YES"], "test": "6\n1 2 5 3 4 6\n01110\n"}, {"correct_answers": ["NO"], "test": "6\n1 2 5 3 4 6\n01010\n"}]
+[
+	{
+		"correct_answers":
+		[
+			"YES"
+		],
+		"test": "6\n1 2 5 3 4 6\n01110\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NO"
+		],
+		"test": "6\n1 2 5 3 4 6\n01010\n"
+	},
+	{
+		"correct_answers":
+		[
+			"YES"
+		],
+		"test": "5\n1 2 3 4 5\n10101\n"
+	}
+]

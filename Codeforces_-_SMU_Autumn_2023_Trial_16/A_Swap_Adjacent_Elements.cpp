@@ -46,12 +46,35 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(auto &i : a)cin >> i;
+    string s;
+    cin >> s;
+    int l = 0, r = 0, cnt;
+    vector<PII> b;
+    for(int i = 0; i < n; i++) {
+        if(s[i] == '1')cnt++;
+        else {
+            int l = i - cnt, r = i;
+            if(l < r)b.push_back({l, r});
+            cnt = 0;
+        }
+    }
+    if(l < r)b.push_back({l, r});
+    for(auto [x, y] : b) {
+        sort(a.begin() + x, a.begin() + y + 1);
+    }
+    if(is_sorted(ALL(a)))cout << "YES" << endl;
+    else cout << "NO" << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
