@@ -45,23 +45,28 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int check(int x1, int y1, int x2, int y2) {
-    if(x2 >= x1 && y2 >= y1)return 1;
-    else if(x2 <= x1 && y2 >= y1)return 2;
-    else if(x2 <= x1 && y2 <= y1)return 3;
-    if(x2 >= x1 && y2 <= y1)return 4;
-}
+
 
 void solve() {
     int x1, y1, x2, y2;
     cin >> x1 >> y1 >> x2 >> y2;
-    int n;
-    cin >> n;
     string s;
-    cin >> s;
-    int xx=check(x1,y1,x2,y2);
+    cin>>s;
+    int n=s.size();
+    vector<int> u(n+1),d(n+1),l(n+1),r(n+1);
+    for(int i=0;i<n;i++){
+        if(s[i]=='U')u[i+1]=1;
+        else if(s[i]=='D')d[i+1]=1;
+        else if(s[i]=='L')l[i+1]=1;
+        else r[i+1]=1;
+    }
+    for(int i=1;i<n;i++){
+        u[i]+=u[i-1];
+        d[i]+=d[i-1];
+        l[i]+=l[i-1];
+        r[i]+=r[i-1];
+    }
     
-
 }
 
 int32_t main() {
