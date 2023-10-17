@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -45,28 +45,41 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-
-
 void solve() {
     int x1, y1, x2, y2;
     cin >> x1 >> y1 >> x2 >> y2;
+    int n;
+    cin >> n;
     string s;
-    cin>>s;
-    int n=s.size();
-    vector<int> u(n+1),d(n+1),l(n+1),r(n+1);
-    for(int i=0;i<n;i++){
-        if(s[i]=='U')u[i+1]=1;
-        else if(s[i]=='D')d[i+1]=1;
-        else if(s[i]=='L')l[i+1]=1;
-        else r[i+1]=1;
+    cin >> s;
+    s = " " + s;
+    vector<int> dx(n + 1), dy(n + 1);
+    for (int i = 1; i <= n; i++) {
+        dx[i] = dx[i - 1];
+        dy[i] = dy[i - 1];
+        if (s[i] == 'U')dy[i]++;
+        else if (s[i] == 'D')dy[i]--;
+        else if (s[i] == 'L')dx[i]--;
+        else dx[i]++;
     }
-    for(int i=1;i<n;i++){
-        u[i]+=u[i-1];
-        d[i]+=d[i-1];
-        l[i]+=l[i-1];
-        r[i]+=r[i-1];
+    auto check = [&](int x) -> bool {
+        int day = x / n;
+        int days = x % n;
+        int xx = x1 + dx[n] * day + dx[days];
+        int yy = y1 + dy[n] * day + dy[days];
+        int dx = abs(xx - x2);
+        int dy = abs(yy - y2);
+        int res = dx + dy;
+        return res <= x;
+    };
+    int ll = 0, rr = 1e15, ans = -1;
+    while (ll <= rr) {
+        int mid = ll + rr >> 1;//二分天数
+        // cout << ll << ' ' << rr << endl;
+        if (check(mid))rr = mid - 1, ans = mid;
+        else ll = mid + 1;
     }
-    
+    cout << ans << endl;
 }
 
 int32_t main() {
