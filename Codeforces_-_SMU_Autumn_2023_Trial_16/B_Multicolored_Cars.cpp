@@ -46,12 +46,33 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, A;
+    cin >> n >> A;
+    vector<int> c(n);
+    unordered_map<int, int>up;
+    for(int i = 0; i < n; i++) {
+        cin >> c[i];
+        if(c[i] == A)up[A]++;
+        else {
+            if(up[c[i]] >= up[A])up[c[i]]++;
+            else up[c[i]] = -1;
+        }
+    }
+    int mx = *max_element(ALL(c));
+    for(int i = 1; i <= mx; i++) {
+        if(up[i] >= up[A] && i != A) {
+            cout << i << endl;
+            return ;
+        }
+    }
+    cout << -1 << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

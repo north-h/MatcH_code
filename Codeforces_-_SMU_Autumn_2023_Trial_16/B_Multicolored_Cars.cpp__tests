@@ -1,1 +1,32 @@
-[{"correct_answers": ["2"], "test": "4 1\n2 1 4 2\n"}, {"correct_answers": ["-1"], "test": "5 2\n2 2 4 5 3\n"}, {"correct_answers": ["4"], "test": "3 10\n1 2 3\n"}]
+[
+	{
+		"correct_answers":
+		[
+			"2"
+		],
+		"test": "4 1\n2 1 4 2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "5 2\n2 2 4 5 3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"4"
+		],
+		"test": "3 10\n1 2 3\n"
+	},
+	{
+		"test": "1 2\n2\n"
+	},
+	{
+		"test": "10 6\n8 5 1 6 6 5 10 6 9 8\n"
+	},
+	{
+		"test": "3 2\n1 2 3\n"
+	}
+]
