@@ -1,0 +1,18 @@
+[
+	{
+		"correct_answers":
+		[
+			"cadb\ngg\ncodfoerces\nNo answer"
+		],
+		"test": "4\nabcd\ngg\ncodeforces\nabaca\n"
+	},
+	{
+		"test": "1\nad\n"
+	},
+	{
+		"test": "1\nabc\n"
+	},
+	{
+		"test": "1\nceb\n"
+	}
+]
