@@ -60,20 +60,25 @@ void solve() {
         } else b.push_back({l, r});
     }
     for(int i = 1; i <= n; i++)s[i] = s[i - 1] + a[i];
+    // for(int i = 1; i <= n; i++)cout << s[i] << ' ';
+    // cout << endl;
     for(int i = 1; i <= n; i++) {
         if(s[i])s[i] = 1;
         else s[i] = 0;
     }
     for(int i = 1; i <= n; i++)ss[i] = ss[i - 1] + s[i];
+    // for(int i = 1; i <= n; i++)cout << ss[i] << ' ';
+    // cout << endl;
     for(auto [l, r] : b) {
-        if(ss[r] - ss[l - 1] == r - l + 1) {
+        // debug2(l, r);
+        if(ss[r - 1] - ss[l - 1] == r - l) {
             cout << "NO" << endl;
             return ;
         }
     }
     cout << "YES" << endl;
-    int mx = n;
-    for(int i = 2; i <= n; i++) {
+    int mx = n + 1;
+    for(int i = 1; i <= n; i++) {
         if(s[i - 1])cout << mx << ' ';
         else {
             mx--;
