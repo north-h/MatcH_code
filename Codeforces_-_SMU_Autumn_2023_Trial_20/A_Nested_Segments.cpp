@@ -46,12 +46,35 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+struct S {
+    int fi, se, id;
+};
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<S> a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i].fi >> a[i].se;
+        a[i].id = i + 1;
+    }
+    sort(ALL(a), [](S a, S b) {
+        if(a.fi != b.fi)return a.fi < b.fi;
+        return a.se > b.se;
+    });
+    for(int i = 1; i < n; i++) {
+        if(a[i].fi >= a[i - 1].fi && a[i].se <= a[i - 1].se) {
+            cout << a[i].id << ' ' << a[i - 1].id << endl;
+            return ;
+        }
+    }
+    cout << -1 << ' ' << -1 << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
