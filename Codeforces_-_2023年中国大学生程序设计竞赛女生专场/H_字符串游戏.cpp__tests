@@ -1,0 +1,1 @@
+[{"test": "3 3\na\nab\nabc\naababc\naabababc\nccaaabbb\n", "correct_answers": ["48\n106\n73"]}]
