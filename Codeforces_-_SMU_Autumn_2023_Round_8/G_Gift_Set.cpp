@@ -1,13 +1,13 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-24 13:32:31
+ * Time:    2023-10-24 22:17:20
  *
- * Problem: A. Minimum Ternary String
- * Contest: Codeforces - SMU Autumn 2023 Trial 23
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/480225/problem/A
+ * Problem: G. Gift Set
+ * Contest: Codeforces - SMU Autumn 2023 Round 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481465/problem/G
  * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * TimeL:   2000 ms
  * ===========================================================================
  */
 #pragma GCC optimize("Ofast")
@@ -45,17 +45,12 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    string s;
-    cin >> s;
-    vector<int> a(s.size());
-    
-}
+void solve() {}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
