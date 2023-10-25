@@ -37,17 +37,74 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+const int N = 40010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
+vector<int> prime;
+int vis[N];
 
-void solve() {}
+int get(int x) {
+    int ans = 0;
+    for(int i = 2; i * i <= x; i++) {
+        if(x % i == 0) {
+            while(x % i == 0) {
+                x /= i;
+                ans++;
+            }
+        }
+    }
+    if(x > 1)ans++;
+    return ans;
+}
+
+int get1(int x) {
+    int ans = 0;
+    for(auto i : prime) {
+        if(x % i == 0) {
+            // debug1(i);
+            while(x % i == 0) {
+                x /= i;
+                ans++;
+            }
+        }
+    }
+    if(x > 1)ans++;
+    // debug1(x);
+    return ans;
+}
+
+void solve() {
+    int n, m, k;
+    cin >> n >> m >> k;
+    if(n > m)swap(n, m);
+    int cnt = get1(n) + get1(m);
+    if(m % n == 0) {
+        if(m == n) {
+            if(k == 0 || k > 1 && k <= cnt)cout << "YES" << endl;
+            else cout << "NO" << endl;
+        } else {
+            if(k >= 1 && k <= cnt)cout << "YES" << endl;
+            else cout << "NO" << endl;
+        }
+    } else {
+        if(k >= 2 && k <= cnt)cout << "YES" << endl;
+        else cout << "NO" << endl;
+    }
+}
 
 int32_t main() {
+    for(int i = 2; i < N; i++) {
+        if(!vis[i]) {
+            prime.push_back(i);
+            for(int j = i + i; j < N; j += i) {
+                vis[j] = 1;
+            }
+        }
+    }
     IOS;
     int h_h = 1;
     cin >> h_h;
