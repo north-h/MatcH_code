@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -45,7 +45,29 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int x, y, a, b;
+    cin >> x >> y >> a >> b;
+    if(x > y)swap(x, y);
+    if(a > b)swap(a, b);
+    if(a == b) {
+        cout << min(x, y) / a << endl;
+        return ;
+    }
+    auto check = [&](int mid) {
+        int xt = x - a * mid;
+        int yt = y - a * mid;
+        if(xt < 0 || yt < 0)return false;
+        return ((xt + yt) / (b - a)) >= mid;
+    };
+    int l = 0, r = 1e9, ans = -1;
+    while(l <= r) {
+        int mid = l + r >> 1;
+        if(check(mid))l = mid + 1, ans = mid;
+        else r = mid - 1;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
