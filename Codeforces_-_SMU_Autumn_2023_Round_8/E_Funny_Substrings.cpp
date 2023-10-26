@@ -45,12 +45,60 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    map<string, string> mp;
+    map<string, int> pp;
+    string s, key, val;
+    // getchar();
+    for(int k = 1; k <= n + 1; k++) {
+        getline(cin, s);
+        bool ok = true;
+        int pos = -1;
+        int p1 = -1;
+        int p2 = -1;
+        for(int i = 0; i < s.size(); i++) {
+            if(s[i] == ':')pos = i;
+            else if(s[i] == '=')p1 = i;
+            else if(s[i] == '+')p2 = i;
+        }
+        // debug1(pos);
+        auto get = [&](string s) {
+            int cnt = 0;
+            for(int i = 1; i < s.size(); i++) {
+                if(s[i - 1] == 'h' && s[i] == 'a')cnt++;
+            }
+            return cnt;
+        };
+        int ans = 0;
+        debug1(pos);
+        if(pos == -1) {
+            string s1 = mp[s.substr(0, p1 - 2)];
+            string s2 = mp[s.substr(p1 + 2, p2 - p1 - 1)];
+            string s3 = mp[s.substr(p2 + 2)];
+            // int x1 = pp[s2];
+            // int x2 = pp[s3];
+            // string str = s1.substr(0, 3) + s2.substr(s2.size() - 3, 3);
+            // int x3 = get(str);
+            // pp[str] = x1 + x2 + x3;
+            // mp[s1] = str;
+        } else {
+            // string ss = s.substr(0, pos - 1);//变量名
+            // string str = s.substr(pos + 3);//变量值
+            // mp[ss] = str;
+            // pp[ss] = get(str);
+
+        }
+    }
+    for(auto [x, y] : mp)cout << x << ' ' << y << endl;
+    // cout << s << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

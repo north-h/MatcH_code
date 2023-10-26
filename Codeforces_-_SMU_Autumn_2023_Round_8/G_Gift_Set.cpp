@@ -48,25 +48,30 @@ using namespace std;
 void solve() {
     int x, y, a, b;
     cin >> x >> y >> a >> b;
-    if(x > y)swap(x, y);
     if(a > b)swap(a, b);
+    if(x > y)swap(x, y);
     if(a == b) {
         cout << min(x, y) / a << endl;
         return ;
     }
-    auto check = [&](int mid) {
-        int xt = x - a * mid;
-        int yt = y - a * mid;
-        if(xt < 0 || yt < 0)return false;
-        return ((xt + yt) / (b - a)) >= mid;
-    };
-    int l = 0, r = 1e9, ans = -1;
-    while(l <= r) {
-        int mid = l + r >> 1;
-        if(check(mid))l = mid + 1, ans = mid;
-        else r = mid - 1;
-    }
-    cout << ans << endl;
+    // auto check = [&](int mid) {
+    //     int xt = x - a * mid;
+    //     int yt = y - a * mid;
+    //     if(xt < 0 || yt < 0)return false;
+    //     xt /= (b - a);
+    //     yt /= (b - a);
+    //     return (xt + yt) >= mid;
+    // };
+    // int l = 0, r = 1e9, ans = -1;
+    // while(l <= r) {
+    //     int mid = l + r >> 1;
+    //     if(check(mid))l = mid + 1, ans = mid;
+    //     else r = mid - 1;
+    // }
+    // cout << ans << endl;
+    int d1=y-x;
+    int d2=b-a;
+    
 }
 
 int32_t main() {
