@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -45,79 +45,66 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+struct S {
+    string f, b;
+    int cnt;
+};
+unordered_map<string, S> mp;
+
+int get(string s) {
+    int cnt = 0;
+    for(int i = 3; i < s.size(); i++) {
+        if(s[i] == 'a' && s[i - 1] == 'h' && s[i - 2] == 'a' && s[i - 3] == 'h')
+            cnt++;
+    }
+    return cnt;
+}
+
+void fbcnt(string s, string name) {
+    mp[name].cnt = get(s);
+    if(s.size() <= 3) {
+        mp[name].f = mp[name].b = s;
+    } else {
+        mp[name].f = s.substr(0, 3);
+        mp[name].b = s.substr(s.size() - 3, 3);
+    }
+}
+
+void merge(string name, string a, string b) {
+    string s = mp[a].b + mp[b].f;
+    mp[name].cnt = get(s) + mp[a].cnt + mp[b].cnt;
+    if(s.size() <= 3) {
+        mp[name].f = mp[name].b = s;
+    } else {
+        if(mp[a].f.size() >= 3)mp[name].f = mp[a].f;
+        else mp[name].f = s.substr(0, 3);
+        if(mp[b].b.size() >= 3)mp[name].b = mp[b].b;
+        else mp[name].b = s.substr(s.size() - 3, 3);
+    }
+}
+
 void solve() {
+    mp.clear();
     int n;
     cin >> n;
-    map<string, string> mp;
-    map<string, int> pp;
-    string s, key, val;
-    // getchar();
-    getline(cin, s);
     int ans = 0;
-    for(int k = 1; k <= n; k++) {
-        getline(cin, s);
-        bool ok = true;
-        int pos = -1;
-        int p1 = -1;
-        int p2 = -1;
-        // debug1(s);
-        for(int i = 0; i < s.size(); i++) {
-            // cout << s[i];
-            if(s[i] == ':')pos = i;
-            if(s[i] == '=')p1 = i;
-            if(s[i] == '+')p2 = i;
-        }
-        // cout << endl;
-        // debug1(pos);
-        auto get = [&](string s) {
-            int cnt = 0;
-            for(int i = 3; i < s.size(); i++) {
-                if(s[i] == 'a' && s[i - 1] == 'h' && s[i - 2] == 'a' && s[i - 3] == 'h')cnt++;
-            }
-            return cnt;
-        };
-        // debug1(pos);
-        if(s.find(":", 0) == -1) {
-            // debug2(p1, p2);
-            // cout << s << endl;
-            key = s.substr(0, p1 - 1);
-            string goal = key;
-            string s1 = mp[key];
-            // debug1(key);
-            key = s.substr(p1 + 2, p2 - p1 - 3);
-            string s2 = mp[key];
-            // debug1(key);
-            key = s.substr(p2 + 2);
-            string s3 = mp[key];
-            // debug1(key);
-            // cout << "------------" << endl;
-            // cout << s2 << ' ' << s3 << endl;
-            int x2 = pp[s2];
-            int x3 = pp[s3];
-            debug2(s2, s3);
-            string str;
-            if(s2.size() <= 3)str += s2;
-            else str += s2.substr(s2.size() - 3, 3);
-            if(s3.size() <= 3)str += s3;
-            else str += s3.substr(0, 3);
-            int x = get(str);
-            debug2(x, str);
-            pp[goal] = x + x2 + x3;
-            mp[goal] = str;
-            ans = x + x2 + x3;
-            // debug1(ans);
+    while(n--) {
+        string name, op;
+        cin >> name >> op;
+        if(op == ":=") {
+            string s;
+            cin >> s;
+            fbcnt(s, name);
+            ans = mp[name].cnt;
         } else {
-            string key = s.substr(0, pos - 1);//变量名
-            string val = s.substr(pos + 3);//变量值
-            // debug2(key, val);
-            mp[key] = val;
-            pp[key] = get(val);
-
-            // for(auto [x, y] : pp)cout << x << ' ' << y << endl;
+            string a, b;
+            char op;
+            cin >> a >> op >> b;
+            merge(name, a, b);
+            ans = mp[name].cnt;
         }
     }
     cout << ans << endl;
-    // cout << s << endl;
 }
 
 int32_t main() {
