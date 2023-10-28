@@ -1,11 +1,11 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-27 17:42:24
+ * Time:    2023-10-28 12:33:54
  *
- * Problem: C. Beautiful Array
- * Contest: Codeforces - SMU Autumn 2023 Trial 24
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481916/problem/C
+ * Problem: C. Vasya and a Tree
+ * Contest: Codeforces - SMU Autumn 2023 Trial 25
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481917/problem/C
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ===========================================================================
@@ -45,26 +45,12 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, x;
-    cin >> n >> x;
-    vector<int> a(n + 1, 0);
-    for (int i = 1; i <= n; i++)cin >> a[i];
-    vector<vector<ll>> dp(n + 1, vector<ll>(4, 0));
-    ll ans = 0;
-    for (int i = 1; i <= n; i++) {
-        dp[i][0] = max(dp[i][0], dp[i - 1][0]) + a[i];
-        dp[i][1] = max({dp[i - 1][0], dp[i - 1][1]}) + (ll)x *a[i];
-        dp[i][2] = max({dp[i - 1][2], dp[i - 1][1]}) + a[i];
-        ans = max({dp[i][0], dp[i][1], dp[i][2], ans});
-    }
-    cout << ans << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,13 +1,13 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-27 17:42:24
+ * Time:    2023-10-28 12:33:46
  *
- * Problem: C. Beautiful Array
- * Contest: Codeforces - SMU Autumn 2023 Trial 24
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481916/problem/C
+ * Problem: A. Mortal Kombat Tower
+ * Contest: Codeforces - SMU Autumn 2023 Trial 25
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481917/problem/A
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ===========================================================================
  */
 #pragma GCC optimize("Ofast")
@@ -46,25 +46,35 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, x;
-    cin >> n >> x;
-    vector<int> a(n + 1, 0);
-    for (int i = 1; i <= n; i++)cin >> a[i];
-    vector<vector<ll>> dp(n + 1, vector<ll>(4, 0));
-    ll ans = 0;
-    for (int i = 1; i <= n; i++) {
-        dp[i][0] = max(dp[i][0], dp[i - 1][0]) + a[i];
-        dp[i][1] = max({dp[i - 1][0], dp[i - 1][1]}) + (ll)x *a[i];
-        dp[i][2] = max({dp[i - 1][2], dp[i - 1][1]}) + a[i];
-        ans = max({dp[i][0], dp[i][1], dp[i][2], ans});
+    int n;
+    cin >> n;
+    vector<int> a(n + 1);
+    for(int i = 1; i <= n; i++)cin >> a[i];
+    // vector<vector<int>> dp(n + 1, vector<int>(2, INF));//0->先手,1->后手
+    // dp[0][1] = 0;
+    // dp[1][0] = a[1];
+    // for(int i = 2; i <= n; i++) {
+    //     dp[i][0] = min(dp[i - 1][1] + a[i], dp[i - 2][1] + a[i] + a[i - 1]);
+    //     dp[i][1] = min(dp[i - 1][0], dp[i - 2][0]);
+    //     // debug2(dp[i][0], dp[i][1]);
+    // }
+    // cout << min(dp[n][0], dp[n][1]) << endl;
+    int cnt = 0;
+    int ans = (a[1] == 1);
+    for(int i = 2; i <= n; i++) {
+        if(a[i] == 1)cnt++;
+        else {
+            ans += cnt / 3;
+            cnt = 0;
+        }
     }
-    cout << ans << endl;
+    cout << ans + cnt / 3 << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
