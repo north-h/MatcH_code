@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,7 +46,49 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    vector<PII> c(n);
+    vector<int> a, b;
+    for(int i = 0; i < n; i++)cin >> c[i].fi;
+    for(int i = 0; i < n; i++)cin >> c[i].se;
+    for(int i = 0; i < n; i++) {
+        if(c[i].se == 1)a.push_back(c[i].fi);
+        else b.push_back(c[i].fi);
+    }
+    sort(ALL(a));
+    sort(ALL(b));
+    int sum = 0, ans = 0;
+    while(sum < m) {
+        if(!a.size()&&!b.size())break;
+        int bb = 0, a1 = 0, a2 = 0;
+        if(b.size()) {
+            bb = b.back();
+            b.pop_back();
+        }
+        if(a.size()) {
+            a1 = a.back();
+            a.pop_back();
+        }
+        if(a.size()) {
+            a2 = a.back();
+            a.pop_back();
+        }
+        if(sum+a1>=m||sum+=a1>=m){
+            ans++;
+            break;
+        }else {
+            int aa=a1+a2;
+            if(aa>bb){
+                if(a1==0||b1==0)ans++;
+                else ans+=2;
+            }
+        }
+    }
+    if(sum < m)cout << -1 << endl;
+    else cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
