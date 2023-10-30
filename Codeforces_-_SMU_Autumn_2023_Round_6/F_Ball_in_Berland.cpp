@@ -66,10 +66,10 @@ void solve() {
     int ans = 0;
     int t = k;
     for(int i = 0; i < t; i++) {
-        mp[ {ac[i], bc[i]}]--;
-        ma[ac[i]]--;
-        mb[bc[i]]--;
-        k--;
+        // mp[ {ac[i], bc[i]}]--;
+        // ma[ac[i]]--;
+        // mb[bc[i]]--;
+        // k--;
         int aa = ma[ac[i]];
         int bb = mb[bc[i]];
         // debug2(aa, bb);
@@ -79,7 +79,7 @@ void solve() {
         // debug1(y);
         ans += k - y;
     }
-    cout << ans << endl;
+    cout << ans / 2 << endl;
 }
 
 int32_t main() {
