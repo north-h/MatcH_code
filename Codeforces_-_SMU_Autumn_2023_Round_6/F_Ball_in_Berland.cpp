@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,7 +46,41 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int a, b, k;
+    cin >> a >> b >> k;
+    vector<int> ac(k), bc(k);
+    map<int, int> ma, mb;
+    map<PII, int> mp;
+    for(int i = 0; i < k; i++) {
+        cin >> ac[i];
+        ma[ac[i]]++;
+    }
+    for(int i = 0; i < k; i++) {
+        cin >> bc[i];
+        mb[bc[i]]++;
+    }
+    for(int i = 0; i < k; i++) {
+        mp[ {ac[i], bc[i]}]++;
+    }
+    int ans = 0;
+    int t = k;
+    for(int i = 0; i < t; i++) {
+        mp[ {ac[i], bc[i]}]--;
+        ma[ac[i]]--;
+        mb[bc[i]]--;
+        k--;
+        int aa = ma[ac[i]];
+        int bb = mb[bc[i]];
+        // debug2(aa, bb);
+        int x = mp[ {ac[i], bc[i]}];
+        // debug1(x);
+        int y = (aa + bb - x);
+        // debug1(y);
+        ans += k - y;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
