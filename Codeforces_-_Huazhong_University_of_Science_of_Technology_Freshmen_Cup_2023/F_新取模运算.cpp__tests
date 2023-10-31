@@ -1,1 +1,23 @@
-[{"test": "3 7\n11\n45\n14\n", "correct_answers": ["4\n1\n2"]}, {"test": "2 10007\n1919\n810\n", "correct_answers": ["3152\n3679"]}]
+[
+	{
+		"correct_answers":
+		[
+			"4\n1\n2"
+		],
+		"test": "3 7\n11\n45\n14\n"
+	},
+	{
+		"correct_answers":
+		[
+			"3152\n3679"
+		],
+		"test": "2 10007\n1919\n810\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0\n0"
+		],
+		"test": "2 6\n6\n5\n"
+	}
+]
