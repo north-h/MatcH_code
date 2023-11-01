@@ -53,18 +53,22 @@ void solve() {
     for(auto i : s)mp[i]++;
     int ans = INF;
     for(auto [x, y] : mp) {
+        // cout << x << ' ' << y << endl;
         ans = min(ans, n - y);
     }
-    debug1(ans);
+    // debug1(n);
     for(int i = 0; i <= 9; i++) {
         for(int j = 0; j <= 9; j++) {
             if(i == j)continue;
             int cnt = 0;
-            for(int k = 0; k + 1 < s.size(); k++) {
-                if((s[k] - '0' == i) && (s[k + 1] - '0') == j)
-                    cnt++;
+            bool ok = true;
+            for(int k = 0; k < s.size(); k++) {
+                if(ok && s[k] - '0' == i)cnt++, ok = false;
+                else if(!ok && s[k] - '0' == j)cnt++, ok = true;
             }
-            ans = min(ans, n - cnt * 2);
+            // cout << i << j << "-->";
+            // debug2(cnt, n);
+            ans = min(ans, n - cnt / 2 * 2);
         }
     }
     cout << ans << endl;
