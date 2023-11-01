@@ -1,16 +1,15 @@
 /*
- * ==================================================================================
+ * ===========================================================================
  * Author:  north_h
- * Time:    2023-09-26 15:11:37
+ * Time:    2023-11-01 11:14:38
  *
- * Problem: H. Kill the Monster
- * Contest: Codeforces - SMU Autumn 2023 Round 5
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/475398/problem/H
- * MemoryL: 256 MB
+ * Problem: AT_dp_i Coins
+ * Contest: Luogu
+ * URL:     https://www.luogu.com.cn/problem/AT_dp_i
+ * MemoryL: 1024 MB
  * TimeL:   2000 ms
- * ==================================================================================
+ * ===========================================================================
  */
-
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -20,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,24 +45,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int hc, dc, hm, dm, k, a, w;
-    cin >> hc >> dc >> hm >> dm >> k >> w >> a;
-    for(int i = 0; i <= k; i++) {
-        hc += i * a;
-        dc += (k - i) * w;
-        int vc = (hc + dm - 1) / dm;
-        int vm = (hm + dc - 1) / dc;
-        // debug2(vc, vm);
-        if(vc >= vm) {
-            cout << "YES" << endl;
-            return ;
-        }
-        hc -= i * a;
-        dc -= (k - i) * w;
-    }
-    cout << "NO" << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;
