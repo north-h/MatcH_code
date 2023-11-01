@@ -1,1 +1,30 @@
-[{"test": "axyb\nabyxb\n", "correct_answers": ["axb"]}, {"test": "aa\nxayaz\n", "correct_answers": ["aa"]}, {"test": "a\nz\n", "correct_answers": [""]}, {"test": "abracadabra\navadakedavra\n", "correct_answers": ["aaadara"]}]
+[
+	{
+		"correct_answers":
+		[
+			"axb"
+		],
+		"test": "axyb\nabyxb\n"
+	},
+	{
+		"correct_answers":
+		[
+			"aa"
+		],
+		"test": "aa\nxayaz\n"
+	},
+	{
+		"correct_answers":
+		[
+			""
+		],
+		"test": "a\nz\n"
+	},
+	{
+		"correct_answers":
+		[
+			"aaadara"
+		],
+		"test": "abracadabra\navadakedavra\n"
+	}
+]

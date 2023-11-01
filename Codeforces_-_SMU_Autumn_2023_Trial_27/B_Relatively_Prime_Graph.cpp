@@ -1,12 +1,12 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-11-01 11:14:25
+ * Time:    2023-11-01 13:08:06
  *
- * Problem: AT_dp_f LCS
- * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/AT_dp_f
- * MemoryL: 1024 MB
+ * Problem: B. Relatively Prime Graph
+ * Contest: Codeforces - SMU Autumn 2023 Trial 27
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481919/problem/B
+ * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ===========================================================================
  */
@@ -45,47 +45,12 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    string s, t;
-    cin >> s >> t;
-    // debug2(s, t);
-    int n = s.size(), m = t.size();
-    s = " " + s;
-    t = " " + t;
-    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
-    for(int i = 1; i <= n; i++) {
-        for(int j = 1; j <= m; j++) {
-            if(s[i] == t[j])dp[i][j] = dp[i - 1][j - 1] + 1;
-            else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-        }
-    }
-    // for(int i = 1; i <= n; i++) {
-    //     for(int j = 1; j <= m; j++) {
-    //         cout << dp[i][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
-    string ans;
-    while(n && m) {
-        // debug2(n, m);
-        // debug2(s[n], t[m]);
-        if(s[n] == t[m]) {
-            ans += s[n];
-            n--;
-            m--;
-        } else if(dp[n][m] == dp[n - 1][m]) {
-            n--;
-        } else m--;
-        // debug1(ans);
-    }
-    reverse(ALL(ans));
-    cout << ans << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
