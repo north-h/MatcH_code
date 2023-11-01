@@ -52,8 +52,8 @@ void solve() {
     for(int i = 1; i <= n; i++)cin >> h[i];
     dp[1] = 0;
     for(int i = 1; i <= n; i++) {
-        for(int j = 1; j + i <= n && j <= k; j++) {
-            dp[i + j] = min(dp[i + j], dp[i] + abs(h[i] - h[j]));
+        for(int j = 1; j <= k; j++) {
+            dp[i + j] = min(dp[i + j], dp[i] + abs(h[i] - h[i + j]));
         }
     }
     cout << dp[n] << endl;

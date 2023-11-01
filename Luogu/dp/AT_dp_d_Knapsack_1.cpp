@@ -45,12 +45,28 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    vector<int> w(n + 1), v(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> v[i] >> w[i];
+    }
+    vector<ll> dp(m + 1, 0);
+    for(int i = 1; i <= n; i++) {
+        // for(int i = 0; i <= m; i++)cout << dp[i] << ' ';
+        // cout << endl;
+        for(int j = m; j >= v[i]; j--) {
+            dp[j] = max(dp[j], dp[j - v[i]] + w[i]);
+        }
+    }
+    cout << dp[m] << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

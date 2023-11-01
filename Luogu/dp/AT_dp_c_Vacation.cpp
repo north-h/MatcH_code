@@ -45,12 +45,29 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), b(n + 1), c(n + 1);
+    for(int i = 1; i <= n; i++)cin >> a[i] >> b[i] >> c[i];
+    // for(int i = 1; i <= n; i++)cin >> b[i];
+    // for(int i = 1; i <= n; i++)cin >> c[i];
+    vector<vector<int>> dp(n + 1, vector<int>(3, 0));
+    dp[0][0] = dp[0][1] = dp[0][2] = 0;
+    int ans = 0;
+    for(int i = 1; i <= n; i++) {
+        dp[i][0] = max(dp[i - 1][1] + b[i], dp[i - 1][2] + c[i]);
+        dp[i][1] = max(dp[i - 1][0] + a[i], dp[i - 1][2] + c[i]);
+        dp[i][2] = max(dp[i - 1][0] + a[i], dp[i - 1][1] + b[i]);
+        ans = max({ans, dp[i][0], dp[i][1], dp[i][2]});
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
