@@ -1,11 +1,11 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-11-01 11:14:08
+ * Time:    2023-11-01 11:14:04
  *
- * Problem: AT_dp_b Frog 2
+ * Problem: AT_dp_a Frog 1
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/AT_dp_b
+ * URL:     https://www.luogu.com.cn/problem/AT_dp_a
  * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * ===========================================================================
@@ -45,12 +45,23 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> h(n + 1), dp(n + 5, INF);
+    for(int i = 1; i <= n; i++)cin >> h[i];
+    dp[1] = 0;
+    for(int i = 1; i + 1 <= n; i++) {
+        dp[i + 1] = min(dp[i + 1], dp[i] + abs(h[i + 1] - h[i]));
+        if(i + 2 <= n)dp[i + 2] = min(dp[i + 2], dp[i] + abs(h[i + 2] - h[i]));
+    }
+    cout << dp[n] << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

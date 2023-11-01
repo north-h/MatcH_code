@@ -1,16 +1,16 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-11-01 11:14:04
+ * Time:    2023-11-01 11:14:08
  *
- * Problem: AT_dp_a Frog 1
+ * Problem: AT_dp_b Frog 2
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/AT_dp_a
+ * URL:     https://www.luogu.com.cn/problem/AT_dp_b
  * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * ===========================================================================
  */
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
 
@@ -45,12 +45,24 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> h(n + 1), dp(n + k, INF);
+    for(int i = 1; i <= n; i++)cin >> h[i];
+    dp[1] = 0;
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j + i <= n && j <= k; j++) {
+            dp[i + j] = min(dp[i + j], dp[i] + abs(h[i] - h[j]));
+        }
+    }
+    cout << dp[n] << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
