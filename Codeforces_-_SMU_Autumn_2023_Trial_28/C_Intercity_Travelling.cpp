@@ -1,16 +1,15 @@
 /*
- * ==================================================================================
+ * ===========================================================================
  * Author:  north_h
- * Time:    2023-11-01 22:06:42
+ * Time:    2023-11-02 15:38:06
  *
- * Problem: A. Binary String Reconstruction
- * Contest: Codeforces - SMU Autumn 2023 Trial 26
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481918/problem/A
+ * Problem: C. Intercity Travelling
+ * Contest: Codeforces - SMU Autumn 2023 Trial 28
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/483558/problem/C
  * MemoryL: 256 MB
- * TimeL:   2000 ms
- * ==================================================================================
+ * TimeL:   1500 ms
+ * ===========================================================================
  */
-
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -32,13 +31,13 @@
 #define ALL(a) a.begin(),a.end()
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
+#define PI acos(-1)
 #define endl '\n'
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-#define PI acos(-1)
-const int N = 10010;
+const int N = 1010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,25 +45,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    string s;
-    cin >> s;
-    vector<int> ans(s.size() + 1, -1);
-    s = " " + s;
-    int x;
-    cin >> x;
-    for(int i = 1; i < s.size(); i++) {
-        if(s[i] == 0) {
-            int p1 = i - x;
-            int p2 = i + x;
-        }
-    }
-    for(int i = 1; i < ans.size(); i++) {
-        if(ans[i] == -1)ans[i] = 0;
-    }
-    for(int i = 1; i < ans.size(); i++)cout << ans[i];
-    cout << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;
