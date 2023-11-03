@@ -48,48 +48,68 @@ using namespace std;
 int b[N], s[N];
 
 void solve() {
+    // int n;
+    // cin >> n;
+    // vector<int> a;
+    // vector<PII> c(n);
+    // unordered_map<int, int> p, up, p1;
+    // for(int i = 0; i < n; i++) {
+    //     cin >> c[i].fi >> c[i].se;
+    //     a.push_back(c[i].fi);
+    //     a.push_back(c[i].se);
+    // }
+    // sort(ALL(a));
+    // // a.erase(unique(ALL(a)), a.end());
+    // // for(auto i : a)cout << i << ' ';
+    // // cout << endl;
+    // for(int i = 0; i < a.size(); i++) {
+    //     p[a[i]] = i + 1;
+    //     p1[i + 1] = a[i];
+    //     // debug2(a[i], p[a[i]]);
+    // }
+    // for(int i = 0; i < n; i++) {
+    //     b[p[c[i].fi]]++;
+    //     b[p[c[i].se] + 1]--;
+    //     // debug2(p[c[i].fi], p[c[i].se]);
+    // }
+    // for(int i = 1; i <= a.size(); i++) {
+    //     s[i] = s[i - 1] + b[i];
+    //     // up[s[i]]++;
+    // }
+    // // for(int i = 2; i <= a.size(); i++) {
+    // //     if(s[i] != s[i - 1])up[s[i - 1]]++;
+    // // }
+    // // up[s[a.size()]]++;
+    // // for(int i = 1; i <= a.size(); i++)cout << s[i] << ' ';
+    // // cout << endl;
+    // for(int i = 2; i <= a.size(); i++) {
+    //     int mn = min(s[i], s[i - 1]);
+    //     // debug1(up[mn]);
+    //     // debug2(p1[i], p1[i - 1]);
+    //     // debug1(max(abs(p1[i] - p1[i - 1]) - 1, 0ll));
+    //     up[mn] += max(abs(p1[i] - p1[i - 1]) - 1, 0ll);
+    // }
+    // for(int i = 1; i <= n; i++)cout << up[i] << ' ';
+    // cout << endl;
     int n;
     cin >> n;
-    vector<int> a;
-    vector<PII> c(n);
-    unordered_map<int, int> p, up, p1;
+    vector<PII> a;
     for(int i = 0; i < n; i++) {
-        cin >> c[i].fi >> c[i].se;
-        a.push_back(c[i].fi);
-        a.push_back(c[i].se);
+        int l, r;
+        cin >> l >> r;
+        a.push_back({l, 1});
+        a.push_back({r + 1, -1});
     }
     sort(ALL(a));
-    // a.erase(unique(ALL(a)), a.end());
-    for(auto i : a)cout << i << ' ';
-    cout << endl;
+    vector<int> ans(n + 1, 0);
+    int now = 0, last = 0, cnt = 0;
     for(int i = 0; i < a.size(); i++) {
-        p[a[i]] = i + 1;
-        p1[i + 1] = a[i];
-        // debug2(a[i], p[a[i]]);
+        now = a[i].fi;
+        ans[cnt] += now - last;
+        cnt += a[i].se;
+        last = now;
     }
-    for(int i = 0; i < n; i++) {
-        b[p[c[i].fi]]++;
-        b[p[c[i].se] + 1]--;
-        debug2(p[c[i].fi], p[c[i].se]);
-    }
-    for(int i = 1; i <= a.size(); i++) {
-        s[i] = s[i - 1] + b[i];
-        // up[s[i]]++;
-    }
-    // for(int i = 2; i <= a.size(); i++) {
-    //     if(s[i] != s[i - 1])up[s[i - 1]]++;
-    // }
-    // up[s[a.size()]]++;
-    for(int i = 1; i <= a.size(); i++)cout << s[i] << ' ';
-    cout << endl;
-    for(int i = 2; i <= a.size(); i++) {
-        int mn = min(s[i], s[i - 1]);
-        // debug1(up[mn]);
-        // debug2(p1[i], p1[i - 1]);
-        // debug1(max(abs(p1[i] - p1[i - 1]) - 1, 0ll));
-        up[mn] += max(abs(p1[i] - p1[i - 1]) - 1, 0ll);
-    }
-    for(int i = 1; i <= n; i++)cout << up[i] << ' ';
+    for(int i = 1; i <= n; i++)cout << ans[i] << ' ';
     cout << endl;
 }
 

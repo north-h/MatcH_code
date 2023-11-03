@@ -37,7 +37,7 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+const int N = 100010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -45,12 +45,33 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int  n, m;
+    cin >> n >> m;
+    if(m < n - 1) {
+        cout << "Impossible" << endl;
+        return ;
+    }
+    vector<PII> ans;
+    for(int i = 1; i <= n; i++) {
+        for(int j = i + 1; j <= n; j++) {
+            if(__gcd(i, j) == 1) {
+                ans.push_back({i, j});
+                if(ans.size() == m) {
+                    cout << "Possible" << endl;
+                    for(auto [x, y] : ans)cout << x << ' ' << y << endl;
+                    return ;
+                }
+            }
+        }
+    }
+    cout << "Impossible" << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
