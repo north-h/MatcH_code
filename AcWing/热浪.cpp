@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-01 22:06:42
+ * Time:    2023-11-03 14:47:36
  *
- * Problem: A. Binary String Reconstruction
- * Contest: Codeforces - SMU Autumn 2023 Trial 26
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/481918/problem/A
- * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * Problem: 热浪
+ * Contest: AcWing
+ * URL:     https://www.acwing.com/problem/content/1131/
+ * MemoryL: 64 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -46,33 +46,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    string s;
-    cin >> s;
-    int x;
-    cin >> x;
-    string ans;
-    for(int i = 0; i < s.size(); i++)ans += '1';
-    for(int i = 0; i < s.size(); i++) {
-        if(s[i] == '0') {
-            if(i - x >= 0)ans[i - x] = '0';
-            if(i + x < s.size())ans[i + x] = '0';
-        }
-    }
-    for(int i = 0; i < s.size(); i++) {
-        bool ok1 = false, ok2 = false;
-        if(s[i] == '1') {
-            if(i - x >= 0 &&  ans[i - x] == '1')ok1 = true;
-            if(i + x < s.size() && ans[i + x] == '1')ok2 = true;
-            // debug1(ans);
-            if(!ok1 && !ok2) {
-                cout << -1 << endl;
-                return ;
-            }
-        }
-    }
-    cout << ans << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;
