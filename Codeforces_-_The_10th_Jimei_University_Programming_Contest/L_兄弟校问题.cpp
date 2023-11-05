@@ -46,12 +46,103 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+int fa[N], S[N];
+
+int find(int x) {
+    if(fa[x] != x)find(fa[x]);
+    return fa[x];
+}
+
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    for(int i = 1; i <= n; i++)fa[i] = i, S[i] = 1;
+    vector<vector<string>> g(n + 1), city(n + 1);
+    for(int i = 1; i <= n; i++) {
+        string a, b;
+        cin >> a >> b;
+        for(int j = 0; j < a.size(); j++) {
+            if(a[j] >= 'a' && a[j] <= 'z')a[j] -= 32;
+        }
+        for(int j = 0; j < b.size(); j++) {
+            if(b[j] >= 'a' && b[j] <= 'z')b[j] -= 32;
+        }
+        city[i].push_back(b);
+        vector<int> c;
+        for(int j = 0; j < a.size(); j++) {
+            if(a[j] == '_') {
+                c.push_back(j);
+            }
+        }
+        string s = a.substr(0, c.front());
+        // debug1(s);
+        g[i].push_back(s);
+        for(int j = 0; j < c.size() - 1; j++) {
+            s = a.substr(c[j] + 1, c[j + 1] - c[j] - 1);
+            // debug1(s);
+            g[i].push_back(s);
+        }
+        s = a.substr(c.back() + 1);
+        // debug1(s);
+        g[i].push_back(s);
+    }
+    set<string> st;
+    for(int i = 1; i <= m; i++) {
+        string s;
+        cin >> s;
+        for(int j = 0; j < s.size(); j++) {
+            if(s[j] >= 'a' && s[j] <= 'z')s[j] -= 32;
+        }
+        // debug1(s);
+        st.insert(s);
+    }
+
+
+    vector<vector<string>> school(n + 1);
+    vector<set<string>> sl(n + 1);
+    for(int i = 1; i <= n; i++) {
+        for(auto j : g[i]) {
+            if(st.count(j)) {
+                sl[i].insert(j);
+                school[i].push_back(j);
+            }
+        }
+    }
+    // for(int i = 1; i <= n; i++) {
+    //     for(auto j : school[i])cout << j << ' ';
+    //     cout << endl;
+    // }
+    for(int i = 1; i <= n; i++) {
+        for(int j = i + 1; j <= n; j++) {
+            if(city[i] == city[j]) {
+                int pi = find(i);
+                int pj = find(j);
+                if(pi != pj) {
+                    fa[i] = j;
+                    S[j] += S[i];
+                }
+            } else {
+                for(int k = 0; k < school[i].size(); k++) {
+                    if(sl[j].count(school[i][k])) {
+                        int pi = find(i);
+                        int pj = find(j);
+                        if(pi != pj) {
+                            fa[i] = j;
+                            S[j] += S[i];
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for(int i = 1; i <= n; i++)cout << S[find(i)] - 1  << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

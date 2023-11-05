@@ -46,12 +46,34 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<vector<int>> a(n + 1);
+    for(int i = 1; i <= n; i++) {
+        int m;
+        cin >> m;
+        while(m--) {
+            int x;
+            cin >> x;
+            a[i].push_back(x);
+        }
+    }
+    int M;
+    cin >> M;
+    int ans = 0;
+    for(int i = 1; i <= n; i++) {
+        for(int j = 0; j < a[i].size() && j < M; j++) {
+            ans = max(ans, a[i][j]);
+        }
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
