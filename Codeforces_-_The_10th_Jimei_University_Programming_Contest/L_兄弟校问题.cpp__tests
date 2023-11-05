@@ -12,5 +12,16 @@
 			"0\n0"
 		],
 		"test": "2 0\ngenshin_Impact Mihoyo\nstar_Railway_University Mihuyou\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2\n2\n2\n0"
+		],
+		"test": "4 0\ngenshin_genshin_University Xiamen\nxiamen_University Xiamen\ngenshin_University Xiamen\ngenshin_Impact Mihoyo\n",
+		"uncorrect_answers":
+		[
+			"3\n3\n3\n3"
+		]
 	}
 ]

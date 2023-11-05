@@ -46,97 +46,77 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int fa[N], S[N];
+int fa[N];
 
 int find(int x) {
-    if(fa[x] != x)find(fa[x]);
+    if(fa[x] != x)fa[x] = find(fa[x]);
     return fa[x];
 }
 
 void solve() {
+    map<string, int> city, key;
+    map<int, vector<int>> mp;
     int n, m;
     cin >> n >> m;
-    for(int i = 1; i <= n; i++)fa[i] = i, S[i] = 1;
-    vector<vector<string>> g(n + 1), city(n + 1);
+    int idx = 1;
+    for(int i = 1; i <= n; i++)fa[i] = i;
+    vector<string> a(n + 1), b(n + 1);
     for(int i = 1; i <= n; i++) {
-        string a, b;
-        cin >> a >> b;
-        for(int j = 0; j < a.size(); j++) {
-            if(a[j] >= 'a' && a[j] <= 'z')a[j] -= 32;
-        }
-        for(int j = 0; j < b.size(); j++) {
-            if(b[j] >= 'a' && b[j] <= 'z')b[j] -= 32;
-        }
-        city[i].push_back(b);
-        vector<int> c;
-        for(int j = 0; j < a.size(); j++) {
-            if(a[j] == '_') {
-                c.push_back(j);
-            }
-        }
-        string s = a.substr(0, c.front());
-        // debug1(s);
-        g[i].push_back(s);
-        for(int j = 0; j < c.size() - 1; j++) {
-            s = a.substr(c[j] + 1, c[j + 1] - c[j] - 1);
-            // debug1(s);
-            g[i].push_back(s);
-        }
-        s = a.substr(c.back() + 1);
-        // debug1(s);
-        g[i].push_back(s);
+        cin >> a[i] >> b[i];
+        if(city[b[i]] == 0)city[b[i]] = idx++;
     }
-    set<string> st;
     for(int i = 1; i <= m; i++) {
         string s;
         cin >> s;
-        for(int j = 0; j < s.size(); j++) {
-            if(s[j] >= 'a' && s[j] <= 'z')s[j] -= 32;
+        if(key[s] == 0)key[s] = idx++;
+    }
+    // for(auto [x, y] : city)cout << x << ' ' << y << endl;
+    // cout << endl;
+    // for(auto [x, y] : key)cout << x << ' ' << y << endl;
+    // cout << endl;
+    for(int i = 1; i <= n; i++) {
+        for(int j = 0; j < a[i].size(); j++) {
+            if(a[i][j] >= 'A' && a[i][j] <= 'Z')a[i][j] += 32;
         }
+        // debug1(a[i]);
+        int pos = 0;
+        string s;
+        for(int j = 0; j < a[i].size(); j++) {
+            if(a[i][j] == '_') {
+                s = a[i].substr(pos, j - pos);
+                // debug1(s);
+                pos = j + 1;
+                if(key.count(s)) {
+                    int pcity = find(city[b[i]]);
+                    int pkey = find(key[s]);
+                    // debug1(i);
+                    // debug2(pcity, pkey);
+                    fa[pkey] = pcity;
+                }
+            }
+        }
+        s = a[i].substr(pos);
         // debug1(s);
-        st.insert(s);
-    }
-
-
-    vector<vector<string>> school(n + 1);
-    vector<set<string>> sl(n + 1);
-    for(int i = 1; i <= n; i++) {
-        for(auto j : g[i]) {
-            if(st.count(j)) {
-                sl[i].insert(j);
-                school[i].push_back(j);
-            }
+        if(key.count(s)) {
+            int pcity = find(city[b[i]]);
+            int pkey = find(key[s]);
+            fa[pkey] = pcity;
         }
     }
-    // for(int i = 1; i <= n; i++) {
-    //     for(auto j : school[i])cout << j << ' ';
-    //     cout << endl;
+    for(int i = 1; i <= n; i++) {
+        int pcity = find(city[b[i]]);
+        mp[pcity].push_back(i);
+    }
+    // for(auto [x, y] : mp) {
+    //     cout << x << ' ' << y.size() << endl;
     // }
-    for(int i = 1; i <= n; i++) {
-        for(int j = i + 1; j <= n; j++) {
-            if(city[i] == city[j]) {
-                int pi = find(i);
-                int pj = find(j);
-                if(pi != pj) {
-                    fa[i] = j;
-                    S[j] += S[i];
-                }
-            } else {
-                for(int k = 0; k < school[i].size(); k++) {
-                    if(sl[j].count(school[i][k])) {
-                        int pi = find(i);
-                        int pj = find(j);
-                        if(pi != pj) {
-                            fa[i] = j;
-                            S[j] += S[i];
-                            break;
-                        }
-                    }
-                }
-            }
+    vector<int> ans(n + 1);
+    for(auto [x, y] : mp) {
+        for(int i = 0; i < y.size(); i++) {
+            ans[y[i]] = y.size() - 1;
         }
     }
-    for(int i = 1; i <= n; i++)cout << S[find(i)] - 1  << endl;
+    for(int i = 1; i <= n; i++)cout << ans[i] << endl;
 }
 
 int32_t main() {
