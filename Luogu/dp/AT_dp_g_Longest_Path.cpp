@@ -45,12 +45,47 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+vector<int> g[N];
+int dp[N];
+int ans;
+
+int dfs1(int u) {
+    if(dp[u] != 0)return dp[u];
+    for(auto i : g[u]) {
+        dp[u] = max(dp[u], dfs1(i) + 1);
+    }
+    return dp[u];
+}
+
+void dfs2(int u) {
+    if(dp[u])return ;
+    for(auto i : g[u]) {
+        dfs2(i);
+        dp[u] = max(dp[u], dp[i] + 1);
+    }
+    ans = max(ans, dp[u]);
+}
+
+void solve() {
+    int n, m ;
+    cin >> n >> m;
+    for(int i = 0; i < m; i++) {
+        int a, b;
+        cin >> a >> b;
+        g[a].push_back(b);
+    }
+    // for(int i = 1; i <= n; i++) {
+    //     // debug1(dfs(i));
+    //     ans = max(ans, dfs1(i));
+    // }
+    dfs2(1);
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
