@@ -1,0 +1,1 @@
+[{"correct_answers": ["1\n1\n1\n1"], "test": "4 1\njimei_University Xiamen\nxiamen_University Xiamen\ngenshin_University Mihoyo\ngenshin_Impact Mihoyo\ngenshin\n"}, {"correct_answers": ["0\n0"], "test": "2 0\ngenshin_Impact Mihoyo\nstar_Railway_University Mihuyou\n"}]
