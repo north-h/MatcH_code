@@ -55,7 +55,7 @@ void solve() {
         a1++;
         if(a1 == 8)a1 = 1, a0++;
     }
-    std::cout << ans << '\n';
+    cout << ans << endl;
 }
 
 int32_t main() {

@@ -46,15 +46,15 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int turn (int x, string s) {
+int get (int x, string s) {
     int cnt = 0;
     for(int i = s.size() - 1; i >= 0; i--) {
         int ans = 0;
         if(s[i] >= '0' && s[i] <= '9') {
-            ans = s[i] - 48;
+            ans = s[i] - '0';
         }
         if(s[i] >= 'A' && s[i] <= 'Z') {
-            ans = s[i] - 65 + 10;
+            ans = s[i] - 'A' + 10;
         }
         if(ans >= x) {
             cnt = -1;
@@ -69,9 +69,12 @@ void solve() {
     string a, b, s;
     cin >> a >> b >> s;
     for(int i = 2; i <= 16; i++) {
-        if(turn(i, a) + turn (i, b) == turn (i, s) && turn(i, a) >= 0 && turn(i, b) >= 0 && turn(i, s) >= 0) {
-            cout << i << "\n";
-            break;
+        int A = get(i, a);
+        int B = get(i, b);
+        int S = get(i, s);
+        if(A + B == S && A >= 0 && B >= 0 && S >= 0) {
+            cout << i << endl;
+            return ;
         }
     }
 }
