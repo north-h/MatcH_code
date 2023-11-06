@@ -75,26 +75,9 @@ void solve() {
         cin >> s;
         if(key[s] == 0)key[s] = idx++;
     }
-    for(auto [x, y] : city)cout << x << ' ' << y << endl;
-    cout << endl;
-    for(auto [x, y] : key)cout << x << ' ' << y << endl;
-    for(int i = 1; i <= n; i++) {
-        for(int j = i + 1; j <= n; j++) {
-            // debug2(city[b[i]], city[b[j]]);
-            if(i == j)continue;
-            int pi = find(city[b[i]]);
-            int pj = find(city[b[j]]);
-            if(b[i] == b[j]) {
-                fa[pi] = pj;
-                S[pj] ++;
-            }
-            ;
-        }
-    }
-    for(int i = 1; i <= n; i++) {
-        debug1(find(i));
-        cout << S[find(i)] - 1 << endl;
-    }
+    // for(auto [x, y] : city)cout << x << ' ' << y << endl;
+    // cout << endl;
+    // for(auto [x, y] : key)cout << x << ' ' << y << endl;
     for(int i = 1; i <= n; i++) {
         tow(a[i]);
         // debug1(a[i]);
@@ -104,12 +87,23 @@ void solve() {
                 int pkey = find(y);
                 if(pkey != pcity) {
                     fa[pkey] = pcity;
-                    S[pcity] += pkey;
                 }
             }
         }
     }
-    for(int i = 1; i <= n; i++)cout << S[find(i)] - 1 << endl;
+    for(int i = 1; i <= n; i++) {
+        for(int j = i + 1; j <= n; j++) {
+            // debug2(city[b[i]], city[b[j]]);
+            if(i == j)continue;
+            int pi = find(city[b[i]]);
+            int pj = find(city[b[j]]);
+            if(b[i] == b[j]) {
+                fa[pi] = pj;
+                S[pj] + S[pi];
+            }
+        }
+    }
+    for(int i = 1; i <= n; i++)cout << S[find(city[b[i]])] - 1 << endl;
 }
 
 int32_t main() {
