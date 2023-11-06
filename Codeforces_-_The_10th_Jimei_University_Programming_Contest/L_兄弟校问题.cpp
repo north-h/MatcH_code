@@ -38,7 +38,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 200010;
+const int N = 10010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -53,14 +53,9 @@ int find(int x) {
     return fa[x];
 }
 
-void tow(string &s) {
-    for(int j = 0; j < s.size(); j++) {
-        if(s[j] >= 'A' && s[j] <= 'Z')s[j] += 32;
-    }
-}
-
 void solve() {
     map<string, int> city, key;
+    map<int, vector<int>> mp;
     int n, m;
     cin >> n >> m;
     int idx = 1;
@@ -78,32 +73,44 @@ void solve() {
     // for(auto [x, y] : city)cout << x << ' ' << y << endl;
     // cout << endl;
     // for(auto [x, y] : key)cout << x << ' ' << y << endl;
+    // cout << endl;
     for(int i = 1; i <= n; i++) {
-        tow(a[i]);
+        for(int j = 0; j < a[i].size(); j++) {
+            if(a[i][j] >= 'A' && a[i][j] <= 'Z')a[i][j] += 32;
+        }
         // debug1(a[i]);
-        for(auto [x, y] : key) {
-            if(a[i].find(x) != -1) {
-                int pcity = find(city[b[i]]);
-                int pkey = find(y);
-                if(pkey != pcity) {
+        int pos = 0;
+        string s;
+        a[i] = a[i] += "_";
+        for(int j = 0; j < a[i].size(); j++) {
+            if(a[i][j] == '_') {
+                s = a[i].substr(pos, j - pos);
+                // debug1(s);
+                pos = j + 1;
+                if(key.count(s)) {
+                    int pcity = find(city[b[i]]);
+                    int pkey = find(key[s]);
+                    // debug1(i);
+                    // debug2(pcity, pkey);
                     fa[pkey] = pcity;
                 }
             }
         }
     }
     for(int i = 1; i <= n; i++) {
-        for(int j = i + 1; j <= n; j++) {
-            // debug2(city[b[i]], city[b[j]]);
-            if(i == j)continue;
-            int pi = find(city[b[i]]);
-            int pj = find(city[b[j]]);
-            if(b[i] == b[j]) {
-                fa[pi] = pj;
-                S[pj] + S[pi];
-            }
+        int pcity = find(city[b[i]]);
+        mp[pcity].push_back(i);
+    }
+    // for(auto [x, y] : mp) {
+    //     cout << x << ' ' << y.size() << endl;
+    // }
+    vector<int> ans(n + 1);
+    for(auto [x, y] : mp) {
+        for(int i = 0; i < y.size(); i++) {
+            ans[y[i]] = y.size() - 1;
         }
     }
-    for(int i = 1; i <= n; i++)cout << S[find(city[b[i]])] - 1 << endl;
+    for(int i = 1; i <= n; i++)cout << ans[i] << endl;
 }
 
 int32_t main() {
