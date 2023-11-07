@@ -1,15 +1,16 @@
 /*
- * ===========================================================================
+ * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-04 11:56:05
+ * Time:    2023-11-07 12:30:40
  *
- * Problem: C. MEX Sequences
- * Contest: Codeforces - SMU Autumn 2023 Trial 29
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/484045/problem/C
+ * Problem: B. Minimum Value Rectangle
+ * Contest: Codeforces - SMU Autumn 2023 Trial 30
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/484046/problem/B
  * MemoryL: 256 MB
  * TimeL:   2000 ms
- * ===========================================================================
+ * ==================================================================================
  */
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -31,45 +32,49 @@
 #define ALL(a) a.begin(),a.end()
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
-#define PI acos(-1)
 #define endl '\n'
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 500010;
+#define PI acos(-1)
+const int N = 10010;
 const int M = 1910;
 const int MOD = 998244353;
-const double EPS = 1e-8;
+const double EPS = 1e-10;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int dp[N][2];
-
 void solve() {
     int n;
     cin >> n;
-    for(int i = 1; i <= n + 2; i++)dp[i][0] = dp[i][1] = 0;
-    dp[0][0] = 1;
-    for(int i = 1, x; i <= n; i++) {
+    map<int, int> up;
+    for(int i = 0, x; i < n; i++) {
         cin >> x;
-        x++;
-        dp[x][0] += dp[x][0] + dp[x - 1][0];
-        dp[x][0] %= MOD;
-        dp[x][1] += dp[x][1];
-        dp[x][1] %= MOD;
-        dp[x + 2][1] *= 2;
-        dp[x + 2][1] %= MOD;
-        if(x > 1)dp[x][1] += dp[x - 2][0];
-        dp[x][1] %= MOD;
-        // cout << dp[x][0] << ' ' << dp[x][1] << ' ' << dp[x + 2][1] << endl;
+        up[x]++;
     }
-    int ans = 0;
-    for(int i = 1; i <= n + 2; i++) {
-        ans = (ans + dp[i][0] + dp[i][1]) % MOD;
+    vector<int> a;
+    for(auto [x, y] : up) {
+        if(y >= 2)a.push_back(x);
+        if(y >= 4) {
+            cout << x << ' ' << x << ' ' << x << ' ' << x << endl;
+            return ;
+        }
     }
-    cout << ans << endl;
+    sort(ALL(a));
+    PII ans;
+    ld res = LLONG_MAX;
+    for(int i = 1; i < a.size(); i++) {
+        ld sa = a[i];
+        ld sb = a[i - 1];
+        ld S = sa / sb + sb / sa;
+        if((S - res) < EPS) {
+            res = S;
+            ans = {sa, sb};
+        }
+    }
+    cout << ans.fi << ' ' << ans.fi << ' ' << ans.se << ' ' << ans.se << endl;
 }
 
 int32_t main() {
