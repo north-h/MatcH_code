@@ -46,14 +46,65 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int dx[4] = {0, 1, 0, -1};
+int dy[4] = {1, 0, -1, 0};
+
 void solve() {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<vector<char>> g(n + 1, vector<char>(m + 1));
+    int x, y;
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            cin >> g[i][j];
+            if(g[i][j] == 'L')x = i, y = j;
+        }
+    }
+    vector<vector<int>> vis(n + 1, vector<int>(m + 1, 0));
+    auto check = [&](int x, int y) -> bool {
+        int res = 0;
+        for(int i = 0; i < 4; i++) {
+            int xx = x + dx[i];
+            int yy = y + dy[i];
+            if(xx < 1 || yy < 1 || xx > n || yy > m)continue;
+            if(vis[xx][yy] || g[xx][yy] == '#' || g[xx][yy] == 'L')continue;
+            res++;
+        }
+        return res < 2;
+    };
+    auto bfs = [&](int x, int y) {
+        queue<PII> q;
+        q.push({x, y});
+        vis[x][y] = 1;
+        while(q.size()) {
+            auto t = q.front();
+            q.pop();
+            for(int i = 0; i < 4; i++) {
+                int xx = t.fi + dx[i];
+                int yy = t.se + dy[i];
+                if(xx < 1 || yy < 1 || xx > n || yy > m)continue;
+                if(vis[xx][yy])continue;
+                if(check(xx, yy) && g[xx][yy] == '.') {
+                    g[xx][yy] = '+';
+                    vis[xx][yy] = 1;
+                    q.push({xx, yy});
+                }
+            }
+        }
+    };
+    bfs(x, y);
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            cout << g[i][j];
+        }
+        cout << endl;
+    }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
