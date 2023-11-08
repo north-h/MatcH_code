@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,12 +46,36 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    int ans = 0;
+    while(m--) {
+        int x, d;
+        cin >> x >> d;
+        int res = 0;
+        if(d >= 0) {
+            res = (n - 1) * n / 2;
+            // debug1(res);
+            ans += n * x + d * res;
+        } else {
+            int mid = (n + 1) / 2;
+            if(n & 1) {
+                res = (mid - 1) * mid;
+                ans += n * x + d * res;
+            } else {
+                res = (mid - 1) * mid + (n - mid);
+                ans += n * x + d * res;
+            }
+        }
+    }
+    cout << lf(15) << ans * 1.0 / n << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
