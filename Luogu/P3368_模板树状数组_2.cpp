@@ -12,37 +12,41 @@
  */
 
 #include<bits/stdc++.h>
-#define int long long
+
 using namespace std;
 
 const int N = 100010;
+
+int tr1[N], tr2[N];
 
 int lowbit(int x) {
     return x & (-x);
 }
 
-int sum1[N], sum2[N];
-
 void add(int x, int k) {
-    for(int i = x; i < N; i += lowbit(i))
-        sum1[i] += k, sum2[i] += x * k;
+    for(int i = x; i < N; i += lowbit(i)) {
+        tr1[i] += k;
+        // tr2[i] += k * x;
+    }
 }
 
 void range_add(int l, int r, int x) {
-    add(l, x), add(r + 1, -x);
+    add(l, x);
+    add(r + 1, -x);
 }
 
 int query(int x) {
     int res = 0;
-    for(int i = x; i; i -= i & -i)
-        res += (x + 1) * sum1[i] - sum2[i];
+    for(int i = x; i; i -= lowbit(i)) {
+        // res += (x + 1) * tr2[i] - tr1[i];
+        res += tr1[i];
+    }
     return res;
 }
 
 int range_query(int l, int r) {
-    return query(r) - query(l - 1);
+    return query(r) - query(l);
 }
-
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
@@ -61,8 +65,8 @@ int32_t main() {
             cin >> l >> r >> k;
             range_add(l, r, k);
         } else {
-            cin >> l >> r;
-            cout << range_query(l, r) << endl;
+            cin >> x;
+            cout << query(x) << endl;
         }
     }
     return 0;
