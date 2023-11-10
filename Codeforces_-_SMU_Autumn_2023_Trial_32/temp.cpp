@@ -10,7 +10,7 @@
  * TimeL:   3000 ms
  * ===========================================================================
  */
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
 
@@ -45,12 +45,35 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    map<int, int> mp;
+    for(int i = 1, x; i <= n; i++) {
+        cin >> x;
+        mp[x] = i;
+    }
+    int pos = n / 2;
+    int ans1 = n / 2;
+    while(pos && mp[pos] < mp[pos + 1]) {
+        pos--;
+        ans1--;
+    }
+    if(n % 2 == 0)pos = n / 2;
+    else pos = n / 2 + 1;
+    int ans2 = n / 2;
+    while(pos <= n && mp[pos] < mp[pos + 1]) {
+        pos++;
+        ans2--;
+    }
+    // debug2(ans1, ans2);
+    cout << max(ans1, ans2) << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
