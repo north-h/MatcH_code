@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-10 23:31:20
+ * Time:    2023-11-11 12:37:43
  *
- * Problem: B. Minimize The Integer
- * Contest: Codeforces - SMU Autumn 2023 Trial 33
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/484049/problem/B
+ * Problem: C. Number Game
+ * Contest: Codeforces - Educational Codeforces Round 138 (Rated for Div. 2)
+ * URL:     https://codeforces.com/problemset/problem/1749/C
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -47,34 +47,42 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    string s;
-    cin >> s;
-    vector<char> a, b;
-    for(int i = 0; i < s.size(); i++) {
-        if((s[i] - '0') % 2 == 0) {
-            a.push_back(s[i]);
-        } else b.push_back(s[i]);
-    }
-    reverse(ALL(a));
-    reverse(ALL(b));
-    while(a.size() && b.size()) {
-        if(a.back() > b.back()) {
-            cout << b.back();
-            b.pop_back();
-        } else {
-            cout << a.back();
-            a.pop_back();
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++)cin >> a[i];
+    sort(rALL(a));
+    // for(auto i : a)cout << i << ' ';
+    // cout << endl;
+    for(int k = n; k >= 0; k--) {
+        bool ok = true;
+        map<int, int> mp;
+        vector<int> b = a;
+        int cnt = 0;
+        for(int i = 1; i <= k; i++) {
+            int x = k - i + 1;
+            for(int j = 0; j < n; j++) {
+                if(b[j] <= x && !mp.count(j)) {
+                    mp[j]++;
+                    cnt++;
+                    break;
+                }
+            }
+            for(int j = 0; j < n; j++) {
+                if(!mp.count(j)) {
+                    b[j] += x;
+                    break;
+                }
+            }
+        }
+        // for(auto i : b)cout << i << ' ';
+        // cout << endl;
+        if(cnt == k) {
+            // debug1(mp.size());
+            cout << k << endl;
+            return ;
         }
     }
-    while(a.size()) {
-        cout << a.back();
-        a.pop_back();
-    }
-    while(b.size()) {
-        cout << b.back();
-        b.pop_back();
-    }
-    cout << endl;
 }
 
 int32_t main() {
