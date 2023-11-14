@@ -1,0 +1,36 @@
+[
+	{
+		"correct_answers":
+		[
+			"1 3 4"
+		],
+		"test": "cpython\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "codeforces\n"
+	},
+	{
+		"correct_answers":
+		[
+			"4 5 6"
+		],
+		"test": "thecatishere\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "ctsfgdk\n"
+	},
+	{
+		"test": "car\n"
+	},
+	{
+		"test": "chdhjkt\n"
+	}
+]
