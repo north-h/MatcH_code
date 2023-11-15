@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-13 19:00:33
+ * Time:    2023-11-15 23:20:04
  *
- * Problem: C. Storybooks
- * Contest: Codeforces - October come back. Together training
- * URL:     https://codeforces.com/gym/104678/problem/C
- * MemoryL: 256 MB
+ * Problem: 营救普雷赛斯
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/69327/A
+ * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -47,29 +47,30 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    vector<int> a(n + 1), s(n + 1);
-    for(int i = 1; i <= n; i++) {
+    int c;
+    cin >> c;
+    vector<int> a(c), b(c), vis(c);
+    for(int i = 0; i < c; i++) {
         cin >> a[i];
     }
-    sort(a.begin() + 1, a.end());
-    for(int i = 1; i <= n; i++) {
-        s[i] = s[i - 1] + a[i];
+    for(int i = 0; i < c; i++) {
+        cin >> b[i];
     }
-    cout << endl;
-    while(m--) {
-        int x;
-        cin >> x;
-        int l = 1, r = n, ans = 0;
-        while(l <= r) {
-            int mid = l + r >> 1;
-            if(s[mid] <= x)l = mid + 1, ans = mid;
-            else r = mid - 1;
+    int h = 0;
+    int cnt = 0;
+    while(vis[h] == 0) {
+        vis[h] = 1;
+        h += a[h];
+        cnt++;
+        if(h >= c) {
+            cout << cnt << endl;
+            return ;
         }
-        cout << ans << ' ';
+        h -= b[h];
+        // debug1(h);
+        h = max(h, 0ll);
     }
-    cout << endl;
+    cout << -1 << endl;
 }
 
 int32_t main() {

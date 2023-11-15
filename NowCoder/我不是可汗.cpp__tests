@@ -1,0 +1,9 @@
+[
+	{
+		"correct_answers":
+		[
+			"92880"
+		],
+		"test": "100 3\nshierteer 18 92880\nyeying 16 0\nkaierxi 18 0\n"
+	}
+]
