@@ -71,14 +71,13 @@ void solve() {
     }
     x = -1, y = -1;
     for(int i = 1; i < s.size(); i++) {
-        if(s[i] == 'a') {
-            x = i;
-            break;
+        if(s[i] == 't') {
+            y = max(i, y);
         }
     }
-    for(int i = x + 1; i < s.size(); i++) {
-        if(s[i] == 't') {
-            y = i;
+    for(int i = y - 1; i >= 1; i--) {
+        if(s[i] == 'a') {
+            x = i;
             break;
         }
     }
@@ -96,8 +95,7 @@ void solve() {
     }
     for(int i = x + 1; i < s.size(); i++) {
         if(s[i] == 't') {
-            y = i;
-            break;
+            y = max(y, i);
         }
     }
     // debug2(x, y);
