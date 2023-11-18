@@ -1,0 +1,15 @@
+[
+	{
+		"correct_answers":
+		[
+			"6\n-1\n18\n2"
+		],
+		"test": "4\nabacaba\naaa\ncodeforcesecrofedoc\nlol\n"
+	},
+	{
+		"test": "1\nashuxhsuhaaaaaaaa\n"
+	},
+	{
+		"test": "1\naaaaabbbbbbaaaa\n"
+	}
+]
