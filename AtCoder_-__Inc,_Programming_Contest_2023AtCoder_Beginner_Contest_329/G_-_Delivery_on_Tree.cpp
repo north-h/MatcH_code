@@ -1,13 +1,14 @@
+
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-18 20:02:46
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: G - Delivery on Tree
+ * Contest: AtCoder - Ｓｋｙ Inc, Programming Contest 2023（AtCoder Beginner Contest 329）
+ * URL:     https://atcoder.jp/contests/abc329/tasks/abc329_g
+ * MemoryL: 1024 MB
+ * TimeL:   3000 ms
  * ==================================================================================
  */
 
@@ -46,21 +47,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
-    }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
-    }
-}
+void solve() {}
 
 int32_t main() {
     IOS;

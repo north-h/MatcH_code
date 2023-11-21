@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-18 20:02:29
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: C - Count xxx
+ * Contest: AtCoder - Ｓｋｙ Inc, Programming Contest 2023（AtCoder Beginner Contest 329）
+ * URL:     https://atcoder.jp/contests/abc329/tasks/abc329_c
+ * MemoryL: 1024 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -47,25 +47,46 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n;
+    string s;
+    cin >> n >> s;
+    map<char, int> mp;
+    int cnt = 1;
+    ll ans = 0;
+    for(int i = 1; i < s.size(); i++) {
+        if(s[i] == s[i - 1])cnt++;
+        else {
+            // debug2(s[i - 1], cnt);
+            if(!mp.count(s[i - 1])) {
+                ans += cnt;
+                mp[s[i - 1]] = cnt;
+            } else {
+                if(mp[s[i - 1]] < cnt) {
+                    ans += cnt - mp[s[i - 1]];
+                    mp[s[i - 1]] = cnt;
+                }
+            }
+            cnt = 1;
+        }
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+    // for(auto [x, y] : mp)cout << x << ' ' << y << endl;
+    if(!mp.count(s.back())) {
+        ans += cnt;
+        mp[s.back()] = cnt;
+    } else {
+        if(mp[s.back()] < cnt) {
+            // debug2(mp[s.back()], cnt);
+            ans += cnt - mp[s.back()];
+            mp[s.back()] = cnt;
+        }
     }
+    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

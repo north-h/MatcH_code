@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-18 18:41:36
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: 陶陶学算术
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/69791/C
+ * MemoryL: 524288 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -46,26 +46,58 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+vector<PII> get(int x) {
+    vector<PII> a;
+    for(int i = 2; i <= x / i; i++) {
+        if(x % i == 0) {
+            int cnt = 0;
+            while(x % i == 0)x /= i, cnt++;
+            a.push_back({i, cnt});
+        }
+    }
+    if(x > 1)a.push_back({x, 1});
+    return a;
+}
+
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n, cn = 0;
+    cin >> n;
+    map<int, int> mp;
+    while(n--) {
+        int op, x;
+        cin >> op >> x;
+        if(x < 0)cn++, x = abs(x);
+        vector<PII> res = get(x);
+        if(op == 1)for(auto [x, y] : res)mp[x] += y;
+        else for(auto [x, y] : res)mp[x] -= y;
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+    int m, cm = 0;
+    cin >> m;
+    while(m--) {
+        int op, x;
+        cin >> op >> x;
+        if(x < 0)cm++, x = abs(x);
+        vector<PII> res = get(x);
+        if(op == 1)for(auto [x, y] : res)mp[x] -= y;
+        else for(auto [x, y] : res)mp[x] += y;
     }
+    if(cn % 2 != cm % 2) {
+        cout << "NO" << endl;
+        return ;
+    }
+    for(auto [x, y] : mp) {
+        if(y != 0) {
+            cout << "NO" << endl;
+            return ;
+        }
+    }
+    cout << "YES" << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

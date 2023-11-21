@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 19:43:14
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: 小红的01串构造
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/69695/C
+ * MemoryL: 524288 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -47,25 +47,32 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
-    }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+    int n, k, t;
+    cin >> n >> k >> t;
+    if(k > n || t + 1 > n || t + 1 > k)cout << -1 << endl;
+    else {
+        vector<int> ans;
+        for(int i = 0; i < t + 1; i++)ans.push_back(1);
+        int k1 = k - (t + 1);
+        int k0 = n - k;
+        for(int i = 0; i < min(k1, k0); i++) {
+            cout << "0 1 ";
+        }
+        if(k1 > k0) {
+            cout << -1 << endl;
+            return ;
+        } else {
+            for(int i = 0; i < k0 - k1; i++)ans.push_back(0);
+        }
+        for(auto i : ans)cout << i;
+        cout << endl;
     }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

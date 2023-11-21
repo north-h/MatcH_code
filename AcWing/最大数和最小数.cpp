@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-18 19:00:08
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
+ * Problem: 最大数和最小数
+ * Contest: AcWing
+ * URL:     https://www.acwing.com/problem/content/5297/
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -47,25 +47,15 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
-    }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
-    }
+    int a, b, c;
+    cin >> a >> b >> c;
+    cout << max({a, b, c}) << ' ' << min({a, b, c}) << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

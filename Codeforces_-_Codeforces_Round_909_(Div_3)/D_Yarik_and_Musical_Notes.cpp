@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -50,25 +50,15 @@ void solve() {
     int n;
     cin >> n;
     map<int, int> mp, up;
+    int a = 0, b = 0;
     for(int i = 0, x; i < n; i++) {
         cin >> x;
-        int cnt = 0;
-        int m = x;
-        up[x]++;
-        if(x % 2 != 0)continue;
-        while(x % 2 == 0) {
-            cnt++;
-            x /= 2;
-        }
-        mp[m - cnt]++;
+        mp[x]++;
+        if(x == 1)a++;
+        if(x == 2)b++;
     }
-    ll ans = 0;
+    int ans = a * b;
     for(auto [x, y] : mp) {
-        // cout << x << ' ' << y << endl;
-        ans += y * (y - 1) / 2;
-    }
-    for(auto [x, y] : up) {
-        // cout << x << ' ' << y << endl;
         ans += y * (y - 1) / 2;
     }
     cout << ans << endl;

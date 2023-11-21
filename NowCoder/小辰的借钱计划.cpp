@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 12:23:03
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: 小辰的借钱计划
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/69791/D
+ * MemoryL: 524288 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -47,19 +47,16 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int m, a;
+    cin >> m >> a;
+    int Y = 0, N = 0;
+    for(int i = 1; i <= m - a; i++) {
+        if(i % a == 0 || a % i == 0) {
+            Y += i;
+            N += a;
+        }
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
-    }
+    cout << (Y > N ? "YES" : "NO") << endl;
 }
 
 int32_t main() {

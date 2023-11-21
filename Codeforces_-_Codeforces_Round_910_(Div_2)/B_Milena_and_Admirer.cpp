@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 22:36:22
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
+ * Problem: B. Milena and Admirer
+ * Contest: Codeforces - Codeforces Round 910 (Div. 2)
+ * URL:     https://codeforces.com/contest/1898/problem/B
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -47,19 +47,26 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(auto &i : a)cin >> i;
+    int ans = 0;
+    int last = a.back();
+    for(int i = n - 2; i >= 0; i--) {
+        if(last >= a[i]) {
+            last = a[i];
+        } else  {
+            if(a[i] % last != 0) {
+                int res = a[i] / last;
+                ans += res;
+                last = a[i] / (res + 1);
+            } else {
+                ans += a[i] / last - 1;
+            }
+        }
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
-    }
+    cout << ans << endl;
 }
 
 int32_t main() {

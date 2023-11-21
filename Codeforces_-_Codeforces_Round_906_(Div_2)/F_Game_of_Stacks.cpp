@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 21:53:31
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
+ * Problem: F. Game of Stacks
+ * Contest: Codeforces - Codeforces Round 906 (Div. 2)
+ * URL:     https://codeforces.com/contest/1890/problem/F
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -46,20 +46,45 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+PII check(string s) {
+    for(int i = 0, j = s.size() - 1; i <= j; i++, j--) {
+        if(s[i] == s[j]) {
+            return {s[i] - '0', i};
+        }
+    }
+    return {-1, -1};
+}
+
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    // if(s.size() & 1) {
+    //     cout << -1 << endl;
+    //     return ;
+    // }
+    vector<int> ans;
+    for(int i = 1; i <= 300; i++) {
+        auto t = check(s);
+        //        debug2(t.fi,t.se);
+        if(t.fi == -1 && t.se == -1) {
+            cout << ans.size() << endl;
+            for(auto j : ans)cout << j + 1 << ' ';
+            cout << endl;
+            return ;
+        } else if(t.fi == 1) {
+            s = s.substr(0, t.se) + "01" + s.substr(t.se);
+            if(t.se == 0)ans.push_back(t.se - 1);
+            else ans.push_back(t.fi);
+        } else {
+            int pos = s.size() - 1 - t.se;
+            s = s.substr(0, pos + 1) + "01" + s.substr(pos + 1);
+            ans.push_back(pos);
+        }
+        // debug1(s);
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
-    }
+    cout << -1 << endl;
 }
 
 int32_t main() {

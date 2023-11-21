@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 21:53:22
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
+ * Problem: E1. Doremy's Drying Plan (Easy Version)
+ * Contest: Codeforces - Codeforces Round 906 (Div. 2)
+ * URL:     https://codeforces.com/contest/1890/problem/E1
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -46,21 +46,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
-    }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
-    }
-}
+void solve() {}
 
 int32_t main() {
     IOS;

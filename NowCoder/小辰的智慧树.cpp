@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 21:17:57
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: 小辰的智慧树
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/69791/E
+ * MemoryL: 524288 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -38,7 +38,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 10010;
+const int N = 1000010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,26 +46,37 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int s[N];
+
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n, m;
+    cin >> n >> m;
+    int mx = 0;
+    for(int i = 0, r, l; i < n; i++) {
+        cin >> r >> l;
+        s[l + 1]++;
+        s[r + 1]--;
+        mx = max(mx, r);
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+    for(int i = 1; i <= mx; i++)s[i] += s[i - 1];
+    ll ans = 0;
+    for(int i = mx; i >= 1; i--) {
+        if(m - s[i] >= 0) {
+            int res = s[i] * (i * 2 - 1);
+            ans += res;
+            m -= s[i];
+        } else {
+            ans += m * (i * 2 - 1);
+            break;
+        }
     }
+    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

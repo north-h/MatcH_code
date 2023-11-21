@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-18 20:02:42
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: F - Colored Ball
+ * Contest: AtCoder - Ｓｋｙ Inc, Programming Contest 2023（AtCoder Beginner Contest 329）
+ * URL:     https://atcoder.jp/contests/abc329/tasks/abc329_f
+ * MemoryL: 1024 MB
+ * TimeL:   4000 ms
  * ==================================================================================
  */
 
@@ -49,23 +49,34 @@ using namespace std;
 void solve() {
     int n, q;
     cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    vector<set<int>> ab(n + 1);
+    for(int i = 1, x; i <= n; i++) {
+        cin >> x;
+        ab[i].insert(x);
     }
-    int last = n - 1;
     while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+        int a, b;
+        cin >> a >> b;
+        if(ab[a].size() <= ab[b].size()) {
+            for(auto i : ab[a]) {
+                ab[b].insert(i);
+            }
+            ab[a].clear();
+        } else {
+            for(auto i : ab[b]) {
+                ab[a].insert(i);
+            }
+            ab[b].clear();
+            swap(ab[a], ab[b]);
+        }
+        cout << ab[b].size() << endl;
     }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

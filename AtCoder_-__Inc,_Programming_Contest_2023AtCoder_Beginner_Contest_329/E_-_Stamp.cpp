@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-18 20:02:38
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
- * MemoryL: 256 MB
- * TimeL:   1000 ms
+ * Problem: E - Stamp
+ * Contest: AtCoder - Ｓｋｙ Inc, Programming Contest 2023（AtCoder Beginner Contest 329）
+ * URL:     https://atcoder.jp/contests/abc329/tasks/abc329_e
+ * MemoryL: 1024 MB
+ * TimeL:   2000 ms
  * ==================================================================================
  */
 
@@ -46,26 +46,38 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n, m;
+    string s, t;
+    cin >> n >> m >> s >> t;
+    s = " " + s;
+    t = " " + t;
+    // debug2(s, t);
+    vector<array<int, 6>> dp(n + 1);
+    if(s[1] == t[1]) {
+        dp[1][1] = 1;
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+    for(int i = 2; i <= n; i++) {
+        for(int j = 1; j <= m; j++) {
+            if(dp[i - 1][j]) {
+                if(s[i] == t[1])dp[i][1] = 1;
+                if(j + 1 <= m && s[i] == t[j + 1])dp[i][j + 1] = 1;
+                if(j == m) {
+                    for(int k = 1; k <= m; k++) {
+                        if(s[i] == t[k])dp[i][k] = 1;
+                    }
+                }
+            }
+        }
     }
+    cout << (dp[n][m] ? "Yes" : "No") << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

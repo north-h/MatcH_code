@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-17 22:35:56
+ * Time:    2023-11-19 22:36:18
  *
- * Problem: F. Alex's whims
- * Contest: Codeforces - Codeforces Round 909 (Div. 3)
- * URL:     https://codeforces.com/contest/1899/problem/F
+ * Problem: A. Milica and String
+ * Contest: Codeforces - Codeforces Round 910 (Div. 2)
+ * URL:     https://codeforces.com/contest/1898/problem/A
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ==================================================================================
@@ -47,18 +47,40 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, q;
-    cin >> n >> q;
-    for(int i = 1; i < n; i++) {
-        cout << i << ' ' << i + 1 << endl;
+    int n, k;
+    string s;
+    cin >> n >> k >> s;
+    int cnt = 0;
+    for(auto i : s) {
+        cnt += (i == 'B');
     }
-    int last = n - 1;
-    while(q--) {
-        int d;
-        cin >> d;
-        if(d == last)cout << "-1 -1 -1" << endl;
-        else cout << n << ' ' << last << ' ' << d << endl;
-        last = d;
+    if(k == cnt) {
+        cout << 0 << endl;
+        return ;
+    }
+    for(int i = s.size() - 1, x = 0; i >= 0; i--) {
+        if(x == k) {
+            cout << 1 << endl;
+            cout << i + 1 << ' ' << 'A' << endl;
+            return ;
+        }
+        if(s[i] == 'B')x++;
+    }
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] == 'B') {
+            if(cnt + i == k) {
+                cout << 1 << endl;
+                cout << i - 1 + 1 << ' ' << 'B' << endl;
+                return ;
+            }
+            cnt--;
+        } else {
+            if(i + 1 + cnt == k) {
+                cout << 1 << endl;
+                cout << i + 1 << ' ' << 'B' << endl;
+                return ;
+            }
+        }
     }
 }
 

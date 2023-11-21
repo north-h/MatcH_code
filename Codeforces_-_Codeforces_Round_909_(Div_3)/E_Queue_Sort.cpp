@@ -46,7 +46,29 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(auto &i : a)cin >> i;
+    int mn = *min_element(ALL(a));
+    int pos = 0;
+    for(int i = 0; i < n; i++) {
+        if(a[i] == mn) {
+            pos = i;
+            break;
+        }
+    }
+    bool ok = true;
+    for(int i = pos + 1; i < n; i++) {
+        if(a[i - 1] > a[i]) {
+            ok = false;
+            break;
+        }
+    }
+    if(!ok)cout << -1 << endl;
+    else cout << pos << endl;
+}
 
 int32_t main() {
     IOS;
