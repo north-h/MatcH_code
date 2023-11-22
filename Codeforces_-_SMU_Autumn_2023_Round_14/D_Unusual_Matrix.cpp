@@ -57,10 +57,6 @@ bool check() {
     return true;
 }
 
-void change() {
-
-}
-
 void solve() {
     cin >> n;
     for(int i = 0; i < n; i++) {
@@ -84,12 +80,6 @@ void solve() {
             }
         }
     }
-    // for(int i = 0; i < n; i++) {
-    //     for(int j = 0; j < n; j++) {
-    //         cout << a[i][j];
-    //     }
-    //     cout << endl;
-    // }
     for(int i = 1; i < n; i++) {
         bool ok = true;
         for(int j = 0; j < n; j++) {

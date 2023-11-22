@@ -45,83 +45,57 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int f[N][20], lg2[N];
+int f[N][20], lg2[N], g[N][20];
 int a[N];
-int n;
 
-
-// void init() {
-//     // 数组下标从1开始
-
-// }
-
-
-int query(int l, int r) {
+int query_min(int l, int r) {
     int k = lg2[r - l + 1];
     // debug1(k);
     return min(f[l][k], f[r - (1 << k) + 1][k]);
 }
 
+int query_max(int l, int r) {
+    int k = lg2[r - l + 1];
+    // debug1(k);
+    return max(g[l][k], g[r - (1 << k) + 1][k]);
+}
+
 void solve() {
+    int n;
     cin >> n;
     lg2[0] = -1;
     for(int i = 1; i <= n; i ++) lg2[i] = lg2[i >> 1] + 1;
-    // for(int i = 1; i <= n; i++)cout << lg2[i] << ' ';
-    // cout << endl;
     for(int i = 1; i <= n; i++)cin >> a[i];
-    for (int i = 1; i <= n; i++)f[i][0] = a[i];
-    // for(int i = 1; i <= n; i++) {
-    //     cout << f[i][0] << ' ';
-    // }
+    for (int i = 1; i <= n; i++)f[i][0] = g[i][0] = a[i];
     for (int j = 1; (1 << j) <= n; j++) {
         for (int i = 1; i + (1 << j) - 1 <= n; i++) {
-            // f[i][j] = max(f[i][j - 1], f[i + (1 << j - 1)][j - 1]);
+            g[i][j] = max(g[i][j - 1], g[i + (1 << j - 1)][j - 1]);
             f[i][j] = min(f[i][j - 1], f[i + (1 << j - 1)][j - 1]);
         }
     }
-    vector<int> pre(n + 1, 0), post(n + 1, 0);
-    for(int i = 1; i <= n; i++)pre[i] = max(pre[i - 1], a[i]);
-    post[n] = a[n];
-    for(int i = n - 1; i >= 1; i--) post[i] = max(post[i + 1], a[i]);
-    // for(int i = 1; i <= n; i++)cout << pre[i] << ' ';
-    // cout << endl;
-    // for(int i = 1; i <= n; i++)cout << post[i] << ' ';
-    // cout << endl;
-    reverse(post.begin() + 1, post.end());
-    for(int i = 1; i < n - 1; i++) {
-        int pos = lower_bound(post.begin() + 1, post.end(), pre[i]) - post.begin() + 1;
-        int p=pos;
-        // while(pos +1 < n && a[pos] > a[pos + 1]) pos ++;
-        pos = n - pos + 1;
-        while(i + 1 < p && a[p - 1] < a[p]) p --;
-        // debug2(pos, i);
-        // debug2(pre[i],post[pos]);
-        if(i + 1 >= pos || pre[i] != post[p])continue;
-        int val = query(i + 1, pos - 1);
-        // debug1(val);
-        if(pre[i] == val) {
-            cout << "YES" << endl;
-            cout << i << ' ' << pos - i - 1 << ' ' << n - pos + 1 << endl;
-            return ;
-        }
-    }
-    for(int i = n; i > 2; i--) {
-        int pos = lower_bound(pre.begin() + 1, pre.end(), post[i]) - pre.begin() + 1;
-        // pos = n - pos + 1;
-
-        while(i > pos + 1 && a[pos] > a[pos + 1]) pos ++;
-        // debug1(pos);
-        if(i <= pos + 1 || pre[i] != post[pos])continue;
-        int val = query(pos + 1, i - 1);
-        // debug1(val);
-        // debug2(pos + 1, i - 1);
-        // debug1(query(pos + 1, i - 1));
-        // debug1(query(7, 10));
-        if(post[i] == val) {
-            // debug2(pre[i], val);
-            cout << "YES" << endl;
-            cout << pos << ' ' << i - pos - 1 << ' ' << n - i + 1 << endl;
-            return ;
+    for(int i = 1; i <= n - 2; i++) {
+        int a = query_max(1, i);
+        int l = i + 1, r = n - 1;
+        while(l + 1 < r) {
+            int mid = l + r >> 1;
+            int b = query_min(i + 1, mid);
+            int c = query_max(mid + 1, n);
+            if(a == b && b == c) {
+                cout << "YES" << endl;
+                cout << i << ' ' << mid - i << ' ' << n - mid << endl;
+                return ;
+            }
+            if(a > b) {
+                r = mid;
+            } else if(a < b) {
+                l = mid;
+            } else {
+                if(c > b) {
+                    l = mid;
+                } else {
+                    r = mid;
+                }
+            }
         }
     }
     cout << "NO" << endl;

@@ -19,7 +19,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define ll long long
+#define int long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -37,7 +37,7 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+const int N = 200010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -45,7 +45,29 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+int dp[N], mp[N];
+
+void solve() {
+    int n;
+    cin >> n;
+    met_0(dp);
+    met_0(mp);
+    for(int i = 0, x; i < n; i++) {
+        cin >> x;
+        mp[x]++;
+    }
+    for(int i = 1; i < N; i ++ ) {
+        dp[i] = mp[i];
+    }
+    for(int i = 1; i < N; i++) {
+        for(int j = i * 2; j < N; j += i) {
+            dp[j] = max(dp[j], dp[i] + mp[j]);
+        }
+    }
+    int ans = 0;
+    for(int i = 0; i < N; i++)ans = max(ans, dp[i]);
+    cout << n - ans << endl;
+}
 
 int32_t main() {
     IOS;
