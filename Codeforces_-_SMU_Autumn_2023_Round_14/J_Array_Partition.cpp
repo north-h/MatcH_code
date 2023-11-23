@@ -49,12 +49,14 @@ int f[N][20], lg2[N], g[N][20];
 int a[N];
 
 int query_min(int l, int r) {
+    if(l > r)return 0;
     int k = lg2[r - l + 1];
     // debug1(k);
     return min(f[l][k], f[r - (1 << k) + 1][k]);
 }
 
 int query_max(int l, int r) {
+    if(l > r)return 0;
     int k = lg2[r - l + 1];
     // debug1(k);
     return max(g[l][k], g[r - (1 << k) + 1][k]);
@@ -75,27 +77,34 @@ void solve() {
     }
     for(int i = 1; i <= n - 2; i++) {
         int a = query_max(1, i);
-        int l = i + 1, r = n - 1;
-        while(l + 1 < r) {
+        int l = i + 2, r = n, ans = i + 2, c, b;
+        while(l <= r) {
             int mid = l + r >> 1;
-            int b = query_min(i + 1, mid);
-            int c = query_max(mid + 1, n);
-            if(a == b && b == c) {
-                cout << "YES" << endl;
-                cout << i << ' ' << mid - i << ' ' << n - mid << endl;
-                return ;
-            }
-            if(a > b) {
-                r = mid;
-            } else if(a < b) {
-                l = mid;
-            } else {
-                if(c > b) {
-                    l = mid;
-                } else {
-                    r = mid;
-                }
-            }
+            c = query_max(mid, n);
+            if(a <= c)l = mid + 1, ans = mid;
+            else r = mid - 1;
+        }
+        b = query_min(i + 1, ans - 1);
+        c = query_max(ans, n);
+        if(a == b && b == c) {
+            cout << "YES" << endl;
+            cout << i << ' ' << (ans - 1) - (i + 1) + 1  << ' ' << n - ans + 1 << endl;
+            return ;
+        }
+        int res;
+        l = i + 2, r = n, res = i + 2;
+        while(l <= r) {
+            int mid = l + r >> 1;
+            c = query_max(mid, n);
+            if(a >= c)r = mid - 1, res = mid;
+            else l = mid + 1;
+        }
+        b = query_min(i + 1, res - 2);
+        c = query_max(res - 1, n);
+        if(a == b && b == c) {
+            cout << "YES" << endl;
+            cout << i << ' ' << (res - 2) - (i + 1) + 1  << ' ' << n - (res - 1)  + 1 << endl;
+            return ;
         }
     }
     cout << "NO" << endl;
