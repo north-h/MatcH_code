@@ -46,7 +46,54 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    
+    int n, k;
+    cin >> n >> k;
+    int ans = INF;
+    vector<int> a(n);
+    map<int, int> mp;
+    for(auto &i : a) {
+        cin >> i;
+        int x = i;
+        for(int j = 2; j <= x / j; j++) {
+            if(x % j == 0) {
+                while(x % j == 0)x /= j, mp[j]++;
+            }
+        }
+        if(x > 1)mp[x]++;
+    }
+    // for(auto [x, y] : mp)cout << x << ' ' << y << endl;
+    if(k == 2) {
+        if(mp[2])cout << 0 << endl;
+        else cout << 1 << endl;
+    } else if(k == 3) {
+        for(auto i : a) {
+            if(i % 3 == 0) {
+                cout << 0 << endl;
+                return ;
+            }
+            ans = min(ans, k - i % k);
+        }
+        cout << ans << endl;
+    } else if(k == 4) {
+        if(mp[2] >= 2)cout << 0 << endl;
+        else if(mp[2] == 1)cout << 1 << endl;
+        else {
+            int ans = 2;
+            for(auto i : a) {
+                ans = min(ans, k - i % k);
+            }
+            cout << ans << endl;
+        }
+    } else {
+        for(auto i : a) {
+            if(i % 5 == 0) {
+                cout << 0 << endl;
+                return ;
+            }
+            ans = min(ans, k - i % k);
+        }
+        cout << ans << endl;
+    }
 }
 
 int32_t main() {

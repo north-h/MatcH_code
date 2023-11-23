@@ -46,7 +46,20 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> dp(n + 2, INT_MAX);
+    vector<int> a(n + 1);
+    for(int i = 1; i <= n; i++)cin >> a[i];
+    dp[n + 1] = 0;
+    dp[n] = 1;
+    for(int i = n - 1; i >= 1; i--) {
+        if(i + a[i] <= n)dp[i] = min(dp[i + 1] + 1, dp[i + a[i] + 1]);
+        else dp[i] = dp[i + 1] + 1;
+    }
+    cout << dp[1] << endl;
+}
 
 int32_t main() {
     IOS;

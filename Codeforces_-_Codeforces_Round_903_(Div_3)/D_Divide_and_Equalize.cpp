@@ -38,7 +38,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 10010;
+const int N = 1000010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,7 +46,27 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    map<int, int> cnt;
+    for(int i = 0, x; i < n; i++) {
+        cin >> x;
+        for(int j = 2; j <= x / j; j++) {
+            if(x % j == 0) {
+                while(x % j == 0)x /= j, cnt[j]++;
+            }
+        }
+        if(x > 1)cnt[x]++;
+    }
+    for(auto [x, y] : cnt) {
+        if(y % n != 0) {
+            cout << "NO" << endl;
+            return ;
+        }
+    }
+    cout << "YES" << endl;
+}
 
 int32_t main() {
     IOS;
