@@ -77,21 +77,13 @@ void solve() {
     }
     for(int i = 1; i <= n - 2; i++) {
         int a = query_max(1, i);
-        int l = i + 2, r = n, ans = i + 2, c, b;
+        int l = i + 2, r = n, ans = i + 2, c, b1, b2, res;
         while(l <= r) {
             int mid = l + r >> 1;
             c = query_max(mid, n);
             if(a <= c)l = mid + 1, ans = mid;
             else r = mid - 1;
         }
-        b = query_min(i + 1, ans - 1);
-        c = query_max(ans, n);
-        if(a == b && b == c) {
-            cout << "YES" << endl;
-            cout << i << ' ' << (ans - 1) - (i + 1) + 1  << ' ' << n - ans + 1 << endl;
-            return ;
-        }
-        int res;
         l = i + 2, r = n, res = i + 2;
         while(l <= r) {
             int mid = l + r >> 1;
@@ -99,13 +91,28 @@ void solve() {
             if(a >= c)r = mid - 1, res = mid;
             else l = mid + 1;
         }
-        b = query_min(i + 1, res - 2);
-        c = query_max(res - 1, n);
-        if(a == b && b == c) {
-            cout << "YES" << endl;
-            cout << i << ' ' << (res - 2) - (i + 1) + 1  << ' ' << n - (res - 1)  + 1 << endl;
-            return ;
-        }
+        b1 = query_max(res, n);
+        b2 = query_max(ans, n);
+        if(b1 != a)continue;
+        debug2(i, a);
+        debug2(ans, res);
+        debug2(b1, b2);
+        int re;
+        l = res, r = ans;
+        // while(l <= r) {
+        //     int mid = l + r >> 1;
+        //     int c = query_min(mid + 1, n);
+        //     int b = query_min(i + 1, mid);
+        //     if(a > c)l = mid + 1;
+        //     else if(a < c)r = mid - 1;
+        //     else {
+        //         if(a == b && b == c) {
+        //             cout << "YES" << endl;
+        //             cout << i << ' ' << mid - (i + 1) + 1 << ' ' << n - (mid + 1) + 1 << endl;
+        //             return ;
+        //         }
+        //     }
+        // }
     }
     cout << "NO" << endl;
 }
