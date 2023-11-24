@@ -94,9 +94,9 @@ void solve() {
         b1 = query_max(res, n);
         b2 = query_max(ans, n);
         if(b1 != a)continue;
-        debug2(i, a);
-        debug2(ans, res);
-        debug2(b1, b2);
+        // debug2(i, a);
+        // debug2(ans, res);
+        // debug2(b1, b2);
         int re;
         l = res, r = ans;
         // while(l <= r) {

@@ -1,15 +1,16 @@
 /*
- * ===========================================================================
+ * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-27 20:02:57
+ * Time:    2023-11-24 23:30:42
  *
- * Problem: D. In Love
- * Contest: Codeforces - Codeforces Round 905 (Div. 3)
- * URL:     https://codeforces.com/contest/1883/problem/D
+ * Problem: B. Chip and Ribbon
+ * Contest: Codeforces - Educational Codeforces Round 158 (Rated for Div. 2)
+ * URL:     https://codeforces.com/contest/1901/problem/B
  * MemoryL: 256 MB
  * TimeL:   2000 ms
- * ===========================================================================
+ * ==================================================================================
  */
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -31,13 +32,13 @@
 #define ALL(a) a.begin(),a.end()
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
-#define PI acos(-1)
 #define endl '\n'
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+#define PI acos(-1)
+const int N = 10010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -45,50 +46,30 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-struct L {
-    int x;
-    bool operator <(const L &l) const {
-        return x > l.x;
-    }
-};
-
-
-struct R {
-    int x;
-    bool operator <(const R &r) const {
-        return x < r.x;
-    }
-};
-
 void solve() {
-    multiset<L> l;
-    multiset<R> r;
-    int q;
-    cin >> q;
-    while(q--) {
-        char op;
-        int a, b;
-        cin >> op >> a >> b;
-        if(op == '+') {
-            l.insert({a});
-            r.insert({b});
-            // debug1(*l.rbegin());
-        } else {
-            l.erase(l.find({a}));
-            r.erase(r.find({b}));
-        }
-        if(l.size() > 1) {
-            if((*l.begin()).x > (*r.begin()).x) {
-                cout << "YES" << endl;
-            } else cout << "NO" << endl;
-        } else cout << "NO" << endl;
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
     }
+    int mx = 0, mn = INF;
+    int ans = 0;
+    for(int i=1;i<n;i++) {
+        if(i != 0) {
+            mn = min(i, mn);
+            mx = max(i, mx);
+        } else {
+            ans += mx - mn;
+        }
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
