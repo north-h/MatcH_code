@@ -1,15 +1,16 @@
 /*
- * ===========================================================================
+ * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-27 20:02:57
+ * Time:    2023-11-25 11:19:10
  *
- * Problem: D. In Love
- * Contest: Codeforces - Codeforces Round 905 (Div. 3)
- * URL:     https://codeforces.com/contest/1883/problem/D
- * MemoryL: 256 MB
+ * Problem: 美丽新世界
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/70307/A
+ * MemoryL: 524288 MB
  * TimeL:   2000 ms
- * ===========================================================================
+ * ==================================================================================
  */
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -31,13 +32,13 @@
 #define ALL(a) a.begin(),a.end()
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
-#define PI acos(-1)
 #define endl '\n'
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+#define PI acos(-1)
+const int N = 10010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -45,43 +46,33 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-struct L {
-    int x;
-    bool operator <(const L &l) const {
-        return x > l.x;
-    }
-};
 
-
-struct R {
-    int x;
-    bool operator <(const R &r) const {
-        return x < r.x;
+int ksm(int a, int b) {
+    int res = 1;
+    while(b) {
+        if(b & 1)res *= a;
+        b >>= 1;
+        a = a * a;
     }
-};
+    return res;
+}
 
 void solve() {
-    multiset<L> l;
-    multiset<R> r;
-    int q;
-    cin >> q;
-    while(q--) {
-        char op;
-        int a, b;
-        cin >> op >> a >> b;
-        if(op == '+') {
-            l.insert({a});
-            r.insert({b});
-            // debug1(*l.rbegin());
-        } else {
-            l.erase(l.find({a}));
-            r.erase(r.find({b}));
+    int f1, f2, p, A, n, fx;
+    cin >> f1 >> f2 >> p >> A >> n;
+    for(int i = 1; i <= n; i++) {
+        if(i == 1) {
+            cout << f1 << ' ';
+            continue;
         }
-        if(l.size() > 1) {
-            if((*l.begin()).x > (*r.begin()).x) {
-                cout << "YES" << endl;
-            } else cout << "NO" << endl;
-        } else cout << "NO" << endl;
+        if(i == 2) {
+            cout << f2 << ' ';
+            continue;
+        }
+        fx = log2(ksm(f1, f2) % p + 1) + A;
+        cout << fx << ' ';
+        f1 = f2;
+        f2 = fx;
     }
 }
 

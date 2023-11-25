@@ -46,7 +46,26 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<string> a(n);
+    for(auto &i : a)cin >> i;
+    int ans = 0;
+    for(int i = 0; i < n / 2; i++) {
+        for(int j = i; j < n - i - 1; j++) {
+            char a1 = a[i][j];
+            char a2 = a[j][n - i - 1];
+            char a3 = a[n - i - 1][n - j - 1];
+            char a4 = a[n - j - 1][i];
+            // debug2(a1, a2);
+            // debug2(a3, a4);
+            char op = max({a1, a2, a3, a4});
+            ans += (op - a1) + (op - a2) + (op - a3) + (op - a4);
+        }
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

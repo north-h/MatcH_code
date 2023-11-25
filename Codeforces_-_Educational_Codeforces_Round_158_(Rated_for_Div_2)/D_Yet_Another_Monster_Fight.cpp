@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-10-12 22:38:14
+ * Time:    2023-11-24 23:30:50
  *
- * Problem: E. Block Sequence
- * Contest: Codeforces - Codeforces Round 903 (Div. 3)
- * URL:     https://codeforces.com/contest/1881/problem/E
+ * Problem: D. Yet Another Monster Fight
+ * Contest: Codeforces - Educational Codeforces Round 158 (Rated for Div. 2)
+ * URL:     https://codeforces.com/contest/1901/problem/D
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -46,20 +46,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n;
-    cin >> n;
-    vector<int> dp(n + 2, INT_MAX);
-    vector<int> a(n + 1);
-    for(int i = 1; i <= n; i++)cin >> a[i];
-    dp[n + 1] = 0;
-    dp[n] = 1;
-    for(int i = n - 1; i >= 1; i--) {
-        if(i + a[i] <= n)dp[i] = min(dp[i + 1] + 1, dp[i + a[i] + 1]);
-        else dp[i] = dp[i + 1] + 1;
-    }
-    cout << dp[1] << endl;
-}
+void solve() {}
 
 int32_t main() {
     IOS;
