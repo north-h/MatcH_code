@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-24 23:30:37
+ * Time:    2023-11-25 11:19:10
  *
- * Problem: A. Line Trip
- * Contest: Codeforces - Educational Codeforces Round 158 (Rated for Div. 2)
- * URL:     https://codeforces.com/contest/1901/problem/A
- * MemoryL: 256 MB
+ * Problem: 美丽新世界
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/70307/A
+ * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -46,23 +46,40 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, x;
-    cin >> n >> x;
-    int temp = 0, ans = 0;
-    for(int i = 0, y; i < n; i++) {
-        cin >> y;
-        ans = max(ans, y - temp);
-        temp = y;
+
+int ksm(int a, int b) {
+    int res = 1;
+    while(b) {
+        if(b & 1)res *= a;
+        b >>= 1;
+        a = a * a;
     }
-    ans = max(ans, (x - temp) * 2);
-    cout << ans << endl;
+    return res;
+}
+
+void solve() {
+    int f1, f2, p, A, n, fx;
+    cin >> f1 >> f2 >> p >> A >> n;
+    for(int i = 1; i <= n; i++) {
+        if(i == 1) {
+            cout << f1 << ' ';
+            continue;
+        }
+        if(i == 2) {
+            cout << f2 << ' ';
+            continue;
+        }
+        fx = log2(ksm(f1, f2) % p + 1) + A;
+        cout << fx << ' ';
+        f1 = f2;
+        f2 = fx;
+    }
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

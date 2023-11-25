@@ -46,7 +46,28 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for(auto &i : a)cin >> i;
+    int mn = *min_element(ALL(a));
+    int ans = 0, res = 0;
+    for(int i = 0; i < n; i++) {
+        res = 0;
+        while(a[i] != mn) {
+            res++;
+            a[i] = (a[i] + mn) / 2;
+        }
+        ans = max(res, ans);
+    }
+    if(ans > n) cout << ans << endl;
+    else {
+        cout << ans << endl;
+        for(int i = 1; i <= ans; i++)cout << mn << ' ';
+        cout << endl;
+    }
+}
 
 int32_t main() {
     IOS;

@@ -53,17 +53,11 @@ void solve() {
     for(int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    int mx = 0, mn = INF;
-    int ans = 0;
-    for(int i=1;i<n;i++) {
-        if(i != 0) {
-            mn = min(i, mn);
-            mx = max(i, mx);
-        } else {
-            ans += mx - mn;
-        }
+    ll ans = a[0];
+    for(int i = 1; i < n; i++) {
+        ans += max(0, a[i] - a[i - 1]);
     }
-    cout << ans << endl;
+    cout << ans - 1 << endl;
 }
 
 int32_t main() {
