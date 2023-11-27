@@ -38,7 +38,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 100010;
+const int N = 300010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -57,10 +57,7 @@ void dfs(int x, int cnt) {
         ans = min(ans, cnt);
         return ;
     }
-    // debug1(cnt);
-    // debug2(l, r);
     if(l) dfs(l, cnt + (s[x] != 'L'));
-    // debug2(x, s[x]);
     if(r) dfs(r, cnt + (s[x] != 'R'));
 }
 
