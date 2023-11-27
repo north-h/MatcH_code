@@ -46,29 +46,35 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int ans, res;
-int edge[N][2];
-string s;
-int n;
-
-void dfs(int x, int cnt) {
-    int l = edge[x][0], r = edge[x][1];
-    if(l == 0 && r == 0) {
-        ans = min(ans, cnt);
-        return ;
-    }
-    if(l) dfs(l, cnt + (s[x] != 'L'));
-    if(r) dfs(r, cnt + (s[x] != 'R'));
-}
-
 void solve() {
+    int n;
+    string s;
     cin >> n >> s;
     s = " " + s;
-    for(int i = 1; i <= n; i++) {
+    vector<array<int, 2>> edge(n + 1);
+    for (int i = 1; i <= n; i++) {
         cin >> edge[i][0] >> edge[i][1];
     }
-    ans = INF;
-    dfs(1, 0);
+    int ans = INF;
+    auto dfs = [&](auto & dfs, int u, int cnt) -> void {
+        int l = edge[u][0], r = edge[u][1];
+        if (l == 0 && r == 0) {
+            ans = min(ans, cnt);
+            return;
+        }
+        if (l) dfs(dfs, l, cnt + (s[u] != 'L'));
+        if (r) dfs(dfs, r, cnt + (s[u] != 'R'));
+    };
+    // function<void(int, int)> dfs = [&](int u, int cnt) -> void {
+    //     int l = edge[u][0], r = edge[u][1];
+    //     if (l == 0 && r == 0) {
+    //         ans = min(ans, cnt);
+    //         return;
+    //     }
+    //     if (l) dfs(l, cnt + (s[u] != 'L'));
+    //     if (r) dfs(r, cnt + (s[u] != 'R'));
+    // };
+    dfs(dfs, 1, 0);
     cout << ans << endl;
 }
 

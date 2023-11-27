@@ -48,29 +48,10 @@ using namespace std;
 
 void solve() {
     int n;
-    cin >> n;
     string s;
-    cin >> s;
-    int cnt = 0;
-    int ans = 0;
-    bool ok = true;
-    for(auto i : s) {
-        if(i == '.')cnt++;
-        else {
-            if(cnt >= 3) {
-                cout << 2 << endl;
-                return ;
-            }
-            ans += cnt;
-            cnt = 0;
-        }
-    }
-    if(cnt >= 3) {
-        cout << 2 << endl;
-        return ;
-    }
-    ans += cnt;
-    cout << ans << endl;
+    cin >> n >> s;
+    if(s.find("...") != -1)cout << 2 << endl;
+    else cout << count(ALL(s), '.') << endl;
 }
 
 int32_t main() {
