@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-25 11:19:10
+ * Time:    2023-11-26 15:44:10
  *
- * Problem: 美丽新世界
+ * Problem: 我爱贵工程
  * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/70307/A
+ * URL:     https://ac.nowcoder.com/acm/contest/69246/G
  * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,34 +46,40 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-
-int ksm(int a, int b, int p) {
-    int res = 1;
-    while(b) {
-        if(b & 1)res *= a, res %= p;
-        b >>= 1;
-        a = a * a;
-        a %= p;
-    }
-    return res;
-}
-
 void solve() {
-    int f1, f2, p, A, n, fx;
-    cin >> f1 >> f2 >> p >> A >> n;
-    for(int i = 1; i <= n; i++) {
-        if(i == 1) {
-            cout << f1 << ' ';
-            continue;
+    int n;
+    cin >> n;
+    string s;
+    getline(cin, s);
+    while(n--) {
+        getline(cin, s);
+        // debug1(s);
+        map<char, int> mp;
+        for(auto j : s) {
+            if(j >= '0' && j <= '9')mp[j]++;
         }
-        if(i == 2) {
-            cout << f2 << ' ';
-            continue;
+        int ans = 0;
+        char op;
+        int cnt = 0;
+        char o1 = '0';
+        for(auto [x, y] : mp) {
+            if(x == o1) {
+                o1++;
+                cnt++;
+            } else break;
         }
-        fx = (int)log2(ksm(f2, f1, p) % p + 1) + A;
-        cout << fx << ' ';
-        f1 = f2;
-        f2 = fx;
+        for(auto [x, y] : mp) {
+            if(ans < y) {
+                ans = y;
+                op = x;
+            } else if(ans == y) {
+                if(x < op) {
+                    op = x;
+                }
+            }
+        }
+        cout << op << ' ' << ans << endl;;
+        if(cnt == 10)cout << "I Love GUES！" << endl;
     }
 }
 

@@ -45,12 +45,32 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    char a, b, c, d, e;
+    cin >> a >> b >> c >> d >> e;
+    if(d >= '6')d = '0';
+    int x = (a - '0') * 10 + (b - '0');
+    int y = (d - '0') * 10 + (e - '0');
+    // debug2(x, y);
+    if(n == 12) {
+        if(x == 0)a = '1';
+        else if(x > 12) {
+            if(b != '0')a = '0';
+            else a = '1';
+        }
+    }
+    if(n == 24) {
+        if(x >= 24)a = '0';
+    }
+    cout << a << b << c << d << e << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

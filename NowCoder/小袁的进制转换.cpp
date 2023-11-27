@@ -1,15 +1,16 @@
 /*
- * ===========================================================================
+ * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-25 16:30:25
+ * Time:    2023-11-26 15:40:00
  *
- * Problem: D. Checking the Calendar
- * Contest: Codeforces - 重庆市赛复活赛
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/488622/problem/D
- * MemoryL: 256 MB
- * TimeL:   1000 ms
- * ===========================================================================
+ * Problem: 小袁的进制转换
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/69246/F
+ * MemoryL: 524288 MB
+ * TimeL:   2000 ms
+ * ==================================================================================
  */
+
 #pragma GCC optimize("Ofast")
 
 #include<bits/stdc++.h>
@@ -31,13 +32,13 @@
 #define ALL(a) a.begin(),a.end()
 #define rALL(a) a.rbegin(),a.rend()
 #define int128 __int128
-#define PI acos(-1)
 #define endl '\n'
 #define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+#define PI acos(-1)
+const int N = 10010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -46,27 +47,26 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    string a, b;
-    cin >> a >> b;
-
-    int d[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    string s[7] = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
-
-    int x;
-    for (int i = 0; i < 7; i++) {
-        if (s[i] == a) {
-            x = i;
-        }
+    bool ok = false;
+    int n;
+    cin >> n;
+    if(n == 0) {
+        cout << 0 << endl;
+        return ;
     }
-
-    for (int i = 0; i < 12; i++) {
-        int k = d[i] % 7;
-        if (s[(x + k) % 7] == b) {
-            cout << "YES" << "\n";
-            return;
-        }
+    if(n < 0)ok = true;
+    n = abs(n);
+    vector<int> ans;
+    while(n) {
+        ans.push_back(n % 2);
+        n /= 2;
     }
-    cout << "NO" << "\n";
+    if(ok)cout << '-';
+    reverse(ALL(ans));
+    for(auto i : ans) {
+        cout << i;
+    }
+    cout << endl;
 }
 
 int32_t main() {

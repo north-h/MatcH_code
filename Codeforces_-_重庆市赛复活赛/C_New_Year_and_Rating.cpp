@@ -45,12 +45,27 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, a, b;
+    cin >> n;
+    int l = -INF, r = INF;
+    int sum = 0;
+    for(int i = 0; i < n; i++) {
+        cin >> a >> b;
+        if(b == 1)l = max(1900 - sum, l);
+        else r = min(r, 1899 - sum);
+        sum += a;
+    }
+    // debug2(l, r);
+    if(l > r)cout << "Impossible" << endl;
+    else if(r == INF)cout << "Infinity" << endl;
+    else cout << r + sum << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

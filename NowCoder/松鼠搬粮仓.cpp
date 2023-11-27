@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-25 11:19:10
+ * Time:    2023-11-26 16:04:05
  *
- * Problem: 美丽新世界
+ * Problem: 松鼠搬粮仓
  * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/70307/A
+ * URL:     https://ac.nowcoder.com/acm/contest/69246/O
  * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,35 +46,36 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-
-int ksm(int a, int b, int p) {
-    int res = 1;
-    while(b) {
-        if(b & 1)res *= a, res %= p;
-        b >>= 1;
-        a = a * a;
-        a %= p;
-    }
-    return res;
-}
+int dpmax[M][M], dpmin[M][M];
+int s[ 2 * N];
+int n;
+int a[2 * N];
 
 void solve() {
-    int f1, f2, p, A, n, fx;
-    cin >> f1 >> f2 >> p >> A >> n;
-    for(int i = 1; i <= n; i++) {
-        if(i == 1) {
-            cout << f1 << ' ';
-            continue;
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++)cin >> a[i], s[i] = s[i - 1] + a[i];
+    for (int i = 1; i <= n; i++)a[i + n] = a[i], s[i + n] = s[i + n - 1] + a[i];
+    //    for(int i=1;i<=2*n;i++)cout<<a[i]<<' ';cout<<endl;
+    //    for(int i=1;i<=2*n;i++)cout<<s[i]<<' ';cout<<endl;
+    for (int len = 2; len <= 2 * n; len++) {
+        for (int i = 1; i + len - 1 <= 2 * n; i++) {
+            int l = i, r = i + len - 1;
+            dpmin[l][r] = INF;
+            dpmax[l][r] = -INF;
+            for (int j = l; j < r; j++) {
+                dpmin[l][r] = min(dpmin[l][j] + dpmin[j + 1][r] + s[r] - s[l - 1], dpmin[l][r]);
+                dpmax[l][r] = max(dpmax[l][j] + dpmax[j + 1][r] + s[r] - s[l - 1], dpmax[l][r]);
+            }
         }
-        if(i == 2) {
-            cout << f2 << ' ';
-            continue;
-        }
-        fx = (int)log2(ksm(f2, f1, p) % p + 1) + A;
-        cout << fx << ' ';
-        f1 = f2;
-        f2 = fx;
     }
+    int ans1 = INF;
+    int ans2 = -INF;
+    for (int i = 1, j = n; i <= n; i++, j++) {
+        ans1 = min(dpmin[i][j], ans1);
+        ans2 = max(dpmax[i][j], ans2);
+    }
+    cout << ans1 << endl << ans2 << endl;
 }
 
 int32_t main() {

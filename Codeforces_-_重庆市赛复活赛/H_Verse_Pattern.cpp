@@ -45,12 +45,38 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    set<char> st;
+    st.insert('a');
+    st.insert('e');
+    st.insert('i');
+    st.insert('o');
+    st.insert('u');
+    st.insert('y');
+    for (int i = 0; i < n; i++)cin >> a[i];
+    string s;
+    getline(cin, s);
+    bool ok = true;
+    for (int i = 0; i < n; i++) {
+        getline(cin, s);
+        int cnt = 0;
+        int res = 0;
+        for (auto j : s) {
+            if (st.count(j))cnt++;
+        }
+        if (cnt != a[i])ok = false;
+    }
+    if (ok)cout << "YES" << endl;
+    else cout << "NO" << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

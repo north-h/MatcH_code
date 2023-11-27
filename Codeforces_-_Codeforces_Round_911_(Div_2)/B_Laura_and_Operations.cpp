@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-11-25 11:19:10
+ * Time:    2023-11-27 00:11:37
  *
- * Problem: 美丽新世界
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/70307/A
- * MemoryL: 524288 MB
+ * Problem: B. Laura and Operations
+ * Contest: Codeforces - Codeforces Round 911 (Div. 2)
+ * URL:     https://codeforces.com/contest/1900/problem/B
+ * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -20,7 +20,7 @@
 #define met_1(a) memset(a,-1,sizeof a)
 #define met_x(a) memset(a,0x3f,sizeof a)
 #define mpy(a, b) memcopy(a,sizeof b,b)
-#define int long long
+#define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
@@ -46,41 +46,40 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-
-int ksm(int a, int b, int p) {
-    int res = 1;
-    while(b) {
-        if(b & 1)res *= a, res %= p;
-        b >>= 1;
-        a = a * a;
-        a %= p;
-    }
-    return res;
-}
-
 void solve() {
-    int f1, f2, p, A, n, fx;
-    cin >> f1 >> f2 >> p >> A >> n;
-    for(int i = 1; i <= n; i++) {
-        if(i == 1) {
-            cout << f1 << ' ';
-            continue;
-        }
-        if(i == 2) {
-            cout << f2 << ' ';
-            continue;
-        }
-        fx = (int)log2(ksm(f2, f1, p) % p + 1) + A;
-        cout << fx << ' ';
-        f1 = f2;
-        f2 = fx;
+    int a, b, c;
+    cin >> a >> b >> c;
+    int mx = max({a, b, c});
+    int ana = 0, anb = 0, anc = 0;
+    int aa = b + c;
+    int bb = a + c;
+    int cc = a + b;
+    if(a == mx) {
+        if(abs((a - b) - aa) % 2 == 0)anb = 1;
+        if(abs((a - c) - aa) % 2 == 0)anc = 1;
+        // if(b == c)ana = 1;
+        a %= min(b, c);
+        if((abs(b - c) - (a + c)) % 2 == 0)ana = 1;
+    } else if(b == mx) {
+        if(abs((b - a) - bb) % 2 == 0)ana = 1;
+        if(abs((b - c) - bb) % 2 == 0)anc = 1;
+        // if(a == c)anb = 1;
+        b %= min(a, c);
+        if((abs(a - b) - (b + c)) % 2 == 0)anb = 1;
+    } else {
+        if(abs((c - a) - cc) % 2 == 0)ana = 1;
+        if(abs((c - b) - cc) % 2 == 0)anb = 1;
+        // if(b == a)anc = 1;
+        c %= min(b, c);
+        if((abs(c - b) - (a + b)) % 2 == 0)anc = 1;
     }
+    cout << ana << ' ' << anb << ' ' << anc << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

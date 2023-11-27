@@ -37,7 +37,7 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+const int N = 25;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -45,12 +45,56 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+int a[N][N];
+int n, m;
+
+void turn(int x, int y) {
+    for(int i = 0; i < n; i++) {
+        swap(a[i][x], a[i][y]);
+    }
+}
+
+bool check() {
+    for(int i = 0; i < n; i++) {
+        int cnt = 0;
+        for(int j = 0; j < m; j++) {
+            if(a[i][j] != j + 1) {
+                cnt++;
+            }
+        }
+        if(cnt != 0 && cnt != 2)return false;
+    }
+    return true;
+}
+
+void solve() {
+    cin >> n >> m;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            cin >> a[i][j];
+        }
+    }
+    if(check()) {
+        cout << "YES" << endl;
+        return ;
+    }
+    for(int i = 0; i < m - 1; i++) {
+        for(int j = i + 1; j < m; j++) {
+            turn(i, j);
+            if(check()) {
+                cout << "YES" << endl;
+                return ;
+            }
+            turn(i, j);
+        }
+    }
+    cout << "NO" << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

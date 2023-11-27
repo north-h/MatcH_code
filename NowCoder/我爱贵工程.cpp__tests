@@ -1,0 +1,16 @@
+[
+	{
+		"correct_answers":
+		[
+			"0 1\nI Love GUES！"
+		],
+		"test": "1\n1234567890\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0 1\nI Love GUES！\n1 1"
+		],
+		"test": "2\n1234567890\nabsd123    sdd\n"
+	}
+]
