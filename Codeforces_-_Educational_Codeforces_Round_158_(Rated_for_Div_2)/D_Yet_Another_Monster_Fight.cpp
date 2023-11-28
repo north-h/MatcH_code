@@ -46,12 +46,35 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<ll> a(n + 1), pre(n + 1, 0), suf(n + 2, 0);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        pre[i] = a[i] + n - i;
+        suf[i] = a[i] + i - 1;
+    }
+    ll sum = 0;
+    for(int i = 1; i <= n; i++) {
+        // sum = a[i] + n - i;
+        pre[i] = max(pre[i - 1], pre[i]);
+    }
+    for(int i = n; i >= 1; i--) {
+        // sum = a[i] + i - 1;
+        suf[i] = max(suf[i + 1], suf[i]);
+    }
+    ll ans = LLONG_MAX;
+    for(int i = 1; i <= n; i++) {
+        ans = min(ans, max({a[i], pre[i - 1], suf[i + 1]}));
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
