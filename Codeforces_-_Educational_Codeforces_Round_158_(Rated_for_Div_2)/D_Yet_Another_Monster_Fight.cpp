@@ -57,11 +57,9 @@ void solve() {
     }
     ll sum = 0;
     for(int i = 1; i <= n; i++) {
-        // sum = a[i] + n - i;
         pre[i] = max(pre[i - 1], pre[i]);
     }
     for(int i = n; i >= 1; i--) {
-        // sum = a[i] + i - 1;
         suf[i] = max(suf[i + 1], suf[i]);
     }
     ll ans = LLONG_MAX;

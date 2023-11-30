@@ -46,7 +46,53 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m, k;
+    cin >> n >> m >> k;
+    int res = k - (n + m - 2);
+    if((n + m - 2) > k || res & 1) {
+        cout << "NO" << endl;
+        return ;
+    }
+    vector<vector<int>> hang(n + 1, vector<int>(m, 0));
+    vector<vector<int>> lie(n, vector<int>(m + 1, 0));
+    for(int i = 1; i < m; i++) {
+        if(i == 1)hang[1][i] = 1;
+        else hang[1][i] = !hang[1][i - 1];
+    }
+    for(int i = 1; i < n; i++) {
+        if(i == 1)lie[i][m] = !hang[1][m - 1];
+        else lie[i][m] = !lie[i - 1][m];
+    }
+    // debug2(res % 4, res);
+    if(res % 4 == 2) {
+        hang[1][1] = 0;
+        hang[2][1] = 0;
+        lie[1][1] = 1;
+        lie[1][2] = 1;
+    } else {
+        hang[n][m - 1] = !lie[n - 1][m];
+        lie[n - 1][m - 1] = lie[n - 1][m];
+        hang[n - 1][m - 1] = hang[n][m - 1];
+    }
+    cout << "YES" << endl;
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j < m; j++) {
+            // cout << hang[i][j] << ' ';
+            if(hang[i][j] == 1)cout << "B" << ' ';
+            else cout << "R" << ' ';
+        }
+        cout << endl;
+    }
+    for(int i = 1; i < n; i++) {
+        for(int j = 1; j <= m; j++) {
+            // cout << lie[i][j] << ' ';
+            if(lie[i][j] == 1)cout << "B" << ' ';
+            else cout << "R" << ' ';
+        }
+        cout << endl;
+    }
+}
 
 int32_t main() {
     IOS;
