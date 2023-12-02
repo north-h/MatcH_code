@@ -1,1 +1,23 @@
-[{"test": "3\ncab\n6\nabcd\n9\nx\n1\n", "correct_answers": ["abx"]}]
+[
+	{
+		"correct_answers":
+		[
+			"abx"
+		],
+		"test": "3\ncab\n6\nabcd\n9\nx\n1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"f"
+		],
+		"test": "1\nif\n3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"o"
+		],
+		"test": "1\ndttkjvzob\n34\n"
+	}
+]
