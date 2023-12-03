@@ -45,7 +45,29 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    ll sum = 0;
+    vector<int> v(n + 1), w(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> v[i] >> w[i];
+        sum += w[i];
+    }
+    vector<int> dp(sum + 1, INF);
+    dp[0] = 0;
+    for(int i = 1; i <= n; i++) {
+        for(int j = sum; j >= w[i]; j--) {
+            dp[j] = min(dp[j], dp[j - w[i]] + v[i]);
+        }
+    }
+    for(int i = sum; i >= 0; i--) {
+        if(dp[i] <= m) {
+            cout << i << endl;
+            return ;
+        }
+    }
+}
 
 int32_t main() {
     IOS;

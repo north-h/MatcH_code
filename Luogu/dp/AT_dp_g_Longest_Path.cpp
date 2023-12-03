@@ -37,7 +37,7 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
+const int N = 100010;
 const int M = 1910;
 const int MOD = 998244353;
 const double EPS = 1e-8;
@@ -49,22 +49,14 @@ vector<int> g[N];
 int dp[N];
 int ans;
 
-int dfs1(int u) {
-    if(dp[u] != 0)return dp[u];
-    for(auto i : g[u]) {
-        dp[u] = max(dp[u], dfs1(i) + 1);
+int dfs(int u) {
+    if(dp[u])return dp[u];
+    for(auto v : g[u]) {
+        dp[u] = max(dp[u], dfs(v) + 1);
     }
     return dp[u];
 }
 
-void dfs2(int u) {
-    if(dp[u])return ;
-    for(auto i : g[u]) {
-        dfs2(i);
-        dp[u] = max(dp[u], dp[i] + 1);
-    }
-    ans = max(ans, dp[u]);
-}
 
 void solve() {
     int n, m ;
@@ -74,11 +66,19 @@ void solve() {
         cin >> a >> b;
         g[a].push_back(b);
     }
-    // for(int i = 1; i <= n; i++) {
-    //     // debug1(dfs(i));
-    //     ans = max(ans, dfs1(i));
-    // }
-    dfs2(1);
+    auto dfs2 = [&](auto &&self, int u)->void{
+        if(dp[u])return ;
+        dp[u] = 0;
+        for(auto v : g[u]) {
+            self(self, v);
+            dp[u] = max(dp[u], dp[v] + 1);
+        }
+        ans = max(ans, dp[u]);
+    };
+    for(int i = 1; i <= n; i++) {
+        ans = max(ans, dfs(i));
+        // dfs2(dfs2, i);
+    }
     cout << ans << endl;
 }
 
