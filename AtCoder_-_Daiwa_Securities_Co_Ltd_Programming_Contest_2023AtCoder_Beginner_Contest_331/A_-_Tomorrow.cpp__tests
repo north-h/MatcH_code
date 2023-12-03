@@ -1,0 +1,1 @@
+[{"correct_answers": ["2024 1 1"], "test": "12 30\n2023 12 30\n"}, {"correct_answers": ["6789 23 46"], "test": "36 72\n6789 23 45\n"}, {"correct_answers": ["2012 6 21"], "test": "12 30\n2012 6 20\n"}]
