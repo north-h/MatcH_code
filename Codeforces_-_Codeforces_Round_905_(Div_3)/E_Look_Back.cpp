@@ -45,7 +45,36 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<ll>a(n + 1);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    ll ans = 0;
+    ll last = 0;
+    for(int i = 2; i <= n; i++) {
+        int cnt = 0;
+        if(a[i] == a[i - 1]) {
+            ans += last;
+            continue;
+        } else if(a[i] > a[i - 1]) {
+            while(a[i - 1] * (1ll << cnt) <= a[i]) {
+                cnt++;
+            }
+            cnt--;
+            last = max(0ll, last - cnt);
+        } else {
+            while(a[i - 1] > a[i] * (1ll << cnt)) {
+                cnt++;
+            }
+            last = last + cnt;
+        }
+        ans += last;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

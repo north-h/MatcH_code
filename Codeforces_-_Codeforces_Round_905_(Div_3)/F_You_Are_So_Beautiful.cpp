@@ -1,51 +1,66 @@
 /*
  * ===========================================================================
  * Author:  north_h
- * Time:    2023-10-27 20:03:06
+ * Time:    2023-12-03 14:03:59
  *
  * Problem: F. You Are So Beautiful
  * Contest: Codeforces - Codeforces Round 905 (Div. 3)
- * URL:     https://codeforces.com/contest/1883/problem/F
+ * URL:     https://codeforces.com/problemset/problem/1883/F
  * MemoryL: 256 MB
  * TimeL:   1000 ms
  * ===========================================================================
  */
-#pragma GCC optimize("Ofast")
-
+// #pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
-
-#define IOS ios::sync_with_stdio(false),cin.tie(nullptr), cout.tie(nullptr);
-#define met_0(a) memset(a,0,sizeof a)
-#define met_1(a) memset(a,-1,sizeof a)
-#define met_x(a) memset(a,0x3f,sizeof a)
-#define mpy(a, b) memcopy(a,sizeof b,b)
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr);
 #define ll long long
-#define ld long double
-#define ull unsigned long long
 #define fi first
 #define se second
 #define PII pair<int,int>
-#define PDD pair<double,double>
-#define PCI pair<char,int>
-#define PSI pair<string,int>
-#define ALL(a) a.begin(),a.end()
-#define rALL(a) a.rbegin(),a.rend()
-#define int128 __int128
 #define PI acos(-1)
 #define endl '\n'
-#define lcm(x,y) x*y/__gcd(x,y)
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 1010;
-const int M = 1910;
-const int MOD = 998244353;
-const double EPS = 1e-8;
-const int INF = 0x3f3f3f3f;
+const int N = 100010;
+const int M = 110;
 
 using namespace std;
 
-void solve() {}
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x ^= x << 13;
+        x ^= x >> 7;
+        x ^= x << 17;
+        return x;
+    }
+    size_t operator () (uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count(); // 时间戳
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), dp(n + 1);
+    for(int i = 1; i <= n; i++)cin >> a[i];
+    unordered_map<int, int, custom_hash> mp;
+    int cnt = 0;
+    for(int i = 1; i <= n; i++) {
+        mp[a[i]]++;
+        if(mp[a[i]] == 1)dp[i] = 1, cnt++;
+        else dp[i] = 0;
+    }
+    mp.clear();
+    ll ans = 0;
+    for(int i = n; i >= 1; i--) {
+        mp[a[i]]++;
+        if(mp[a[i]] == 1)ans += cnt;
+        if(dp[i])cnt--;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

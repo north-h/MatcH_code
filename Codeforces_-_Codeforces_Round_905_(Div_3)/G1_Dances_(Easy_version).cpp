@@ -45,7 +45,25 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n), b(n);
+    for(auto &i : a)cin >> i;
+    for(auto &i : b)cin >> i;
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end(), greater<int>());
+    int ans = 0;
+    for(int i = 0; i < n; i++) {
+        while(a.size() && a.back() >= b[i]) {
+            a.pop_back();
+            ans++;
+        }
+        if(!a.size())break;
+        a.pop_back();
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
