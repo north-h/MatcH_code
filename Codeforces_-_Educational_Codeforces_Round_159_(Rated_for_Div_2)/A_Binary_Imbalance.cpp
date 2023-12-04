@@ -32,11 +32,6 @@ void solve() {
     int n;
     string s;
     cin >> n >> s;
-    // if(n == 1) {
-    //     if(s[0] == '1')cout << "NO" << endl;
-    //     else cout << "YES" << endl;
-    //     return ;
-    // }
     for(auto i : s) {
         if(i == '0') {
             cout << "YES" << endl;
