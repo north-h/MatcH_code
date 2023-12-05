@@ -16,7 +16,7 @@
 #include<bits/stdc++.h>
 
 #define IOS ios::sync_with_stdio(false),cin.tie(nullptr);
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int,int>
@@ -30,33 +30,40 @@ const int P = 998244353;
 
 using namespace std;
 
+int f[N];
+
 void solve() {
     string s;
     cin >> s;
-    int cnt = 1;
-    ll ans = 0;
-    ll res = 0;
-    ll aes = 0;
+    int cnt = 1, ans = 1, res = 0;
     for(int i = 1; i < s.size(); i++) {
         if(s[i] == s[i - 1])cnt++;
         else {
-            if(cnt > 1)aes++;
             res += cnt - 1;
-            if(cnt > 1)ans *= cnt * (cnt - 1);
-            ans %= P;
+            if(cnt > 1) {
+                ans *= cnt;
+                ans %= P;
+            }
             cnt = 1;
         }
     }
     res += cnt - 1;
-    if(cnt > 1)ans *= cnt * (cnt - 1);
+    // debug(ans);
+    if(cnt > 1) {
+        ans *= cnt;
+        ans %= P;
+    }
+    ans *= f[res];
     ans %= P;
-    if(res == 0)ans = 1;
-    // if(aes > 1)ans *= (aes - 1) * aes;
-    // ans %= P;
     cout << res << ' ' << ans << endl;
 }
 
 int32_t main() {
+    f[0] = 1;
+    for(int i = 1; i < N; i++) {
+        f[i] = f[i - 1] * i;
+        f[i] %= P;
+    }
     IOS;
     int h_h = 1;
     cin >> h_h;
