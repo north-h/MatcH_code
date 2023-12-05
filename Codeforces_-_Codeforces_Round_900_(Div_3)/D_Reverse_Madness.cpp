@@ -53,48 +53,36 @@ void solve() {
     vector<int> l(m + 1), r(m + 1);
     for(int i = 1; i <= m; i++)cin >> l[i];
     for(int i = 1; i <= m; i++)cin >> r[i];
+    vector<int> vis(n + 1);
+    for(int i = 1; i <= m; i++) {
+        for(int j = l[i]; j <= r[i]; j++) {
+            vis[j] = i;
+        }
+    }
+    vector<int> ss(n + 10);
     int q;
     cin >> q;
-    vector<PII> lr;
-    for(int i = 1; i <= q; i++) {
+    while(q--) {
         int x;
         cin >> x;
-        int li = 1, ri = m, ans;
-        while(li <= ri) {
-            int mid = li + ri >> 1;
-            if(r[mid] >= x)ri = mid - 1, ans = mid;
-            else li = mid + 1;
-        }
-        lr.push_back({min(x, l[ans] + r[ans] - x), max(x, l[ans] + r[ans] - x)});
-    }
-    sort(ALL(lr));
-    vector<int> c(n + 10, 0), ss(n + 10, 0);
-    for(auto [l, r] : lr) {
-        c[l]++;
-        c[r + 1]--;
+        int id = vis[x];
+        int a = min(x, l[id] + r[id] - x);
+        int b = max(x, l[id] + r[id] - x);
+        ss[a]++;
+        ss[b + 1]--;
     }
     for(int i = 1; i <= n; i++) {
-        ss[i] = ss[i - 1] + c[i];
+        ss[i] += ss[i - 1];
     }
-    vector<PII> ans;
-    auto &[li, ri] = lr[0];
-    for(int i = 1; i < lr.size(); i++) {
-        if(lr[i].fi > ri) {
-            ans.push_back({li, ri});
-            li = lr[i].fi;
-            ri = lr[i].se;
-        } else {
-            li = min(li, lr[i].fi);
-            ri = max(ri, lr[i].se);
-        }
+    for(int i = 1; i < s.size(); i++) {
+        if(ss[i] % 2) {
+            int id = vis[i];
+            int a = l[id];
+            int b = r[id];
+            cout << s[a + b - i];
+        } else cout << s[i];
     }
-    ans.push_back({li, ri});
-    for(auto [l, r] : ans) {
-        for(int i = l; i <= (l + r) / 2; i++) {
-            if(ss[i] % 2)swap(s[i], s[l + r - i]);
-        }
-    }
-    cout << s.substr(1) << endl;
+    cout << endl;
 }
 
 int32_t main() {
