@@ -42,8 +42,8 @@ void solve() {
         int res = 0;
         for(int j = 0; j <= n; j++) {
             x ^= ((a[j] >> i) & 1);
-            res = (res + (cnt[!x] * j - sum[!x] + mod) % mod) % mod;
-            cnt[x]++;
+            res = (res + (cnt[!x] * j - sum[!x]) % mod) % mod;
+            cnt[x] = (cnt[x] + 1) % mod;;
             sum[x] = (sum[x] + j) % mod;
         }
         ans = (ans + (res * (1ll << i)) % mod) % mod;

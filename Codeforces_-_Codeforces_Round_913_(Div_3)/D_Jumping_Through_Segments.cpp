@@ -36,8 +36,7 @@ void solve() {
         cin >> a[i].fi >> a[i].se;
     }
     auto check = [&](int x)->bool{
-        int l = -x;
-        int r = x;
+        int l = -x, r = x;
         for(int i = 0; i < n; i++) {
             if(l > a[i].se || r < a[i].fi )return false;
             else {
