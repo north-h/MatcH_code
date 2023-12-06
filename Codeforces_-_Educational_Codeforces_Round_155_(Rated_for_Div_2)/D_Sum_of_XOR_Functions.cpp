@@ -11,12 +11,10 @@
  * ==================================================================================
  */
 
-#pragma GCC optimize("Ofast")
-
+// #pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
-
 #define IOS ios::sync_with_stdio(false),cin.tie(nullptr);
-#define ll long long
+#define int long long
 #define se second
 #define PII pair<int,int>
 #define endl '\n'
@@ -30,33 +28,29 @@ const int mod = 998244353;
 using namespace std;
 
 void solve() {
-    int n, ans = 0;
+    int n;
     cin >> n;
-    vector<int> a(n + 1), b(n + 1);
+    vector<int> a(n + 1);
     for (int i = 1; i <= n; i++) {
         cin >> a[i];
     }
-    for (int t = 0; t <= 0; t++) {
-        for (int i = 1; i <= n; i++) {
-            b[i] = (a[i] >> t) & 1;
-            cout << b[i];
+    int ans = 0;
+    for(int i = 0; i <= 30; i++) {
+        int x = 0;
+        int cnt[2] = {0, 0};
+        int sum[2] = {0, 0};
+        int res = 0;
+        for(int j = 0; j <= n; j++) {
+            x ^= ((a[j] >> i) & 1);
+            res = (res + (cnt[!x] * j - sum[!x] + mod) % mod) % mod;
+            cnt[x]++;
+            sum[x] = (sum[x] + j) % mod;
         }
-        cout << endl;
-        int x = 0, res = 0;   // the number of 1s
-        int cnt[2] = {1, 0};  // the number of the intervals
-        int sum[2] = {0, 0};  // the sum of the intervals' lengthes
-        for (int i = 1; i <= n; i++) {
-            x = (x + b[i]) % 2;
-            debug2(x, 1 - x);
-            res = (res + (ll)cnt[1 - x] * i % mod - sum[1 - x] + mod) % mod;
-            cnt[x]++, sum[x] = (sum[x] + i) % mod;
-            debug2(cnt[0], cnt[1]);
-            debug2(sum[0], sum[1]);
-        }
-        ans = (ans + (ll)res * ((1 << t) % mod) % mod) % mod;
+        ans = (ans + (res * (1ll << i)) % mod) % mod;
     }
     cout << ans << endl;
 }
+
 
 int32_t main() {
     IOS;
