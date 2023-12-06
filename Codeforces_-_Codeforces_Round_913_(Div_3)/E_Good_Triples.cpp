@@ -14,7 +14,7 @@
 // #pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
 #define IOS ios::sync_with_stdio(false),cin.tie(nullptr);
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int,int>
@@ -28,9 +28,27 @@ const int M = 110;
 
 using namespace std;
 
-void solve() {}
+vector<int> v(30);
+
+void solve() {
+    int n;
+    cin >> n;
+    int ans = 1;
+    while(n) {
+        ans *= v[n % 10];
+        n /= 10;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
+    for(int i = 0; i <= 9; i++) {
+        for(int j = 0; j <= 9; j++) {
+            for(int k = 0; k <= 9; k++) {
+                v[i + j + k]++;
+            }
+        }
+    }
     IOS;
     int h_h = 1;
     cin >> h_h;
