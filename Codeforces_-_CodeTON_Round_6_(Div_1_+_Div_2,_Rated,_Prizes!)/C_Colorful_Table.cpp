@@ -15,37 +15,47 @@
 
 #include<bits/stdc++.h>
 
-#define IOS ios::sync_with_stdio(false),cin.tie(nullptr), cout.tie(nullptr);
-#define met_0(a) memset(a,0,sizeof a)
-#define met_1(a) memset(a,-1,sizeof a)
-#define met_x(a) memset(a,0x3f,sizeof a)
-#define mpy(a, b) memcopy(a,sizeof b,b)
+#define IOS ios::sync_with_stdio(false),cin.tie(nullptr);
 #define ll long long
 #define ld long double
 #define ull unsigned long long
 #define fi first
 #define se second
 #define PII pair<int,int>
-#define PDD pair<double,double>
-#define PCI pair<char,int>
-#define PSI pair<string,int>
-#define ALL(a) a.begin(),a.end()
-#define rALL(a) a.rbegin(),a.rend()
-#define int128 __int128
 #define endl '\n'
-#define lcm(x,y) x*y/__gcd(x,y)
-#define debug(a,b) cout << (steing)a << '=' << b << endl;
+#define debug(a,b) cout << (string)a << '=' << b << endl;
 const double PI = 3.1415926;
 const int N = 10010;
 const int M = 1910;
-const int MOD = 998244353;
-const double EPS = 1e-8;
-const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-
+    int n, k;
+    cin >> n >> k;
+    set<int> st;
+    vector<int> a(n + 1), l(k + 1, n + 1), r(k + 1, 0);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        st.insert(a[i]);
+        l[a[i]] = min(l[a[i]], i);
+        r[a[i]] = max(r[a[i]], i);
+    }
+    vector<int> ans, T;
+    for(int i = k; i >= 1; i--) {
+        if(!st.count(i)) {
+            ans.push_back(0);
+            continue;
+        }
+        if(!T.size())T.push_back(i);
+        l[i] = min(l[T.back()], l[i]);
+        r[i] = max(r[T.back()], r[i]);
+        ans.push_back(2 * (r[i] - l[i] + 1));
+        T.push_back(i);
+    }
+    reverse(ans.begin(), ans.end());
+    for(auto i : ans)cout << i << ' ';
+    cout << endl;
 }
 
 int32_t main() {
