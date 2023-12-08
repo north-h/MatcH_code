@@ -31,7 +31,6 @@ void solve() {
     int n, m;
     cin >> n >> m;
     vector<vector<int>> a(n + 1);
-    for(int i = 0; i < m; i++)a[0].push_back(i);
     if(m == 1) {
         cout << 0 << endl;
         for(int i = 0; i < n; i++)cout << 0 << endl;
@@ -43,41 +42,35 @@ void solve() {
         cout << endl;
         return ;
     }
-    int x = min(n, m);
-    for(int i = 1, k = 1; i < x; i++, k++) {
-        if(k == x )k = 0;
-        for(int j = 1, s = k; j <= x; j++) {
-            a[i].push_back(s++);
-            if(s == x)s = 0;
-        }
-    }
-    for(int j = 0; j < x; j++)a[x].push_back(a[x - 1][j]);
-    for(int i = 1; i <= n; i++) {
-        for(int j = 0; j < a[i].size(); j++) {
-            cout << a[i][j] << ' ';
-        }
-        cout << endl;
-    }
-    if(n > m) {
-        for(int i = m + 1; i <= n; i++) {
-            for(int j = 0; j < m; j++) {
-                a[i].push_back(a[i - 1][j]);
+    if(n >= m) {
+        cout << m << endl;
+        for(int i = 1, s = 1; i < m; i++, s++) {
+            for(int j = 1, k = s; j <= m; j++, k++) {
+                if(k == m)k = 0;
+                cout << k << ' ';
             }
+            cout << endl;
         }
-    } else if(n < m) {
-        for(int i = 1; i <= n; i++) {
-            for(int j = n; j < m; j++) {
-                a[i].push_back(a[i - 1][j]);
+        for(int i = m, s = m - 1; i <= n; i++) {
+            for(int j = 1, k = s; j <= m; j++, k++) {
+                if(k == m)k = 0;
+                cout << k << ' ';
             }
+            cout << endl;
+        }
+    } else {
+        cout << n + 1 << endl;
+        for(int i = 1, s = 0; i <= n; i++, s++) {
+            for(int j = 1, k = s; j <= n + 1; j++, k++) {
+                if(k == n + 1)k = 0;
+                cout << k << ' ';
+            }
+            for(int j = n + 2, k = n + 1; j <= m; j++, k++) {
+                cout << k << ' ';
+            }
+            cout << endl;
         }
     }
-    cout << min(n, m) << endl;
-    // for(int i = 1; i <= n; i++) {
-    //     for(int j = 0; j < a[i].size(); j++) {
-    //         cout << a[i][j] << ' ';
-    //     }
-    //     cout << endl;
-    // }
 }
 
 int32_t main() {
