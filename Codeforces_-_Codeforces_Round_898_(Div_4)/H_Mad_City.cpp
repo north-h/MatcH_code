@@ -122,9 +122,8 @@ void solve() {
         return ;
     }
     auto d = bfs_b(b);
-    int sb = d.fi;
     int disb = d.se;
-    int disa = bfs_a(a, sb);
+    int disa = bfs_a(a, d.fi);
     if(disb < disa)cout << "YES" << endl;
     else cout << "NO" << endl;
 }
