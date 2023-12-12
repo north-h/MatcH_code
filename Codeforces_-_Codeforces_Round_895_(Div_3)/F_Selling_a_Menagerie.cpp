@@ -73,31 +73,19 @@ void solve() {
     for(int i = 1; i <= n; i++)cin >> c[i];
     ans.clear();
     bfs();
+    set<int> st;
     for(int i = 1; i <= n; i++) {
         vector<PII> ve;
         if(!vis[i]) {
-            int now = a[i];
-            int mn = M;
-            int goal = i;;
-            while(now != i) {
-                if(mn > c[now]) {
-                    mn = c[now];
-                    goal = now;
-                }
-                now = a[now];
-            }
-            if(mn > c[now]) {
-                mn = c[now];
-                goal = now;
-            }
-            now = a[goal];
-            while(now != goal) {
-                vis[now] = 1;
-                ans.push_back(now);
-                now = a[now];
-            }
+            st.insert(i);
+        }
+    }
+    for(auto i : st) {
+        int now = a[i];
+        while(now != i) {
             ans.push_back(now);
-            vis[now] = 1;
+            now = a[now];
+            st.erase(now);
         }
     }
     for(auto i : ans) {
