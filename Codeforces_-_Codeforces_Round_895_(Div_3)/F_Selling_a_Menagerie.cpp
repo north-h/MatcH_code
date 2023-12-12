@@ -11,7 +11,7 @@
  * ==================================================================================
  */
 
-// #pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
 #define IOS ios::sync_with_stdio(false),cin.tie(nullptr);
 #define ll long long
@@ -23,7 +23,7 @@
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
 #define PI acos(-1)
-const int N = 10010;
+const int N = 100010;
 const int M = 0x3f3f3f3f;
 
 using namespace std;
@@ -73,19 +73,30 @@ void solve() {
     for(int i = 1; i <= n; i++)cin >> c[i];
     ans.clear();
     bfs();
-    set<int> st;
     for(int i = 1; i <= n; i++) {
-        vector<PII> ve;
         if(!vis[i]) {
-            st.insert(i);
-        }
-    }
-    for(auto i : st) {
-        int now = a[i];
-        while(now != i) {
+            int now = a[i];
+            int mn = M;
+            int goal = i;;
+            while(now != i) {
+                if(mn > c[now]) {
+                    mn = c[now];
+                    goal = now;
+                }
+                now = a[now];
+            }
+            if(mn > c[now]) {
+                mn = c[now];
+                goal = now;
+            }
+            now = a[goal];
+            while(now != goal) {
+                vis[now] = 1;
+                ans.push_back(now);
+                now = a[now];
+            }
             ans.push_back(now);
-            now = a[now];
-            st.erase(now);
+            vis[now] = 1;
         }
     }
     for(auto i : ans) {

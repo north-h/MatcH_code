@@ -1,0 +1,12 @@
+[
+	{
+		"correct_answers":
+		[
+			"3"
+		],
+		"test": "aaa\n"
+	},
+	{
+		"test": "abba\n"
+	}
+]
