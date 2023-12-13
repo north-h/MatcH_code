@@ -22,35 +22,40 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 11000010;
+const int N = 100010;
 const int M = 110;
 
 using namespace std;
 
-int d[N];
-
-int Manacher(string s) {
-    d[1] = 1;
-    for(int i = 2, l, r = 1; i < s.size(); i++) {
-        if(i <= r)d[i] = min(d[r + l - i], r - i + 1);
-        while(s[i - d[i]] == s[i + d[i]])d[i]++;
-        if(i + d[i] - 1 > r)l = i - d[i] + 1, r = i + d[i] - 1;
+template <class T>
+struct Manacher {
+    vector<T> d;
+    string str = "$#";
+    Manacher(string s) : d((s.size() + 1) * 2) {
+        for(auto i : s) {
+            str += i;
+            str += '#';
+        }
+        d[1] = 1;
+        for(int i = 2, l, r = 1; i < str.size(); i++) {
+            if(i <= r)d[i] = min(d[r + l - i], r - i + 1);
+            while(str[i - d[i]] == str[i + d[i]])d[i]++;
+            if(i + d[i] - 1 > r)l = i - d[i] + 1, r = i + d[i] - 1;
+        }
     }
-    int ans = 0;
-    for(int i = 1; i < s.size(); i++)ans = max(ans, d[i]);
-    return ans;
-}
+
+    T query() {
+        T len = 0;
+        for(auto i : d)len = max(len, i);
+        return len - 1;
+    }
+};
 
 void solve() {
     string s, str;
     cin >> s;
-    str = "$#";
-    for(auto i : s) {
-        str += i;
-        str += '#';
-    }
-    // cout << str << endl;
-    cout << Manacher(str) - 1 << endl;
+    Manacher<int> manacher(s);
+    cout << manacher.query() << endl;
 }
 
 int32_t main() {

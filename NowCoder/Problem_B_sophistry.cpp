@@ -38,8 +38,6 @@ void solve() {
             dp[i] = max(dp[i + 1], dp[min(i + d + 1, n + 1)] + a[i]);
         } else dp[i] = dp[i + 1] + a[i];
     }
-    // for(int i = 1; i <= n; i++)cout << dp[i] << ' ';
-    // cout << endl;
     cout << dp[1] << endl;
 }
 

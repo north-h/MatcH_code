@@ -7,6 +7,10 @@
 		"test": "aaa\n"
 	},
 	{
+		"correct_answers":
+		[
+			"4"
+		],
 		"test": "abba\n"
 	}
 ]
