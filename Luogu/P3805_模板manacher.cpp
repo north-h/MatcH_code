@@ -49,8 +49,10 @@ void solve() {
         str += i;
         str += '#';
     }
+    // cout << Manacher(str) - 1 << endl;
     // cout << str << endl;
-    cout << Manacher(str) - 1 << endl;
+    // for(int i = 1; i <= str.size(); i++)cout << d[i] << ' ';
+    // cout << endl;
 }
 
 int32_t main() {

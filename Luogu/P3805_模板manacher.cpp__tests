@@ -8,5 +8,8 @@
 	},
 	{
 		"test": "abba\n"
+	},
+	{
+		"test": "ababbaba\n"
 	}
 ]
