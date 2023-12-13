@@ -12,5 +12,8 @@
 			"4"
 		],
 		"test": "abba\n"
+	},
+	{
+		"test": "ababbaba\n"
 	}
 ]

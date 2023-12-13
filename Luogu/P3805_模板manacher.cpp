@@ -54,8 +54,20 @@ struct Manacher {
 void solve() {
     string s, str;
     cin >> s;
+<<<<<<< HEAD
     Manacher<int> manacher(s);
     cout << manacher.query() << endl;
+=======
+    str = "$#";
+    for(auto i : s) {
+        str += i;
+        str += '#';
+    }
+    // cout << Manacher(str) - 1 << endl;
+    // cout << str << endl;
+    // for(int i = 1; i <= str.size(); i++)cout << d[i] << ' ';
+    // cout << endl;
+>>>>>>> 51b4671b6177d5bcf71dbb568fdc2097275d1e2f
 }
 
 int32_t main() {

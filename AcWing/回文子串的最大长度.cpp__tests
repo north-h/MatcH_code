@@ -1,0 +1,12 @@
+[
+	{
+		"correct_answers":
+		[
+			"Case 1: 13\nCase 2: 6"
+		],
+		"test": "abcbabcbabcba\nabacacbaaaab\nEND\n"
+	},
+	{
+		"test": "eddeddbcbdbacdd\ncaedecbbabbeebc\ncacedeccbbaadcb\ndcaacaccabbaadc\nbecceaceeccceebeaedadedbaebccb\nccadacabbaebabdadaacdcabebcbeacaabcdbdaeddecabcdcd\nceabeecbcddbcdcbbbdceeebbdddbcaabbaaaadcbebbacedeb\nbcbaedbdaacbacdcdebebbedadcdabcdbdabeabaaedcbcabba\ndbadecccaecdbbcebebdcbdcaadceeeaabeddbacabbcaabaae\ndcceadddeccdedabbebeccadddbdabcdbacbcbaeaadbdaeddd\nEND\n"
+	}
+]
