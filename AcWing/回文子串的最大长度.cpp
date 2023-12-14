@@ -10,9 +10,10 @@
  * TimeL:   1000 ms
  * ===========================================================================
  */
-// #pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
 #define ll long long
+#define ull unsigned long long
 #define fi first
 #define se second
 #define PII pair<int,int>
@@ -21,51 +22,97 @@
 #define debug1(a) cout<<#a<<'='<<a<<endl
 #define debug2(a,b) cout<<#a<<'='<<a<<' '<<#b<<'='<<b<<endl
 #define lf(x)   fixed << setprecision(x)
-const int N = 100010;
+const int N = 2000010;
 const int M = 110, base = 131, mod = 1e9 + 7;
 
 using namespace std;
 
-int hl[N], hr[N], p[N];
-int T = 1;
+ull hl[N], hr[N], p[N];
 
-int get(int h[], int l, int r) {
+ull get(ull h[], int l, int r) {
     return h[r] - h[l - 1] * p[r - l + 1];
 }
+
+bool query(int l, int r, int n) {
+    ull x = get(hl, l, r);
+    ull y = get(hr, n + 1 - r, n + 1 - l);
+    if(x == y)return true;
+    return false;
+}
+
+template <class T, int P>
+struct Palin {
+    vector<T> pre, suf, p;
+    string str = "$#";
+    T n;
+    Palin(const string &s): pre((s.size() + 1) * 2),
+        suf((s.size() + 1) * 2),
+        p((s.size() + 1) * 2) {
+        for(auto i : s) {
+            str += i;
+            str += '#';
+        }
+        n = (int)str.size() - 1;
+        p[0] = 1;
+        for(int i = 1, j = n; i <= n; i++, j--) {
+            pre[i] = (pre[i - 1] * P  + str[i]);
+            suf[i] = (suf[i - 1] * P + str[j]);
+            p[i] = p[i - 1] * P ;
+        }
+
+    }
+
+    T get(vector<T> h, int l, int r) {
+        return h[r] - h[l - 1] * p[r - l + 1];
+    }
+
+    bool query(int l, int r) {
+        T x = get(pre, l, r);
+        T y = get(suf, n + 1 - r, n + 1 - l);
+        if(x == y)return true;
+        return false;
+    }
+};
+
+
+
+int T = 1;
 
 void solve() {
     string s;
     while(true) {
         cin >> s;
         if(s == "END")return ;
+        // Palin < ull, 131> palin(s);
         string str = "$#";
         for(auto i : s) {
             str += i;
             str += "#";
         }
         int n = str.size() - 1;
-        debug1(str);
+        p[0] = 1;
         for(int i = 1, j = n; i <= n; i++, j--) {
-            hl[i] = (hl[i - 1] * base + (str[i] - 'a')) % mod;
-            hr[i] = (hr[i - 1] * base + (str[j] - 'a')) % mod;
-            p[i] = p[i - 1] * base % mod;
+            hl[i] = (hl[i - 1] * base  + str[i]);
+            hr[i] = (hr[i - 1] * base  + str[j]);
+            p[i] = p[i - 1] * base;
         }
-        for(int i = 1; i <= n; i++)cout << hl[i] << ' ';
-        cout << endl;
-        for(int i = 1; i <= n; i++)cout << hr[i] << ' ';
-        cout << endl;
         int ans = 0;
+        // int n = palin.str.size() - 1;
         for(int i = 1; i <= n; i++) {
-            int l = 0, r = min(i - 1, n - i), res;
+            int l = 0, r = min(i - 1, n - i), res = -1;
             while(l <= r) {
                 int mid = l + r >> 1;
-                if(get(hl, i - mid, i - 1) == get(hr, n + 1 - (i - mid), n + 1 - (i + 1)))l = mid + 1, res = mid;
+                if(query(i - mid, i + mid, n))l = mid + 1, res = mid;
                 else r = mid - 1;
             }
-            // debug1(res);
-            ans = max(ans, res - 1);
+            // while(l <= r) {
+            //     int mid = l + r >> 1;
+            //     if(palin.query(i - mid, i + mid))l = mid + 1, res = mid;
+            //     else r = mid - 1;
+            // }
+            ans = max(ans, res);
         }
-        cout << ans << endl;
+        cout << "Case " << T++ << ": " << ans << endl;
     }
 }
 

@@ -7,6 +7,17 @@
 		"test": "abcbabcbabcba\nabacacbaaaab\nEND\n"
 	},
 	{
-		"test": "eddeddbcbdbacdd\ncaedecbbabbeebc\ncacedeccbbaadcb\ndcaacaccabbaadc\nbecceaceeccceebeaedadedbaebccb\nccadacabbaebabdadaacdcabebcbeacaabcdbdaeddecabcdcd\nceabeecbcddbcdcbbbdceeebbdddbcaabbaaaadcbebbacedeb\nbcbaedbdaacbacdcdebebbedadcdabcdbdabeabaaedcbcabba\ndbadecccaecdbbcebebdcbdcaadceeeaabeddbacabbcaabaae\ndcceadddeccdedabbebeccadddbdabcdbacbcbaeaadbdaeddd\nEND\n"
+		"correct_answers":
+		[
+			"Case 1: 2"
+		],
+		"test": "aa\nEND\n"
+	},
+	{
+		"correct_answers":
+		[
+			"Case 1: 6"
+		],
+		"test": "accccccbabcgh\nEND\n"
 	}
 ]
