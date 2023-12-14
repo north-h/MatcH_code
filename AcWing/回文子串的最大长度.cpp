@@ -12,7 +12,7 @@
  */
 #pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
-#define ll long long
+//#define ll long long
 #define ull unsigned long long
 #define fi first
 #define se second
@@ -40,42 +40,6 @@ bool query(int l, int r, int n) {
     return false;
 }
 
-template <class T, int P>
-struct Palin {
-    vector<T> pre, suf, p;
-    string str = "$#";
-    T n;
-    Palin(const string &s): pre((s.size() + 1) * 2),
-        suf((s.size() + 1) * 2),
-        p((s.size() + 1) * 2) {
-        for(auto i : s) {
-            str += i;
-            str += '#';
-        }
-        n = (int)str.size() - 1;
-        p[0] = 1;
-        for(int i = 1, j = n; i <= n; i++, j--) {
-            pre[i] = (pre[i - 1] * P  + str[i]);
-            suf[i] = (suf[i - 1] * P + str[j]);
-            p[i] = p[i - 1] * P ;
-        }
-
-    }
-
-    T get(vector<T> h, int l, int r) {
-        return h[r] - h[l - 1] * p[r - l + 1];
-    }
-
-    bool query(int l, int r) {
-        T x = get(pre, l, r);
-        T y = get(suf, n + 1 - r, n + 1 - l);
-        if(x == y)return true;
-        return false;
-    }
-};
-
-
-
 int T = 1;
 
 void solve() {
@@ -83,7 +47,6 @@ void solve() {
     while(true) {
         cin >> s;
         if(s == "END")return ;
-        // Palin < ull, 131> palin(s);
         string str = "$#";
         for(auto i : s) {
             str += i;
@@ -97,7 +60,6 @@ void solve() {
             p[i] = p[i - 1] * base;
         }
         int ans = 0;
-        // int n = palin.str.size() - 1;
         for(int i = 1; i <= n; i++) {
             int l = 0, r = min(i - 1, n - i), res = -1;
             while(l <= r) {
@@ -105,11 +67,6 @@ void solve() {
                 if(query(i - mid, i + mid, n))l = mid + 1, res = mid;
                 else r = mid - 1;
             }
-            // while(l <= r) {
-            //     int mid = l + r >> 1;
-            //     if(palin.query(i - mid, i + mid))l = mid + 1, res = mid;
-            //     else r = mid - 1;
-            // }
             ans = max(ans, res);
         }
         cout << "Case " << T++ << ": " << ans << endl;
