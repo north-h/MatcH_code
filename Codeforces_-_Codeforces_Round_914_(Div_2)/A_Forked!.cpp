@@ -28,7 +28,30 @@ const int M = 110;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int a, b, xk, yk, xq, yq;
+    cin >> a >> b >> xk >> yk >> xq >> yq;
+    map<PII, int> mp;
+    int dx[8] = {a, a, -a, -a, b, b, -b, -b};
+    int dy[8] = {b, -b, b, -b, a, -a, a, -a};
+    int cnt = 8;
+    if(a == b)cnt = 4;
+    for(int i = 0; i < cnt; i++) {
+        int x = dx[i] + xk;
+        int y = dy[i] + yk;
+        mp[ {x, y}]++;
+    }
+    for(int i = 0; i < cnt; i++) {
+        int x = dx[i] + xq;
+        int y = dy[i] + yq;
+        mp[ {x, y}]++;
+    }
+    int ans = 0;
+    for(auto [x, y] : mp) {
+        if(y >= 2)ans++;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;

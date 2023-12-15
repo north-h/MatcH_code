@@ -51,7 +51,7 @@ void solve() {
             dp[i].se = i - 1;
         }
     }
-    // sort(dp.begin() + 1, dp.end());
+    sort(dp.begin() + 1, dp.end());
     for(int i = 1; i <= n; i++)cout << dp[i].se << ' ';
     cout << endl;
 }

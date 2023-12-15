@@ -42,12 +42,59 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+template <class T>
+struct BIT {
+    vector<T> sum1, sum2;
+    int n;
+    BIT(int n) : n(n), sum1(n + 1), sum2(n + 1) {}
+    void add(int x, T k) {
+        for(int i = x; i <= n; i += (i & -i))
+            sum1[i] += k, sum2[i] += x * k;
+    }
+    void range_add(int l, int r, T x) {
+        add(l, x), add(r + 1, -x);
+    }
+    T query(int x) {
+        T res = 0;
+        for(int i = x; i > 0; i -= (i & -i))
+            res += (x + 1) * sum1[i] - sum2[i];
+        return res;
+    }
+    T range_query(int l, int r) {
+        return query(r) - query(l - 1);
+
+    }
+};
+
+
+void solve() {
+    int n, q;
+    cin >> n >> q;
+    vector<int> a(n + 1);
+    BIT<int> bit(n);
+    for(int i = 1; i <= n; i++) {
+        cin >> a[i];
+        bit.range_add(i, i, a[i]);
+    }
+    while(q--) {
+        char op;
+        cin >> op;
+        if(op == 'Q') {
+            int x;
+            cin >> x;
+            cout << bit.range_query(x, x) << endl;
+        } else {
+            int l, r, k;
+            cin >> l >> r >> k;
+            bit.range_add(l, r, k);
+        }
+    }
+}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
