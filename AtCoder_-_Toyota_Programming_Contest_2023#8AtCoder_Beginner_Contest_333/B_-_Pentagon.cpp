@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-12-15 22:33:09
+ * Time:    2023-12-16 20:00:15
  *
- * Problem: 小天的魔法
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/72041/B
- * MemoryL: 262144 MB
+ * Problem: B - Pentagon
+ * Contest: AtCoder - Toyota Programming Contest 2023#8（AtCoder Beginner Contest 333）
+ * URL:     https://atcoder.jp/contests/abc333/tasks/abc333_b
+ * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -29,14 +29,16 @@ const int M = 110;
 using namespace std;
 
 void solve() {
-    int n, m, x;
-    cin >> n >> m >> x;
-    vector<int> a(n), b(m);
-    for(auto &i : a)cin >> i;
-    for(auto &i : b)cin >> i;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    l
+    string a, b;
+    cin >> a >> b;
+    int a1 = a[0] - a[1];
+    a1 = abs(a1);
+    int a2 = 5 - a1;
+    int b1 = b[0] - b[1];
+    b1 = abs(b1);
+    int b2 = 5 - b1;
+    if((a1 == b1 || a1 == b2) && (a2 == b1 || a2 == b2))cout << "Yes" << endl;
+    else cout << "No" << endl;
 }
 
 int32_t main() {

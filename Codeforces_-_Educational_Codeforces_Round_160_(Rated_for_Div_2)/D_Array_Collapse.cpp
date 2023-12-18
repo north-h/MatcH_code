@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-12-15 22:33:09
+ * Time:    2023-12-18 23:46:41
  *
- * Problem: 小天的魔法
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/72041/B
- * MemoryL: 262144 MB
+ * Problem: D. Array Collapse
+ * Contest: Codeforces - Educational Codeforces Round 160 (Rated for Div. 2)
+ * URL:     https://codeforces.com/contest/1913/problem/D
+ * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -28,21 +28,12 @@ const int M = 110;
 
 using namespace std;
 
-void solve() {
-    int n, m, x;
-    cin >> n >> m >> x;
-    vector<int> a(n), b(m);
-    for(auto &i : a)cin >> i;
-    for(auto &i : b)cin >> i;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    l
-}
+void solve() {}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-12-15 22:33:09
+ * Time:    2023-12-16 22:35:52
  *
- * Problem: 小天的魔法
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/72041/B
- * MemoryL: 262144 MB
- * TimeL:   2000 ms
+ * Problem: B. Begginer's Zelda
+ * Contest: Codeforces - Codeforces Round 915 (Div. 2)
+ * URL:     https://codeforces.com/contest/1905/problem/B
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -29,20 +29,33 @@ const int M = 110;
 using namespace std;
 
 void solve() {
-    int n, m, x;
-    cin >> n >> m >> x;
-    vector<int> a(n), b(m);
-    for(auto &i : a)cin >> i;
-    for(auto &i : b)cin >> i;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    l
+    int n;
+    cin >> n;
+    vector<int> dg(n + 1);
+    for(int i = 1; i < n; i++) {
+        int a, b;
+        cin >> a >> b;
+        dg[a]++;
+        dg[b]++;
+    }
+    int ans = 0;
+    int mx = *max_element(dg.begin() + 1, dg.end());
+    bool ok = true;
+    for(int i = 1; i <= n; i++) {
+        if(mx == dg[i] && ok) {
+            ans += (dg[i] + 1) / 2;
+            ok = false;
+        } else {
+            ans += (dg[i] - 1) / 2;
+        }
+    }
+    cout << ans << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

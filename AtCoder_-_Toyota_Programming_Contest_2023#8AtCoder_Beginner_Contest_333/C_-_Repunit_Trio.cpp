@@ -1,12 +1,12 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-12-15 22:33:09
+ * Time:    2023-12-16 20:00:20
  *
- * Problem: 小天的魔法
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/72041/B
- * MemoryL: 262144 MB
+ * Problem: C - Repunit Trio
+ * Contest: AtCoder - Toyota Programming Contest 2023#8（AtCoder Beginner Contest 333）
+ * URL:     https://atcoder.jp/contests/abc333/tasks/abc333_c
+ * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * ==================================================================================
  */
@@ -28,21 +28,12 @@ const int M = 110;
 
 using namespace std;
 
-void solve() {
-    int n, m, x;
-    cin >> n >> m >> x;
-    vector<int> a(n), b(m);
-    for(auto &i : a)cin >> i;
-    for(auto &i : b)cin >> i;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    l
-}
+void solve() {}
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

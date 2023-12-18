@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2023-12-15 22:33:09
+ * Time:    2023-12-16 22:35:47
  *
- * Problem: 小天的魔法
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/72041/B
- * MemoryL: 262144 MB
- * TimeL:   2000 ms
+ * Problem: A. Constructive Problems
+ * Contest: Codeforces - Codeforces Round 915 (Div. 2)
+ * URL:     https://codeforces.com/contest/1905/problem/A
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -29,20 +29,15 @@ const int M = 110;
 using namespace std;
 
 void solve() {
-    int n, m, x;
-    cin >> n >> m >> x;
-    vector<int> a(n), b(m);
-    for(auto &i : a)cin >> i;
-    for(auto &i : b)cin >> i;
-    sort(a.begin(), a.end());
-    sort(b.begin(), b.end());
-    l
+    int n, m;
+    cin >> n >> m;
+    cout << max(n, m) << endl;
 }
 
 int32_t main() {
     IOS;
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
