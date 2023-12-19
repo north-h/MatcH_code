@@ -28,50 +28,81 @@ const int M = 110;
 
 using namespace std;
 
+template <typename T>
+T read() {
+    T x = 0;
+    char ch = getchar();
+    while (ch < '0' || ch > '9') ch = getchar();
+    while (ch >= '0' && ch <= '9') x = (x << 3) + (x << 1) + ch - '0', ch = getchar();
+    return x;
+}
+
+template <typename T>
+void write(T x) {
+    if (x < 0) putchar('-'), x = -x;
+    if (x > 9) write(x / 10);
+    putchar(x % 10 + '0');
+}
+
+
+template<class T>
 struct RMQ {
-    int n;
-
-    std::vector<std::array<int, 30>> fmin, fmax;
-
-    RMQ(std::vector<int> a) {
-        n = a.size() - 1;
-        fmin.resize(n + 1);
-        fmax.resize(n + 1);
-        for (int i = 1; i <= n; i++) {
-            fmin[i][0] = fmax[i][0] = a[i];
+    T n;
+    vector<T> arr;
+    vector<vector<T>> f, g;
+    vector<int> lg2;
+    RMQ(const vector<T> &a) :
+        n(a.size()), arr(a),
+        f(n, vector<T>(log2(n) + 1)),
+        g(n, vector<T>(log2(n) + 1)),
+        lg2(n + 1) {
+        init();
+    }
+    void init() {
+        lg2[0] = -1;
+        for(int i = 1; i <= n; i ++)
+            lg2[i] = lg2[i >> 1] + 1;
+        for (int i = 0; i < n; i++) {
+            f[i][0] = arr[i];
+            g[i][0] = arr[i];
         }
-        for (int i = 1; i < 30; i++) {
-            // if (1 << i > n) break;
-            for (int j = 1; j + (1 << i) - 1 <= n; j++) {
-                fmin[j][i] = std::min(fmin[j][i - 1], fmin[j + (1 << i - 1)][i - 1]);
-                fmax[j][i] = std::max(fmax[j][i - 1], fmax[j + (1 << i - 1)][i - 1]);
+        for (int j = 1; (1 << j) <= n; j++) {
+            for (int i = 0; i + (1 << j) - 1 < n; i++) {
+                f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
+                g[i][j] = min(g[i][j - 1], g[i + (1 << (j - 1))][j - 1]);
             }
         }
     }
 
-    int max(int l, int r) {
-        int k = log2(r - l + 1);
-        return std::max(fmax[l][k], fmax[r - (1 << k) + 1][k]);
+    T query_max(int l, int r) {
+        int k = lg2[r - l + 1];
+        return max(f[l][k], f[r - (1 << k) + 1][k]);
     }
 
-    int min(int l, int r) {
-        int k = log2(r - l + 1);
-        return std::min(fmin[l][k], fmin[r - (1 << k) + 1][k]);
+    T query_min(int l, int r) {
+        int k = lg2[r - l + 1];
+        return min(g[l][k], g[r - (1 << k) + 1][k]);
     }
 };
 
+
 void solve() {
     int n, q;
-    cin >> n >> q;
+    // cin >> n >> q;
+    n = read<int>();
+    q = read<int>();
     vector<int> a(n + 1);
     for(int i = 1; i <= n; i++) {
-        cin >> a[i];
+        // cin >> a[i];
+        a[i] = read<int>();
     }
-    RMQ rmq(a);
+    RMQ<int> rmq(a);
     while(q--) {
         int l, r;
-        cin >> l >> r;
-        cout << rmq.max(l, r) << endl;
+        // cin >> l >> r;
+        l = read<int>();
+        r = read<int>();
+        cout << rmq.query_max(l, r) << endl;
     }
 }
 
