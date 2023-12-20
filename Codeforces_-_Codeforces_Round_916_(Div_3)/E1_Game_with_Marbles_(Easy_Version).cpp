@@ -28,51 +28,27 @@ const int M = 110;
 
 using namespace std;
 
-struct  S {
-    int fi, se, id;
-};
 
 void solve() {
     int n;
     cin >> n;
-    vector<S> a(n);
-    vector<S>b(n);
+    vector<int> a(n), b(n);
+    vector<PII> c(n);
     for(int i = 0; i < n; i++) {
-        cin >> a[i].fi;
-        b[i].se = a[i].fi;
-        a[i].id = i;
+        cin >> a[i];
     }
     for(int i = 0; i < n; i++) {
-        cin >> b[i].fi;
-        a[i].se = b[i].fi;
-        b[i].id = i;
+        cin >> b[i];
     }
-    sort(a.begin(), a.end(), [](S x, S y) {
-        if(x.fi != y.fi)return x.fi > y.fi;
-        return x.se > y.se;
-    });
-    // for(auto i : a)cout << i.fi << ' ' << i.se << endl;
-    sort(b.begin(), b.end(), [](S x, S y) {
-        if(x.fi != y.fi)return x.fi > y.fi;
-        return x.se > y.se;
-    });
-    // for(auto i : b)cout << i.fi << ' ' << i.se << endl;
+    for(int i = 0; i < n; i++) {
+        c[i].fi = a[i] + b[i];
+        c[i].se = i;
+    }
+    sort(c.rbegin(), c.rend());
     ll ans = 0;
-    vector<int> vis(n, 0);
     for(int i = 0; i < n; i++) {
-        if(vis[a[i].id])continue;
-        ans += (a[i].fi - 1);
-        vis[a[i].id] = 1;
-        // debug1(a[i].fi);
-        for(int j = 0; j < n; j++) {
-            if(!vis[b[j].id] ) {
-                vis[b[j].id] = 1;
-                ans -= (b[j].fi - 1);
-                // debug1(b[i].fi);
-                break;
-            }
-        }
-        // debug1(ans);
+        if(i % 2 == 0)ans += a[c[i].se] - 1;
+        else ans -= b[c[i].se] - 1;
     }
     cout << ans << endl;
 }

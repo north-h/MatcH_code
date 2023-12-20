@@ -28,7 +28,29 @@ const int M = 110;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n;
+    cin >> n;
+    vector<int> a(n), b(n);
+    vector<PII> c(n);
+    for(int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    for(int i = 0; i < n; i++) {
+        cin >> b[i];
+    }
+    for(int i = 0; i < n; i++) {
+        c[i].fi = a[i] + b[i];
+        c[i].se = i;
+    }
+    sort(c.rbegin(), c.rend());
+    ll ans = 0;
+    for(int i = 0; i < n; i++) {
+        if(i % 2 == 0)ans += a[c[i].se] - 1;
+        else ans -= b[c[i].se] - 1;
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
     IOS;
