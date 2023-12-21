@@ -1,8 +1,16 @@
 [
 	{
+		"correct_answers":
+		[
+			"omemi\nJoler\nomemi\nJoler"
+		],
 		"test": "72 90 6 60\n4\n1 90\n83 83\n72 73\n73 74\n"
 	},
 	{
+		"correct_answers":
+		[
+			"omemi\nJoler"
+		],
 		"test": "100 2 1 1\n2\n2 1\n1 2\n"
 	}
 ]
