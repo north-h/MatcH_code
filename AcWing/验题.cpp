@@ -38,7 +38,6 @@ void solve() {
         szw[i] = w[i];
         szv[i] = v[i];
     }
-    set<PII> st;
     for(int i = 1; i <= m; i++) {
         int u, v;
         cin >> u >> v;

@@ -42,7 +42,6 @@ void solve() {
     a = " " + a;
     reverse(b.begin(), b.end());
     b = " " + b;
-    // debug2(a, c);
     p[0] = 1;
     for(int i = 1, j = a.size() - 1; i < a.size(); i++, j--) {
         h1[i] = h1[i - 1] * P + a[i];
