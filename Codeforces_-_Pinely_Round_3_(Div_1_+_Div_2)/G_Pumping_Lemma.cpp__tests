@@ -1,0 +1,1 @@
+[{"test": "4 8\nabcd\nabcbcbcd\n", "correct_answers": ["1"]}, {"test": "3 5\naaa\naaaaa\n", "correct_answers": ["5"]}, {"test": "12 16\nabbababacaab\nabbababababacaab\n", "correct_answers": ["8"]}]
