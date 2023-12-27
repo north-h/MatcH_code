@@ -11,6 +11,50 @@
  * ===========================================================================
  */
 // #pragma GCC optimize("Ofast")
+<<<<<<< HEAD
+#include<iostream>
+#include<cmath>
+#include<algorithm>
+#include<vector>
+
+using namespace std;
+
+struct point {
+    int x, y;
+};
+
+double dis(point a, point b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) * 1.0 + 1.0 * (a.y - b.y) * (a.y - b.y));
+}
+
+double cross(point a, point b, point c) {
+    return (b.x - a.x) * (c.y - a.y) * 1.0 - 1.0 * (b.y - a.y) * (c.x - a.x);
+}
+
+void solve() {
+    point O;
+    double r;
+    int n, ans = 0;
+    // int x = 3;
+    while(cin >> O.x >> O.y >> r, r >= 0) {
+        cin >> n;
+        vector<point> a;
+        point b;
+        for(int i = 0, x; i < n; i++) {
+            cin >> b.x >> b.y;
+            if(dis(O, b) <= r)a.push_back(b);
+        }
+        for(int i = 0; i < a.size(); i++) {
+            int cnt = 0;
+            for(int j = 0; j < a.size(); j++)if(cross(O, a[i], a[j]) >= 0)cnt++;
+            ans = max(ans, cnt);
+        }
+        cout << ans << endl;
+    }
+}
+
+int32_t main() {
+=======
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -49,6 +93,7 @@ void solve() {
 }
 
 int main() {
+>>>>>>> 2a6445fce134c1df9d4b0d95a990d83e2783165e
     int h_h = 1;
     // cin >> h_h;
     while (h_h--)solve();
