@@ -46,7 +46,7 @@ void solve() {
 }
 
 int32_t main() {
-    IOS;
+    // IOS;
     int h_h = 1;
     cin >> h_h;
     while (h_h--)solve();
