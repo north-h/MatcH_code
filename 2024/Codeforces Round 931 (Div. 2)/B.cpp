@@ -9,22 +9,17 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
-// #define LOCAL
-const int N = 100010;
+const int N = 10010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, m;
-    cin >> n >> m;
-    cout << n + m + 1 << endl;
-}
+void solve() {}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

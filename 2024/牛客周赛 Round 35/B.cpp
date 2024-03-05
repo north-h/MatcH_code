@@ -9,16 +9,34 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
-// #define LOCAL
-const int N = 100010;
+const int N = 10010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    cout << n + m + 1 << endl;
+    int n;
+    cin >> n;
+    map<int, int> mp;
+    for(int i = 1; i <= n * 2; i ++) {
+        int x;
+        cin >> x;
+        mp[x] ++;
+    }
+    for (auto [x, y] : mp) {
+        if (y & 1) {
+            cout << -1 << endl;
+            return ;
+        }
+    }
+    vector<int> ans;
+    for (auto [x, y] : mp) {
+        for (int i = 1; i <= y / 2; i ++) ans.push_back(x);
+    }
+    for (auto i : ans) cout << i << ' ';
+    cout << endl;
+    for (auto i : ans) cout << i << ' ';
+    cout << endl;
 }
 
 int32_t main() {

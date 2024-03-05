@@ -9,16 +9,15 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
-// #define LOCAL
-const int N = 100010;
+const int N = 10010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    cout << n + m + 1 << endl;
+    string s;
+    cin >> s;
+    cout << s.substr(0, (int)s.size() / 2) << endl << s.substr((int)s.size() / 2) << endl;
 }
 
 int32_t main() {
