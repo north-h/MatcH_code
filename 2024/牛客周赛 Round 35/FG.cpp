@@ -9,7 +9,7 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
- #define LOCAL
+//  #define LOCAL
 // const int N = 10010;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9 + 7;

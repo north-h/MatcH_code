@@ -9,17 +9,25 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
-#define LOCAL
+//  #define LOCAL
 const int N = 10010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-    string s;
-    while (getline(cin, s)) {
-        cout << "\"" << s << "\"," << endl;
+    int n;
+    cin >> n;
+    int ans = 1;
+    for (int i = 2; i * i <= n; i ++) {
+        if (n % i == 0) {
+            int cnt = 0;
+            while (n % i == 0) n /= i, cnt ++;
+            ans *=(cnt + 1);
+        }
     }
+    if (n > 1) ans *= 2;
+    cout << ans << endl;
 }
 
 int32_t main() {
@@ -29,7 +37,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
