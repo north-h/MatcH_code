@@ -16,7 +16,12 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    
+    string s;
+    cin >> s;
+    s.pop_back();
+    s.pop_back();
+    s.pop_back();
+    cout << s << endl;
 }
 
 int32_t main() {
@@ -26,7 +31,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
