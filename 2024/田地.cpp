@@ -1,93 +1,75 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
-#define fi first
-#define se second
-#define PII pair<int, int>
-#define endl '\n'
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
-#define PI acos(-1)
-// #define LOCAL
-const int N = 10010;
-const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, k;
-    cin >> n >> k;
-    stack<int> hz, jzt;
-    vector<int> lsx, r;
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> x;
-        lsx.push_back(x);
-    }
-    while (hz.size() || lsx.size()) {
-        if (lsx.size() == 0) {
-            if (jzt.size() >= 2) {
-                while (jzt.size()) {
-                    cout << jzt.top() << ' ';
-                    jzt.pop();
-                }
-                cout << endl;
-            } else {
-                while (jzt.size()) {
-                    r.push_back(jzt.top());
-                    jzt.pop();
-                }
-            }
-            while (hz.size()) {
-                lsx.push_back(hz.top());
-                hz.pop();
-            }
-            reverse(lsx.begin(), lsx.end());
-        } else {
-            if (jzt.size() == 0) {
-                jzt.push(lsx.back());
-            } else {
-                int y = lsx.back(), x = jzt.top();
-                if (abs(y -  x) <= k && y > x) {
-                    jzt.push(y);
-                } else {
-                    if (hz.size()) {
-                        int z = hz.top();
-                        if (abs(z - x) <= k && z > x) {
-                            jzt.push(z);
-                            hz.pop();
-                        }
-                    }
-                    hz.push(y);
-                }
-            }
-            lsx.pop_back();
+#define ll long long
+
+const int N = 2e5 + 7;
+
+string s[N];
+int pre[90][9];
+int suf[90][9];
+int add[N];
+int t[10][N];
+
+int get(string ss){
+    int res = 0;
+    for (auto x : ss) {
+            res += x - '0';
         }
-    }
-    if (jzt.size() >= 2) {
-        while (jzt.size()) {
-            cout << jzt.top() << ' ';
-            jzt.pop();
-        }
-        cout << endl;
-    } else {
-        while (jzt.size()) {
-            r.push_back(jzt.top());
-            jzt.pop();
-        }
-    }
-    for (auto i : r) cout << i << ' ';
-    cout << endl;
+    return res;
 }
 
-int32_t main() {
-#ifdef LOCAL
-    freopen("data.in", "r", stdin);
-    freopen("data.out", "w", stdout);
-#endif
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+bool cmp(string a,string b){
+    return get(a) > get(b);
+}
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;cin >> n;
+
+    for (int i = 1;i <= n;i++){
+        cin >> s[i];
+    }  
+    sort(s + 1,s + 1 + n,cmp);
+    for (int i = 1;i <= n;i++){
+        t[s[i].size()][get(s[i])]++;
+        add[i] = get(s[i]);
+    }
+    ll res = 0;
+
+    for (int i = 1;i <= n;i++){
+        for (int len = s[i].size() + 1;len <= 18;len++){
+            if (len % 2) continue;
+            if (len - s[i].size() > 9) continue;
+            int cur = 0;
+            for (int j = 0;j < s[i].size();j++){
+                
+                cur += s[i][j] - '0';
+                int lst = add[i] - cur;
+                if (cur - lst <= 0) continue;
+                res += t[len - s[i].size()][cur - lst];
+
+            }
+        }
+        for (int len = s[i].size() + 1;len <= 18;len++){
+            if (len % 2) continue;
+            if (len - s[i].size() > 9) continue;
+            int cur = 0;
+            for (int j = s[i].size() - 1;j >= 0;j—){
+                cur += s[i][j] - '0';
+                int lst = add[i] - cur;
+                if (cur - lst <= 0) continue;
+                res += t[len - s[i].size()][cur - lst];
+            }
+        }
+        res --;
+        t[s[i].size()][add[i]] --;
+    }
+
+    cout << res << endl;
+
+
     return 0;
 }
