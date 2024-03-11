@@ -24,8 +24,6 @@ void solve() {
         if (s[i] >= 'A' && s[i] <= 'Z') {
             while (s[i] >= 'A' && s[i] <= 'Z') i ++, c ++;
             i --;
-//             debug1(c);
-//             if (c == 1) continue;
             if(c & 1) ans += (c + 1) / 2;
             else ans += c / 2;
         }
