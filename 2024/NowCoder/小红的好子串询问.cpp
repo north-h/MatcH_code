@@ -102,9 +102,9 @@ void solve() {
 }
 
 int32_t main() {
-    ios::sync_with_stdio(false),cin.tie(nullptr);
+    ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
