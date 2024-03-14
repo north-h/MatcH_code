@@ -1,6 +1,6 @@
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int, int>
@@ -18,32 +18,40 @@ using namespace std;
 void solve() {
     int n, m, k, d;
     cin >> n >> m >> k >> d;
-    vector<int> ans;
-    for (int i = 1; i <= n; i ++) {
-        vector<int> a(m + 1), dp(m + 1);
-        dp[0] = 0;
-        int lst = 0;
-        for (int j = 1; j <= m; j ++) cin >> a[j];
-        deque<int> dq;
+    vector<int> s;
+    vector<vector<int>> a(n + 1, vector<int>(m + 1));
+    for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= m; j ++) {
-            if (dq.size() && i - dq.front() + 1 > d + 2) dq.pop_front();
-            while(dq.size() && a[dq.back()] >= a[i]) dq.pop_back();
-            dq.push_back(i);
-            if (i >= d + 2) {
-                dp[dq.back()] = dp[lst] + a[dq.back()] + 1;
-                lst = dq.back();
-            }
+            cin >> a[i][j];
         }
-        ans.push_back(dp[m]);
     }
-    sort(ans.begin(), ans.end());
-    for (auto i : ans) cout << i << ' ';
-    cout << endl;
+    for (int i = 1; i <= n; i ++) {
+        vector<int> dp(m + 1, 0);
+        dp[1] = 1;
+        priority_queue<PII, vector<PII>, greater<PII>> pq;
+        pq.push({1, 1});
+        for (int j = 2; j <= m; j ++) {
+            while (pq.size() && j - pq.top().se - 1 > d) pq.pop();
+            dp[j] = pq.top().fi + a[i][j] + 1;
+            pq.push({dp[j], j});
+            // debug2(dp[j], j);
+        }
+        s.push_back(dp[m]);
+    }
+    int ans = LLONG_MAX;
     int c = 0;
-    for (int i = 0; i < k; i ++) c += ans[i];
-    cout << c + 2 << endl;
+    for (int i = 0, j = 0; i < n; i ++) {
+        if (i <= k - 1) c += s[i];
+        else {
+            c += s[i];
+            c -= s[j];
+            j ++;
+        }
+        if (i >= k - 1) ans = min(ans, c);
+    }
+    cout << ans << endl;
 }
-
+ 
 int32_t main() {
 #ifdef LOCAL
     freopen("data.in", "r", stdin);
