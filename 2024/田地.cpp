@@ -1,34 +1,45 @@
-// #pragma GCC optimize("Ofast")
-#include <bits/stdc++.h>
-#define ll long long
-#define fi first
-#define se second
-#define PII pair<int, int>
-#define endl '\n'
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
-#define PI acos(-1)
-//  #define LOCAL
-const int N = 10010;
-const int INF = 0x3f3f3f3f;
-
-using namespace std;
-
-void solve() {
-    int a, b;
-    cin >> a >> b;
-    cout << a + b << endl;
-}
-
-int32_t main() {
-#ifdef LOCAL
-    freopen("data.in", "r", stdin);
-    freopen("data.out", "w", stdout);
-#endif
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
-    return 0;
-}
+7 7 2
+7 9 21 22 24 25 27
+16 12 2 8 17 17 19
+18 11
+4 2 4
+16 18 20 28
+3 13
+9 11 10 15
+7 7 4
+4 5 6 7 18 21 28
+20 2 5 11 7 7 14
+11 4 15 14
+6 4 5
+1 2 5 12 21 25
+13 16 2 9
+19 7 6 12 2
+5 5 3
+4 8 10 12 14
+14 12 9 20 3
+1 11 12
+4 5 7
+5 7 18 27
+20 6 4 3 20
+6 1 18 19 13 2 14
+2 5 3
+19 24
+7 9 12 15 20
+20 18 19
+8 2 3
+3 5 11 16 19 20 28 29
+1 10
+15 18 8
+7 7 2
+1 2 4 8 14 19 30
+13 14 15 6 14 2 12
+6 8
+2 2 5
+1 20
+1 5
+8 5 20 4 10
+3 3 7
+9 10 23
+10 16 3
+7 5 19 12 3 19 11
+4 7 1
