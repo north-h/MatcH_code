@@ -18,52 +18,35 @@ using namespace std;
 void solve() {
     int n, m;
     cin >> n >> m;
-    vector<vector<int>> g(n + 1);
-    map<PII, int> color;
+    int idx= n + 1;
+    vector<vector<PII>> g(n + m + 1);
+    unordered_map<int, int> mp;
     for (int i = 1; i <= m; i ++) {
         int a, b, c;
         cin >> a >> b >> c;
-        g[a].push_back(b);
-        g[b].push_back(a);
-        color[{a, b}] = c;
-        color[{b, a}] = c;
+        if (!mp.count(c)) mp[c] = idx ++;
+        g[a].push_back({mp[c], 1});
+        g[b].push_back({mp[c], 1});
+        g[mp[c]].push_back({b, 0});
+        g[mp[c]].push_back({a, 0});
     }
     int s, e;
     cin >> s >> e;
-    vector<int> vis(n + 1);
-    set<int> st;
-    int ans = INF;
-    auto dfs = [&] (auto self, int u, int f, int d)->void {
-        if (u == e) {
-            ans = min(ans, d);
-            return ;
+    deque<int> dq;
+    vector<int> d(n + m + 1, INF);
+    d[s] = 0;
+    dq.push_front(s);
+    while (dq.size()) {
+        auto t = dq.front();
+        dq.pop_front();
+        for (auto [x, y] : g[t]) {
+            if (d[x] != INF) continue;
+            d[x] = min(d[x], d[t] + y);
+            if (y == 0) dq.push_front(x);
+            else dq.push_back(x);
         }
-        // int op = -1;
-        vis[u] = 1;
-        // for (auto i : g[u]) {
-        //     if (i == f) {
-        //         op = color[{u, f}];
-        //         op = color[{f, u}];
-        //     }
-        // }
-        for (auto i : g[u]) {
-            if (u == s) {
-                self(self, i, u, d + 1);
-            }
-            if (vis[i] || i == f) continue;
-            int o = color[{i, u}];
-            o = color[{u, i}];
-            if (st.count(o)) {
-                self(self, i, u, d);
-            } else {
-                st.insert(o);
-                self(self, i, u, d + 1);
-                st.erase(o);
-            }
-        }
-    };
-    dfs(dfs, s, 0, 0);
-    cout << ans << endl;
+    }
+    cout << d[e] << endl;
 }
 
 int32_t main() {

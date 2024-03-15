@@ -44,28 +44,21 @@ void solve() {
     int ans = LLONG_MAX;
     int g = (a[p] + a[p + 1]) / 2;
     for (int i = 1; i <= m; i ++) {
-        int l = 1, r = k, res = -1;
+        int l = 1, r = k, res = k;
         while (l <= r) {
             int mid = l + r >> 1;
             int x = d[i] + f[mid];
             if (x >= g) r = mid - 1, res = mid;
             else l = mid + 1;
         }
-        if (res != -1) {
-            int y = d[i] + f[res];
-            if (y <= a[p + 1] && y >= a[p]) {
-                ans = min(ans, max(y - a[p], a[p + 1] - y));
-            }
-            if (res != 1) {
-                int z = d[i] + f[res - 1];
-                if (z <= a[p + 1] && z >= a[p]) {
-                    ans = min(ans, max(z - a[p], a[p + 1] - z));
-                }
-            }
-        } else {
-            int y = d[i] + f[k];
-            if (y <= a[p + 1] && y >= a[p]) {
-                ans = min(ans, max(y - a[p], a[p + 1] - y));
+        int y = d[i] + f[res];
+        if (y <= a[p + 1] && y >= a[p]) {
+            ans = min(ans, max(y - a[p], a[p + 1] - y));
+        }
+        if (res != 1) {
+            int z = d[i] + f[res - 1];
+            if (z <= a[p + 1] && z >= a[p]) {
+                ans = min(ans, max(z - a[p], a[p + 1] - z));
             }
         }
     }

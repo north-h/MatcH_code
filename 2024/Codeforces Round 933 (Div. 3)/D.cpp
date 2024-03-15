@@ -18,31 +18,29 @@ using namespace std;
 void solve() {
     int n, m, x;
     cin >> n >> m >> x;
-    vector<vector<int>> g(n + 1);
-    vector<pair<int, char>> d(m);
-    for (int i = 0; i < m; i ++) {
-        cin >> d[i].fi >> d[i].se;
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+    dp[0][x] = 1;
+    for (int i = 1; i <= m; i ++) {
+        char op;
+        int y;
+        cin >> y >> op;
+        for (int j = 1; j <= n; j ++) {
+            int sy = (j + y) % n;
+            int ny = (j - y + n) % n;
+            if (sy == 0) sy = n;
+            if (ny == 0) ny = n;
+            if (op == '0') dp[i][sy] |= dp[i - 1][j];
+            else if (op == '1') dp[i][ny] |= dp[i - 1][j];
+            else {
+                dp[i][sy] |= dp[i - 1][j];
+                dp[i][ny] |= dp[i - 1][j];
+            }
+        }
     }
     set<int> ans;
-    auto dfs = [&] (auto self, int md, int u, int s) -> void {
-        if (md == m) {
-            if (s == m) ans.insert(u);
-            return ;
-        }
-        int sy = (u + d[md].fi) % n;
-        int ny = (u - d[md].fi + n) % n;
-        // debug1(s);
-        if (ny == 0) ny = n;
-        if (sy == 0) sy = n;
-        if (d[md].se == '?') {
-            self(self, md + 1, sy, s + 1);
-            self(self, md + 1, ny, s + 1);
-        } else {
-            if (d[md].se == '0') self(self, md + 1, sy, s + 1);
-            else self(self, md + 1, ny, s + 1);
-        }
-    };
-    dfs(dfs, 0, x, 0);
+    for (int i = 1; i <= n; i ++) {
+        if (dp[m][i]) ans.insert(i);
+    }
     cout << ans.size() << endl;
     for (auto i : ans) cout << i << ' ';
     cout << endl;
