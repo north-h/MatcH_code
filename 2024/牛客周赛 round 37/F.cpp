@@ -18,22 +18,20 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> mp(n);
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> x;
-        mp[x] ++;
+    vector<int> a(n);
+    for (auto &i : a) cin >> i;
+    sort(a.begin(), a.end());
+    a.erase(unique(a.begin(), a.end()), a.end());
+    vector<array<int, 2>> dp(210,{INF, INF});
+    for (int i = 0; i < (int)a.size(); i ++) {
+        dp[a[i]][1] = 1;
+        for (int j = 0; j <= 200; j ++) {
+            dp[j & a[i]][1] = min(dp[j & a[i]][1], dp[j][0] + 1);
+        }
+        for (int j = 0; j <= 200; j ++) dp[j][0] = dp[j][1];
     }
-    int mex = INF;
-    vector<int> ans;
-    for (int i = 0; i < n; i ++) {
-        if (mp[i] == 0) mex = min(mex, i);
-        if (mp[i] == 1) ans.push_back(i);
-    }
-    if (ans.size() >= 2) cout << min(mex, ans[1]) << endl;
-    else {
-        if (mex == INF) cout << n << endl;
-        else cout << mex << endl;
-    }
+    if (dp[0][0] > n) cout << -1 << endl;
+    else cout << n - dp[0][0] << endl;
 }
 
 int32_t main() {

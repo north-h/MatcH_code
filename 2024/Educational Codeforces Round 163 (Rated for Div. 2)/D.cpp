@@ -16,24 +16,27 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> mp(n);
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> x;
-        mp[x] ++;
+    string s;
+    cin >> s;
+    s = " " + s;
+    int n = s.size();
+    vector<vector<int>> dp(n + 1, vector<int>(n + 1));
+    for (int i = 1; i < n; i ++) {
+        for (int j = 1; j < n; j ++) {
+            if (s[i] == '?' || s[j] == '?' || s[i] == s[j]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            }
+        }
     }
-    int mex = INF;
-    vector<int> ans;
-    for (int i = 0; i < n; i ++) {
-        if (mp[i] == 0) mex = min(mex, i);
-        if (mp[i] == 1) ans.push_back(i);
+    int ans = 0;
+    for (int i = 1; i < n; i ++) {
+        for (int j = 1; j < n; j ++) {
+            if (dp[i][j] >= j - i) {
+                ans = max(ans, (j - i) * 2);
+            }
+        }
     }
-    if (ans.size() >= 2) cout << min(mex, ans[1]) << endl;
-    else {
-        if (mex == INF) cout << n << endl;
-        else cout << mex << endl;
-    }
+    cout << ans << endl;
 }
 
 int32_t main() {
