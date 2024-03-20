@@ -19,13 +19,13 @@ void solve() {
     int n, x;
     cin >> n >> x;
     vector<int> a(n + 1);
-    map<int, int> mp;
+    unordered_map<int, int> mp, p;
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
         mp[a[i]] = i;
     }
     int l = 1, r = n + 1;
-    vector<int> vis(n + 2);
+    vector<int> vis(n + 1);
     int t = 1;
     while (true) {
         if (l + 1 == r) break;
@@ -34,16 +34,12 @@ void solve() {
         if (a[mid] <= x) l = mid;
         else r = mid;
     }
-    map<int, int> p;
     for (int i = 1; i <= n; i ++) p[vis[i]] = i;
     if (a[l] == x) {
         cout << 0 << endl;
         return ;
     }
-    bool ok;
-    if (!vis[mp[x]]) ok = false;
-    else ok = true;
-    if (!ok) {
+    if (!vis[mp[x]]) {
         cout << 1 << endl;
         cout << l << ' ' << mp[x] << endl;
     } else {
