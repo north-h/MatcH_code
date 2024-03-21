@@ -1,6 +1,6 @@
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int, int>
@@ -16,12 +16,52 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, m;
-    cin >> n >> m;
-    vector<vector<PII>> g(n + 1);
-    for (int i = 1; i <= m; i ++) {
-        
+    int n, k;
+    cin >> n >> k;
+    vector<vector<int>> g(n + 1);
+    for (int i = 1; i < n; i ++) {
+		int a, b;
+		cin >> a >> b;
+		g[a].push_back(b);
+		g[b].push_back(a);
     }
+	vector<int> z(n + 1);
+	z[1] = 1;
+	for (int i = 2; i <= n; i ++) {
+		int x = i;
+		int num = 1;
+		for (int j = 2; j * j <= x; j ++) {
+			if (x % j != 0) continue;
+			int c = 0;
+			while (x % j == 0) x /= j, c ++;
+			num *= (c + 1);
+		}
+		if (x > 1) num *= 2;
+		// debug2(i, num);
+		z[i] = num;
+	}
+	int ans = 0;
+	auto dfs = [&](auto self, int u, int f) -> int {
+		int res = z[u];
+		for (auto i : g[u]) {
+			if (i == f) continue;
+			int x = self(self, i, u);
+			if (x >= k) {
+				ans ++;
+				return x;
+			}
+			res *= x;
+			if (res >= k) {
+				ans ++;
+				return res;
+			}
+			
+		}
+		if (res >= k) ans ++;
+		return res;
+	};
+	dfs(dfs, 1, 0);
+	cout << ans << endl;
 }
 
 int32_t main() {
