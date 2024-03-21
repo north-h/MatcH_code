@@ -1,6 +1,6 @@
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int, int>
@@ -18,28 +18,23 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n), b(n);
-    for (auto &i : a) cin >> i;
-    for (auto &i : b) cin >> i;
-    set<PII> st;
-    map<int, int> mp;
-    int ans = 0, sum = 1;
-    for (int i = 0; i < n; i ++) {
-        mp[b[i]] = a[i];
-        st.insert({a[i], b[i]});
-        ans = max(ans, a[i]);
+    vector<int> a(n + 1), b(n + 1);
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
     }
-    for (int i = 1; i < n; i ++) {
-        auto it = *st.lower_bound({mp[i], i});
-        st.erase(it);
-        if (st.size() >= i + 1) {
-            vector<int> T;
-            for (auto [x, y] : st) T.push_back(x);
-            sort(T.rbegin(), T.rend());
-            if (ans < T[i] * (i + 1)) {
-                ans = T[i] * (i + 1);
-                sum = i + 1;
-            }
+    for (int i = 1, x; i <= n; i ++) {
+       cin >> x;
+       b[i] = a[x];
+    }
+    priority_queue<int, vector<int> , greater<int>> pq;
+    int ans = 0, sum = 0;
+    for (int i = n; i >= 1; i --) {
+        pq.push(b[i]);
+        if (n - (i - 1) < i) continue;
+        while ((int)pq.size() > i) pq.pop();
+        if (ans <= pq.top() * i) {
+            ans = pq.top() * i;
+            sum = i;
         }
     }
     cout << ans << ' ' << sum << endl;

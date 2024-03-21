@@ -16,15 +16,18 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
+    ll n;
     cin >> n;
     if (n % 495 == 0) {
         cout << -1 << endl;
         return ;
     }
+    n %= 495;
     n *= 10;
     for (int i = 0; i <= 9; i ++) {
         if ((n + i) % 495 == 0) {
+            int s = to_string(i).size();
+            while (s < 1) s ++, cout << '0';
             cout << i << endl;
             return ;
         }
@@ -32,14 +35,18 @@ void solve() {
     n *= 10;
     for (int i = 0; i <= 99; i ++) {
         if ((n + i) % 495 == 0) {
-            cout << "0" << i << endl;
+            int s = to_string(i).size();
+            while (s < 2) s ++, cout << '0';
+            cout << i << endl;
             return ;
         }
     }
     n *= 10;
     for (int i = 0; i <= 999; i ++) {
         if ((n + i) % 495 == 0) {
-            cout << "00" << i << endl;
+            int s = to_string(i).size();
+            while (s < 3) s ++, cout << '0';
+            cout << i << endl;
             return ;
         }
     }
