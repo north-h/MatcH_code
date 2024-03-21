@@ -16,30 +16,12 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) cin >> a[i];
-    int ans = 0;
-    unordered_map<int,int> up;
-    int i, j;
-    for (i = 1, j = 1; i <= n; i ++) {
-        up[a[i]] ++;
-        if (up.size() < 3) continue;
-        while (up.size() > 3 && j <= i) {
-            up[a[j]] --;
-            if (up[a[j]] == 0) up.erase(a[j]);
-            j ++;
-        }
-        ans ++;
+    int n, m;
+    cin >> n >> m;
+    vector<vector<PII>> g(n + 1);
+    for (int i = 1; i <= m; i ++) {
+        
     }
-    while (up.size() == 3 && j <= n) {
-        ans ++;
-        up[a[j]] --;
-        if (up[a[j]] == 0) up.erase(a[j]);
-        j --;
-    }
-    cout << ans << endl;
 }
 
 int32_t main() {
