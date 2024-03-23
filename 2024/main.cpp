@@ -16,30 +16,25 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-	int n, m, t;
-	cin>> n >> m >> t;
-	vector<vector<int>> a(n + 1, vector<int>(m + 1));
-	for (int i = 1; i <= n; i ++) {
-		for (int j = 1; j <= m; j ++) {
-			cin >> a[i][j];
-		}
-	}
-	vector<PII> T(t + 1);
-	for (int i = 1; i <= t; i ++) {
-		T[i].fi = INF;
-		T[i].se = 0;
-	}
-	for (int i = 1; i <= m; i ++) {
-		vector<int> ve(t + 1);
-		for (int j = 1; j <= n; j ++) {
-			ve[a[j][i]] ++;
-		}
-		for (int j = 1; j <= t; j ++) {
-			T[j].fi = min(T[j].fi,ve[j]);
-			T[j].se = max(T[j].se,ve[j]);
-		}
-	}
-	for (int i = 1; i <= t; i ++) cout << T[i].fi << ' ' << T[i].se << endl;
+	int n, w;
+    cin >> n >> w;
+    int num = n * 8 / w, len = w / 8;
+    int x = n % len;
+    debug2(num, len);
+    int t = 0;
+    string s;
+    for (int i = 1; i <= len; i ++) s += 'a';
+    auto dfs = [&](auto self, int p, int c) -> void {
+        if (c > num) exit(0);
+        for (char i = 'a'; i <= 'z'; i ++) {
+            char op = s[p];
+            s[p] = i;
+            cout << s;
+            self(self, p + 1, c + 1);
+            s = op;
+        }
+    };
+    dfs(dfs, 0, 0);
 }
 
 int32_t main() {
