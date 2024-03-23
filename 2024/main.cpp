@@ -10,32 +10,14 @@
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
 //  #define LOCAL
-const int N = 200010;
+const int N = 10000010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-	int n, w;
-    cin >> n >> w;
-    int num = n * 8 / w, len = w / 8;
-    int x = n % len;
-    debug2(num, len);
-    int t = 0;
-    string s;
-    for (int i = 1; i <= len; i ++) s += 'a';
-    auto dfs = [&](auto self, int p, int c) -> void {
-        if (c > num) exit(0);
-        for (char i = 'a'; i <= 'z'; i ++) {
-            char op = s[p];
-            s[p] = i;
-            cout << s;
-            self(self, p + 1, c + 1);
-            s = op;
-        }
-    };
-    dfs(dfs, 0, 0);
-}
+bitset<30> b[N];
+
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL
