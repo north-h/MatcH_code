@@ -15,8 +15,6 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-bitset<30> b[N];
-
 void solve() {}
 
 int32_t main() {
