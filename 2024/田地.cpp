@@ -16,30 +16,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-	int n, m, t;
-	cin>> n >> m >> t;
-	vector<vector<int>> a(n + 1, vector<int>(m + 1));
-	for (int i = 1; i <= n; i ++) {
-		for (int j = 1; j <= m; j ++) {
-			cin >> a[i][j];
-		}
-	}
-	vector<PII> T(t + 1);
-	for (int i = 1; i <= t; i ++) {
-		T[i].fi = INF;
-		T[i].se = 0;
-	}
-	for (int i = 1; i <= m; i ++) {
-		vector<int> ve(t + 1);
-		for (int j = 1; j <= n; j ++) {
-			ve[a[j][i]] ++;
-		}
-		for (int j = 1; j <= t; j ++) {
-			T[j].fi = min(T[j].fi,ve[j]);
-			T[j].se = max(T[j].se,ve[j]);
-		}
-	}
-	for (int i = 1; i <= t; i ++) cout << T[i].fi << ' ' << T[i].se << endl;
+	
 }
 
 int32_t main() {

@@ -9,6 +9,7 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
+//  #define LOCAL
 const int N = 10010;
 const int INF = 0x3f3f3f3f;
 
@@ -17,23 +18,15 @@ using namespace std;
 void solve() {
     int n;
     cin >> n;
-    vector <PII> a(n);
-    for (auto &[x, y]: a)cin >> x >> y;
-    sort(a.begin(), a.end(), [](PII x, PII y) {
-        return x.se < y.se;
-    });
-    // for (auto [x, y] : a) cout << x << y << endl;
-    int r = 0, ans = 0;
-    for (int i = 0; i < n; i++) {
-        if (r <= a[i].fi) {
-            ans++;
-            r = a[i].se;
-        }
-    }
-    cout << ans << endl;
+    if (n % 10 == 0) cout << 0 << endl;
+    else cout << (n + 9) / 10 * 10 - n << endl;
 }
 
 int32_t main() {
+#ifdef LOCAL
+    freopen("data.in", "r", stdin);
+    freopen("data.out", "w", stdout);
+#endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
     // cin >> h_h;
