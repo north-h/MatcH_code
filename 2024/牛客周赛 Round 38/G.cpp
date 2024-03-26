@@ -9,27 +9,21 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
+//  #define LOCAL
 const int N = 10010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-    int n;
-    string a, b;
-    cin >> n >> a >> b;
-    int sum = 0;
-    for (int i = 0; i < n; i++) {
-        if (a[i] == 'Y') sum +=2;
-        if (b[i] == 'Y') {
-            if (a[i] == 'N') sum += 2;
-            else sum ++;
-        }
-    }
-    cout << sum  << endl;
+    
 }
 
 int32_t main() {
+#ifdef LOCAL
+    freopen("data.in", "r", stdin);
+    freopen("data.out", "w", stdout);
+#endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
     // cin >> h_h;

@@ -1,6 +1,6 @@
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int, int>
@@ -10,25 +10,33 @@
 #define lf(x) fixed << setprecision(x)
 #define PI acos(-1)
 //  #define LOCAL
-const int N = 10010;
+const int N = 200010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+int c[N];
+
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n + 1);
-    set<int> st;
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-        st.insert(a[i]);
+	int n;
+	cin >> n;
+	int mx = 0;
+	for (int i = 1, x; i <= n; i ++) {
+		cin >> x;
+		c[x] ++;
+		mx = max(mx, c[x]);
+	}
+    for (int i  = 1; i <= N; i ++) {
+        for (int j = 2; i * j <= N; j ++) {
+            int cnt = 0;
+            for (int k = i; k <= N; k *= j) {
+                if (!c[k]) break;
+                cnt ++;
+            }
+            mx = max(mx, cnt);
+        }
     }
-    int ans = 0;
-    for (int i = 1; i <= n; i ++) {
-        int c = 0;
-        set<int> T = st;
-    }
+    cout << mx << endl;
 }
 
 int32_t main() {
