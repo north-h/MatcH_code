@@ -18,33 +18,35 @@ using namespace std;
 void solve() {
     int n, x;
     cin >> n >> x;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) cin >> a[i];
-    vector<vector<int>> b(n + 1, vector<int>(31));
-    vector<int> s(31);
-    for (int j = 0; j < 31; j ++) {
-        for (int i = 1; i <= n; i ++) {
-            b[i][j] = ((a[i] >> (30 - j)) & 1);
-            s[j] += b[i][j];
+    x ++;
+    vector<int> a(n);
+    for (int i = 0; i < n; i ++) cin >> a[i];
+    int ans = -1;
+    for (int i = 30; i >= 0; i --) {
+        vector<int> t;
+        bool ok = false;
+        for (int j = 0; j < a.size(); j ++) {
+            if (!ok) t.push_back(a[j]);
+            else t.back() ^= a[j];
+            // debug2((a[j] >> i & 1), ok);
+            if (a[j] >> i & 1) ok = !ok;
+            // debug2((a[j] >> i & 1), ok);
+        }
+        // debug2(i, (int)t.size());
+        // for (auto j : t) cout << j << ' ';
+        // cout << endl;
+        // debug1(ok);
+        if (x >> i & 1) {
+            if (!ok) ans = max(ans, (int)t.size());
+        } else {
+            if (ok) {
+                cout << ans << endl;
+                return ;
+            }
+            a = t;
         }
     }
-    vector<int> vx(31);
-    for (int i = 0; i < 31; i ++) {
-        vx[i] = ((x >> (30 - i)) & 1);
-    }
-    for (int i = 1; i <= n; i ++) {
-        for (int j = 0; j < 31; j ++) {
-            cout << b[i][j] << ' ';
-        }
-        cout << endl;
-    }
-    for (int i = 0; i < 31; i ++) cout << s[i] << ' ';
-    cout << endl;
-    for (int i = 0; i < 31; i ++) cout << vx[i] << ' ';
-    cout << endl;
-    for (int i = 1; i < 31; i ++) {
-        
-    }
+    cout << ans << endl;
 }
 
 int32_t main() {
