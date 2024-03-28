@@ -25,7 +25,7 @@ void solve() {
         st[i] = n / sq * (i - 1) + 1;
         ed[i] = n / sq * i;
     }
-    ed[n] = sq;
+    ed[sq] = n;
     for (int i = 1; i <= sq; i ++) {
         for (int j = st[i]; j <= ed[i]; j ++) {
             sum[i] += a[j];
@@ -35,23 +35,27 @@ void solve() {
     for (int i = 1; i <= sq; i ++) {
         sz[i] = ed[i] - st[i] + 1;
     }
+    // for (int i = 1; i <= n; i ++) cout << belong[i] << ' ';
+    // cout << endl;
+    // for (int i = 1; i <= sq; i ++) cout << ed[i] << ' ';
+    // cout << endl;
     auto modify = [&] (int l, int r, int k) -> void{
         if (belong[l] == belong[r]) {
-            int id = belong[l];
-            for (int i = st[id]; i <= ed[id]; i ++) {
+            for (int i = l; i <= r; i ++) {
                 a[i] += k;
-                sum[id] += k;
-            }return ;
+                sum[belong[i]] += k;
+            }
+            return ;
         }
         for (int i = l; i <= ed[belong[l]]; i ++) {
             a[i] += k;
-            sum[belong[l]] += k;
+            sum[belong[i]] += k;
         }
         for (int i = st[belong[r]]; i <= r; i ++) {
             a[i] += k;
-            sum[belong[r]] += k;
+            sum[belong[i]] += k;
         }
-        for (int i = belong[l] + 1; i <belong[r]; i ++) {
+        for (int i = belong[l] + 1; i < belong[r]; i ++) {
             mk[i] += k;
         }
     };
@@ -59,22 +63,20 @@ void solve() {
     auto query = [&] (int l, int r) -> int {
         int res = 0;
         if (belong[l] == belong[r]) {
-            int id = belong[l];
-            for (int i = st[id]; i <= ed[id]; i ++) {
+            for (int i = l; i <= r; i ++) {
                 res += a[i] + mk[belong[i]];
             }
             return res;
         }
         for (int i = l; i <= ed[belong[l]]; i ++) {
-            res += a[i] + mk[belong[l]];
+            res += a[i] + mk[belong[i]];
         }
         for (int i = st[belong[r]]; i <= r; i ++) {
-            res += a[i] + mk[belong[r]];
+            res += a[i] + mk[belong[i]];
         }
-        for (int i = belong[l] + 1; i <belong[r]; i ++) {
+        for (int i = belong[l] + 1; i < belong[r]; i ++) {
             res += sum[i] + mk[i] * sz[i];
         }
-        
         return res;
     };
     while (m --) {
@@ -88,6 +90,7 @@ void solve() {
             cout << query(x, y) << endl;
         }
     }
+    // cout << 112 << endl;
 }
 
 
