@@ -15,57 +15,78 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-struct DSU {
-    vector<int> fa;
-
-    DSU(int n) {
-        fa.resize(n + 1);
-        for (int i = 1; i <= n; i ++) fa[i] = i;
-    }
-
-    int find(int x) {
-        if (fa[x] != x) fa[x] = find(fa[x]);
-        return fa[x];
-    }
-
-    bool same(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        return px == py;
-    }
-
-    void merge(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        if (px != py) {
-            fa[px] = py;
-        }
-    }
-};
-
 void solve() {
-    int n, m, k;
-    cin >> n >> m >> k;
-    DSU d1(n + 1);
-    map<PII, int> p2;
-    for (int i = 1; i <= m; i ++) {
-        int a, b, c;
-        cin >> a >> b >> c;
-        if (c == 1) {
-            d1.merge(a, b);
-        } else {
-            p2[{a, b}] ++;
-            p2[{b, a}] ++;
+    int n, m, sq;
+    cin >> n >> m;
+    sq = sqrt(n);
+    vector<int> a(n + 1), st(sq + 1), ed(sq + 1), sum(sq + 1), mk(sq + 1), sz(sq + 1), belong(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i <= sq; i ++) {
+        st[i] = n / sq * (i - 1) + 1;
+        ed[i] = n / sq * i;
+    }
+    ed[n] = sq;
+    for (int i = 1; i <= sq; i ++) {
+        for (int j = st[i]; j <= ed[i]; j ++) {
+            sum[i] += a[j];
+            belong[j] = i;
         }
     }
-    while (k --) {
-        int a, b;
-        cin >> a >> b;
-        bool f1 = d1.same(a, b);
-       if (p2.count({a, b}) && !f1) cout << "No way" << endl;
-       else if (!p2.count({a, b}) && f1) cout << "No problem" << endl;
-       else if (!p2.count({a, b}) && !f1) cout << "OK" << endl;
-       else cout << "OK but..." << endl;
+    for (int i = 1; i <= sq; i ++) {
+        sz[i] = ed[i] - st[i] + 1;
+    }
+    auto modify = [&] (int l, int r, int k) -> void{
+        if (belong[l] == belong[r]) {
+            int id = belong[l];
+            for (int i = st[id]; i <= ed[id]; i ++) {
+                a[i] += k;
+                sum[id] += k;
+            }return ;
+        }
+        for (int i = l; i <= ed[belong[l]]; i ++) {
+            a[i] += k;
+            sum[belong[l]] += k;
+        }
+        for (int i = st[belong[r]]; i <= r; i ++) {
+            a[i] += k;
+            sum[belong[r]] += k;
+        }
+        for (int i = belong[l] + 1; i <belong[r]; i ++) {
+            mk[i] += k;
+        }
+    };
+
+    auto query = [&] (int l, int r) -> int {
+        int res = 0;
+        if (belong[l] == belong[r]) {
+            int id = belong[l];
+            for (int i = st[id]; i <= ed[id]; i ++) {
+                res += a[i] + mk[belong[i]];
+            }
+            return res;
+        }
+        for (int i = l; i <= ed[belong[l]]; i ++) {
+            res += a[i] + mk[belong[l]];
+        }
+        for (int i = st[belong[r]]; i <= r; i ++) {
+            res += a[i] + mk[belong[r]];
+        }
+        for (int i = belong[l] + 1; i <belong[r]; i ++) {
+            res += sum[i] + mk[i] * sz[i];
+        }
+        
+        return res;
+    };
+    while (m --) {
+        int op, x, y;
+        cin >> op >> x >> y;
+        if (op == 1) {
+            int k;
+            cin >> k;
+            modify(x, y, k);
+        } else {
+            cout << query(x, y) << endl;
+        }
     }
 }
 

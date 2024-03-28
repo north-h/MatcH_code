@@ -16,10 +16,10 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    // string s;
-    // while (getline(cin, s)) {
-    //     cout << "\"" << s << "\"," << endl;
-    // }
+    string s;
+    while (getline(cin, s)) {
+        cout << "\"" << s << "\"," << endl;
+    }
 }
 
 int32_t main() {

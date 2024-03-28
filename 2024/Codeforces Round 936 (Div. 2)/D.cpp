@@ -28,14 +28,8 @@ void solve() {
         for (int j = 0; j < a.size(); j ++) {
             if (!ok) t.push_back(a[j]);
             else t.back() ^= a[j];
-            // debug2((a[j] >> i & 1), ok);
             if (a[j] >> i & 1) ok = !ok;
-            // debug2((a[j] >> i & 1), ok);
         }
-        // debug2(i, (int)t.size());
-        // for (auto j : t) cout << j << ' ';
-        // cout << endl;
-        // debug1(ok);
         if (x >> i & 1) {
             if (!ok) ans = max(ans, (int)t.size());
         } else {
