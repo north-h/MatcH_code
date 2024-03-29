@@ -13,7 +13,7 @@
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
+#define int long long
 #define fi first
 #define se second
 #define PII pair<int, int>
@@ -28,7 +28,12 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int a, b, c;
+    cin >> a >> b >> c;
+    int d = log2(a + 1);
+    int c = (1 << d) + a - (1)
+}
 
 int32_t main() {
 #ifdef LOCAL
