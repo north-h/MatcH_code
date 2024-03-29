@@ -16,81 +16,50 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, m, sq;
-    cin >> n >> m;
-    sq = sqrt(n);
-    vector<int> a(n + 1), st(sq + 1), ed(sq + 1), sum(sq + 1), mk(sq + 1), sz(sq + 1), belong(n + 1);
-    for (int i = 1; i <= n; i ++) cin >> a[i];
-    for (int i = 1; i <= sq; i ++) {
-        st[i] = n / sq * (i - 1) + 1;
-        ed[i] = n / sq * i;
+    int n;
+    cin >> n;
+    vector<int> a(n + 1);
+    int sum = 0;
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+        sum += a[i];
     }
-    ed[sq] = n;
-    for (int i = 1; i <= sq; i ++) {
-        for (int j = st[i]; j <= ed[i]; j ++) {
-            sum[i] += a[j];
-            belong[j] = i;
+//     debug1(sum);
+    if (n == 1) {
+        cout << 1 << endl;
+        return ;
+    }
+    if (n == 2 && a[1] == a[2]) {
+        cout << 0 << ' ' << 0 << endl;
+        return ;
+    }
+    int p = -1, res;
+    if (sum & 1) res = (sum + 1) / 2;
+    else res  = sum / 2;
+    for (int i = 1; i <= n; i ++) {
+        if (res  <= a[i]) {
+            p = i;
+            break;
         }
     }
-    for (int i = 1; i <= sq; i ++) {
-        sz[i] = ed[i] - st[i] + 1;
-    }
-    // for (int i = 1; i <= n; i ++) cout << belong[i] << ' ';
-    // cout << endl;
-    // for (int i = 1; i <= sq; i ++) cout << ed[i] << ' ';
-    // cout << endl;
-    auto modify = [&] (int l, int r, int k) -> void{
-        if (belong[l] == belong[r]) {
-            for (int i = l; i <= r; i ++) {
-                a[i] += k;
-                sum[belong[i]] += k;
-            }
+    // debug1(p);
+    if (p != -1) {
+        if (sum % 2 == 0 && res = a[p]) {
+            for (int i = 1; i <= n; i ++) cout << 0 << ' ';
+            cout << endl;
             return ;
         }
-        for (int i = l; i <= ed[belong[l]]; i ++) {
-            a[i] += k;
-            sum[belong[i]] += k;
+        for (int i = 1; i <= n; i ++) {
+            if (i == p) cout << 1 << ' ';
+            else cout << 0 << ' ';
         }
-        for (int i = st[belong[r]]; i <= r; i ++) {
-            a[i] += k;
-            sum[belong[i]] += k;
+        cout << endl;
+    } else {
+        for (int i = 1; i <= n; i ++) {
+            cout << 1 << ' ';
         }
-        for (int i = belong[l] + 1; i < belong[r]; i ++) {
-            mk[i] += k;
-        }
-    };
-
-    auto query = [&] (int l, int r) -> int {
-        int res = 0;
-        if (belong[l] == belong[r]) {
-            for (int i = l; i <= r; i ++) {
-                res += a[i] + mk[belong[i]];
-            }
-            return res;
-        }
-        for (int i = l; i <= ed[belong[l]]; i ++) {
-            res += a[i] + mk[belong[i]];
-        }
-        for (int i = st[belong[r]]; i <= r; i ++) {
-            res += a[i] + mk[belong[i]];
-        }
-        for (int i = belong[l] + 1; i < belong[r]; i ++) {
-            res += sum[i] + mk[i] * sz[i];
-        }
-        return res;
-    };
-    while (m --) {
-        int op, x, y;
-        cin >> op >> x >> y;
-        if (op == 1) {
-            int k;
-            cin >> k;
-            modify(x, y, k);
-        } else {
-            cout << query(x, y) << endl;
-        }
+        cout << endl;
     }
-    // cout << 112 << endl;
 }
 
 
@@ -101,7 +70,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
