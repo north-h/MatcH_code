@@ -32,60 +32,38 @@ void solve() {
     int a, b, C;
     cin >> a >> b >> C;
     int c= 0;
-    for (int i = 60; i >= 0; i --) {
+    for (int i = 59; i >= 0; i --) {
         if (C >> i & 1) c ++;
     }
     int sa = 0, sb = 0;
-    __int128 sum = 0;
+    int ca = a, cb = b, f = 0;
     if (a + b < c) cout << -1 << endl;
     else {
-        int ca = a, cb = b, f = 0;
-        for (int i = 0; i <= 60; i ++) {
-            if ((C >> i & 1) && c > 0) {\
-                // debug1(i);
+        for (int i = 0; i < 60; i ++) {
+            if (C >> i & 1) {
                 if (ca > cb) {
-                    sum = sa + (1ll << i);
-                    if (sum > (1ll << 60)) {
-                        cout << -1 << endl;
-                        return ;
-                    }
                     sa += (1ll << i);
                     ca --;
                 } else {
-                    sum = sb + (1ll << i);
-                    if (sum > (1ll << 60)) {
-                        cout << -1 << endl;
-                        return ;
-                    }
                     sb += (1ll << i);
                     cb --;
                 }
-                c --;
             }
         }
         if (ca != cb) {
             cout << -1 << endl;
             return ;
         }
-        for (int i = 0; i <= 60; i ++) {
+        for (int i = 0; i < 60; i ++) {
             if (!(sa >> i & 1) && !(sb >> i & 1) && ca) {
-                sum = sa + (1ll << i);
-                if (sum > (1ll << 60)) {
-                    cout << -1 << endl;
-                    return ;
-                }
                 sa += (1ll << i);
-                sum = sa + (1ll << i);
-                if (sum > (1ll << 60)) {
-                    cout << -1 << endl;
-                    return ;
-                }
                 sb += (1ll << i);
                 ca --;
             }
         }
     }
-    cout << sa << ' ' << sb << endl;
+    if (ca != 0) cout << -1 << endl;
+    else cout << sa << ' ' << sb << endl;
 }
 
 int32_t main() {
