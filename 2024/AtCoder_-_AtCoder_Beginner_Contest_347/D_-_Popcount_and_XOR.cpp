@@ -28,12 +28,6 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void print (__int128 num) {
-    if (num > 9) { print(num / 10); }
-    putchar(num % 10 + '0');
-}
-
-
 void solve() {
     int a, b, C;
     cin >> a >> b >> C;
@@ -47,7 +41,7 @@ void solve() {
     else {
         int ca = a, cb = b, f = 0;
         for (int i = 0; i <= 60; i ++) {
-            if ((C >> i & 1) && c > 0) {
+            if ((C >> i & 1) && c > 0) {\
                 // debug1(i);
                 if (ca > cb) {
                     sum = sa + (1ll << i);
