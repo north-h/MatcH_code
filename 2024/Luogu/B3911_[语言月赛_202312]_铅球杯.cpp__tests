@@ -1,0 +1,10 @@
+[
+	{
+		"correct_answers":
+		[
+			"We have 1 apples.\nWe 5onot have pencils.",
+			"We have 2 apples.\nWe 5onot have pencils."
+		],
+		"test": "5 2\nabc 1\na 2\nb 3\nc 4\nd 5\nWe have {abc} apples.\nWe {d}onot have pencils.\n"
+	}
+]
