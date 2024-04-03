@@ -11,7 +11,7 @@
  * =========================================================
  */
 
-// #pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define fi first;
 #define se second;
@@ -27,13 +27,13 @@ using ll = long long;
 using PII = pair<int, int>;
 
 int n, k;
-int dp[12][144][1 << 12];
-// int state[1 << 12];
+ll dp[12][144][1 << 12];
+int sum[1 << 12];
 
 void solve() {
     cin >> n >> k;
     vector<int> state;
-    map<int, int> sum;
+    // map<int, int> sum;
     for (int i = 0; i < (1 << n); i ++) {
         if (!(i & (i >> 1))) {
             state.push_back(i);
@@ -51,9 +51,6 @@ void solve() {
                     if ((state[now] & state[lst])) continue;
                     if ((state[now] & (state[lst] << 1))) continue;
                     if ((state[now] & (state[lst] >> 1))) continue;
-                    // if ((j >= c) && !(state[lst]&state[now]) && !((state[now] << 1) & state[lst]) && !((state[now] >> 1) & state[lst])) {
-                    //     dp[i][j][now] += dp[i - 1][j - c][lst];
-                    // }
                     dp[i][j][now] += dp[i - 1][j - c][lst];
                 }
             }
