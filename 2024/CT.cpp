@@ -13,7 +13,13 @@ using namespace std;
 using ll = long long;
 using PII =  pair<int, int>;
 
-void solve() {}
+void solve() {
+    string s;
+    getline(cin, s);
+    while (getline(cin, s)) {
+        cout << "\"s\"," << endl;
+    }
+}
 
 int32_t main() {
 #ifdef LOCAL
