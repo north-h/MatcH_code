@@ -1,17 +1,17 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2024-04-04 09:13:34
+ * Time:    2024-04-05 10:39:52
  *
- * Problem: 质因数个数
+ * Problem: 阶乘分解
  * Contest: AcWing
- * URL:     https://www.acwing.com/problem/content/4661/
- * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * URL:     https://www.acwing.com/problem/content/199/
+ * MemoryL: 64 MB
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define fi first;
 #define se second;
@@ -27,16 +27,19 @@ using ll = long long;
 using PII = pair<int, int>;
 
 void solve() {
-    ll n;
+    int n;
     cin >> n;
-    int res = 0;
-    for (int i = 2; i * i <= n; i ++) {
-        if (n % i != 0) continue;
-        while (n % i == 0) n /= i;
-        res ++;
+    map<int, int> mp;
+    for (int x = 1; x <= n; x ++) {
+        int y = x;
+        for (int i = 2; i <= y / i; i ++) {
+            if (y % i != 0) continue;
+            int cnt = 0;
+            while (y % i == 0) y /= i, mp[i] ++;
+        }
+        if (y > 1) mp[y] ++;
     }
-    if (n > 1) res ++;
-    cout << res << endl;
+    for (auto [x, y] : mp) cout << x << ' ' << y << endl;
 }
 
 int32_t main() {
