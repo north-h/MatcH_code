@@ -26,7 +26,38 @@ using namespace std;
 using ll = long long;
 using PII = pair<int, int>;
 
-void solve() {}
+void solve() {
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<int> a(n + 1), b;
+    unordered_map<int, int> t;
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    int x = k / m, y = k % m, nm = x + (y != 0);
+    b = a;
+    sort(b.begin(), b.end());
+    for (int i = 1; i <= nm; i ++) t[b[i]] ++;
+    vector<int> T;
+    int mx = 0;
+    for (int i = 1; i <= n; i ++) {
+        if (t[a[i]] > 0 && T.size() < nm) {
+            T.push_back(a[i]);
+            t[a[i]] --;
+            mx  =max(mx, a[i]);
+        }
+    }
+    ll ans = 0, c = 0;
+    for (int i = 0; i < T.size(); i ++) {
+        if (T[i] == mx && y != 0) {
+            ans += (ll)(T[i] + c) * y ;
+            c += y;
+            y = 0;
+        } else {
+            ans += (ll)(T[i] + c) * m;
+            c += m;
+        }
+    }
+    cout << ans << endl;
+}
 
 int32_t main() {
 #ifdef LOCAL
@@ -35,7 +66,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

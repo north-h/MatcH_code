@@ -32,7 +32,7 @@ void solve() {
     cin >> n >> s;
     int c = 0;
     for (auto i : s) c += (i == '1');
-    if (c & 1) cout << "NO" << endl;
+    if (c & 1 || (c == 2 && s.find("11") != -1)) cout << "NO" << endl;
     else cout << "YES" << endl;
 }
 

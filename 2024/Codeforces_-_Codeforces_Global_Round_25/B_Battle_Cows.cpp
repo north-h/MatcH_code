@@ -26,7 +26,33 @@ using namespace std;
 using ll = long long;
 using PII = pair<int, int>;
 
-void solve() {}
+void solve() {
+    int n, p;
+    cin >> n >> p;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    int x = a[p];
+    auto get = [&](vector<int> t) -> int{
+        int res = 0;
+        int win = a[1];
+        for (int i = 2; i <= n; i ++) {
+            if (win < a[i]) win = a[i];
+            if (win == x) res ++;
+        }
+        return res;
+    };
+    swap(a[1], a[p]);
+    int ans = get(a);
+    swap(a[1], a[p]);
+    for (int i = 1; i <= n; i ++) {
+        if (a[i] > x) { 
+            swap(a[i], a[p]);
+            break;
+        }
+    }
+    ans = max(ans, get(a));
+    cout << ans << endl;
+}
 
 int32_t main() {
 #ifdef LOCAL
@@ -35,7 +61,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
