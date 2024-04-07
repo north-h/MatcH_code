@@ -8,7 +8,6 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using i2 = array<int, 2>;
 
 void solve() {}
 
