@@ -21,7 +21,6 @@ const int N = 210;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
-using ll = long long;
 
 char g[N][N];
 int vis[N][N], e[N][N], d[N][N];
@@ -38,8 +37,9 @@ bool bfs(int x, int y) {
     while (q.size()) {
         auto t = q.front();
         q.pop();
+        vis[t[0]][t[1]] = 0;
         if (t[0] == E[0] && t[1] == E[1] && t[2] >= 0) return true;
-        if (t[2] == 0 ) continue;
+        if (t[2] <= 0 ) continue;
         for (int i = 0; i < 4; i ++) {
             int tx = t[0] + dx[i];
             int ty = t[1] + dy[i];
@@ -47,7 +47,7 @@ bool bfs(int x, int y) {
             if (vis[tx][ty] || g[tx][ty] == '#') continue;
             if (e[tx][ty] > t[2]) q.push({tx, ty, e[tx][ty]}), d[tx][ty] = e[tx][ty];
             else q.push({tx, ty, t[2] - 1}), d[tx][ty] = t[2] - 1;;
-            if (t[2] != 1) vis[tx][ty] = 1;
+            vis[tx][ty] = 1;
         }
     }
     return false;
@@ -58,14 +58,10 @@ void solve() {
     for (int i = 1; i <= n; i ++) {
         for (int j = 1; j <= m; j ++) {
             cin >> g[i][j];
-            // cout << g[i][j] ;
             if (g[i][j] == 'S') S[0] = i, S[1] = j;
             if (g[i][j] == 'T') E[0] = i, E[1] = j;
         }
-        // cout << endl;
     }   
-    // debug2(S[0], S[1]);
-    // debug2(E[0], E[1]);
     cin >> k;
     for (int i = 1; i <= k; i ++) {
         int x, y, z;
