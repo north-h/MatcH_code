@@ -1,44 +1,58 @@
-/*************************************************************
- *  > File Name        : d.cpp
- *  > Author           : omemi
- *  > Created Time     : 2024/4/7 19:36:04
- *************************************************************/
+/*
+ * ==================================================================================
+ * Author:  north_h
+ * Time:    2024-04-07 23:54:04
+ *
+ * Problem: 小红不想做完全背包 （hard）
+ * Contest: NowCoder
+ * URL:     https://ac.nowcoder.com/acm/contest/78904/D
+ * MemoryL: 524288 MB
+ * TimeL:   2000 ms
+ * ==================================================================================
+ */
 
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+#define debug1(a) cout << #a << '=' << a << endl
+#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define lf(x) fixed << setprecision(x)
+// #define LOCAL
+const int N = 100010;
+const int INF = 0x3f3f3f3f;
 
-#define ll long long
-#define ull unsigned long long
-#define endl (char)10
+using namespace std;  
+using ll = long long;
 
-using namespace std;
-
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);cout.tie(nullptr);
-
-    int n, p;
-    cin >> n >> p;
-    set<int> st;
-    for (int i = 1, x; i <= n; i++) {
-        cin >> x;
-        st.emplace(x % p);
+void solve() {
+    int n, k;
+    cin >> n >> k;
+ 
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+        a[i] %= k;
+        if (a[i] == 0) a[i] = k;
     }
-
-    vector<int> vis(p, INT_MAX / 2);
-    for (const int &i : st) {
-        vis[i] = 1;
-    }
-    for (int t = 0; t < 1e8 / p / st.size(); t++) {
-        for (int i = 1; i < p; i++) {
-            if (vis[i] != -1) {
-                for (const int &j : st) {
-                    vis[(i + j) % p] = min(vis[(i + j) % p], vis[i] + 1);
-                }
-            }
+    vector<int> dp(k + 1, INF);
+    dp[0] = 0;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 0; j <= k; j ++) {
+            int x = (j + a[i]) % k;
+            if (x == 0) x = k;
+            dp[x] = min(dp[x], dp[j] + 1);
         }
     }
-    cout << vis[0] << endl;
+    cout << dp[k] << endl;
+}
 
+int32_t main() {
+#ifdef LOCAL
+    freopen("data.in", "r", stdin);
+    freopen("data.out", "w", stdout);
+#endif
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--)solve();
     return 0;
 }
