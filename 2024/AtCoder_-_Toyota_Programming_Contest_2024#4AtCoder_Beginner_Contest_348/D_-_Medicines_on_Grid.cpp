@@ -32,7 +32,7 @@ int dy[4] = {1, 0, -1, 0};
 bool bfs(int x, int y) {
     queue<array<int, 3>> q;
     q.push({x, y, e[x][y]});
-    vis[x][y] = 1;
+    // vis[x][y] = 1;
     d[x][y] = e[x][y];
     while (q.size()) {
         auto t = q.front();
@@ -44,10 +44,10 @@ bool bfs(int x, int y) {
             int tx = t[0] + dx[i];
             int ty = t[1] + dy[i];
             if (tx < 1 || ty < 1 || tx > n || ty > m) continue;
-            if (vis[tx][ty] || g[tx][ty] == '#') continue;
+            if (g[tx][ty] == '#') continue;
             if (e[tx][ty] > t[2]) q.push({tx, ty, e[tx][ty]}), d[tx][ty] = e[tx][ty];
-            else q.push({tx, ty, t[2] - 1}), d[tx][ty] = t[2] - 1;;
-            vis[tx][ty] = 1;
+            else if (d[tx][ty] <= t[2] - 1) q.push({tx, ty, t[2] - 1}), d[tx][ty] = t[2] - 1;;
+            // vis[tx][ty] = 1;
         }
     }
     return false;
