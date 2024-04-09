@@ -1,11 +1,11 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-05 12:00:18 ms
+ * Time:    2024-04-09 13:04:27 ms
  *
- * Problem: P8834 [传智杯 #3 决赛] 序列
+ * Problem: P8712 [蓝桥杯 2020 省 B1] 整数拼接
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8834?contestId=165868
+ * URL:     https://www.luogu.com.cn/problem/P8712?contestId=166591
  * MemoryL: 128 MB
  * TimeL:   1000 ms
  * =========================================================
@@ -13,8 +13,6 @@
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
@@ -24,19 +22,22 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII = pair<int, int>;
 
 void solve() {
     int n, k;
     cin >> n >> k;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-    }
-    int ans = 0;
+    vector<string> a(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    ll ans = 0;
     for (int i = 1; i <= n; i ++) {
         for (int j = 1; j <= n; j ++) {
-            if ((ll)a[i] * (ll)a[j] <= k && i < j) ans ++;
+            if (i == j) continue;
+            string s = a[i] + a[j];
+            ll sum = 0;
+            for (auto k : s) sum = sum * 10 + (k - '0');
+            if (sum % k == 0) {
+                ans ++;
+            }
         }
     }
     cout << ans << endl;

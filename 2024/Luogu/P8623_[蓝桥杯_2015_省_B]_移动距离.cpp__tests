@@ -2,22 +2,22 @@
 	{
 		"correct_answers":
 		[
-			"3"
+			"4"
 		],
-		"test": "TABTABBTTTT\n"
+		"test": "6 8 2\n"
 	},
 	{
 		"correct_answers":
 		[
-			"0"
+			"5"
 		],
-		"test": "TTAAABB\n"
+		"test": "4 7 20\n"
 	},
 	{
 		"correct_answers":
 		[
-			"2"
+			"1"
 		],
-		"test": "TTAABAT\n"
+		"test": "3 1 6\n"
 	}
 ]

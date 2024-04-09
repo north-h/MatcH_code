@@ -1,20 +1,18 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-05 12:00:35 ms
+ * Time:    2024-04-09 13:04:31 ms
  *
- * Problem: P8649 [蓝桥杯 2017 省 B] k 倍区间
+ * Problem: P8725 [蓝桥杯 2020 省 AB3] 画中漂流
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8649?contestId=165868
- * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * URL:     https://www.luogu.com.cn/problem/P8725?contestId=166591
+ * MemoryL: 128 MB
+ * TimeL:   1000 ms
  * =========================================================
  */
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
@@ -24,23 +22,13 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII = pair<int, int>;
+
+int D, T, M;
+int dp[]
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    ll sum = 0;
-    map<int, int> mp;
-    ll ans = 0, cnt = 0;
-    mp[0] = 1;
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> x;
-        sum += x;
-        sum %= k;
-        ans += mp[sum];
-        mp[sum] ++;
-    }
-    cout << ans << endl;
+    cin >> D >> T >> M;
+
 }
 
 int32_t main() {

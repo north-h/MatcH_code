@@ -1,20 +1,18 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-05 12:00:44 ms
+ * Time:    2024-04-09 13:04:35 ms
  *
- * Problem: P8646 [蓝桥杯 2017 省 AB] 包子凑数
+ * Problem: P8730 [蓝桥杯 2020 国 ABC] 皮亚诺曲线距离
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8646?contestId=165868
- * MemoryL: 256 MB
+ * URL:     https://www.luogu.com.cn/problem/P8730?contestId=166591
+ * MemoryL: 128 MB
  * TimeL:   1000 ms
  * =========================================================
  */
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
@@ -24,31 +22,19 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII = pair<int, int>;
 
 void solve() {
-    int n;
-    cin >> n;
-    vector<int> a(n + 1), dp(N);
-    bool f1 = false, f2 = false;
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-        if (a[i] & 1) f1 = true;
-        if (a[i] % 2 == 0) f2 = true;
+    vector<array<int, 2>> a = {{0, 0}, {0, 1}, {0, 2}, {1, 2}, {1, 1}, {1, 0}, {2, 0}, {2, 1}, {2, 2}};
+    int k;
+    cin >> k;
+    int sx, sy, ex, ey;
+    cin >> sx >> sy >> ex >> ey;
+    int fs, fe;
+    for (int i = 0; i < a.size(); i ++) {
+        if (sx == a[i][0] && sy == a[i][1]) fs = i;
+        if (ex == a[i][0] && ey == a[i][1]) fe = i;
     }
-    if (!(f1 && f2)) {
-        cout << "INF" << endl;
-        return ;
-    }
-    dp[0] = 1;
-    for (int i = 1; i <= n; i ++) {
-        for (int j = a[i]; j < N; j ++) {
-            dp[j] |= dp[j - a[i]];
-        }
-    }
-    int ans = 0;
-    for (int i = 1; i < N; i ++) ans += !dp[i];
-    cout << ans << endl;
+    cout << fe - fs << '\n';
 }
 
 int32_t main() {

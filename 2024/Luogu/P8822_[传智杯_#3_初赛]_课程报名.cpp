@@ -1,20 +1,18 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-05 12:00:26 ms
+ * Time:    2024-04-09 13:04:13 ms
  *
- * Problem: P8630 [蓝桥杯 2015 国 B] 密文搜索
+ * Problem: P8822 [传智杯 #3 初赛] 课程报名
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8630?contestId=165868
- * MemoryL: 512 MB
- * TimeL:   3000 ms
+ * URL:     https://www.luogu.com.cn/problem/P8822?contestId=166591
+ * MemoryL: 128 MB
+ * TimeL:   1000 ms
  * =========================================================
  */
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
@@ -24,25 +22,16 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII = pair<int, int>;
 
 void solve() {
-    string s; cin >> s;
-    int n; cin >> n;
-    int ans = 0;
-    map<string, int> mp;
+    int n, v, m, a;
+    cin >> n >> v >> m >> a;
+    ll ans = 0;
     for (int i = 1; i <= n; i ++) {
-        string sans;
-        cin >> sans;
-        sort(sans.begin(), sans.end());
-        mp[sans] ++;
+        ans += v;
+        if (i % m == 0) v += a;
     }
-    for (int i = 0; i < s.size(); i ++) {
-        string str = s.substr(i, 8);
-        sort(str.begin(), str.end());
-        ans += mp[str];
-    }
-    cout << ans << endl;
+    cout << ans << '\n';
 }
 
 int32_t main() {

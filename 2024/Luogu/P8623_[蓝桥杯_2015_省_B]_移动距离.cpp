@@ -1,11 +1,11 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-05 12:00:52 ms
+ * Time:    2024-04-09 13:04:18 ms
  *
- * Problem: P8699 [蓝桥杯 2019 国 B] 排列数
+ * Problem: P8623 [蓝桥杯 2015 省 B] 移动距离
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8699?contestId=165868
+ * URL:     https://www.luogu.com.cn/problem/P8623?contestId=166591
  * MemoryL: 128 MB
  * TimeL:   1000 ms
  * =========================================================
@@ -13,8 +13,6 @@
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
@@ -24,26 +22,18 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII = pair<int, int>;
 
 void solve() {
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n + 1);
-    iota(a.begin(), a.end(), 0);
-    int ans = 0;
-    do {
-        int c = 0;
-        for (int i = 2; i < n; i ++) {
-            if ((a[i] > a[i - 1] && a[i] > a[i + 1]) || (a[i] < a[i - 1] && a[i] < a[i + 1]))
-                c ++;
-        }
-        if (c == k - 1) {
-            ans ++;
-        } else {
-        }
-    } while (next_permutation(a.begin() + 1, a.end()));
-    cout << ans << endl;
+    int w, m, n;
+    cin >> w >> m >> n;
+    int hm = (m + w - 1) / w, lm = m % w;
+    int hn = (n + w - 1) / w, ln = n % w;
+    if (lm == 0) lm = w;
+    if (ln == 0) ln = w;
+    if (hm % 2 == 0) lm = (w - lm + 1);
+    if (hn % 2 == 0) ln = (w - ln + 1);
+    int ans = abs(hm - hn) + abs(lm - ln);
+    cout << ans << '\n';
 }
 
 int32_t main() {

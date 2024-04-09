@@ -1,20 +1,18 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-05 12:00:31 ms
+ * Time:    2024-04-09 13:04:09 ms
  *
- * Problem: P8672 [蓝桥杯 2018 国 C] 交换次数
+ * Problem: P8833 [传智杯 #3 决赛] 课程
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8672?contestId=165868
- * MemoryL: 256 MB
+ * URL:     https://www.luogu.com.cn/problem/P8833?contestId=166591
+ * MemoryL: 128 MB
  * TimeL:   1000 ms
  * =========================================================
  */
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first
-#define se second
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
@@ -24,24 +22,21 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII = pair<int, int>;
 
 void solve() {
-    string s, str = "ABT"; cin >> s;
-    map<char, int> mp;
-    for (auto i : s) mp[i] ++;
-    int ans = INF;
-    do {
-        string T;
-        for (auto i : str) {
-            for (int j = 0; j < mp[i]; j ++) T += i;
-        }
-        int cnt = 0;
-        for (int i = 0; i < s.size(); i ++) {
-            if (s[i] != T[i]) cnt ++;
-        }
-        ans = min(ans, (cnt + 1) / 2);
-    } while (next_permutation(str.begin(), str.end()));
+    int n, m;
+    cin >> n >> m;
+    map<int, int> mp;
+    for (int i = 1, x; i <= n; i ++) {
+        cin >> x;
+        mp[x] ++;
+    }
+    for (int i = 1, x; i <= m; i ++) {
+        cin >> x;
+        mp[x] ++;
+    }
+    int ans = 0;
+    for (auto [x, y] : mp) ans += (y == 2);
     cout << ans << endl;
 }
 
