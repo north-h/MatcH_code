@@ -1,15 +1,15 @@
 /*
- * =========================================================
- * Author:  north_h
- * Time:    2024-04-09 13:04:39 ms
- *
- * Problem: P8703 [蓝桥杯 2019 国 B] 最优包含
- * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P8703?contestId=166591
- * MemoryL: 128 MB
- * TimeL:   1000 ms
- * =========================================================
- */
+* =========================================================
+* Author:  north_h
+* Time:    2024-04-09 13:04:39 ms
+*
+* Problem: P8703 [蓝桥杯 2019 国 B] 最优包含
+* Contest: Luogu
+* URL:     https://www.luogu.com.cn/problem/P8703?contestId=166591
+* MemoryL: 128 MB
+* TimeL:   1000 ms
+* =========================================================
+*/
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
@@ -24,37 +24,21 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    string a, b;
-    cin >> a >> b;
-    int ans = INF;
-    string s;
-    vector<int> T;
-    auto dfs = [&](auto && dfs, int p) -> void {
-        if (p == b.size()) {
-            vector<int> t;
-            for (int i = 0, j = 0; i < a.size() && j < s.size(); i ++) {
-                if (a[i] == s[j]) {
-                    j ++; t.push_back(i);
-                }
-            }
-            bool ok = true;
-            if (t.size() == 0 || T.size() == 0) return ;
-            if (t[0] != T[0] && t[0] == 0) ok = false;
-            if (t.back() != T.back() && t[0] == t.size() - 1) ok= false;
-            if (ok) ans = min(ans, (int)(b.size() - s.size()));
-            return ;
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n + 1), p(11, 1);
+    vector<array<ll, 11>> cnt(n + 1);
+    for (int i = 1; i <= 9; i ++) p[i] = p[i - 1] * 10;
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+        for (int j = 1; j <= 9; j ++) {
+            cnt[(a[i] * p[j]) % k][j] ++;
         }
-
-        s += b[p];
-        T.push_back(p);
-        dfs(dfs, p + 1);
-        s.pop_back();
-        T.pop_back();
-
-        dfs(dfs, p + 1);
-    };
-    dfs(dfs, 0);
-    cout << ans << endl;
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; i ++) {
+        int x = a[i]
+    }
 }
 
 int32_t main() {

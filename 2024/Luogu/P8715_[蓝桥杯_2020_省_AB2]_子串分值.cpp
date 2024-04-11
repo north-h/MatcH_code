@@ -26,12 +26,18 @@ using ll = long long;
 void solve() {
     string s;
     cin >> s;
+    s = '#' + s;
+    int n = s.size();
+    map<char, vector<int>> mp;
+    for (char op = 'a'; op <= 'z'; op ++) mp[op].push_back(0);
+    for (int i = 1; i <= n; i ++) {
+        mp[s[i]].push_back(i);
+    }
+    for (char op = 'a'; op <= 'z'; op ++) mp[op].push_back(n);
     int ans = 0;
-    for (int i = 0; i < s.size(); i ++) {
-        for (int j = i; j < s.size(); j ++) {
-            unordered_map<char, int> mp;
-            for (int k = i; k <= j; k ++) mp[s[k]] ++;
-            for (auto [x, y] : mp) ans += (y == 1);
+    for (char op = 'a'; op <= 'z'; op ++) {
+        for (int i = 1; i < mp[op].size() - 1; i ++) {
+            ans += (mp[op][i] - mp[op][i - 1]) * (mp[op][i + 1] - mp[op][i]);
         }
     }
     cout << ans << endl;
