@@ -1,1 +1,1 @@
-[{"correct_answers": ["100\n11"], "test": "3 2\n0 0\n0 1\n1 0\n0 -1\n-1 0\n"}]
+[{"test": "3 2\n0 0\n0 1\n1 0\n0 -1\n-1 0\n", "correct_answers": ["100\n11"]}]

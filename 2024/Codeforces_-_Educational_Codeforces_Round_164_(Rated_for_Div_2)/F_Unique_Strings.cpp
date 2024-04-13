@@ -1,32 +1,27 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-01 10:16:43 ms
+ * Time:    2024-04-13 15:28:14 ms
  *
- * Problem: A. Mine Sweeper II
- * Contest: Codeforces - SMU-XCPC
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/514966/problem/A
- * MemoryL: 1024 MB
- * TimeL:   1000 ms
+ * Problem: F. Unique Strings
+ * Contest: Codeforces - Educational Codeforces Round 164 (Rated for Div. 2)
+ * URL:     https://codeforces.com/contest/1954/problem/F
+ * MemoryL: 256 MB
+ * TimeL:   2000 ms
  * =========================================================
  */
 
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
-#define fi first
-#define se second
-#define PII pair<int, int>
-#define endl '\n'
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
-#define PI acos(-1)
 // #define LOCAL
-const int N = 10010;
+const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
+using ll = long long;
 
 void solve() {}
 
@@ -37,7 +32,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

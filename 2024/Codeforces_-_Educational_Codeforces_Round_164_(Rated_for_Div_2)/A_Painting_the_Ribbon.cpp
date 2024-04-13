@@ -1,11 +1,11 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-12 17:17:07 ms
+ * Time:    2024-04-13 15:27:55 ms
  *
- * Problem: Y. Good Number
- * Contest: Codeforces - 区域赛签到题题单1
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/514966/problem/Y
+ * Problem: A. Painting the Ribbon
+ * Contest: Codeforces - Educational Codeforces Round 164 (Rated for Div. 2)
+ * URL:     https://codeforces.com/contest/1954/problem/A
  * MemoryL: 512 MB
  * TimeL:   2000 ms
  * =========================================================

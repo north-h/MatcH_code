@@ -1,12 +1,12 @@
 /*
  * =========================================================
  * Author:  north_h
- * Time:    2024-04-12 17:17:07 ms
+ * Time:    2024-04-13 15:28:06 ms
  *
- * Problem: Y. Good Number
- * Contest: Codeforces - 区域赛签到题题单1
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/514966/problem/Y
- * MemoryL: 512 MB
+ * Problem: D. Colored Balls
+ * Contest: Codeforces - Educational Codeforces Round 164 (Rated for Div. 2)
+ * URL:     https://codeforces.com/contest/1954/problem/D
+ * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * =========================================================
  */

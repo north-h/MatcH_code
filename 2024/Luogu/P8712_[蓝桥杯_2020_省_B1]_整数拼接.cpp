@@ -26,19 +26,23 @@ using ll = long long;
 void solve() {
     int n, k;
     cin >> n >> k;
-    vector<string> a(n + 1);
-    for (int i = 1; i <= n; i ++) cin >> a[i];
+    vector<int> a(n + 1), sz(n + 1);
+    vector<ll> p(10, 1);
+    vector<array<ll, 10>> cnt(k + 1);
+    for (int i = 1; i <= 9; i ++) p[i] = p[i - 1] * 10;
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+        sz[i] = (int)to_string(a[i]).size();
+        for (int j = 1; j <= 9; j ++) {
+            cnt[(a[i] * p[j]) % k][j] ++;
+        }
+    }
     ll ans = 0;
     for (int i = 1; i <= n; i ++) {
-        for (int j = 1; j <= n; j ++) {
-            if (i == j) continue;
-            string s = a[i] + a[j];
-            ll sum = 0;
-            for (auto k : s) sum = sum * 10 + (k - '0');
-            if (sum % k == 0) {
-                ans ++;
-            }
-        }
+        int x = a[i] % k, y = k - x;;
+        if (y == k) y = 0;
+        ans += cnt[y][sz[i]];
+        if ((a[i] * p[sz[i]]) % k == y) ans --;
     }
     cout << ans << endl;
 }
