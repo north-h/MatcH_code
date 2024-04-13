@@ -1,5 +1,12 @@
 [
 	{
+<<<<<<< HEAD
 		"test": "6 6\nGLGGGG\nLLLGGG\nLLLGGH\nLLLGGG\nGGGGMM\nGHGGGG\n"
+=======
+		"test": "1\n5 8 9 10 12 14\n"
+	},
+	{
+		"test": "1\n4\n5 7 10 11\n"
+>>>>>>> 81f31a6fd7589214a78a869c5fe3d6c311e03648
 	}
 ]
