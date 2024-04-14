@@ -1,11 +1,11 @@
 [
 	{
-		"test": "CCTCC$\n"
+		"test": "2 3.14\n"
 	},
 	{
-		"test": "CTTCCX$\n"
+		"test": "3 45.78\n"
 	},
 	{
-		"test": "TXXXXC$\n"
+		"test": "10 2.34\n"
 	}
 ]
