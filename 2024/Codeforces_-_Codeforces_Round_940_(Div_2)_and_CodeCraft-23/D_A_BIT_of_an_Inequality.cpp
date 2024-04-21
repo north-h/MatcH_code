@@ -1,3 +1,16 @@
+/*
+ * ==================================================================================
+ * Author:  north_h
+ * Time:    2024-04-21 22:41:17
+ *
+ * Problem: D. A BIT of an Inequality
+ * Contest: Codeforces - Codeforces Round 940 (Div. 2) and CodeCraft-23
+ * URL:     https://codeforces.com/contest/1957/problem/D
+ * MemoryL: 256 MB
+ * TimeL:   2000 ms
+ * ==================================================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
@@ -10,24 +23,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {
-    int n;
-    cin >> n;
-    int sum = 0;
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> x;
-        sum ^= x;
-    }
-    cout << sum << '\n';
-    vector<int> b;
-    while (sum) {
-        b.push_back(sum % 2);
-        sum /= 2;
-    }
-    reverse(b.begin(), b.end());
-    for (auto i : b) cout << i << ' ';
-    cout << '\n';
-}
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL
@@ -36,7 +32,7 @@ int32_t main() {
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
