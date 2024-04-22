@@ -30,62 +30,13 @@ void solve() {
         cout << k << '\n';
         return ;
     }
-    if (n == 2) {
-        int cnt = 0;
-        int y = k;
-        while (y) cnt ++, y /= 2;
-        int x = (1 << cnt - 1) - 1;
-        if (y == 1) cout << x << ' ' << k - x << '\n';
-        else cout << k << ' ' << 0 << '\n';
-        return ;
-    }
-    vector<int> ans;
     int sum = 0;
-    for (int i = 1, j = 1; sum + i <= k && j <= n; i *= 2, j ++) {
-        ans.push_back(i);
+    for (int i = 1; sum + i <= k; i *= 2) {
         sum += i;
     }
-    while (ans.size() < n) ans.push_back(0);
-    int remain = k - sum;
-    sort(ans.rbegin(), ans.rend());
-    int m = (int)ans.size();
-    for (int i = m; i >= 0; i --) {
-        if ((1 << i) * 2 <= remain) {
-            remain -= (1 << i) * 2;
-            int f = 2;
-            for (int j = 0; j < ans.size(); j ++) {
-                if (ans[j] >> i & 1) continue;
-                ans[j] += (1 << i);
-                f --;
-                if (!f) break;
-            }
-        }
-    }
-    if (remain == 1) {
-        for (auto & i : ans) {
-            if (i % 2 == 0) {
-                i ++;
-                break;
-            }
-        }
-    }
-    int s = 0, ss = 0;
-    for (auto i : ans) {
-        cout << i << ' ';
-        // s ^= i; ss += i;
-    }
-    cout << '\n';
-    // debug2(s, ss);
-    // vector<int> b;
-    // while (s) {
-    //     b.push_back(s % 2);
-    //     s /= 2;
-    // }
-    // reverse(b.begin(), b.end());
-    // for (auto i : b) cout << i << ' ';
-    // cout << '\n';
+    cout << sum << ' ' << k - sum << ' ';
+    for (int i = 1; i <= n - 2; i ++) cout << 0 << " \n"[i == n - 2];
 }
-
 int32_t main() {
 #ifdef LOCAL
     freopen("data.in", "r", stdin);
