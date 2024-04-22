@@ -1,0 +1,1 @@
+[{"test": "((A)y)x\n", "correct_answers": ["YAx"]}, {"test": "((XYZ)n(X(y)Z))\n", "correct_answers": ["XYZNXYZ"]}, {"test": "(((()))(()))(())\n", "correct_answers": [""]}, {"test": "dF(qT(plC())NnnfR(GsdccC))PO()KjsiI((ysA)eWW)ve\n", "correct_answers": ["dFGsdccCrFNNnplCtQPOKjsiIwwEysAve"]}]
