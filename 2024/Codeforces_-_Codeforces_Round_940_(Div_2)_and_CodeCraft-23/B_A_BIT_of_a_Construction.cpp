@@ -37,6 +37,7 @@ void solve() {
     cout << sum << ' ' << k - sum << ' ';
     for (int i = 1; i <= n - 2; i ++) cout << 0 << " \n"[i == n - 2];
 }
+
 int32_t main() {
 #ifdef LOCAL
     freopen("data.in", "r", stdin);

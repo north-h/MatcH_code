@@ -19,11 +19,30 @@
 // #define LOCAL
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
+const int mod = 1e9 + 7;
+
 
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    int m = n;
+    for (int i = 1; i <= k; i ++) {
+        int x, y;
+        cin >> x >> y;
+        if (x == y) m --;
+        else m -= 2;
+    }
+    // debug1(m);
+    vector<int> dp(n + 1);
+    dp[1] = 1, dp[2] = 3;
+    for (int i = 3; i <= m; i ++) {
+        dp[i] = (dp[i - 1] + dp[i - 2] * 2 % mod * (i - 1) % mod) % mod;
+    }
+    cout << dp[m] << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL
