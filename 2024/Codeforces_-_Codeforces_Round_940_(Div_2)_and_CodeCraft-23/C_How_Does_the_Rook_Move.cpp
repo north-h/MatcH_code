@@ -35,8 +35,11 @@ void solve() {
         if (x == y) m --;
         else m -= 2;
     }
-    // debug1(m);
-    vector<int> dp(n + 1);
+    if (m <= 1) {
+        cout << 1 << '\n';
+        return ;
+    }
+    vector<ll> dp(m + 1);
     dp[1] = 1, dp[2] = 3;
     for (int i = 3; i <= m; i ++) {
         dp[i] = (dp[i - 1] + dp[i - 2] * 2 % mod * (i - 1) % mod) % mod;
