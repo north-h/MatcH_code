@@ -11,34 +11,12 @@ using namespace std;
 using ll = long long;
 
 void solve(int t) {
-    int n;
-    cin >> n;
-    vector<pair<int, int>> a(n + 1);
-    vector<pair<double, int>> b(n + 1);
-    ll sum = 0, ans = 0;
-    vector<int> mp(n + 1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i].first >> a[i].second;
-        sum += a[i].second;
-        int l = 1, r = a[i].first, res = -1;
-        while (l <= r) {
-            int mid = l + r >> 1;
-            if ((ll)mid * (mid + 1) >= a[i].first * 2) r = mid - 1, res = mid;
-            else l = mid + 1;
-        }
-        b[i].first = a[i].second * 1.0 / res;
-        mp[i] = res;
-        b[i].second = i;
-    }
-    sort(b.begin() + 1, b.end(), [](pair<double, int> x, pair<double, int> y) {
-        return x.first > y.first;
-    });
-    for (int i = 1; i <= n; i ++) {
-        int id = b[i].second;
-        ans += sum * mp[id];
-        sum -= a[id].second;
-    }
-    cout << "Case #" << t << ": " << ans << '\n';
+    int n, m;
+    cin >> n >> m;
+    cout << "Case #" << t << ": ";
+    if (n == 1) cout << lf(6) << 1.0 << ' ';
+    else cout << lf(6) <<  0.5 << ' ';
+    cout << lf(6) << (1 + (m - 1) * 0.5) / m << '\n';
 }
 
 
