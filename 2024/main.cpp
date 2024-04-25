@@ -4,21 +4,13 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 // #define LOCAL
-const int N = 100010;
+const int N = 210;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
 
-void solve(int t) {
-    int n, m;
-    cin >> n >> m;
-    cout << "Case #" << t << ": ";
-    if (n == 1) cout << lf(6) << 1.0 << ' ';
-    else cout << lf(6) <<  0.5 << ' ';
-    cout << lf(6) << (1 + (m - 1) * 0.5) / m << '\n';
-}
-
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL
@@ -28,6 +20,6 @@ int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
     cin >> h_h;
-    for (int i = 1; i <= h_h; i ++) solve(i);
+    while (h_h--)solve();
     return 0;
 }
