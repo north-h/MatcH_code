@@ -1,1 +1,9 @@
-[{"correct_answers": ["4\n0\n16"], "test": "3\n3\n6 2 4\n1\n3\n5\n7 3 7 2 1\n"}]
+[
+	{
+		"correct_answers":
+		[
+			"4\n0\n16"
+		],
+		"test": "3\n3\n6 2 4\n1\n3\n5\n7 3 7 2 1\n"
+	}
+]

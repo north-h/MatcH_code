@@ -23,7 +23,27 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n + 1);
+    vector<vector<ll>> cnt(n + 1, vector<ll>(30));
+    int s = 0;
+    for (int i = 1, x; i <= n; i ++) {
+        cin >> a[i]; s ^= a[i];
+        for (int j = 0; j < 30; j ++) {
+            cnt[i][j] = cnt[i - 1][j] + (s >> j & 1);
+        }
+    }
+    ll ans = 0;
+    for (int i = 1; i <= n; i ++) {
+        int k = 29;
+        while (k >= 0 && (a[i] >> k & 1) == 0) k --;
+        if (k == -1) continue;
+        ans += (cnt[n][k] - cnt[i - 1][k]) * cnt[i - 1][k];
+        ans += (n - i + 1 - (cnt[n][k] - cnt[i - 1][k])) * (i - cnt[i - 1][k]);
+    }
+    cout << ans << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL
