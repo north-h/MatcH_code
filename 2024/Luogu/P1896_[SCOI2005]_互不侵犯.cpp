@@ -1,3 +1,16 @@
+/*
+ * =========================================================
+ * Author:  north_h
+ * Time:    2024-04-25 20:40:49 ms
+ *
+ * Problem: P1896 [SCOI2005] 互不侵犯
+ * Contest: Luogu
+ * URL:     https://www.luogu.com.cn/problem/P1896
+ * MemoryL: 125 MB
+ * TimeL:   1000 ms
+ * =========================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
