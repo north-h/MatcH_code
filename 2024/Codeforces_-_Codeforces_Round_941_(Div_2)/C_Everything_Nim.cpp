@@ -23,7 +23,28 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n);
+    for (int i = 0, x; i < n; i ++) {
+        cin >> a[i];
+    }
+    sort(a.begin(), a.end());
+    a.erase(unique(a.begin(), a.end()), a.end());
+    for (auto i : a) cout << i << ' '; cout << '\n';
+    int c = 0;
+    for (int i = 1; i < a.size(); i ++) c += (a[i] - a[i - 1]);
+    int f = 0;
+    for (int i = 0, v = 0; i < a.size(); i ++) {
+        if (a[i] == 1) {
+            f ^= 1; c --;
+        } else {
+            if (c & 1) f ^= 1;
+        }
+    }
+    if (f == 0) cout << "Alice" << '\n';
+    else cout << "Bob" << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL
