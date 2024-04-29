@@ -10,9 +10,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {
-
-}
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL
