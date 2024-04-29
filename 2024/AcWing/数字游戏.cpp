@@ -24,20 +24,31 @@ using namespace std;
 using ll = long long;
 
 vector<int> num;
-int dp[]
+int dp[15][11];
 
 int dfs(int pos, int pre, bool ok) {
     if (!pos) return 1;
-    if (!ok && dp[pos][pre] != -1) return dp[]
+    if (!ok && dp[pos][pre] != -1) {
+        debug1(dp[pos][pre]);
+        return dp[pos][pre];
+    }
+    int res = 0;
+    int up = ok ? num[pos] : 9;
+    for (int i = 0; i <= up; i ++) {
+        if (i < pre) continue;
+        res += dfs(pos - 1, i, ok && i == up);
+    }
+    return ok ? res : dp[pos][pre] = res;
 }
 
 int solve(int x) {
     num.clear();
+    num.push_back(0);
     while (x) {
         num.push_back(x % 10);
         x /= 10;
     }
-    dfs((int)num.size(), 0, 1);
+    return dfs((int)num.size() - 1, 0, 1);
 }
 
 int32_t main() {
@@ -48,7 +59,10 @@ int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1, l, r;
     // cin >> h_h;
-    while (cin >> l >> r) {
+    memset(dp, -1, sizeof dp);
+    int n = 2;
+    while (n --) {
+        cin >> l >> r;
         cout << solve(r) - solve(l - 1) << '\n';
     }
     return 0;
