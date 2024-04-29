@@ -1,31 +1,27 @@
-#include <stdio.h>
+// #pragma GCC optimize("Ofast")
+#include <bits/stdc++.h>
+#define debug1(a) cout << #a << '=' << a << endl
+#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define lf(x) fixed << setprecision(x)
+// #define LOCAL
+const int N = 100010;
+const int INF = 0x3f3f3f3f;
 
-int n, m;
-int state[20];
+using namespace std;
+using ll = long long;
 
-void dfs(int x) {
-    if (x > n) {
-        int cnt = 0;
-        for (int i = 1; i <= n; i ++) {
-            if (state[i] == 1) cnt ++;
-        }
-        if (cnt == m) {
-            for (int i = 1; i <= n; i ++) {
-                if (state[i] == 1) printf("%d ", i);
-            }
-            puts("");
-        }
-        return ;
-    }
+void solve() {
 
-    state[x] = 1;
-    dfs(x + 1);
-    state[x] = 0;
-
-    dfs(x + 1);
 }
-int main() {
-    scanf ("%d %d", &n, &m);
-    dfs(1);
+
+int32_t main() {
+#ifdef LOCAL
+    freopen("data.in", "r", stdin);
+    freopen("data.out", "w", stdout);
+#endif
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--)solve();
     return 0;
 }
