@@ -1,14 +1,14 @@
 /*
- * =========================================================
+ * ==================================================================================
  * Author:  north_h
- * Time:    2024-04-26 18:20:50 ms
+ * Time:    2024-04-29 16:23:15
  *
- * Problem: 1586：【 例 2】数字游戏
- * Contest: SSOIER
- * URL:     http://ybt.ssoier.cn:8088/problem_show.php?pid=1586
- * MemoryL: 524 MB
+ * Problem: 度的数量
+ * Contest: AcWing
+ * URL:     https://www.acwing.com/problem/content/1083/
+ * MemoryL: 64 MB
  * TimeL:   1000 ms
- * =========================================================
+ * ==================================================================================
  */
 
 // #pragma GCC optimize("Ofast")
@@ -22,6 +22,8 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
+
+// int l, r, k, b;
 
 void solve() {}
 

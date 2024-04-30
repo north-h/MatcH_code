@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2024-04-28 08:49:02
+ * Time:    2024-04-30 22:48:30
  *
- * Problem: C. Everything Nim
- * Contest: Codeforces - Codeforces Round 941 (Div. 2)
- * URL:     https://codeforces.com/contest/1966/problem/C
+ * Problem: D1. Reverse Card (Easy Version)
+ * Contest: Codeforces - Codeforces Round 942 (Div. 2)
+ * URL:     https://codeforces.com/contest/1972/problem/D1
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -24,25 +24,14 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int n; cin >> n;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
+    ll n, m;
+    cin >> n >> m;
+    ll ans = 0;
+    for (int i = 1; i <= m; i ++) {
+        ll x = max((ll)i * (i - 1), 1ll);
+        ans += (n - x + 1 + (ll)i * i - 1) / ((ll)i * i);
     }
-    sort(a.begin() + 1, a.end());
-    a.erase(unique(a.begin() + 1, a.end()), a.end());
-    // for (auto i : a) cout << i << ' '; cout << '\n';
-    // int c = 0;
-    // for (int i = 1; i < a.size(); i ++) c += (a[i] - a[i - 1]);
-    int f = 0;
-    for (int i = 1; i < a.size() - 1; i ++) {
-        if (a[i] - a[i - 1] == 1) {
-            f ++;
-        } else break;
-    }
-    // debug1(f);
-    if (f % 2 == 0) cout << "Alice" << '\n';
-    else cout << "Bob" << '\n';
+    cout << ans << '\n';
 }
 
 int32_t main() {

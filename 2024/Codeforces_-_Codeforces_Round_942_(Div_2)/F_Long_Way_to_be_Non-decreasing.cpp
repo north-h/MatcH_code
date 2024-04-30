@@ -1,3 +1,16 @@
+/*
+ * ==================================================================================
+ * Author:  north_h
+ * Time:    2024-04-30 22:48:43
+ *
+ * Problem: F. Long Way to be Non-decreasing
+ * Contest: Codeforces - Codeforces Round 942 (Div. 2)
+ * URL:     https://codeforces.com/contest/1972/problem/F
+ * MemoryL: 512 MB
+ * TimeL:   4000 ms
+ * ==================================================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
@@ -10,18 +23,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {
-    int n, k; cin >> n >> k;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-    }
-    sort(a.begin() + 1, a.end());
-    for (int i = 1; i <= n; i ++) {
-        cout << a[i] << ' ';
-    }
-    cout << '\n';
-}
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL
