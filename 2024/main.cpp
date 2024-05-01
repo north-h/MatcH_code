@@ -1,36 +1,61 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
-// #define LOCAL
-const int N = 100010;
-const int INF = 0x3f3f3f3f;
+#define fi first
+#define se second
+#define int long long
 
 using namespace std;
-using ll = long long;
+
+typedef pair<int, int> PII;
+typedef long long LL;
+
+const int N = 1e6 + 10;
+
+int n, k;
+int f[N];
 
 void solve() {
-    int n, k; cin >> n >> k;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
+    cin >> n >> k;
+
+    f[0] = 1;
+    std::vector<int> res;
+    int i;
+    for (i = 1; i * 2 - 1 < k; i *= 2) {
+        res.emplace_back(i);
+        for (int j = n; j >= i; j --)
+            f[j] |= f[j - i];
     }
-    sort(a.begin() + 1, a.end());
-    for (int i = 1; i <= n; i ++) {
-        cout << a[i] << ' ';
+    if (k - i > 0) {
+        res.emplace_back(k - i);
+        for (int j = n; j >= k - i; j --)
+            f[j] |= f[j - (k - i)];
     }
-    cout << '\n';
+
+    for (i = k + 1; i <= n; i ++)
+        if (!f[i]) {
+            res.emplace_back(i);
+            for (int j = n; j >= i; j --)
+                f[j] |= f[j - i];
+        }
+
+    cout << res.size() << endl;
+    for (auto v : res)
+        cout << v << " ";
+    cout << endl;
+    for (int i = 0; i <= n; i ++)
+        f[i] = 0;
 }
 
-int32_t main() {
-#ifdef LOCAL
-    freopen("data.in", "r", stdin);
-    freopen("data.out", "w", stdout);
-#endif
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    cin >> h_h;
-    while (h_h--)solve();
+signed main() {
+    cin.tie(0);
+    cout.tie(0);
+    ios::sync_with_stdio(0);
+
+    int dt;
+    
+    cin >> dt;
+
+    while (dt --)
+        solve();
+
     return 0;
 }

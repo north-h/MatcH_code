@@ -23,7 +23,27 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n; cin >> n;
+    vector<int> a(n + 1), b(n + 1), vis(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i <= n; i ++) cin >> b[i];
+    // sort(a.begin() + 1, a.end());
+    // sort(b.begin() + 1, b.end());
+    int ans = 0;
+    for (int i = 1; i <= n; i ++) {
+        int c = INF, p = -1;
+        for (int j = 1; j <= n; j ++) {
+            if (b[j] - a[i] >= 0 && b[j] - a[i] < c && !vis[j]) {
+                c = b[j] - a[i];
+                p = j;
+            }
+        }
+        if (p == -1) ans ++;
+        else vis[p] = 1;
+    }
+    cout << ans << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

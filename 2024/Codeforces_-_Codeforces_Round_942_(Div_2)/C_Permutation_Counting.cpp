@@ -29,49 +29,21 @@ void solve() {
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
     }
-    if (n == 1) {
-        cout << a[1] + k << '\n';
-        return ;
-    }
     sort(a.begin() + 1, a.end());
     for (int i = 1; i <= n; i ++) {
         s[i] = s[i - 1] + a[i];
     }
-    for (int i = 1; i <= n; i ++) cout << a[i] << " \n"[i == n];
-    for (int i = 1; i <= n; i ++) cout << s[i] << " \n"[i == n];
-    auto check = [&](int l, int r)-> bool {
-        // debug2(l, r);
-        ll x = (ll)(r - l + 1) * a[r] - (s[r] - s[l - 1]);
-        // debug2((r - l + 1) * a[r], s[r] - s[l - 1]);
-        // debug2(x, k);
-        return x <= k;
-    };
     ll ans = 0;
-    for (int i = 1; i <= n; i ++) {
-        int l = 1, r = n, res = -1;
-        while (l <= r) {
-            int mid = l + r >> 1;
-            if (check(i, mid)) l = mid + 1, res = mid;
-            else r = mid - 1;
-        }
-        debug2(i, res);
-        // debug1(a[res] + k);
-        ll x = a[res], an;
-        debug1(x);
-        if (res == i) {
-            x += k;
-            an = x + (n - i) * (x - 1) + (n - res);
-            ans = max(ans, an);
-        } else if (res != -1) {
-            ll y = (ll)(res - i + 1) * a[res] - (s[res] - s[i - 1]);
-            // debug2(k, y);
-            x += (k - y) / n;
-            an = x + (n - i) * (x - 1) + (n - res);
-            ans = max(ans, an);
-        }
-        debug1(an);
-        debug1(x);
+    int l = 1, r = n, res = -1;
+    while (l <= r) {
+        int mid = l + r >> 1;
+        if ((ll)mid * a[mid] - s[mid] <= k) l = mid + 1, res = mid;
+        else r = mid - 1;
     }
+    ll x = a[res];
+    ll y = (ll)res * a[res] - s[res];
+    x += (k - y) / res;
+    ans = x + (n - 1) * (x - 1) + (n - res) + (k - y) % res;
     cout << ans << '\n';
 }
 

@@ -23,7 +23,19 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n, m; cin >> n >> m;
+    ll ans = 0;
+    for (int i = 1; i * i <= n; i ++) {
+        for (int j = 1; j * j <= m; j ++) {
+            if (__gcd(i, j) == 1) {
+                // debug2(min(n / i, m / j), i + j);
+                ans += min(n / i, m / j) / (i + j);
+            }
+        }
+    }
+    cout << ans << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL
