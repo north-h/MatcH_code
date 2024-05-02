@@ -25,16 +25,14 @@ using ll = long long;
 
 void solve() {
     int n, k; cin >> n >> k;
-    set<int> num;
-    int b = 0;
-    while ((1 << b) < k) num.insert(1 << b), b ++;
-    if (k - (1 << (b - 1)) - 1 > 0) num.insert(k - (1 << (b - 1)) - 1);
-    if (k + 1 <= n) num.insert(k + 1);
-    while ((1 << b) <= n && (1 << b) != k) num.insert(1 << b), b ++;
-    // // // debug1(b);
-    // if (n - (1 << (b - 1)) > 0) num.insert(n - (1 << (b - 1)));
-    for (auto i : num) cout << i << ' ';
-    cout << '\n';
+    int h = log2(k);
+    cout << 23 << '\n';
+    for (int i = 0; i <= 20; i ++) {
+        if (i == h) continue;
+        cout << (1 << i ) << ' ';
+    }
+    // debug1(h);
+    cout << k - (1 << h) << ' ' << k + 1 << ' ' << k + 1 + (1 << h) << '\n';
 }
 
 int32_t main() {
