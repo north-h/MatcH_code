@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2024-04-30 22:48:34
+ * Time:    2024-05-03 01:04:19
  *
- * Problem: D2. Reverse Card (Hard Version)
- * Contest: Codeforces - Codeforces Round 942 (Div. 2)
- * URL:     https://codeforces.com/contest/1972/problem/D2
+ * Problem: C. Assembly via Remainders
+ * Contest: Codeforces - Codeforces Round 943 (Div. 3)
+ * URL:     https://codeforces.com/contest/1968/problem/C
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -24,16 +24,20 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int n, m; cin >> n >> m;
-    ll ans = 0;
-    for (int i = 1; i * i <= n; i ++) {
-        for (int j = 1; j * j <= m; j ++) {
-            if (__gcd(i, j) == 1) {
-                ans += min(n / i, m / j) / (i + j);
-            }
+    int n; cin >> n;
+    vector<int> a(n + 1);
+    for (int i = 1; i < n; i ++) cin >> a[i];
+    int lst = a[1] + 1;
+    cout << lst << ' ';
+    for (int i = 1; i < n; i ++) {
+        if (i == n - 1) lst += a[i];
+        else {
+            if (a[i] > a[i + 1]) lst = a[i];
+            else lst = (a[i + 1] + lst - 1) / lst * lst + a[i];
         }
+        cout << lst << ' ';
     }
-    cout << ans << '\n';
+    cout << '\n';
 }
 
 int32_t main() {

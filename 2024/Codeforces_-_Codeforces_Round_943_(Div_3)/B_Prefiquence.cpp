@@ -1,11 +1,11 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2024-04-30 22:48:34
+ * Time:    2024-05-03 01:04:14
  *
- * Problem: D2. Reverse Card (Hard Version)
- * Contest: Codeforces - Codeforces Round 942 (Div. 2)
- * URL:     https://codeforces.com/contest/1972/problem/D2
+ * Problem: B. Prefiquence
+ * Contest: Codeforces - Codeforces Round 943 (Div. 3)
+ * URL:     https://codeforces.com/contest/1968/problem/B
  * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==================================================================================
@@ -25,15 +25,12 @@ using ll = long long;
 
 void solve() {
     int n, m; cin >> n >> m;
-    ll ans = 0;
-    for (int i = 1; i * i <= n; i ++) {
-        for (int j = 1; j * j <= m; j ++) {
-            if (__gcd(i, j) == 1) {
-                ans += min(n / i, m / j) / (i + j);
-            }
-        }
+    string a, b; cin >> a >> b;
+    int v = -1;
+    for (int i = 0, j = 0; j < a.size() && i < b.size(); i ++) {
+        if (b[i] == a[j]) v = j ++;
     }
-    cout << ans << '\n';
+    cout << v + 1 << '\n';
 }
 
 int32_t main() {
