@@ -100,7 +100,10 @@ struct Seg{
     }
 };
 
-void solve() {}
+void solve() {
+    int a, b; cin >> a >> b;
+    cout << a + b << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL
