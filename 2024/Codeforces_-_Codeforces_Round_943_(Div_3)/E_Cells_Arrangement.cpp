@@ -23,7 +23,16 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n; cin >> n;
+    cout << 1 << ' ' << n - 1 << '\n';
+    cout << 1 << ' ' << n << '\n';
+    int x = n, y = 1;
+    for (int i = 1; i <= n - 2; i ++) {
+        cout << x -- << ' ' << y ++ << '\n';
+    }
+    cout << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

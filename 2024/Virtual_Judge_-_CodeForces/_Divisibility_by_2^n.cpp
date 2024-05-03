@@ -23,7 +23,36 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n; cin >> n;
+    int c = 0;
+    for (int i = 1, x; i <= n; i ++) {
+        cin >> x;
+        while (x % 2 == 0) c ++, x /= 2;
+    }
+    // debug1(c);
+    // if (c >= n) {
+    //     cout << 0 << '\n';
+    //     return ;
+    // }
+    c  = n - c;
+    vector<int > b;
+    int ans = 0;
+    for (int i = n; i >= 1; i --) {
+        int v = 0, x = i;
+        while (x % 2 == 0) v ++, x /= 2;
+        if (v == 0) continue;
+        b.push_back(v);
+    }
+    sort(b.rbegin(), b.rend());
+    for (auto i : b) {
+        if (c <= 0) break;
+        c -= i;
+        ans ++;
+    }
+    if (c <= 0) cout << ans << '\n';
+    else cout << -1 << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

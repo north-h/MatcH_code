@@ -10,57 +10,97 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
+
 template <class T>
-struct BIT {
-    vector<T> tr;
+struct Seg{
+    struct Node{ 
+        int l, r;
+        T sum, lazy;
+    };
+
+    vector<Node> tr;
+    vector<T> a;
     int n;
-    BIT() {}
+
+    Seg() {};
+
     void init(int N) {
         n = N;
-        tr.resize(n + 1);
+        tr.resize(n * 4);
+        a.resize(n);
     }
+
     void add(int x, T k) {
-        for (int i = x; i < n; i += (i & -i))
-            tr[i] += k;
+        a[x] = k;
     }
-    T query(int x) {
-        T res = 0;
-        for (int i = x; i; i -= (i & -i))
-            res += tr[i];
-        return res;
+
+    void pushup(int u) {
+        tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
     }
-    T range_query(int l, int r) {
-        return query(r) - query(l - 1);
+
+    void pushdown(int u) {
+        if (tr[u].lazy) {
+            tr[u << 1].sum += tr[u].lazy * (tr[u << 1].r - tr[u << 1].l + 1);
+            tr[u << 1 | 1].sum += tr[u].lazy * (tr[u << 1 | 1].r - tr[u << 1 | 1].l + 1);
+            tr[u << 1].lazy += tr[u].lazy;
+            tr[u << 1 | 1].lazy += tr[u].lazy;
+            tr[u].lazy = 0;
+        }
+    }
+
+    void build(int u, int l,int r) {
+        tr[u] = {l, r, a[l], 0};
+        if (l == r)return;
+        int mid = l + r >> 1;
+        pushdown(u);
+        build(u << 1, l, mid);
+        build(u << 1 | 1, mid + 1, r);
+        pushup(u);
+    }
+    //区间修改
+    void modify(int u,int l,int r,int k) {
+        if (tr[u].l >= l && tr[u].r <= r) {
+            tr[u].sum += (tr[u].r - tr[u].l + 1) * k;
+            tr[u].lazy += k;
+            return;
+        }
+        pushdown(u);
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (l <= mid)modify(u << 1, l, r, k);
+        if (r > mid) modify(u << 1 | 1, l, r, k);
+        pushup(u);
+    }
+    //单点修改
+    void modify(int u,int x,int k) {
+        if (tr[u].l == tr[u].r) {
+            tr[u].sum += k;
+            return;
+        }
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (x <= mid)modify(u << 1, x, k);
+        else modify(u << 1 | 1, x, k);
+    }
+    //区间查询
+    T query(int u,int l,int r) {
+        if (tr[u].l >= l && tr[u].r <= r) return tr[u].sum;
+        pushdown(u);
+        T sum = 0;
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (l <= mid)sum += query(u << 1, l, r);
+        if (r > mid) sum += query(u << 1 | 1, l, r);
+        return sum;
+    }
+    //单点查询
+    T query(int u,int x) {
+        if (tr[u].l == tr[u].r)return tr[u].sum;
+        pushdown(u);
+        int mid = tr[u].l + tr[u].r >> 1;
+        if (x <= mid)return query(u << 1, x);
+        else return query(u << 1 | 1, x);
     }
 };
 
-void solve() {
-    int n; ll k; cin >> n >> k;
-    vector<ll> s(n + 1);
-    set<ll> st;
-    unordered_map<ll, int> pos;
-    BIT<ll> bit;
-    st.insert(0);
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> x;
-        s[i] = s[i - 1] + x;
-        st.insert(s[i]);
-        st.insert(s[i] - k);
-    }
-    int c = 1;
-    for (auto i : st) pos[i] = c ++;
-    bit.init(c + 1);
-    ll ans = 0;
-    bit.add(pos[0], 1);
-    for (int i = 1; i <= n; i ++) {
-        int p = pos[s[i] - k];
-        // debug2(p, s[i] - k);
-        ans += bit.query(p);
-        // debug1(bit.query(p));
-        bit.add(pos[s[i]], 1);
-    }
-    cout << ans << '\n';
-}
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL

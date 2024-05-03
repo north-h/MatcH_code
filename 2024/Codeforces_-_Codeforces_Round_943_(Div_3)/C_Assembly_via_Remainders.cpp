@@ -25,18 +25,24 @@ using ll = long long;
 
 void solve() {
     int n; cin >> n;
-    vector<int> a(n + 1);
-    for (int i = 1; i < n; i ++) cin >> a[i];
-    int lst = a[1] + 1;
+    vector<int> x(n + 1);
+    int lst = 501;
     cout << lst << ' ';
     for (int i = 1; i < n; i ++) {
-        if (i == n - 1) lst += a[i];
-        else {
-            if (a[i] > a[i + 1]) lst = a[i];
-            else lst = (a[i + 1] + lst - 1) / lst * lst + a[i];
-        }
+        cin >> x[i];
+        lst += x[i];
         cout << lst << ' ';
     }
+    // int lst = x[1] + 1;
+    // cout << lst << ' ';
+    // for (int i = 1; i < n; i ++) {
+    //     if (i == n - 1) lst += x[i];
+    //     else {
+    //         if (x[i] > x[i + 1]) lst = x[i];
+    //         else lst = (x[i + 1] + lst - 1) / lst * lst + x[i];
+    //     }
+    //     cout << lst << ' ';
+    // }
     cout << '\n';
 }
 
