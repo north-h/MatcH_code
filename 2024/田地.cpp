@@ -13,14 +13,9 @@ using ll = long long;
 
 template <class T>
 struct Seg{
-    struct Node{ 
-        int l, r;
-        T sum, lazy;
-    };
+    struct Node{ int l, r; T sum, lazy; };
 
-    vector<Node> tr;
-    vector<T> a;
-    int n;
+    vector<Node> tr; vector<T> a; int n;
 
     Seg() {};
 
