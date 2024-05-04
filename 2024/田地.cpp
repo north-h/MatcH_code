@@ -51,7 +51,7 @@ struct Seg {
         if (tr[u].l >= l && tr[u].r <= r) {
             tr[u].sum += (tr[u].r - tr[u].l + 1) * k;
             tr[u].add += k;
-            tr[u].lmx = tr[u].rmx = tr[u],mx = k;
+            tr[u].lmx = tr[u].rmx = tr[u].mx = k;
             return;
         }
         pushdown(u);
@@ -61,12 +61,12 @@ struct Seg {
         pushup(u);
     }
     T query(int u,int l,int r) {
-        if (tr[u].l >= l && tr[u].r <= r) return tr[u];
+        if (tr[u].l >= l && tr[u].r <= r) return tr[u].mx;
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (y <= mid) return query(u << 1, l, r).mx;
-        if (l > mid) return query(u << 1 | 1, l, r).mx;
-        return max(query(u << 1, l, r).mx, query(u << 1 | 1, l, r).mx);
+        if (r <= mid) return query(u << 1, l, mid);
+        if (l > mid) return query(u << 1 | 1, mid + 1, r);
+        return max(query(u << 1, l, mid), query(u << 1 | 1, mid + 1, r));
     }   
 };
 
@@ -80,6 +80,7 @@ void solve() {
     }
     int m; cin >> m;
     sg.build(1, 1, n);
+    cout << sg.query(1, 1, 3) << '\n';
     while (m --) {
         int op; cin >> op;
         if (op == 0) {
@@ -87,9 +88,13 @@ void solve() {
             sg.modify(1, x, x, y - a[x]);
         } else {
             int l, r; cin >> l >> r;
-            // cout << sg.query(1, l, r).mx << '\n';
+            cout << sg.query(1, l, r) << '\n';
         }
     }
+    // for (int i = 1; i <= n; i ++) {
+    //     cout << sg.query(1, i, i) << ' ';
+    // }
+    cout << '\n';
 }
 
 int32_t main() {
