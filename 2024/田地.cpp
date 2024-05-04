@@ -12,51 +12,46 @@ using ll = long long;
 
 
 template <class T>
-struct Seg{
-    struct Node{ int l, r; T sum, lazy; };
-
+struct Seg {
+    struct Node{ int l, r; T sum, add, lmx, rmx, mx; };
     vector<Node> tr; vector<T> a; int n;
-
-    Seg() {};
-
     void init(int N) {
-        n = N;
+        n = N + 1;
         tr.resize(n * 4);
         a.resize(n);
     }
-
     void add(int x, T k) {
         a[x] = k;
     }
-
     void pushup(int u) {
         tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
+        tr[u].lmx = max(tr[u << 1].lmx, tr[u << 1].sum + tr[u << 1 | 1].lmx);
+        tr[u].rmx = max(tr[u << 1 | 1].rmx, tr[u << 1].rmx + tr[u << 1 | 1].sum);
+        tr[u].mx = max({tr[u << 1].mx, tr[u << 1 | 1].mx, tr[u << 1].rmx + tr[u << 1 | 1].lmx});
     }
-
     void pushdown(int u) {
-        if (tr[u].lazy) {
-            tr[u << 1].sum += tr[u].lazy * (tr[u << 1].r - tr[u << 1].l + 1);
-            tr[u << 1 | 1].sum += tr[u].lazy * (tr[u << 1 | 1].r - tr[u << 1 | 1].l + 1);
-            tr[u << 1].lazy += tr[u].lazy;
-            tr[u << 1 | 1].lazy += tr[u].lazy;
-            tr[u].lazy = 0;
+        if (tr[u].add) {
+            tr[u << 1].sum += tr[u].add * (tr[u << 1].r - tr[u << 1].l + 1);
+            tr[u << 1 | 1].sum += tr[u].add * (tr[u << 1 | 1].r - tr[u << 1 | 1].l + 1);
+            tr[u << 1].add += tr[u].add;
+            tr[u << 1 | 1].add += tr[u].add;
+            tr[u].add = 0;
         }
     }
-
     void build(int u, int l,int r) {
-        tr[u] = {l, r, a[l], 0};
-        if (l == r)return;
+        tr[u] = {l, r, a[l], 0, a[l], a[l], a[l]};
+        if (l == r) return ;
         int mid = l + r >> 1;
         pushdown(u);
         build(u << 1, l, mid);
         build(u << 1 | 1, mid + 1, r);
         pushup(u);
     }
-    //区间修改
     void modify(int u,int l,int r,int k) {
         if (tr[u].l >= l && tr[u].r <= r) {
             tr[u].sum += (tr[u].r - tr[u].l + 1) * k;
-            tr[u].lazy += k;
+            tr[u].add += k;
+            tr[u].lmx = tr[u].rmx = tr[u].mx = k;
             return;
         }
         pushdown(u);
@@ -65,39 +60,41 @@ struct Seg{
         if (r > mid) modify(u << 1 | 1, l, r, k);
         pushup(u);
     }
-    //单点修改
-    void modify(int u,int x,int k) {
-        if (tr[u].l == tr[u].r) {
-            tr[u].sum += k;
-            return;
-        }
-        int mid = tr[u].l + tr[u].r >> 1;
-        if (x <= mid)modify(u << 1, x, k);
-        else modify(u << 1 | 1, x, k);
-    }
-    //区间查询
     T query(int u,int l,int r) {
-        if (tr[u].l >= l && tr[u].r <= r) return tr[u].sum;
-        pushdown(u);
-        T sum = 0;
-        int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid)sum += query(u << 1, l, r);
-        if (r > mid) sum += query(u << 1 | 1, l, r);
-        return sum;
-    }
-    //单点查询
-    T query(int u,int x) {
-        if (tr[u].l == tr[u].r)return tr[u].sum;
+        if (tr[u].l >= l && tr[u].r <= r) return tr[u].mx;
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (x <= mid)return query(u << 1, x);
-        else return query(u << 1 | 1, x);
-    }
+        if (r <= mid) return query(u << 1, l, mid);
+        if (l > mid) return query(u << 1 | 1, mid + 1, r);
+        return max(query(u << 1, l, mid), query(u << 1 | 1, mid + 1, r));
+    }   
 };
 
 void solve() {
-    int a, b; cin >> a >> b;
-    cout << a + b << '\n';
+    int n; cin >> n;
+    vector<int> a(n + 1);
+    Seg<ll> sg; sg.init(n);
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+        sg.add(i, a[i]);
+    }
+    int m; cin >> m;
+    sg.build(1, 1, n);
+    cout << sg.query(1, 1, 3) << '\n';
+    while (m --) {
+        int op; cin >> op;
+        if (op == 0) {
+            int x, y; cin >> x >> y;
+            sg.modify(1, x, x, y - a[x]);
+        } else {
+            int l, r; cin >> l >> r;
+            cout << sg.query(1, l, r) << '\n';
+        }
+    }
+    // for (int i = 1; i <= n; i ++) {
+    //     cout << sg.query(1, i, i) << ' ';
+    // }
+    cout << '\n';
 }
 
 int32_t main() {

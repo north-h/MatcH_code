@@ -27,19 +27,28 @@ void solve() {
     int n; cin >> n;
     vector<int> a(n + 1);
     for (int i = 1; i <= n; i ++) cin >> a[i];
-    for (int i = n; i >= 0; i --) {
-        sort(a.begin() + 1, a.end());
+    for (int k = n; k >= 0; k --) {
+        vector<int> b = a;
         bool f = true;
-        for (int j = 1; j <= i; j ++) {
-            int x = n - j + 1;
-            if (a[1] > x) {
-                f = false;
-                break;
+        for (int i = 1; i <= k; i ++) {
+            sort(b.begin() + 1, b.end());
+            int x = k - i + 1;
+            int p = -1;
+            for (int j = b.size() - 1; j >= 1; j --) {
+                if (b[j] <= x) {
+                    p = j;
+                    break;
+                }
             }
-            a[1] += x;
+            if (p == -1) { f = false; break; }
+            for (int j = p; j < b.size() - 1; j ++) {
+                b[j] = b[j + 1];
+            }
+            b.pop_back();
+            b[1] += x;
         }
         if (f) {
-            cout << i << '\n';
+            cout << k << '\n';
             return ;
         }
     }

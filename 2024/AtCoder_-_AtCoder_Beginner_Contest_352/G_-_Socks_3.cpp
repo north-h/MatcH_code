@@ -1,25 +1,29 @@
+/*
+ * =========================================================
+ * Author:  north_h
+ * Time:    2024-05-04 20:15:03 ms
+ *
+ * Problem: G - Socks 3
+ * Contest: AtCoder - AtCoder Beginner Contest 352
+ * URL:     https://atcoder.jp/contests/abc352/tasks/abc352_g
+ * MemoryL: 1024 MB
+ * TimeL:   3000 ms
+ * =========================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define fi first;
-#define se second;
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
-#define LOCAL
+// #define LOCAL
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-using PII =  pair<int, int>;
 
-void solve() {
-    string s;
-    while (getline(cin, s)) {
-        // cout << s << endl;
-        cout << "\"" <<  s << "\"," <<  endl;
-    }
-}
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL
