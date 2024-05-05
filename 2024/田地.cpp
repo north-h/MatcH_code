@@ -61,6 +61,7 @@ struct Seg {
         pushup(u);
     }
     T query(int u,int l,int r) {
+        // debug2(l, r);
         if (tr[u].l >= l && tr[u].r <= r) return tr[u].mx;
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
@@ -80,6 +81,9 @@ void solve() {
     }
     int m; cin >> m;
     sg.build(1, 1, n);
+    for (int i = 1; i <= 7; i ++) {
+        cout << i << ":" << sg.tr[i].l << ' ' << sg.tr[i].r << ' ' << sg.tr[i].mx << ' ' << sg.tr[i].lmx << ' ' << sg.tr[i].rmx << '\n';
+    }
     cout << sg.query(1, 1, 3) << '\n';
     while (m --) {
         int op; cin >> op;
@@ -88,7 +92,7 @@ void solve() {
             sg.modify(1, x, x, y - a[x]);
         } else {
             int l, r; cin >> l >> r;
-            cout << sg.query(1, l, r) << '\n';
+            // cout << sg.query(1, l, r) << '\n';
         }
     }
     // for (int i = 1; i <= n; i ++) {
