@@ -8,25 +8,30 @@ const int N = 100010;
 const int INF = 0x3f3f3f3f;
 const int mod = 1e9 + 7;
 
-
 using namespace std;
 using ll = long long;
 
+ll ksm(ll x, ll y) {
+    ll res = 1;
+    while (y) {
+        if (y & 1) res = res * x % mod;
+        y >>= 1;
+        x = x * x % mod;
+    }
+    return res;
+}
+
 void solve() {
-    int n, m; cin >> n >> m;
-    map<int, set<int>> mp;
-    for (int i = 1; i <= m; i ++) {
-        int a, b; cin>> a >> b;
-        mp[a].insert(b);
-        mp[b].insert(a);
+    string s; cin >> s;
+    reverse(s.begin(), s.end());
+    vector<ll> dp (100010);
+    dp[0] = 3, dp[1] = 5;
+    for (int i = 2; i < 100010; i ++) dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
+    ll ans = 0;
+    for (int i = 0; i < s.size(); i ++) {
+        if (s[i] == '1') ans = (ans + dp[i]) % mod;
     }
-    for (int i = 2; i < n; i ++) {
-        if (mp[1].count(i) && mp[i].count(n)) {
-            cout << "POSSIBLE" << '\n';
-            return ;
-        }
-    }
-    cout << "IMPOSSIBLE" << '\n';
+    cout << ans << '\n';
 }
 
 int32_t main() {
