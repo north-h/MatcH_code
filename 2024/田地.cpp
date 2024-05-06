@@ -23,6 +23,9 @@ struct Seg {
     void add(int x, T k) {
         a[x] = k;
     }
+    Node merge(Node t, Node l, Node r) {
+
+    }
     void pushup(int u) {
         tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
         tr[u].lmx = max(tr[u << 1].lmx, tr[u << 1].sum + tr[u << 1 | 1].lmx);
@@ -60,14 +63,16 @@ struct Seg {
         if (r > mid) modify(u << 1 | 1, l, r, k);
         pushup(u);
     }
-    T query(int u,int l,int r) {
+    Node query(int u,int l,int r) {
         // debug2(l, r);
-        if (tr[u].l >= l && tr[u].r <= r) return tr[u].mx;
+        if (tr[u].l >= l && tr[u].r <= r) return tr[u];
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (r <= mid) return query(u << 1, l, mid);
         if (l > mid) return query(u << 1 | 1, mid + 1, r);
-        return max(query(u << 1, l, mid), query(u << 1 | 1, mid + 1, r));
+        Node t;
+        merge(t, query(u << 1, l, mid), query(u << 1 | 1, mid + 1, r));
+        return t;
     }   
 };
 

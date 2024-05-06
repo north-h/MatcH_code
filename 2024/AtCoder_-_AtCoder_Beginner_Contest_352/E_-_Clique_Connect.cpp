@@ -24,35 +24,64 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 // using ll = long long;
 
+struct DSU {
+    vector<int> fa, sz;
+
+    DSU(int n) {
+        fa.resize(n + 1);
+        iota(fa.begin(), fa.end(), 0);
+        sz.resize(n + 1, 1);
+    }
+
+    int find(int x) {
+        if (fa[x] != x) fa[x] = find(fa[x]);
+        return fa[x];
+    }
+
+    bool same(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        return px == py;
+    }
+
+    void merge(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px != py) {
+            fa[px] = py;
+            sz[py] += sz[px];
+        }
+    }
+};
+
 void solve() {
     int n, m; cin >> n >> m;
-    map<int, vector<int>> mp;
+    vector<vector<int>> a(m + 1);
+    vector<int> c(m + 1), p(m + 1);
+    DSU dsu(n + 1);
     for (int i = 1; i <= m; i ++) {
-        int k, c; cin >> k >> c;
+        int k; cin >> k >> c[i];
+        a[i].resize(k + 1);
         for (int j = 1; j <= k; j ++) {
-            int x; cin >> x;
-            mp[c].push_back(x);
+            cin >> a[i][j];
         }
     }
-    set<int> st, T;
-    for (int i = 1; i <= n; i ++) st.insert(i);
-    int ans = 0;
-    bool ok = false;
-    for (auto [x, y] : mp) {
-        for (auto j : y) {
-            if (st.size() && st.count(j)) {
-                st.erase(j);
-                T.insert(j);
-                if (ok) ans += x;
-                else ok = true;
-            }
-            if (!st.size()) {
-                cout << ans << '\n';
-                return ;
+    iota(p.begin(), p.end(), 0);
+    sort(p.begin() + 1, p.end(), [&](int x, int y) {
+        return c[x] < c[y];
+    });
+    int v = n, ans = 0;
+    for (int i = 1; i <= m; i ++) {
+        for (int j = 2; j < a[p[i]].size(); j ++) {
+            if (!dsu.same(a[p[i]][j], a[p[i]][j - 1])) {
+                dsu.merge(a[p[i]][j], a[p[i]][j - 1]);
+                ans += c[p[i]];
+                v --;
             }
         }
     }
-    cout << -1  << '\n';
+    if (v > 1) cout << -1 << '\n';
+    else cout << ans << '\n';
 }
 
 int32_t main() {

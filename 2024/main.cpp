@@ -22,16 +22,7 @@ ll ksm(ll x, ll y) {
 }
 
 void solve() {
-    string s; cin >> s;
-    reverse(s.begin(), s.end());
-    vector<ll> dp (100010);
-    dp[0] = 3, dp[1] = 5;
-    for (int i = 2; i < 100010; i ++) dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
-    ll ans = 0;
-    for (int i = 0; i < s.size(); i ++) {
-        if (s[i] == '1') ans = (ans + dp[i]) % mod;
-    }
-    cout << ans << '\n';
+    
 }
 
 int32_t main() {
