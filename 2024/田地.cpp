@@ -13,7 +13,7 @@ using ll = long long;
 
 template <class T>
 struct Seg {
-    struct Node{ int l, r; T sum, add, lmx, rmx, mx; };
+    struct Node { int l, r; T sum, add, lmx, rmx, mx; };
     vector<Node> tr; vector<T> a; int n;
     void init(int N) {
         n = N + 1;
@@ -23,14 +23,16 @@ struct Seg {
     void add(int x, T k) {
         a[x] = k;
     }
-    Node merge(Node t, Node l, Node r) {
-
+    Node merge(Node l, Node r) {
+        Node t;
+        t.sum = l.sum + r.sum;
+        t.lmx = max(l.lmx, l.sum + r.lmx);
+        t.rmx = max(r.rmx, l.rmx + r.sum);
+        t.mx = max({l.mx, r.mx, l.rmx + r.lmx});
+        return t;
     }
     void pushup(int u) {
-        tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
-        tr[u].lmx = max(tr[u << 1].lmx, tr[u << 1].sum + tr[u << 1 | 1].lmx);
-        tr[u].rmx = max(tr[u << 1 | 1].rmx, tr[u << 1].rmx + tr[u << 1 | 1].sum);
-        tr[u].mx = max({tr[u << 1].mx, tr[u << 1 | 1].mx, tr[u << 1].rmx + tr[u << 1 | 1].lmx});
+        tr[u] = merge(tr[u << 1], tr[u << 1 | 1]);
     }
     void pushdown(int u) {
         if (tr[u].add) {
@@ -41,7 +43,7 @@ struct Seg {
             tr[u].add = 0;
         }
     }
-    void build(int u, int l,int r) {
+    void build(int u, int l, int r) {
         tr[u] = {l, r, a[l], 0, a[l], a[l], a[l]};
         if (l == r) return ;
         int mid = l + r >> 1;
@@ -50,7 +52,7 @@ struct Seg {
         build(u << 1 | 1, mid + 1, r);
         pushup(u);
     }
-    void modify(int u,int l,int r,int k) {
+    void modify(int u, int l, int r, int k) {
         if (tr[u].l >= l && tr[u].r <= r) {
             tr[u].sum += (tr[u].r - tr[u].l + 1) * k;
             tr[u].add += k;
@@ -63,17 +65,15 @@ struct Seg {
         if (r > mid) modify(u << 1 | 1, l, r, k);
         pushup(u);
     }
-    Node query(int u,int l,int r) {
+    Node query(int u, int l, int r) {
         // debug2(l, r);
         if (tr[u].l >= l && tr[u].r <= r) return tr[u];
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (r <= mid) return query(u << 1, l, mid);
         if (l > mid) return query(u << 1 | 1, mid + 1, r);
-        Node t;
-        merge(t, query(u << 1, l, mid), query(u << 1 | 1, mid + 1, r));
-        return t;
-    }   
+        return merge(query(u << 1, l, mid), query(u << 1 | 1, mid + 1, r));
+    }
 };
 
 void solve() {
@@ -86,10 +86,10 @@ void solve() {
     }
     int m; cin >> m;
     sg.build(1, 1, n);
-    for (int i = 1; i <= 7; i ++) {
-        cout << i << ":" << sg.tr[i].l << ' ' << sg.tr[i].r << ' ' << sg.tr[i].mx << ' ' << sg.tr[i].lmx << ' ' << sg.tr[i].rmx << '\n';
-    }
-    cout << sg.query(1, 1, 3) << '\n';
+    // for (int i = 1; i <= 7; i ++) {
+    //     cout << i << ":" << sg.tr[i].l << ' ' << sg.tr[i].r << ' ' << sg.tr[i].mx << ' ' << sg.tr[i].lmx << ' ' << sg.tr[i].rmx << '\n';
+    // }
+    // cout << sg.query(1, 1, 3) << '\n';
     while (m --) {
         int op; cin >> op;
         if (op == 0) {
@@ -97,7 +97,7 @@ void solve() {
             sg.modify(1, x, x, y - a[x]);
         } else {
             int l, r; cin >> l >> r;
-            // cout << sg.query(1, l, r) << '\n';
+            cout << sg.query(1, l, r).mx << '\n';
         }
     }
     // for (int i = 1; i <= n; i ++) {
