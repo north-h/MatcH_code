@@ -12,7 +12,7 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    
+    int n, m; cin >> n >> m;
 }
 
 int32_t main() {
