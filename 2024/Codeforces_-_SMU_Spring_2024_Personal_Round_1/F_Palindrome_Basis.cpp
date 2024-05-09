@@ -49,6 +49,7 @@ int32_t main() {
     for (auto i : a) {
         for (int j = i; j <= 5; j ++) {
             dp[j] += dp[j - i];
+            dp[j] = max(dp[j], dp[j - i]);
             dp[j] %= mod;
         }
         for (int i = 1; i <= 5; i ++) cout << dp[i] << " \n"[i == 5];
