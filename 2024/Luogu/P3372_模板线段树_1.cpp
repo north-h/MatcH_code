@@ -25,7 +25,7 @@ using ll = long long;
 
 template <class T>
 struct Seg {
-    struct Node { int l, r; T sum, add, mx; };
+    struct Node { int l, r; T lazy, mx, mn, sum; };
     vector<Node> tr; vector<T> a; int n;
     void init(int N) {
         n = N;
@@ -36,21 +36,24 @@ struct Seg {
         a[x] = k;
     }
     void pushup(int u) {
-        tr[u].sum = tr[u << 1].sum + tr[u << 1 | 1].sum;
-        tr[u].sum = max(tr[u << 1].mx, tr[u << 1 | 1].mx);
+        tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
+    }
+    Node merge(Node t, Node l, Node r) {
+        t.sum = l.sum + r.sum;
+        return t;
     }
     void pushdown(int u) {
-        if (tr[u].add) {
-            tr[u << 1].mx = max(tr[u].add, tr[u << 1].mx);
-            tr[u << 1].add = max(tr[u].add, tr[u << 1].add);
-            tr[u << 1 | 1].mx = max(tr[u].add, tr[u << 1 | 1].mx);
-            tr[u << 1 | 1].add = max(tr[u].add, tr[u << 1].add);
-            tr[u].add = 0;
+        if (tr[u].lazy) {
+            tr[u << 1].lazy += tr[u].lazy;
+            tr[u << 1].sum += (tr[u << 1].r - tr[u << 1].l + 1) * tr[u].lazy;
+            tr[u << 1 | 1].lazy += tr[u].lazy;
+            tr[u << 1 | 1].sum += (tr[u << 1 | 1].r - tr[u << 1 | 1].l + 1) * tr[u].lazy;
+            tr[u].lazy = 0;
         }
     }
     void build(int u, int l, int r) {
-        tr[u] = {l, r, a[l], 0, a[l]};
-        if (l == r)return;
+        tr[u] = {l, r, 0, a[l], a[l], a[l]};
+        if (l == r) return;
         int mid = l + r >> 1;
         pushdown(u);
         build(u << 1, l, mid);
@@ -59,24 +62,24 @@ struct Seg {
     }
     void modify(int u, int l, int r, T k) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            tr[u].add = k;
-            tr[u].mx = max(tr[u].mx, k);
+            tr[u].lazy += k;
+            tr[u].sum += (tr[u].r - tr[u].l + 1) * k;
             return;
         }
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid)modify(u << 1, l, r, k);
+        if (l <= mid) modify(u << 1, l, r, k);
         if (r > mid) modify(u << 1 | 1, l, r, k);
         pushup(u);
     }
-    T query(int u, int l, int r) {
-        if (tr[u].l >= l && tr[u].r <= r) return tr[u].mx;
+    Node query(int u, int l, int r) {
+        if (tr[u].l >= l && tr[u].r <= r) return tr[u];
         pushdown(u);
-        T mx = 0;
         int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid) mx = max(mx, query(u << 1, l, r));
-        if (r > mid) mx = max(mx, query(u << 1 | 1, l, r));
-        return mx;
+        if (r <= mid) return query(u << 1, l, r);
+        if (l > mid) return query(u << 1 | 1, l, r);
+        Node t = merge(t, query(u << 1, l, r), query(u << 1 | 1, l, r));
+        return t;
     }
 };
 
@@ -97,10 +100,10 @@ void solve() {
             seg.modify(1, l, r, k);
         } else {
             int l, r; cin >> l >> r;
-            cout << seg.query(1, l, r) << '\n';
+            cout << seg.query(1, l, r).sum << '\n';
         }
+        // for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i).sum << ' '; cout << '\n';
     }
-    for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i) << ' '; cout << '\n';
     // cout << "---------------" << '\n';
 }
 
