@@ -2,23 +2,20 @@ template <class T>
 struct Seg {
     struct Node { int l, r; T lazy, mx, mn; };
     vector<Node> tr; vector<T> a; int n;
-    Seg(int N) { n = N; tr.resize(n * 4); a.resize(n); }
+    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n); }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
     }
     Node merge(Node t, Node l, Node r) {
-        t.mx = max(l.mx, r.mx);
-        t.mn = min(l.mn, r.mn);
+        t.mx = min(l.mx, r.mx);
         return t;
     }
     void pushdown(int u) {
         if (tr[u].lazy) {
-            tr[u << 1].mx = max(tr[u << 1].mx, tr[u].lazy);
-            tr[u << 1].mn = max(tr[u << 1].mn, tr[u].lazy);
-            tr[u << 1].lazy = max(tr[u].lazy, tr[u << 1].lazy);
-            tr[u << 1 | 1].mx = max(tr[u << 1 | 1].mx, tr[u].lazy);
-            tr[u << 1 | 1].mn = max(tr[u << 1 | 1].mn, tr[u].lazy);
-            tr[u << 1 | 1].lazy = max(tr[u].lazy, tr[u << 1 | 1].lazy);
+            tr[u << 1].mx = min(tr[u << 1].mx, tr[u].lazy);
+            tr[u << 1].lazy = min(tr[u].lazy, tr[u << 1].lazy);
+            tr[u << 1 | 1].mx = min(tr[u << 1 | 1].mx, tr[u].lazy);
+            tr[u << 1 | 1].lazy = min(tr[u].lazy, tr[u << 1 | 1].lazy);
             tr[u].lazy = 0;
         }
     }
@@ -33,9 +30,8 @@ struct Seg {
     }
     void modify(int u, int l, int r, T k) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            tr[u].lazy = max(tr[u].lazy, k);
-            tr[u].mx = max(tr[u].mx, k);
-            tr[u].mn = min(tr[u].mn, k);
+            tr[u].lazy = min(tr[u].lazy, k);
+            tr[u].mx = min(tr[u].mx, k);
             return;
         }
         pushdown(u);

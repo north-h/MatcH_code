@@ -25,16 +25,42 @@ using ll = long long;
 
 void solve() {
     int n, m; cin >> n >> m;
+    // debug2(n, m);
     vector<int> s(n + 1);
-    map<int, set<int>> mp;
+    unordered_map<int, vector<int>> mp;
     for (int i = 1; i <= n; i ++) {
         cin >> s[i];
         s[i] ^= s[i - 1];
-        mp[s[i]].insert(i);
+        mp[s[i]].push_back(i);
     }
+    // for (auto [x, st] : mp) {
+    //     cout << x << ": ";
+    //     for (auto i : st) cout << i << ' ';
+    //     cout << '\n';
+    // }
     while (m --) {
         int l, r; cin >> l >> r;
+        // debug2(s[l - 1], s[r]);
+        if (s[r] == s[l - 1]) {
+            cout << "YES" << '\n';
+            continue;
+        }
+        if (!mp.count(s[l - 1]) || !mp.count(s[r])) {
+            cout << "NO" << '\n';
+            continue;
+        }
+        auto sr = lower_bound(mp[s[l - 1]].begin(), mp[s[l - 1]].end(), r) - mp[s[l - 1]].begin();
+        auto sl = lower_bound(mp[s[r]].begin(), mp[s[r]].end(), l) - mp[s[r]].begin();
+        if (sr == 0) {
+            cout << "NO" << '\n';
+            continue;
+        }
+        sr --;
+        // debug2(sl, sr);
+        if (mp[s[r]][sl] >= mp[s[l - 1]][sr]) cout << "NO" << '\n';
+        else cout << "YES" << '\n';
     }
+    cout << '\n';
 }
 
 int32_t main() {
