@@ -23,7 +23,19 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n, m; cin >> n >> m;
+    vector<int> s(n + 1);
+    map<int, set<int>> mp;
+    for (int i = 1; i <= n; i ++) {
+        cin >> s[i];
+        s[i] ^= s[i - 1];
+        mp[s[i]].insert(i);
+    }
+    while (m --) {
+        int l, r; cin >> l >> r;
+    }
+}
 
 int32_t main() {
 #ifdef LOCAL
