@@ -27,10 +27,7 @@ template <class T>
 struct Seg {
     struct Node { int l, r; T lazy, mx, mn, sum; };
     vector<Node> tr; vector<T> a; int n;
-    Seg(int N) { n = N; tr.resize(n * 4); a.resize(n);}
-    void add(int x, T k) {
-        a[x] = k;
-    }
+    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n);}
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
     }
@@ -83,12 +80,10 @@ void solve() {
     int n, m; cin >> n >> m;
     vector<int> a(n + 1);
     Seg<ll> seg(n + 1);
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> a[i];
-        seg.add(i, a[i]);
+    for (int i = 1; i <= n; i ++) {
+        cin >> seg.a[i];
     }
     seg.build(1, 1, n);
-    // cout << seg.query(1, 1, 1) << '\n';
     while (m --) {
         int op; cin >> op;
         if (op == 1) {
@@ -98,9 +93,7 @@ void solve() {
             int l, r; cin >> l >> r;
             cout << seg.query(1, l, r).sum << '\n';
         }
-        // for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i).sum << ' '; cout << '\n';
     }
-    // cout << "---------------" << '\n';
 }
 
 int32_t main() {

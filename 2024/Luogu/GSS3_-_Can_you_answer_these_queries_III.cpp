@@ -1,14 +1,14 @@
 /*
- * ==================================================================================
+ * ==============================================================
  * Author:  north_h
- * Time:    2024-05-10 09:20:29
+ * Time:    2024-05-10 15:32:30 ms
  *
- * Problem: P4513 小白逛公园
+ * Problem: GSS3 - Can you answer these queries III
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P4513
- * MemoryL: 128 MB
- * TimeL:   1000 ms
- * ==================================================================================
+ * URL:     https://www.luogu.com.cn/problem/SP1716
+ * MemoryL: 1 MB
+ * TimeL:   330000 ms
+ * ==============================================================
  */
 
 // #pragma GCC optimize("Ofast")
@@ -22,7 +22,6 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 using ll = long long;
-
 template <class T>
 struct Seg {
     struct Node { int l, r; T lazy, mx, lmx, rmx, sum; };
@@ -47,7 +46,7 @@ struct Seg {
     }
     void build(int u, int l, int r) {
         tr[u] = {l, r, 0, a[l], a[l], a[l], a[l]};
-        if (l >= r) return;
+        if (l == r) return;
         int mid = l + r >> 1;
         pushdown(u);
         build(u << 1, l, mid);
@@ -55,7 +54,6 @@ struct Seg {
         pushup(u);
     }
     void modify(int u, int l, int r, T k) {
-        if (l > r) return ;
         if (tr[u].l >= l && tr[u].r <= r) {
             tr[u].lazy = k;
             tr[u].mx = tr[u].lmx = tr[u].rmx = tr[u].sum = k;
@@ -68,26 +66,25 @@ struct Seg {
         pushup(u);
     }
     Node query(int u, int l, int r) {
-        Node t;
-        if (l > r) return t;
         // debug1(u);
         if (tr[u].l >= l && tr[u].r <= r) return tr[u];
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (r <= mid) return query(u << 1, l, r);
         if (l > mid) return query(u << 1 | 1, l, r);
-        t = merge(t, query(u << 1, l, r), query(u << 1 | 1, l, r));
+        Node t = merge(t, query(u << 1, l, r), query(u << 1 | 1, l, r));
         return t;
     }
 };
 
 void solve() {
-    int n, m; cin >> n >> m;
+    int n, m; cin >> n;
     Seg<ll> sg(n);
     for (int i = 1, x; i <= n; i ++) {
         cin >> sg.a[i];
     }
     sg.build(1, 1, n);
+    cin >> m;
     while (m --) {
         int op; cin >> op;
         // debug1(op);
