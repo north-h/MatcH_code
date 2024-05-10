@@ -1,17 +1,4 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-05-07 15:49:54 ms
- *
- * Problem: G. Joy of Handcraft
- * Contest: Codeforces - SMU Spring 2024 Personal Round 1
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/522675/problem/G
- * MemoryL: 256 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
@@ -25,27 +12,30 @@ using ll = long long;
 
 template <class T>
 struct Seg {
-    struct Node { int l, r; T lazy, mx, mn; };
-    vector<Node> tr; vector<T> a; int n;
-    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n); }
+    struct Node { int l, r; T lazy, mx, sum; };
+    vector<Node> tr; vector<T> a, bit; int n;
+    Seg(int N) { n = N; tr.resize(n * 4 + 1); a.resize(n + 1); bit.resize(n + 1); }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
     }
     Node merge(Node t, Node l, Node r) {
         t.mx = max(l.mx, r.mx);
+        t.sum = l.sum + r.sum;
         return t;
     }
     void pushdown(int u) {
         if (tr[u].lazy) {
             tr[u << 1].mx = max(tr[u << 1].mx, tr[u].lazy);
-            tr[u << 1].lazy = max(tr[u].lazy, tr[u << 1].lazy);
+            tr[u << 1].sum = (tr[u].r - tr[u].l + 1) * tr[u].lazy;
+            tr[u << 1].lazy = tr[u].lazy;
             tr[u << 1 | 1].mx = max(tr[u << 1 | 1].mx, tr[u].lazy);
-            tr[u << 1 | 1].lazy = max(tr[u].lazy, tr[u << 1 | 1].lazy);
+            tr[u << 1 | 1].sum = (tr[u].r - tr[u].l + 1) * tr[u].lazy;
+            tr[u << 1 | 1].lazy = tr[u].lazy;
             tr[u].lazy = 0;
         }
     }
     void build(int u, int l, int r) {
-        tr[u] = {l, r, 0, a[l], a[l]};
+        tr[u] = {l, r, 0, bit[l] - 2 * a[l], a[l]};
         if (l == r) return;
         int mid = l + r >> 1;
         pushdown(u);
@@ -55,8 +45,9 @@ struct Seg {
     }
     void modify(int u, int l, int r, T k) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            tr[u].lazy = max(tr[u].lazy, k);
-            tr[u].mx = max(tr[u].mx, k);
+            tr[u].lazy = k;
+            tr[u].mx = bit[l - 1] - k;
+            tr[u].sum = (tr[u].r - tr[u].l + 1) * k;
             return;
         }
         pushdown(u);
@@ -76,26 +67,33 @@ struct Seg {
     }
 };
 
-void solve(int t) {
+void solve() {
     int n, m; cin >> n >> m;
-    unordered_map<int, int> mp;
+    Seg<ll> sg(n + 1);
     for (int i = 1; i <= n; i ++) {
-        int x, c; cin >> x >> c;
-        mp[x] = max(mp[x], c);
+        cin >> sg.a[i];
+        sg.bit[i] = sg.bit[i - 1] + sg.a[i];
     }
-    Seg<int> sg(m + 1);
-    sg.build(1, 1, m);
-    for (auto [x, y] : mp) {
-        for (int j = 1, k = 0; j <= m; j += x, k ++) {
-            if (k % 2 == 0) {
-                if (j + x - 1 <= m) sg.modify(1, j, j + x - 1, y);
-                else sg.modify(1, j, m, y);
+    for (int i = 1; i <= n; i ++) cout << sg.a[i] << " \n"[i == n];
+    for (int i = 1; i <= n; i ++) cout << sg.bit[i] << " \n"[i == n];
+    sg.build(1, 1, n);
+    for (int i = 1; i <= n; i ++) {
+        cout << sg.query(1, i, i).sum << ' ';
+    }
+    cout << '\n';
+    while (m --) {
+        int op; cin >> op;
+        if (op == 1) {
+            int x, y; cin >> x >> y;
+            sg.modify(1, x, x, y);
+            for (int i = 1; i <= n; i ++) {
+                cout << sg.query(1, i, i).sum << ' ';
             }
+            cout << '\n';
+        } else {
+            int l, r; cin >> l >> r;
+            cout << sg.query(1, l, r).mx - sg.query(1, 1, l - 1).sum << '\n';
         }
-    }
-    cout << "Case #" << t << ": ";
-    for (int i = 1; i <= m; i ++) {
-        cout << sg.query(1, i, i).mx << " \n"[i == m];
     }
 }
 
@@ -105,8 +103,8 @@ int32_t main() {
     freopen("data.out", "w", stdout);
 #endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1, t = 1;
+    int h_h = 1;
     cin >> h_h;
-    while (h_h--)solve(t ++);
+    while (h_h--)solve();
     return 0;
 }

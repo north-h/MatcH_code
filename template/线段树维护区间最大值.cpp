@@ -1,28 +1,3 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-05-07 15:49:54 ms
- *
- * Problem: G. Joy of Handcraft
- * Contest: Codeforces - SMU Spring 2024 Personal Round 1
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/522675/problem/G
- * MemoryL: 256 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
-#pragma GCC optimize("Ofast")
-#include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
-// #define LOCAL
-const int N = 100010;
-const int INF = 0x3f3f3f3f;
-
-using namespace std;
-using ll = long long;
-
 template <class T>
 struct Seg {
     struct Node { int l, r; T lazy, mx, mn; };
@@ -75,38 +50,3 @@ struct Seg {
         return t;
     }
 };
-
-void solve(int t) {
-    int n, m; cin >> n >> m;
-    unordered_map<int, int> mp;
-    for (int i = 1; i <= n; i ++) {
-        int x, c; cin >> x >> c;
-        mp[x] = max(mp[x], c);
-    }
-    Seg<int> sg(m + 1);
-    sg.build(1, 1, m);
-    for (auto [x, y] : mp) {
-        for (int j = 1, k = 0; j <= m; j += x, k ++) {
-            if (k % 2 == 0) {
-                if (j + x - 1 <= m) sg.modify(1, j, j + x - 1, y);
-                else sg.modify(1, j, m, y);
-            }
-        }
-    }
-    cout << "Case #" << t << ": ";
-    for (int i = 1; i <= m; i ++) {
-        cout << sg.query(1, i, i).mx << " \n"[i == m];
-    }
-}
-
-int32_t main() {
-#ifdef LOCAL
-    freopen("data.in", "r", stdin);
-    freopen("data.out", "w", stdout);
-#endif
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1, t = 1;
-    cin >> h_h;
-    while (h_h--)solve(t ++);
-    return 0;
-}
