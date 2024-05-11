@@ -18,25 +18,18 @@ void solve() {
     vector<int> a(k + 1), b(k + 1);
     for (int i = 1; i <= k; i ++) cin >> a[i];
     for (int i = 1; i <= k; i ++) cin >> b[i];
-    vector<int> c(1);
-    map<int, double> mp;
-    for (int i = 1; i <= k; i ++) {
-        int x = a[i] - a[i - 1], y = b[i] - b[i - 1];
-        c.push_back(a[i - 1] + 1);
-        mp[a[i - 1] + 1] = x * 1.0 / y;
-    }
     while (q --) {
         int x; cin >> x;
         if (x == 0) { cout << 0 << ' '; continue; }
         int l = 1, r = k, p = -1;
         while (l <= r) {
             int mid = l + r >> 1;
-            if (x >= c[mid]) l = mid + 1, p = mid;
-            else r = mid - 1;
+            if (x <= a[mid]) r = mid - 1, p = mid;
+            else l = mid + 1;
         }
-        // debug1(p);
-        int ans = b[p - 1] + (x - c[p] + 1) * 1.0 / mp[c[p]];
-        cout << lf(0) << floor(ans) << ' ';
+        // debug2(p, x);
+        double ans = b[p - 1] + (x - a[p - 1]) * (b[p] - b[p - 1]) * 1.0 / (a[p] - a[p - 1]);
+        cout << (int)ans << ' ';
     }
     cout << '\n';
 }
