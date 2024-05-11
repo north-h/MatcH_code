@@ -33,14 +33,8 @@ void solve() {
         s[i] ^= s[i - 1];
         mp[s[i]].push_back(i);
     }
-    // for (auto [x, st] : mp) {
-    //     cout << x << ": ";
-    //     for (auto i : st) cout << i << ' ';
-    //     cout << '\n';
-    // }
     while (m --) {
         int l, r; cin >> l >> r;
-        // debug2(s[l - 1], s[r]);
         if (s[r] == s[l - 1]) {
             cout << "YES" << '\n';
             continue;
@@ -56,7 +50,6 @@ void solve() {
             continue;
         }
         sr --;
-        // debug2(sl, sr);
         if (mp[s[r]][sl] >= mp[s[l - 1]][sr]) cout << "NO" << '\n';
         else cout << "YES" << '\n';
     }

@@ -14,6 +14,10 @@
 		"test": "1\n5 5\n1 1 2 3 0\n1 5\n2 4\n3 5\n1 3\n3 4\n"
 	},
 	{
+		"correct_answers":
+		[
+			"NO\nYES\nNO"
+		],
 		"test": "1\n3 3\n1 0 1\n1 2\n1 3\n2 3\n"
 	}
 ]

@@ -37,17 +37,12 @@ void solve() {
         for (auto i : y) t.push_back(a[i]);
         sort(t.begin(), t.end());
         sort(y.begin(), y.end());
-        // debug1(x);
         for (int i = 0; i < t.size(); i ++) {
             ans[y[i]] = t[i];
         }
     }
     for (int i = 1; i <= n; i ++) cout << ans[i] << " \n"[i == n];
 }
-
-//0 1 2 3
-//4 5 6 7
-//8 9 10 11
 
 int32_t main() {
 #ifdef LOCAL
