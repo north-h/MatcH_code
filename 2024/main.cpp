@@ -28,20 +28,14 @@ int get(int x) {
 void solve() {
     int n; cin >> n;
     vector<vector<int>> vis(n + 1, vector<int>(n + 1, 0));
-    // for (int i = 1; i <= n; i ++) {
-    // cout << n << ":\n" <<  get(n) * 4 + 4 << '\n';
-    // }
     auto check = [&] (int x, int y) -> bool {
         int v = x * x + y * y;
         int c1 = n * n, c2 = (n + 1) * (n + 1);
-        // debug2(c1, c2);
-        // debug2(x, y);
         if (v >= c1 && v < c2) return true;
         return false;
     };
     ll ans = 0;
     for (int i = 1, j = n; i <= n && i < j; i ++) {
-        // debug2(i, j);
         if (check(i, j))  {
             if (!vis[i][j] && i != j) ans ++, vis[i][j] = 1;
             if (check(i, j - 1) && !vis[i][j - 1] && i != j - 1) {

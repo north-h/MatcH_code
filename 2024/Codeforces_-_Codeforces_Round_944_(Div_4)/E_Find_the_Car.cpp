@@ -17,13 +17,34 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 // #define LOCAL
+#define PII pair<int, int>
+#define int long long
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
-using ll = long long;
+// using ll = long long;
 
-void solve() {}
+void solve() {
+    int n, k, q;
+    cin >> n >> k >> q;
+    vector<int> a(k + 1), b(k + 1);
+    for (int i = 1; i <= k; i ++) cin >> a[i];
+    for (int i = 1; i <= k; i ++) cin >> b[i];
+    while (q --) {
+        int x; cin >> x;
+        if (x == 0) { cout << 0 << ' '; continue; }
+        int l = 1, r = k, p = -1;
+        while (l <= r) {
+            int mid = l + r >> 1;
+            if (x <= a[mid]) r = mid - 1, p = mid;
+            else l = mid + 1;
+        }
+        // debug2(p, x);
+        cout << b[p - 1] + (x - a[p - 1]) * (b[p] - b[p - 1]) / (a[p] - a[p - 1]) << ' ';
+    }
+    cout << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

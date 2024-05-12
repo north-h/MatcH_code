@@ -33,7 +33,6 @@ void solve() {
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
     }
-    int v = 0;
     sort(a.begin() + 1, a.end());
     for (int i = 1 ; i <= n; i ++) s[i] = s[i - 1] + a[i];
     for (int i = n; i >= 2; i --) {
@@ -43,10 +42,10 @@ void solve() {
             if (a[mid] >= x) r = mid - 1, res = mid;
             else l = mid + 1;
         }
-        v += (s[res - 1] + a[i] * (res - 1));
+        sum += (s[res - 1] + a[i] * (res - 1));
         sum += (s[i - 1] - s[res - 1]) + (a[i] - mod) * (i - res);
     }
-    cout << sum + v << '\n';
+    cout << sum << '\n';
 }
 
 int32_t main() {
