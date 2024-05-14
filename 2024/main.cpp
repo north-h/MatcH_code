@@ -4,70 +4,69 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 // #define LOCAL
-const int N = 110;
+#define int long long
+const int N = 100010;
 const int INF = 0x3f3f3f3f;
 const int mod = 998244353;
 
 using namespace std;
-using ll = long long;
+// using ll = long long;
 
-ll dp[N * 2][N * 2][N];
+int get(int n, int d) {
+    for (int k = 1; k <= 1000000000; k ++) {
+        string s = to_string(n * k);
+        map<int, int> mp;
+        for (auto i : s) mp[i - '0'] ++;
+        int f = 0;
+        for (int i = 1; i <= 9; i ++) {
+            if (i == d) f += mp[i] >= 2;
+            else f += mp[i] >= 1;
+        }
+        if (f == 9) return k;
+    }
+    return -1;
+}
+
+
+bool check(int x) {
+    map<int, int> mp;
+    string s = to_string(x);
+    for (auto i : s) mp[i - '0'] ++;
+    int f = 0;
+    for (int i = 1; i <= 9; i ++) {
+        f += mp[i] >= 1;
+    }
+    if (f == 9) return true;
+    return false;
+}
 
 void solve() {
-<<<<<<< HEAD
-    int n; cin >> n;
-    vector<vector<int>> vis(n + 1, vector<int>(n + 1, 0));
-    auto check = [&] (int x, int y) -> bool {
-        int v = x * x + y * y;
-        int c1 = n * n, c2 = (n + 1) * (n + 1);
-        if (v >= c1 && v < c2) return true;
-        return false;
-    };
-    ll ans = 0;
-    for (int i = 1, j = n; i <= n && i < j; i ++) {
-        if (check(i, j))  {
-            if (!vis[i][j] && i != j) ans ++, vis[i][j] = 1;
-            if (check(i, j - 1) && !vis[i][j - 1] && i != j - 1) {
-                ans ++;
-                vis[i][j - 1] = 1;
-=======
-    int n, m, x, y; cin >> n >> m >> x >> y;
-    int px = 100 - x, py = 100 - y;
-    x = 100, y = 100;
-    string s; cin >> s; s = " " + s;
-    vector<int> a(n + 1);
-    set<array<int, 2>> st;
-    for (int i = 1; i <= m; i ++) {
-        int xx, yy; cin >> xx >> yy;
-        st.insert({xx + px, yy + py});
-        // debug2(xx + px, yy + py);
-    }
-    dp[100][100][0] = 1;
-    // debug2(x, y);
-    for (int k = 1; k <= n; k ++) {
-        for (int i = 0; i <= 200; i ++) {
-            for (int j = 0; j <= 200; j ++) {
-                dp[i][j][k] = dp[i][j][k - 1];
-            }
+    string s = "123456789";
+    string sans;
+    int ans = 0;
+    do {
+        // debug1(s);
+        int res = 0;
+        for (auto i : s) res = res * 10 + (i - '0');
+        int c = 0;
+        for (int i = 1; i <= 40; i ++) {
+            // cout << i << ':' << res * i;
+            if (check(res * i)) c ++;
         }
-        // debug1(dp[100][100][k]);
-        for (int i = 0; i <= 200; i ++) {
-            for (int j = 0; j <= 200; j ++) {
-                int tx = i, ty = j;
-                if (s[k] == 'L') tx --;
-                if (s[k] == 'R') tx ++;
-                if (s[k] == 'U') ty ++;
-                if (s[k] == 'D') ty --;
-                if (tx < 0 || ty < 0 || tx > 200 || ty > 200) continue;
-                if (st.count({tx, ty})) dp[i][j][k] = (dp[i][j][k] + dp[i][j][k - 1]) % mod;
-                else dp[tx][ty][k] = (dp[i][j][k - 1] + dp[tx][ty][k]) % mod;
->>>>>>> 52c742203b9b1bebe18392e1d4a0b709e68c6530
-            }
+        if (ans < c) {
+            sans = s;
+            ans = c;
         }
-    }
-    // cout << dp[100][100][1] << '\n';
-    // cout << dp[100][100][2] << '\n';
-    cout << dp[100][100][n] << '\n';
+        // cout << c << ' ' << s << '\n';
+    } while (next_permutation(s.begin(), s.end()));
+    // int c = 123456789, v = 0;
+    // for (int i = 1; i <= 40; i ++) {
+    //     // cout << i << ':' << res * i;
+    //     if (check(c * i)) cout << c * i << "true\n", v ++;
+    //     else cout << "fasle\n";
+    // }
+    // cout << v << '\n';
+    cout << sans << ' ' << ans << '\n';
 }
 
 int32_t main() {
