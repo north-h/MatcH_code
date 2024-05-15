@@ -10,12 +10,10 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-int vis[N];
-
 void solve() {
-    int n, d; cin >> n >> d;
+    ll n, d; cin >> n >> d;
     ll ans = 1234567890 + d;
-    cout << ans << '\n';
+    cout << ans * n * 10 << '\n';
 }
 
 int32_t main() {
