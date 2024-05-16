@@ -17,7 +17,7 @@ vector<int> g[N];
 void dfs1(int u, int f) {
     for (auto v : g[u]) {
         if (v == f) continue;
-        if (a[v] * 2 >= a[u]) dp[v] ++;
+        if (a[v] * 2 >= a[u]) dp[u] ++;
         dfs1(v, u);
         dp[u] += dp[v];
     }
@@ -26,7 +26,8 @@ void dfs1(int u, int f) {
 void dfs2(int u, int f) {
     for (auto v : g[u]) {
         if (v == f) continue;
-        dp[v] += dp[u] - dp[v] - 1;
+        dp[v] += dp[u] - dp[v];
+        if (a[v] * 2 >= a[u]) dp[v] --;
         if (a[u] * 2 >= a[v]) dp[v] ++;
         dfs2(v, u);
     }
@@ -34,6 +35,10 @@ void dfs2(int u, int f) {
 
 void solve() {
     cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        g[i].clear();
+        dp[i] = 0;
+    }
     for (int i = 1; i <= n; i ++) cin >> a[i];
     for (int i = 1; i < n; i ++) {
         int u, v; cin >> u >> v;
@@ -41,7 +46,6 @@ void solve() {
         g[v].push_back(u);
     }
     dfs1(1, 0);
-    for (int i = 1; i <= n; i ++) cout << dp[i] << " \n"[i == n];
     dfs2(1, 0);
     int ans = 0;
     for (int i = 1; i <= n; i ++) ans += (dp[i] == n - 1);
