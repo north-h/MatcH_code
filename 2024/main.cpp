@@ -17,6 +17,7 @@ bool vis[N];
 int n;
 map<int, int> mp;
 
+<<<<<<< HEAD
 void euler() {
     memset(vis, true, sizeof(vis));
     vis[0] = vis[1] = 0;
@@ -36,12 +37,31 @@ bool get(int x) {
     if (x == 1 || x == 0) return false;
     for (int i = 2; i * i <= x; i ++) {
         if (x % i == 0) return false;
+=======
+void dfs1(int u, int f) {
+    for (auto v : g[u]) {
+        if (v == f) continue;
+        if (a[v] * 2 >= a[u]) dp[u] ++;
+        dfs1(v, u);
+        dp[u] += dp[v];
+    }
+}
+
+void dfs2(int u, int f) {
+    for (auto v : g[u]) {
+        if (v == f) continue;
+        dp[v] += dp[u] - dp[v];
+        if (a[v] * 2 >= a[u]) dp[v] --;
+        if (a[u] * 2 >= a[v]) dp[v] ++;
+        dfs2(v, u);
+>>>>>>> 536bce1b73f73748c197242c487aeac11a994e38
     }
     return true;
 }
 
 void solve() {
     cin >> n;
+<<<<<<< HEAD
     euler();
     for (int i = n; ; i ++) {
         if (vis[i]) {
@@ -53,6 +73,23 @@ void solve() {
             }
         }
     }
+=======
+    for (int i = 1; i <= n; i ++) {
+        g[i].clear();
+        dp[i] = 0;
+    }
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i < n; i ++) {
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    dfs1(1, 0);
+    dfs2(1, 0);
+    int ans = 0;
+    for (int i = 1; i <= n; i ++) ans += (dp[i] == n - 1);
+    cout << ans << '\n';
+>>>>>>> 536bce1b73f73748c197242c487aeac11a994e38
 }
 
 int32_t main() {
