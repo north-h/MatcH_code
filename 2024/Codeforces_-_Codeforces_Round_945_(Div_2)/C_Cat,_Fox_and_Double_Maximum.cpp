@@ -74,6 +74,7 @@ void solve() {
             }
             st.erase(*pr);
         }
+        // for (auto i : st) cout << i << ' '; cout << '\n';
         if (!ans[1]) ans[1] = *st.begin();
         if (!ans[n]) ans[n] = *st.begin();
         return ans;
