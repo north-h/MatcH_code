@@ -1,3 +1,16 @@
+/*
+ * ==================================================================================
+ * Author:  north_h
+ * Time:    2024-05-20 22:44:54
+ *
+ * Problem: G. Money Buys Less Happiness Now
+ * Contest: Codeforces - Codeforces Round 946 (Div. 3)
+ * URL:     https://codeforces.com/contest/1974/problem/G
+ * MemoryL: 256 MB
+ * TimeL:   2000 ms
+ * ==================================================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl

@@ -90,6 +90,7 @@ void solve() {
 		if (x > y && x > z) v ++;
 		vc += !res[i];
 	}
+//	cout << "h接受" << '\n';
 	// for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
 	if (v == n / 2 - 1 && !vc) {
 		for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];

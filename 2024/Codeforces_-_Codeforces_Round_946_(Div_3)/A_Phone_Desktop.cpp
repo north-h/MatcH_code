@@ -1,3 +1,16 @@
+/*
+ * ==================================================================================
+ * Author:  north_h
+ * Time:    2024-05-20 22:44:28
+ *
+ * Problem: A. Phone Desktop
+ * Contest: Codeforces - Codeforces Round 946 (Div. 3)
+ * URL:     https://codeforces.com/contest/1974/problem/A
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
+ * ==================================================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl

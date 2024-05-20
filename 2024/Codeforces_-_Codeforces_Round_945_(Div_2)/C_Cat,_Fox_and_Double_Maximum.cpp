@@ -49,12 +49,13 @@ void solve() {
             ans [mp[t[i]]] = j;
             st.erase(j);
         }
-        // for (auto i : st) cout << i << ' '; cout << '\n';
         for (int i = 0; i < t.size(); i ++) {
+            for (auto i : st) cout << i << ' '; cout << '\n';
             int l = mp[t[i]] - 1, r = mp[t[i]] + 1, idx = mp[t[i]];
             int dl = a[idx] + ans[idx] - a[l], dr = a[idx] + ans[idx] - a[r];
-            // debug2(l, r);
-            // debug2(dl, dr);
+            debug2(l, r);
+            debug2(dl, dr);
+            debug1(t[i]);
             auto pl = st.lower_bound(dl);
             if (pl != st.begin()) pl --;
             // debug1(*pl);
@@ -74,7 +75,7 @@ void solve() {
             }
             st.erase(*pr);
         }
-        // for (auto i : st) cout << i << ' '; cout << '\n';
+        for (auto i : st) cout << i << ' '; cout << '\n';
         if (!ans[1]) ans[1] = *st.begin();
         if (!ans[n]) ans[n] = *st.begin();
         return ans;
@@ -91,7 +92,7 @@ void solve() {
         if (x > y && x > z) v ++;
         vc += !res[i];
     }
-    // for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
+    for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
     if (v == n / 2 - 1 && !vc) {
         for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
         return ;
