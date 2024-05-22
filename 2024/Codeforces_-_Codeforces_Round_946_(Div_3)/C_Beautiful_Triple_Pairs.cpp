@@ -11,13 +11,13 @@
  * ==================================================================================
  */
 
-// #pragma GCC optimize("Ofast")
+#pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 // #define LOCAL
-#define int long long
+// #define int long long
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
@@ -39,7 +39,7 @@ void solve() {
         mp[ {x, y, z}] ++;
         b.push_back({x, y, z});
     }
-    int ans = 0;
+    ll ans = 0;
     for (auto [x, y, z] : b) {
         mp1[ {x, y}] --;
         mp2[ {x, z}] --;

@@ -29,13 +29,22 @@ void solve() {
     for (int i = 1; i <= m; i ++) {
         cin >> c[i] >> h[i];
     }
-    int sum = 0;
-    int ans = 0;
+    int sum = accumulate(h.begin() + 1, h.end(), 0);
+    vector<ll> dp(sum + 1, 1e10);
+    dp[0] = 0;
     for (int i = 1; i <= m; i ++) {
-        if (sum >= c[i]) ans = max(ans, h[i]);
-        sum += x;
+        for (int j = sum; j >= h[i]; j --) {
+            if (dp[j - h[i]] + c[i] <= (ll)(i - 1) * x) {
+                dp[j] = min(dp[j], dp[j - h[i]] + c[i]);
+            }
+        }
     }
-    cout << ans << '\n';
+    for (int i = sum ; i >= 0; i --) {
+        if (dp[i] != 1e10) {
+            cout << i << '\n';
+            return ;
+        }
+    }
 }
 
 int32_t main() {

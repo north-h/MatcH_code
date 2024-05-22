@@ -23,7 +23,25 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int m, x; cin >> m >> x;
+    vector<int> cost(m + 1);
+    for (int i = 1; i <= m; i ++) {
+        cin >> cost[i];
+    }
+    priority_queue<int> pq;
+    int cur = 0, ans = 0;
+    for (int i = 1; i <= m; i ++) {
+        pq.push(cost[i]);
+        cur += cost[i];
+        if (cur <= (i - 1) * x) ans ++;
+        else {
+            cur -= pq.top();
+            pq.pop();
+        }
+    }
+    cout << ans << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

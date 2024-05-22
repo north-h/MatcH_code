@@ -11,32 +11,26 @@ using namespace std;
 using ll = long long;
 
 void solve() {
-    int n; cin >> n;
-    vector<int> a(n + 1), b(n + 1);
-    map<int, int> mp;
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-        mp[a[i]] = i;
-    }
-    for (int i = 1; i <= n; i ++) {
-        cin >> b[i];
-    }
-    set<array<int, 2>> st;
-    for (int i = 1; i <= n; i ++) {
-        if (a[i] != b[i]) {
-            int x = i, y = mp[b[i]];
-            st.insert({x, y});
-            swap(mp[a[i]], mp[b[i]]);
-            swap(a[x], a[y]);
+    int x, y; cin >> x >> y;
+    string a = "cqust", b = "tsuqc";
+    int mn = min(x, y), c = max(x, y) - min(x, y);
+    string s;
+    if (x > y) {
+        for (int i = 1; i <= mn; i ++) {
+            if (s.empty()) s = a + b.substr(1);
+            else s += a.substr(1) + b.substr(1);
         }
+        if (s.size() && c) s += a.substr(1), c --;
+        for (int i = 1; i <= c; i ++) s += a;
+    } else {
+        for (int i = 1; i <= mn; i ++) {
+            if (s.empty()) s = b + a.substr(1);
+            else s += b.substr(1) + a.substr(1);
+        }
+        if (s.size() && c) s += b.substr(1), c --;
+        for (int i = 1; i <= c; i ++) s += b;
     }
-    int m, c = 0; cin >> m;
-    for (int i = 1; i <= m; i ++) {
-        int x, y; cin >> x >> y;
-        if (st.count({x, y})) c ++;
-    }
-    if (m < st.size()) cout << "No" << '\n';
-    else cout << "Yes" << '\n';
+    cout << s << '\n';
 }
 
 int32_t main() {
