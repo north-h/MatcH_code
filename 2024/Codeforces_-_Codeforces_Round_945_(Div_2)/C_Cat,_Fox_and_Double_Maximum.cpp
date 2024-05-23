@@ -49,35 +49,19 @@ void solve() {
             ans [mp[t[i]]] = j;
             st.erase(j);
         }
+        vector<array<int, 2>> T;
         for (int i = 0; i < t.size(); i ++) {
-            for (auto i : st) cout << i << ' '; cout << '\n';
-            int l = mp[t[i]] - 1, r = mp[t[i]] + 1, idx = mp[t[i]];
-            int dl = a[idx] + ans[idx] - a[l], dr = a[idx] + ans[idx] - a[r];
-            debug2(l, r);
-            debug2(dl, dr);
-            debug1(t[i]);
-            auto pl = st.lower_bound(dl);
-            if (pl != st.begin()) pl --;
-            // debug1(*pl);
-            if (!ans[l]) ans[l] = *pl;
-            else if (ans[l] > *pl) {
-                st.insert(ans[l]);
-                ans[l] = *pl;
+            int id = mp[t[i]];
+            if (i == 0) {
+                T.push_back({a[id] + ans[id] - a[id - 1], id - 1});
+            } else if (i == t.size() - 1) {
+                T.push_back({a[id] + ans[id] - a[id] + 1, id + 1});
+            } else {
+                int ap = mp[t[i - 1]], bp = mp[t[i]];
+                T.push_back({min(a[ap] + ans[ap] - a[ap + 1], a[bp] + ans[bp] - a[bp - 1]), ap + 1});
             }
-            st.erase(*pl);
-            // for (auto i : st) cout << i << ' '; cout << '\n';
-            auto pr = st.lower_bound(dr);
-            if (pr != st.begin()) pr --;
-            if (!ans[r]) ans[r] = *pr;
-            else if (ans[r] > *pr) {
-                st.insert(ans[r]);
-                ans[r] = *pr;
-            }
-            st.erase(*pr);
         }
-        for (auto i : st) cout << i << ' '; cout << '\n';
-        if (!ans[1]) ans[1] = *st.begin();
-        if (!ans[n]) ans[n] = *st.begin();
+
         return ans;
     };
     vector<int> res(n + 1);
