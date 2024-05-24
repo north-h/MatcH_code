@@ -23,7 +23,29 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+int tr[N][26], cnt[N];
+int n, idx;
+
+void solve() {
+    cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        string s; cin >> s;
+        int p = 1;
+        for (int j = 0; j  < s.size(); j ++) {
+            cnt[p] ++;
+            int u = s[j] - 'a';
+            if (!tr[p][u]) tr[p][u] = ++ idx;
+            p = tr[u][p];
+        }
+    }
+    // debug1(idx);
+    ll ans = 0;
+    for (int i = 1; i <= idx; i ++) {
+        cout << cnt[i] << ' ';
+        ans += (ll)cnt[i] * (cnt[i] - 1) / 2;
+    }
+    cout << ans << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

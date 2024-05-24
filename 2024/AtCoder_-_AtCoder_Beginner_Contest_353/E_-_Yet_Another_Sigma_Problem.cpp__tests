@@ -1,1 +1,16 @@
-[{"test": "3\nab abc arc\n", "correct_answers": ["4"]}, {"test": "11\nab bb aaa bba baba babb aaaba aabbb a a b\n", "correct_answers": ["32"]}]
+[
+	{
+		"correct_answers":
+		[
+			"4"
+		],
+		"test": "3\nab abc arc\n"
+	},
+	{
+		"correct_answers":
+		[
+			"32"
+		],
+		"test": "11\nab bb aaa bba baba babb aaaba aabbb a a b\n"
+	}
+]

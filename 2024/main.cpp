@@ -13,7 +13,10 @@ using ll = long long;
 
 void solve() {
     int n, m; cin >> n >> m;
-    vector<int> val(n + 1);
+    vector<int> val(n + 1), deep(n + 1);
+    sort(val.begin() + 1, val.end(), [&](int i, int j) {
+        return deep[i] < deep[j];
+    });
     for (int i = 1; i <= n; i ++) cin >> val[i];
     vector<vector<int>> g(n + 1);
     int idx = 1;
