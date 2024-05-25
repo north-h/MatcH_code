@@ -61,7 +61,6 @@ void solve() {
                 T.push_back({min(a[ap] + ans[ap] - a[ap + 1], a[bp] + ans[bp] - a[bp - 1]), ap + 1});
             }
         }
-
         return ans;
     };
     vector<int> res(n + 1);
