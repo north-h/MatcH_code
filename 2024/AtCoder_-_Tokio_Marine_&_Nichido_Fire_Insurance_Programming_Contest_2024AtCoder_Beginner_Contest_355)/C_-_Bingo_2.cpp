@@ -1,11 +1,11 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-05-11 20:00:30 ms
+ * Time:    2024-05-25 20:00:21 ms
  *
- * Problem: E - Yet Another Sigma Problem
- * Contest: AtCoder - AtCoder Beginner Contest 353
- * URL:     https://atcoder.jp/contests/abc353/tasks/abc353_e
+ * Problem: C - Bingo 2
+ * Contest: AtCoder - Tokio Marine & Nichido Fire Insurance Programming Contest 2024（AtCoder Beginner Contest 355)
+ * URL:     https://atcoder.jp/contests/abc355/tasks/abc355_c
  * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * ==============================================================
@@ -23,28 +23,25 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-int tr[N][26], cnt[N];
-int n, idx;
-
 void solve() {
-    cin >> n;
-    for (int i = 1; i <= n; i ++) {
-        string s; cin >> s;
-        int p = 1;
-        for (int j = 0; j  < s.size(); j ++) {
-            cnt[p] ++;
-            int u = s[j] - 'a';
-            if (!tr[p][u]) tr[p][u] = ++ idx;
-            p = tr[u][p];
+    int N, T; cin >> N >> T;
+    vector<int> A(T + 1);
+    vector<vector<int>> h(N + 10), l(N + 10);
+    vector<int> dg, udg;
+    for (int i = 1; i <= T; i ++) {
+        cin >> A[i];
+        A[i] --;
+        int x = A[i] / N, y = A[i] % N;
+        if (x == y) dg.push_back(A[i]);
+        if (x + y == N - 1) udg.push_back(A[i]);
+        h[x].push_back(A[i]);
+        l[y].push_back(A[i]);
+        if (dg.size() == N || udg.size() == N || h[x].size() == N || l[y].size() == N) {
+            cout << i << '\n';
+            return ;
         }
     }
-    // debug1(idx);
-    ll ans = 0;
-    for (int i = 1; i <= idx; i ++) {
-        cout << cnt[i] << ' ';
-        ans += (ll)cnt[i] * (cnt[i] - 1) / 2;
-    }
-    cout << ans << '\n';
+    cout << -1 << '\n';
 }
 
 int32_t main() {

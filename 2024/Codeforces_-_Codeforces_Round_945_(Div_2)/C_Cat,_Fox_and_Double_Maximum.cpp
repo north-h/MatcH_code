@@ -30,59 +30,48 @@ void solve() {
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
         mp[a[i]] = i;
-        if (i % 2 == 0) b.push_back(a[i]);
-        else c.push_back(a[i]);
     }
-    b.pop_back();
-    sort(b.begin(), b.end());
-    reverse(c.begin(), c.end());
-    c.pop_back();
-    reverse(c.begin(), c.end());
-    sort(c.begin(), c.end());
-    // for (auto i : b) cout << i << ' '; cout << '\n';
-    // for (auto i : c) cout << i << ' '; cout << '\n';
-    auto check = [&](vector<int> t) {
-        vector<int> ans(n + 1);
-        set<int> st;
-        for (int i = 1; i <= n; i ++) st.insert(i);
-        for (int i = 0, j = n; i < t.size(); i ++, j --) {
-            ans [mp[t[i]]] = j;
-            st.erase(j);
+    auto check = [&](vector<int> t) -> vector<int> {
+        vector<int> v1, v2;
+        for (int i = 1; i <= n; i ++) {
+            if (i & 1) v1.push_back(a[i]);
+            else v2.push_back(a[i]);
         }
-        vector<array<int, 2>> T;
-        for (int i = 0; i < t.size(); i ++) {
-            int id = mp[t[i]];
-            if (i == 0) {
-                T.push_back({a[id] + ans[id] - a[id - 1], id - 1});
-            } else if (i == t.size() - 1) {
-                T.push_back({a[id] + ans[id] - a[id] + 1, id + 1});
-            } else {
-                int ap = mp[t[i - 1]], bp = mp[t[i]];
-                T.push_back({min(a[ap] + ans[ap] - a[ap + 1], a[bp] + ans[bp] - a[bp - 1]), ap + 1});
-            }
+        v1.push_back(v2.back());
+        v2.pop_back();
+        sort(v1.begin(), v1.end());
+        sort(v2.begin(), v2.end());
+        vector<int> ans(n + 1);
+        int idx = n;
+        for (auto i : v2) {
+            ans[mp[i]] = idx --;
+        }
+        for (auto i : v1) {
+            ans[mp[i]] = idx --;
         }
         return ans;
     };
-    vector<int> res(n + 1);
-    res = check(b);
-    int v = 0, vc = 0;
-    vc += !res[1];
-    vc += !res[n];
+    vector<int> res = check(a);
+    int cv = 0;
     for (int i = 2; i < n; i ++) {
-        int x = res[i] + a[i];
-        int y = res[i + 1] + a[i + 1];
-        int z = res[i - 1] + a[i - 1];
-        if (x > y && x > z) v ++;
-        vc += !res[i];
+        int x = a[i - 1] + res[i - 1];
+        int y = a[i] + res[i];
+        int z = a[i + 1] + res[i + 1];
+        if (y > z && y > x) cv ++;
     }
-    for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
-    if (v == n / 2 - 1 && !vc) {
-        for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
+    if (cv == n / 2 - 1) {
+        for (int i = 1; i <= n; i ++) cout << res[i] << ' ';
+        cout << '\n';
         return ;
     }
-    // cout << '-' << '\n';
-    res = check(c);
-    for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
+    reverse(a.begin() + 1, a.end());
+    for (int i = 1; i <= n; i ++) {
+        mp[a[i]] = i;
+    }
+    res = check(a);
+    reverse(res.begin() + 1, res.end());
+    for (int i = 1; i <= n; i ++) cout << res[i] << ' ';
+    cout << '\n';
 }
 
 int32_t main() {

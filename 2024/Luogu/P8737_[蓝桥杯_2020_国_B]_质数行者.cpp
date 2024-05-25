@@ -1,12 +1,12 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-05-17 17:59:09 ms
+ * Time:    2024-05-25 12:10:59 ms
  *
- * Problem: P3375 【模板】KMP
+ * Problem: P8737 [蓝桥杯 2020 国 B] 质数行者
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P3375
- * MemoryL: 512 MB
+ * URL:     https://www.luogu.com.cn/problem/P8737?contestId=173756
+ * MemoryL: 128 MB
  * TimeL:   1000 ms
  * ==============================================================
  */
@@ -23,27 +23,7 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {
-    string s, p;
-    cin >> s >> p;
-    s = " " + s;
-    p = " " + p;
-    vector<int> nxt((int)p.size() + 1);
-    for (int i = 2, j = 0; i < p.size(); i ++) {
-        while (j && p[i] != p[j + 1]) j = nxt[j];
-        if (p[i] == p[j + 1]) j ++;
-        nxt[i] = j;
-    }
-    for (int i = 1, j = 0; i < s.size(); i ++) {
-        while (j && s[i] != p[j + 1]) j = nxt[j];
-        if (s[i] == p[j + 1]) j ++;
-        if (j == p.size() - 1) {
-            cout << i - (p.size() - 1) + 1 << '\n';
-            j = nxt[j];
-        }
-    }
-    for (int i = 1; i < p.size(); i ++) cout << nxt[i] << ' '; cout << '\n';
-}
+void solve() {}
 
 int32_t main() {
 #ifdef LOCAL

@@ -1,13 +1,13 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-05-09 13:41:40 ms
+ * Time:    2024-05-25 12:10:24 ms
  *
- * Problem: P3865 【模板】ST 表
+ * Problem: P8605 [蓝桥杯 2013 国 AC] 网络寻路
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P3865
- * MemoryL: 125 MB
- * TimeL:   800000 ms
+ * URL:     https://www.luogu.com.cn/problem/P8605?contestId=173756
+ * MemoryL: 64 MB
+ * TimeL:   1000 ms
  * ==============================================================
  */
 
@@ -23,7 +23,23 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-void solve() {}
+void solve() {
+    int n, m ; cin >> n >> m;
+    vector<int> dg(n + 1);
+    vector<array<int, 2>> b;
+    for (int i = 1; i <= m; i ++) {
+        int u, v; cin >> u >> v;
+        b.push_back({u, v});
+        dg[v] ++;
+        dg[u] ++;
+    }
+    ll ans = 0;
+    for (int i = 0; i < m; i ++) {
+        // debug1(dg[i]);
+        ans += (ll)(dg[b[i][0]] - 1) * (dg[b[i][1]] - 1);
+    }
+    cout << ans * 2 << '\n';
+}
 
 int32_t main() {
 #ifdef LOCAL

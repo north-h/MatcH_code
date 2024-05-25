@@ -1,13 +1,13 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-05-11 20:00:30 ms
+ * Time:    2024-05-25 12:10:41 ms
  *
- * Problem: E - Yet Another Sigma Problem
- * Contest: AtCoder - AtCoder Beginner Contest 353
- * URL:     https://atcoder.jp/contests/abc353/tasks/abc353_e
- * MemoryL: 1024 MB
- * TimeL:   2000 ms
+ * Problem: P8736 [蓝桥杯 2020 国 B] 游园安排
+ * Contest: Luogu
+ * URL:     https://www.luogu.com.cn/problem/P8736?contestId=173756
+ * MemoryL: 128 MB
+ * TimeL:   1000 ms
  * ==============================================================
  */
 
@@ -23,28 +23,26 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-int tr[N][26], cnt[N];
-int n, idx;
-
 void solve() {
-    cin >> n;
-    for (int i = 1; i <= n; i ++) {
-        string s; cin >> s;
-        int p = 1;
-        for (int j = 0; j  < s.size(); j ++) {
-            cnt[p] ++;
-            int u = s[j] - 'a';
-            if (!tr[p][u]) tr[p][u] = ++ idx;
-            p = tr[u][p];
+    string s; cin >> s;
+    string T;
+    vector<string> a;
+    T += s[0];
+    for (int i = 1; i < s.size(); i ++) {
+        if (s[i] >= 'A' && s[i] <= 'Z') {
+            a.push_back(T);
+            T.clear();
         }
+        T += s[i];
     }
-    // debug1(idx);
-    ll ans = 0;
-    for (int i = 1; i <= idx; i ++) {
-        cout << cnt[i] << ' ';
-        ans += (ll)cnt[i] * (cnt[i] - 1) / 2;
+    a.push_back(T);
+    sort(a.begin(), a.end());
+    string sans = "";
+    for (auto i : a) {
+        if (sans.size() > i.size()) break;
+        cout << i;
+        sans = i;
     }
-    cout << ans << '\n';
 }
 
 int32_t main() {

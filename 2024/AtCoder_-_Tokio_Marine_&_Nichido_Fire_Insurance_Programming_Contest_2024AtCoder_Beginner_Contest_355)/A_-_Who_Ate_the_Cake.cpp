@@ -1,11 +1,11 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-05-11 20:00:30 ms
+ * Time:    2024-05-25 20:00:13 ms
  *
- * Problem: E - Yet Another Sigma Problem
- * Contest: AtCoder - AtCoder Beginner Contest 353
- * URL:     https://atcoder.jp/contests/abc353/tasks/abc353_e
+ * Problem: A - Who Ate the Cake?
+ * Contest: AtCoder - Tokio Marine & Nichido Fire Insurance Programming Contest 2024（AtCoder Beginner Contest 355)
+ * URL:     https://atcoder.jp/contests/abc355/tasks/abc355_a
  * MemoryL: 1024 MB
  * TimeL:   2000 ms
  * ==============================================================
@@ -23,28 +23,15 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
-int tr[N][26], cnt[N];
-int n, idx;
-
 void solve() {
-    cin >> n;
-    for (int i = 1; i <= n; i ++) {
-        string s; cin >> s;
-        int p = 1;
-        for (int j = 0; j  < s.size(); j ++) {
-            cnt[p] ++;
-            int u = s[j] - 'a';
-            if (!tr[p][u]) tr[p][u] = ++ idx;
-            p = tr[u][p];
-        }
+    int a, b; cin >> a >> b;
+    if (a > b) swap(a, b);
+    if (a == b) cout << -1 << '\n';
+    else {
+        if (a == 1 && b == 2) cout << 3 << '\n';
+        else if (a == 2 && b == 3) cout << 1 << '\n';
+        else cout << 2 << '\n';
     }
-    // debug1(idx);
-    ll ans = 0;
-    for (int i = 1; i <= idx; i ++) {
-        cout << cnt[i] << ' ';
-        ans += (ll)cnt[i] * (cnt[i] - 1) / 2;
-    }
-    cout << ans << '\n';
 }
 
 int32_t main() {
