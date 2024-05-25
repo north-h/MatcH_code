@@ -68,7 +68,7 @@ void solve() {
     }
     sort(edge.begin() + 1, edge.end());
     ll ans = (ll)n * (n - 1) / 2;
-    BIT<int> bit(N * 2);
+    BIT<int> bit(t.size() * 2 + 1);
     for (int i = 1; i <= n; i ++) {
         auto [l, r] = edge[i];
         ans -= bit.range_query(1, mp[l] - 1);

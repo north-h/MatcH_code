@@ -1,0 +1,1 @@
+[{"correct_answers": ["No"], "test": "10 10\njustmonika\nj-stsayori\n"}, {"correct_answers": ["Yes"], "test": "7 8\nttk-wxx\n*tt-l-xx\n"}, {"correct_answers": ["No"], "test": "13 11\nasoulwangziji\n-soulg*z-y-\n"}, {"correct_answers": ["No"], "test": "7 3\nabc*cba\na*c\n"}, {"correct_answers": ["Yes"], "test": "20 18\nbulijiojio-dibuliduo\n*li*ji-*ox*i*-du*-\n"}]
