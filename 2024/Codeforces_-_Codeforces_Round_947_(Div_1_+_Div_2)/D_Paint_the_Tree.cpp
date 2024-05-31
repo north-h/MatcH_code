@@ -27,52 +27,31 @@ void solve() {
     int n; cin >> n;
     int a, b; cin >> a >> b;
     vector<vector<int>> g(n + 1);
+    vector<int> fa(n + 1);
     for (int i = 1; i < n; i ++) {
         int u, v; cin >> u >> v;
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    // for (int i = 1; i <= n; i ++) {
-    //     cout << i << ':';
-    //     for (auto j : g[i]) cout << j << ' ';
-    //     cout << '\n';
-    // }
-    int cnt = 0, dis = 0;
-    bool ok = false;
-    int node = - 1;
+    vector<int> d(n + 1);
     auto dfs = [&](auto dfs, int u, int f) -> void {
-        // cnt ++;
-        // if (cnt == n) ok = true;
-        // if (ok) return ;
-        // debug2(u, g[u].size());
-        if (g[u].size() == 1 && g[u][0] == f) {
-            node = u;
-            return ;
-        };
         for (auto v : g[u]) {
             if (v == f) continue;
-            dis ++;
+            d[v] = d[u] + 1;
+            fa[v] = u;
             dfs(dfs, v, u);
-            dis ++;
         }
     };
-    vector<int> depth(n + 1);
-    auto dfs1 = [&](auto dfs1, int u, int f) -> void {
-        for (auto v : g[u]) {
-            if (v == f) continue;
-            // debug2(u, v);
-            depth[v] = depth[u] + 1;
-            dfs1(dfs1, v, u);
-        }
-    };
-    dfs(dfs, a, 0);
-    dfs1(dfs1, a, 0);
-    // for (int i = 1; i <= n; i ++) cout << depth[i] << ' '; cout << '\n';
-    int x = 0, y = 0;
-    if (depth[b] > 1) x = (depth[b] + 1) / 2;
-    if (depth[node] > 1) y = depth[node];
-    // debug2(dis, node);
-    cout << dis - y + x << '\n';
+    dfs(dfs, a, -1);
+    int dab = (d[b] + 1) / 2;
+    int root = b;
+    for (int i = 1; i <= dab; i ++) {
+        root = fa[root];
+    }
+    for (int i = 1; i <= n; i ++) d[i] = 0;
+    dfs(dfs, root, -1);
+    int mx = *max_element(d.begin() + 1, d.end());
+    cout << 2 * (n - 1) - mx + dab << '\n';
 }
 
 int32_t main() {

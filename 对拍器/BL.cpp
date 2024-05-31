@@ -1,16 +1,3 @@
-/*
-* ==============================================================
-* Author:  north_h
-* Time:    2024-05-18 12:06:15 ms
-*
-* Problem: C. Cat, Fox and Double Maximum
-* Contest: Codeforces - Codeforces Round 945 (Div. 2)
-* URL:     https://codeforces.com/contest/1973/problem/C
-* MemoryL: 256 MB
-* TimeL:   2000 ms
-* ==============================================================
-*/
-
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
@@ -23,82 +10,76 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 using ll = long long;
 
+struct node {
+	double f = 0.0;
+	int s = 0;
+};
+
+double calc(int x1, int y1, int x2, int y2) {
+	return sqrtl((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+}
+
 void solve() {
-	int n; cin >> n;
-	vector<int> a(n + 1), b, c;
-	map<int, int> mp;
-	for (int i = 1; i <= n; i ++) {
-		cin >> a[i];
-		mp[a[i]] = i;
-		if (i % 2 == 0) b.push_back(a[i]);
-		else c.push_back(a[i]);
-	}
-	b.pop_back();
-	sort(b.begin(), b.end());
-	reverse(c.begin(), c.end());
-	c.pop_back();
-	reverse(c.begin(), c.end());
-	sort(c.begin(), c.end());
-	// for (auto i : b) cout << i << ' '; cout << '\n';
-	// for (auto i : c) cout << i << ' '; cout << '\n';
-	auto check = [&](vector<int> t) {
-		vector<int> ans(n + 1);
-		set<int> st;
-		for (int i = 1; i <= n; i ++) st.insert(i);
-		for (int i = 0, j = n; i < t.size(); i ++, j --) {
-			ans [mp[t[i]]] = j;
-			st.erase(j);
+	int n, m, k, b, e, need;
+	cin >> n >> m >> k >> b >> e;
+	
+	vector<array<double, 2>> loc(4), Stu(k);
+	vector<array<double, 4>> w(k);
+	
+	for (auto &[x, y] : loc)
+		cin >> x >> y;
+	for (int c = 0; c < k; c ++) {
+		int ex, ey; cin >> ex >> ey;
+		int sx = loc[3][0], sy = loc[3][1];
+		for (int i = 0; i < 4; i ++) w[c][i] = 1e15;
+		for (int i = 0; i < 3; i ++) {
+			w[c][1] = min(w[c][1], calc(ex, ey, loc[i][0], loc[i][1]) +
+				calc(sx, sy, loc[i][0], loc[i][1]));
 		}
-		// for (auto i : st) cout << i << ' '; cout << '\n';
-		for (int i = 0; i < t.size(); i ++) {
-			int l = mp[t[i]] - 1, r = mp[t[i]] + 1, idx = mp[t[i]];
-			int dl = a[idx] + ans[idx] - a[l], dr = a[idx] + ans[idx] - a[r];
-			// debug2(l, r);
-			// debug2(dl, dr);
-			auto pl = st.lower_bound(dl);
-			if (pl != st.begin()) pl --;
-			// debug1(*pl);
-			if (!ans[l]) ans[l] = *pl;
-			else if (ans[l] > *pl) {
-				st.insert(ans[l]);
-				ans[l] = *pl;
+		for (int i = 0; i < 3; i ++) {
+			for (int j = 0; j < 3; j ++) {
+				if (i == j) continue;
+				w[c][2] = min(w[c][2], calc(ex, ey, loc[i][0], loc[i][1]) +
+					calc(loc[j][0], loc[j][1], loc[i][0], loc[i][1]) +
+					calc(sx, sy, loc[j][0], loc[j][1]));
 			}
-			st.erase(*pl);
-			// for (auto i : st) cout << i << ' '; cout << '\n';
-			auto pr = st.lower_bound(dr);
-			if (pr != st.begin()) pr --;
-			if (!ans[r]) ans[r] = *pr;
-			else if (ans[r] > *pr) {
-				st.insert(ans[r]);
-				ans[r] = *pr;
-			}
-			st.erase(*pr);
 		}
-		if (!ans[1]) ans[1] = *st.begin();
-		if (!ans[n]) ans[n] = *st.begin();
-		return ans;
-	};
-	vector<int> res(n + 1);
-	res = check(b);
-	int v = 0, vc = 0;
-	vc += !res[1];
-	vc += !res[n];
-	for (int i = 2; i < n; i ++) {
-		int x = res[i] + a[i];
-		int y = res[i + 1] + a[i + 1];
-		int z = res[i - 1] + a[i - 1];
-		if (x > y && x > z) v ++;
-		vc += !res[i];
+		for (int i = 0; i < 3; i ++) {
+			for (int j = 0; j < 3; j ++) {
+				for (int k = 0; k < 3; k ++) {
+					if (i == j || j == k || i == k) continue;
+					w[c][3] = min(w[c][3], calc(ex, ey, loc[i][0], loc[i][1]) +
+						calc(loc[j][0], loc[j][1], loc[i][0], loc[i][1]) +
+						calc(sx, sy, loc[k][0], loc[k][1]) +
+						calc(loc[j][0], loc[j][1], loc[k][0], loc[k][1]));
+				}
+			}
+		}
 	}
-//	cout << "h接受" << '\n';
-	// for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
-	if (v == n / 2 - 1 && !vc) {
-		for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
-		return ;
+	
+	// vector<array<int, 2>> T;
+	
+	// for (int i = 0; i < k; i ++) {
+	//     for (int j = 1; j <= 3; j ++) {
+	//         cout << w[i][j] << ' ';
+	//     }
+	//     cout << '\n';
+	// }
+	
+	need = max((n + b - 1) / b, (m + e - 1) / e);
+	vector<double> dp(need + 1, 1e15);
+	
+	dp[0] = 0;
+	for (int i = 0; i < k; i ++) {
+		for (int x = need; x >= 1; x --) {
+			for (int j = 1; j <= min(k, 3); j ++) {
+				dp[x] = min(dp[x], dp[x - j] + w[i][j]);
+			}
+		}
 	}
-	// cout << '-' << '\n';
-	res = check(c);
-	for (int i = 1; i <= n; i ++) cout << res[i] << " \n"[i == n];
+	
+	// debug1(need);
+	cout << lf(10) << dp[need] << '\n';
 }
 
 int32_t main() {
@@ -108,7 +89,9 @@ int32_t main() {
 #endif
 	ios::sync_with_stdio(false), cin.tie(nullptr);
 	int h_h = 1;
-//	cin >> h_h;
+	// cin >> h_h;
 	while (h_h--)solve();
 	return 0;
 }
+
+
