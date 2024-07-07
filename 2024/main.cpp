@@ -12,7 +12,7 @@ const int mod = 1e9 + 7;
 using namespace std;
 using ll = long long;
 
-ll ksm(int a, int b) {
+ll ksm(ll a, ll b) {
     ll res = 1;
     while (b) {
         if (b & 1) res = res * a % mod;
@@ -38,34 +38,30 @@ void solve() {
             }
         }
     }
-    ll ans = 0;
-    int ok = 0;
-    m -= cnt[0];
+    int mn = 10;
     for (int i = 1; i < 10; i ++) {
-        ll x = 0;
-        if (!cnt[i]) continue;
-        if (ok == 1) {
-            m -= cnt[0];
-            x = (ksm(10, cnt[0]) - 1 + mod) % mod * ksm(9, mod - 2) % mod * ksm(10, n - cnt[0]);
-            ans = (ans + x) % mod;
-            ok ++;
-            continue;
-        }
+        if (cnt[i]) mn = min(mn, i);
+    }
+    ll ans = mn * ksm(10, n - 1) % mod, x;
+    cnt[mn] --;
+    m --;
+    if (m >= cnt[0]) {
+        m -= cnt[0];
+        cnt[0] = 0;
+    } else m = 0;
+    for (int i = 1; i < 10 && m; i ++) {
         if (m >= cnt[i]) {
-            m -= cnt[i];
-            x = (ksm(10, cnt[i]) - 1 + mod) % mod * ksm(9, mod - 2) % mod * ksm(10, n - cnt[i]);
+            x = (ksm(10, cnt[i]) - 1 + mod) % mod * ksm(9, mod - 2) % mod * i % mod * ksm(10, m - cnt[i]) % mod ;
             ans = (ans + x) % mod;
-            ok ++;
-        } else {
-            x = (ksm(10, m) - 1 + mod) % mod * ksm(9, mod - 2) % mod * ksm(10, n - m);
-            ans = (ans + mod) % mod;
-            ok ++;
-            m = 0;
+            m -= cnt[i];
         }
-        debug1(ans);
+        else {
+            x = (ksm(10, m) - 1 + mod) % mod * ksm(9, mod - 2) % mod * i % mod;
+            ans = (ans + x) % mod;
+            break;
+        }
     }
     cout << ans << '\n';
-
 }
 
 int32_t main() {
