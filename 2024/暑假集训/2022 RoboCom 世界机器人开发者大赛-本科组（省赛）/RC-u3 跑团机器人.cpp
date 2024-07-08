@@ -21,26 +21,13 @@ bool check1(string s, int p) {
     }
 }
 
+bool check3(char op) {
+    return (op >= '0' || op <= '9');
+}
+
 void solve() {
     string s;
-    // cin >> s;
-    int n = rand() % 6 + 3;
-    int x = (rand() % 3 + 1);
-    int y = (rand() % 3 + 1);
-    s += (x + '0');
-    s += 'd';
-    s += (y + '0');
-    for (int i = 1; i < n; i ++) {
-        int x = rand() % 2 + 1;
-        if (x == 1) s += '+';
-        else s += '-';
-        x = (rand() % 3 + 1);
-        y = (rand() % 3 + 1);
-        s += (x + '0');
-        s += 'd';
-        s += (y + '0');
-    }
-    debug1(s);
+    cin >> s;
     for (int i = 1; i < s.size() - 1; i ++) {
         if (s[i] == 'd') {
             if (check(s[i + 1])) s.insert(i + 1, "1");
@@ -62,19 +49,35 @@ void solve() {
     }
     // cout << s << '\n';
     map<int, int> mp;
-    int cnt = count(s.begin(), s.end(), 'd');
     vector<array<int, 2>> D;
     vector<char> oo;
     for (int i = 0; i < s.size(); i ++) {
-        if (s[i] == 'd' && i != 0 && i != s.size() - 1) {
-            int ln = s[i - 1] - '0', rn = s[i + 1] - '0';
-            // debug2(ln, rn);
-            mp[rn] += ln;
-            D.push_back({ln, ln * rn});
-            i ++;
+        if (s[i] == '+' || s[i] == '-') {
+            oo.push_back(s[i]);
+            continue;
         }
-        else if (s[i] >= '0' && s[i] <= '9' && check1(s, i)) D.push_back({s[i] - '0', s[i] - '0'});
-        else if (s[i] == '+' || s[i] == '-') oo.push_back(s[i]);
+        int sum1 = 0, j = i;
+        while (s[j] >= '0' && s[j] <= '9' && j < s.size()) {
+            sum1 = sum1 * 10 + s[j] - '0';
+            j ++;
+        }
+        // debug2(sum1, j);
+        if (j == s.size() || s[j] != 'd') {
+            D.push_back({sum1, sum1}), i = j - 1;
+            // mp[sum1] ++;
+        }
+        else {
+            int sum2 = 0;
+            j ++;
+            while (s[j] >= '0' && s[j] <= '9' && j < s.size()) {
+                sum2 = sum2 * 10 + s[j] - '0';
+                j ++;
+            }
+            // debug2(sum2, j);
+            D.push_back({sum1, sum1 * sum2});
+            mp[sum2] += sum1;
+            i = j - 1;
+        }
     }
     // for (auto [x, y] : D) cout << x << ' ' << y << '\n';
     int mx = D[0][1], mn = D[0][0];
@@ -87,9 +90,9 @@ void solve() {
             mn -= D[i][1];
         }
     }
+    // debug1(mp.size());
     for (auto [x, y] : mp) cout << x << ' ' << y << '\n';
     cout << mn << ' ' << mx;
-    
 }
 
 int32_t main() {

@@ -3,76 +3,107 @@
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
-// #define LOCAL
+#define int long long
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
-const int mod = 1e9 + 7;
-
 
 using namespace std;
-using ll = long long;
 
-ll ksm(ll a, ll b) {
-    ll res = 1;
-    while (b) {
-        if (b & 1) res = res * a % mod;
-        b >>= 1;
-        a = a * a % mod;
+bool check(char op) {
+    return (op < '0' || op > '9');
+}
+
+bool check1(string s, int p) {
+    if (p == 0) return (s[p + 1] == '+' || s[p + 1] == '-');
+    else if (p == s.size() - 1) return (s[p - 1] == '+' || s[p - 1] == '-');
+    else {
+        return (s[p + 1] == '+' || s[p + 1] == '-') && (s[p - 1] == '+' || s[p - 1] == '-');;
     }
-    return res;
 }
 
 void solve() {
-    int n; cin >> n;
-    int m = n;
-    vector<int> cnt(10);
-    for (int i = 0; i < 10; i ++) {
-        int x; cin >> x;
-        cnt[i] = x;
+    srand((unsigned int)time(0));
+    string s;
+    // cin >> s;
+    int n = rand() % 3 + 2;
+    int x = (rand() % 3 + 1);
+    int y = (rand() % 3 + 1);
+    int sx = x, sy = y * x;
+    s += (x + '0');
+    s += 'd';
+    s += (y + '0');
+    for (int i = 1; i < n; i ++) {
+        int xx = rand() % 2 + 1;
+        if (xx == 1) s += '+';
+        else s += '-';
+        x = (rand() % 3 + 1);
+        y = (rand() % 3 + 1);
+        s += (x + '0');
+        s += 'd';
+        s += (y + '0');
+        // debug1(xx);
+        if (xx == 1) sx = min(x + sx, y * x + sx), sy = max(x + sy, y * x + sy);
+        else sx = min(sx - x, sx - y * x), sy = max(sy - x, sy -  y * x);
     }
-    if (n == 1) {
-        for (int i = 0; i < 10; i ++) {
-            if (cnt[i]) {
-                cout << i << '\n';
-                return ;
-            }
+    debug1(s);
+    // debug2(sx, sy);
+    for (int i = 1; i < s.size() - 1; i ++) {
+        if (s[i] == 'd') {
+            if (check(s[i + 1])) s.insert(i + 1, "1");
+            if (check(s[i - 1])) s.insert(i, "1");
         }
     }
-    int mn = 10;
-    for (int i = 1; i < 10; i ++) {
-        if (cnt[i]) mn = min(mn, i);
-    }
-    ll ans = mn * ksm(10, n - 1) % mod, x;
-    cnt[mn] --;
-    m --;
-    if (m >= cnt[0]) {
-        m -= cnt[0];
-        cnt[0] = 0;
-    } else m = 0;
-    for (int i = 1; i < 10 && m; i ++) {
-        if (m >= cnt[i]) {
-            x = (ksm(10, cnt[i]) - 1 + mod) % mod * ksm(9, mod - 2) % mod * i % mod * ksm(10, m - cnt[i]) % mod ;
-            ans = (ans + x) % mod;
-            m -= cnt[i];
-        }
-        else {
-            x = (ksm(10, m) - 1 + mod) % mod * ksm(9, mod - 2) % mod * i % mod;
-            ans = (ans + x) % mod;
-            break;
+    if (s[0] == 'd') {
+        if (s.size() == 1) {
+            s += "1";
+            s.insert(0, "1");
+        } else {
+            if (check(s[1])) s.insert(1, "1");
+            s.insert(0, "1");
         }
     }
-    cout << ans << '\n';
+    if (s.back() == 'd' && s.size() > 1) {
+        if (check(s.back())) s.insert(s.size() - 1, "1");
+        s += "1";
+    }
+    // cout << s << '\n';
+    map<int, int> mp;
+    int cnt = count(s.begin(), s.end(), 'd');
+    vector<array<int, 2>> D;
+    vector<char> oo;
+    for (int i = 0; i < s.size(); i ++) {
+        if (s[i] == 'd' && i != 0 && i != s.size() - 1) {
+            int ln = s[i - 1] - '0', rn = s[i + 1] - '0';
+            // debug2(ln, rn);
+            mp[rn] += ln;
+            D.push_back({ln, ln * rn});
+            i ++;
+        }
+        else if (s[i] >= '0' && s[i] <= '9' && check1(s, i)) D.push_back({s[i] - '0', s[i] - '0'});
+        else if (s[i] == '+' || s[i] == '-') oo.push_back(s[i]);
+    }
+    // for (auto [x, y] : D) cout << x << ' ' << y << '\n';
+    int mx = D[0][1], mn = D[0][0];
+    for (int i = 1; i < D.size(); i ++) {
+        if (oo[i - 1] == '+') {
+            mx += D[i][1];
+            mn += D[i][0];
+        } else {
+            mx -= D[i][0];
+            mn -= D[i][1];
+        }
+    }
+    // for (auto [x, y] : mp) cout << x << ' ' << y << '\n';
+    // cout << mn << ' ' << mx << '\n';
+    if (sx == mn && sy == mx) cout << "Yes" << '\n';
+    else cout << "No" << '\n';
+    cout << "-------------" << '\n';
 }
 
 int32_t main() {
-#ifdef LOCAL
-    freopen("data.in", "r", stdin);
-    freopen("data.out", "w", stdout);
-#endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
     cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
-
