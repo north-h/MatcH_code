@@ -22,7 +22,47 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+int a[N], b[N], n, t[N];
+
+int inversion(int l, int r) {
+    if (l >= r) return 0;
+    int mid = l + r >> 1;
+    int res = inversion(l, mid) + inversion(mid + 1, r);
+    int i = l, j = mid + 1, k = 0;
+    while (i <= mid && j <= r) {
+        if (b[i] <= b[j]) t[k ++] = b[i ++];
+        else {
+            res += mid - i + 1;
+            t[k ++] = b[j ++];
+        }
+    }
+    while (i <= mid) t[k ++] = b[i ++];
+    while (j <= r) t[k ++] = b[j ++];
+    for (int i = l, j = 0; i <= r; i++, j++) b[i] = t[j];
+    return res;
+}
+
+void solve() {
+    cin >> n;
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+    }
+    for (int j = 1; j <= n; j ++) {
+        cin >> b[j];
+    }
+    a[0] = b[0] = 0;
+    sort(a + 1, a + n + 1);
+    int cnt = inversion(1, n);
+    debug1(cnt);
+    for (int i = 1; i <= n; i ++) cout << b[i] << ' ';
+    cout << '\n';
+    bool f = true;
+    for (int i = 1; i <= n; i ++) {
+        if (a[i] != b[i]) f = false;
+    }
+    if (!f || cnt % 2) cout << "NO\n";
+    else cout << "YES\n";
+}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
