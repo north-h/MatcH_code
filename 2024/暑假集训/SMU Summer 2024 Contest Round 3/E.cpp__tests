@@ -1,0 +1,37 @@
+[
+	{
+		"correct_answers":
+		[
+			"Yes\n1 1 \n2 3 4"
+		],
+		"test": "5\n180 186 189 191 218\n"
+	},
+	{
+		"correct_answers":
+		[
+			"Yes\n1 1 \n1 2"
+		],
+		"test": "2\n123 523\n"
+	},
+	{
+		"correct_answers":
+		[
+			"No"
+		],
+		"test": "6\n2013 1012 2765 2021 508 6971\n"
+	},
+	{
+		"correct_answers":
+		[
+			"Yes\n1 1 \n1 2"
+		],
+		"test": "3\n1 1 1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"Yes\n1 1 \n1 2"
+		],
+		"test": "2\n200 200\n"
+	}
+]

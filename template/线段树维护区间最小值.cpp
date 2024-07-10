@@ -1,43 +1,48 @@
-template <class T>
+template<class T>
 struct Seg {
-    struct Node { int l, r; T lazy, mx, mn; };
-    vector<Node> tr; vector<T> a; int n;
-    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n); }
+    struct Node {int l, r; T add, mul, mn;};
+    vector<Node> tr; vector<T> a; int N;
+    Seg(int n) { int N = n + 1; tr.resize(N * 4); a.resize(N); }
+    Node merge(Node u, Node ls, Node rs) {
+        u.mn = max(ls.mn, rs.mn);
+        return u;
+    }
+    void calc(Node &u, int add, int mul) {
+        int lvl = u.r - u.l + 1;
+        int mul2 = mul * mul;
+        int add2 = add * add;
+        u.sum2 = u.sum2 * mul2 + 2 * u.sum1 * add * mul + lvl * add2;
+        u.sum1 = u.sum1 * mul + lvl * add;
+        u.add = u.add * mul + add;
+        u.mul = u.mul * mul;
+    }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
     }
-    Node merge(Node t, Node l, Node r) {
-        t.mx = min(l.mx, r.mx);
-        return t;
-    }
     void pushdown(int u) {
-        if (tr[u].lazy) {
-            tr[u << 1].mx = min(tr[u << 1].mx, tr[u].lazy);
-            tr[u << 1].lazy = min(tr[u].lazy, tr[u << 1].lazy);
-            tr[u << 1 | 1].mx = min(tr[u << 1 | 1].mx, tr[u].lazy);
-            tr[u << 1 | 1].lazy = min(tr[u].lazy, tr[u << 1 | 1].lazy);
-            tr[u].lazy = 0;
-        }
+        auto [_1, _2, a, m, _3, _4] = tr[u];
+        calc(tr[u << 1], a, m);
+        calc(tr[u << 1 | 1], a, m);
+        tr[u].mul = 1;
+        tr[u].add = 0;
     }
     void build(int u, int l, int r) {
-        tr[u] = {l, r, 0, a[l], a[l]};
-        if (l == r) return;
+        tr[u] = {l, r, 0, 1, a[l], a[l] * a[l]};
+        if (l == r) return ;
         int mid = l + r >> 1;
-        pushdown(u);
         build(u << 1, l, mid);
         build(u << 1 | 1, mid + 1, r);
         pushup(u);
     }
-    void modify(int u, int l, int r, T k) {
+    void modify(int u, int l, int r, T add, T mul) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            tr[u].lazy = min(tr[u].lazy, k);
-            tr[u].mx = min(tr[u].mx, k);
-            return;
+            calc(tr[u], add, mul);
+            return ;
         }
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid) modify(u << 1, l, r, k);
-        if (r > mid) modify(u << 1 | 1, l, r, k);
+        if (l <= mid) modify(u << 1, l, r, add, mul);
+        if (r > mid) modify(u << 1 | 1, l, r, add, mul);
         pushup(u);
     }
     Node query(int u, int l, int r) {
@@ -47,6 +52,7 @@ struct Seg {
         if (r <= mid) return query(u << 1, l, r);
         if (l > mid) return query(u << 1 | 1, l, r);
         Node t = merge(t, query(u << 1, l, r), query(u << 1 | 1, l, r));
+        pushup(u);
         return t;
     }
 };

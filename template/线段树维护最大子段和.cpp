@@ -2,7 +2,7 @@ template <class T>
 struct Seg {
     struct Node { int l, r; T lazy, mx, lmx, rmx, sum; };
     vector<Node> tr; vector<T> a; int n;
-    Seg(int n) { n = N + 1; tr.resize(n * 4); a.resize(n); }
+    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n); }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
     }
@@ -13,38 +13,39 @@ struct Seg {
         t.mx = max(max(l.mx, r.mx), l.rmx + r.lmx);
         return t;
     }
+    void calc(Node &u, int lazy) {
+        // if (!lazy)return ;
+        u.lazy = u.mx = u.lmx = u.rmx = u.sum = lazy;
+    }
     void pushdown(int u) {
-        if (tr[u].lazy) {
-            tr[u << 1].lazy = tr[u].lazy;
-            tr[u << 1 | 1].lazy = tr[u].lazy;
-            tr[u].lazy = 0;
-        }
+        auto [_1, _2, lazy, _3, _4, _5, _6] = tr[u];
+        calc(tr[u << 1], lazy);
+        calc(tr[u << 1 | 1], lazy);
+        tr[u].lazy = 0;
     }
     void build(int u, int l, int r) {
         tr[u] = {l, r, 0, a[l], a[l], a[l], a[l]};
-        if (l == r) return;
+        if (l >= r) return;
         int mid = l + r >> 1;
-        pushdown(u);
+        // pushdown(u);
         build(u << 1, l, mid);
         build(u << 1 | 1, mid + 1, r);
         pushup(u);
     }
     void modify(int u, int l, int r, T k) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            tr[u].lazy = k;
-            tr[u].mx = tr[u].lmx = tr[u].rmx = tr[u].sum = k;
+            calc(tr[u], k);
             return;
         }
-        pushdown(u);
+        // pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (l <= mid) modify(u << 1, l, r, k);
         if (r > mid) modify(u << 1 | 1, l, r, k);
         pushup(u);
     }
     Node query(int u, int l, int r) {
-        // debug1(u);
         if (tr[u].l >= l && tr[u].r <= r) return tr[u];
-        pushdown(u);
+        // pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (r <= mid) return query(u << 1, l, r);
         if (l > mid) return query(u << 1 | 1, l, r);

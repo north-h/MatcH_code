@@ -1,0 +1,58 @@
+[
+	{
+		"correct_answers":
+		[
+			"1"
+		],
+		"test": "35\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "369\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1"
+		],
+		"test": "6227384\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "11\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "123\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "246\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "24\n"
+	},
+	{
+		"correct_answers":
+		[
+			"-1"
+		],
+		"test": "14\n"
+	}
+]

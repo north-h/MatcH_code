@@ -17,51 +17,69 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define int long long
-const int N = 100010;
+const int N = 200010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int a[N], b[N], n, t[N];
-
-int inversion(int l, int r) {
-    if (l >= r) return 0;
-    int mid = l + r >> 1;
-    int res = inversion(l, mid) + inversion(mid + 1, r);
-    int i = l, j = mid + 1, k = 0;
-    while (i <= mid && j <= r) {
-        if (b[i] <= b[j]) t[k ++] = b[i ++];
-        else {
-            res += mid - i + 1;
-            t[k ++] = b[j ++];
-        }
+template <class T>
+struct BIT {
+    vector<T> sum1, sum2;
+    int n;
+    BIT(int N) {
+        n = N;
+        sum1.resize(n + 1);
+        sum2.resize(n + 1);
     }
-    while (i <= mid) t[k ++] = b[i ++];
-    while (j <= r) t[k ++] = b[j ++];
-    for (int i = l, j = 0; i <= r; i++, j++) b[i] = t[j];
-    return res;
+    void add(int x, T k) {
+        for (int i = x; i <= n; i += (i & -i))
+            sum1[i] += k, sum2[i] += x * k;
+    }
+    void range_add(int l, int r, T x) {
+        add(l, x), add(r + 1, -x);
+    }
+    T query(int x) {
+        T res = 0;
+        for (int i = x; i > 0; i -= (i & -i))
+            res += (x + 1) * sum1[i] - sum2[i];
+        return res;
+    }
+    T range_query(int l, int r) {
+        return query(r) - query(l - 1);
+
+    }
+};
+
+BIT<int> bit(N + 1);
+
+int get(vector<int> a) {
+    int mx = *max_element(a.begin() + 1, a.end());
+    int cv = 0;
+    for (int i = 1; i < a.size(); i ++) {
+        cv += bit.range_query(a[i] + 1, N);
+        bit.range_add(a[i], a[i], 1);
+    }
+    for (int i = 1; i < a.size(); i ++) {
+        bit.range_add(a[i], a[i], -1);
+    }
+    return cv;
 }
 
 void solve() {
-    cin >> n;
+    int n; cin >> n;
+    vector<int> a(n + 1), b(n + 1);
+    map<int, int> aa, bb;
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
+        aa[a[i]] ++;
     }
-    for (int j = 1; j <= n; j ++) {
-        cin >> b[j];
-    }
-    a[0] = b[0] = 0;
-    sort(a + 1, a + n + 1);
-    int cnt = inversion(1, n);
-    debug1(cnt);
-    for (int i = 1; i <= n; i ++) cout << b[i] << ' ';
-    cout << '\n';
-    bool f = true;
     for (int i = 1; i <= n; i ++) {
-        if (a[i] != b[i]) f = false;
+        cin >> b[i];
+        bb[b[i]] ++;
     }
-    if (!f || cnt % 2) cout << "NO\n";
-    else cout << "YES\n";
+
+    if (get(a) % 2 == get(b) % 2 && aa == bb) cout << "YES\n";
+    else cout << "NO\n";
 }
 
 int32_t main() {

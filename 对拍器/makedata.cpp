@@ -9,23 +9,31 @@ void makedata()
 {
     ofstream fout("input.txt");
 //	srand(time(0));
-    int n = rand() % 20 + 1;
-	int m = rand() % 20 + 1;
-	int k = 2;
-    fout << n << ' ' << m << ' ' << k << '\n';
-	int b, e;
-//	while (true) {
-	b = rand() % n, e = rand() % m;
-//		if (max((n + b - 1) / b, (m + e - 1) / e) <= k * 3) break;
-//	}
-	fout << b << ' ' << e << '\n';
-	for (int i = 1; i <= 4; i ++){
-		int x = rand() % 10, y = rand() % 10;
-		fout << x << ' ' << y << '\n';
+	srand((unsigned int)time(0));
+    int n = rand() % 5 + 1;
+	int m = rand() % 4 + 1;
+	// int k = 2;
+    fout << n << ' ' << m << '\n';
+	for (int i = 1; i <= n; i ++) {
+		int x = rand() % 10;
+		fout << x << ' ';
 	}
-	for (int i = 1; i <= k; i ++) {
-		int x = rand() % 10, y = rand() % 10;
-		fout << x << ' ' << y << '\n';
+	fout << '\n';
+	for (int i = 1; i <= m; i ++) {
+		int op, l, r, x;
+		op = rand() % 4 + 1;
+		l = rand() % n + 1;
+		r = rand() % n + 1;
+		if (l > r) {
+			i --;
+			continue;
+		}
+		if (op == 4 || op == 3) {
+			x = rand() % 2 + 1;
+			fout << op << ' ' << l <<' ' << r << ' ' << x << '\n';
+		} else {
+			fout << op << ' ' << l << ' ' << r << '\n';
+		}
 	}
     fout.close();
 }

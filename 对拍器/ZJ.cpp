@@ -1,73 +1,99 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
+#define int long long
+#define N 10002
+#define LD (o<<1)
+#define RD (o<<1|1)
+#define INF 0x7fffffff
+struct Node{
+    int l,r;
+    int sum,sum2;
+    int add,mul;
+};
+int n;
+struct Tree{
+    Node t[N<<2];
+    int a[N];
+    inline void pushup(Node &o,Node &ld,Node &rd){
+        o.sum=ld.sum+rd.sum;
+        o.sum2=ld.sum2+rd.sum2;
+    }
+    inline void fix(Node &o,int add,int mul){
+        int len=o.r-o.l+1;
+        o.sum2=len*add*add+2*add*mul*o.sum+mul*mul*o.sum2;
+        o.sum=add*len+mul*o.sum;
 
-using i64 = long long;
+        o.add=add+mul*o.add;
+        o.mul=mul*o.mul;
 
-double calc(array<int, 2> &x, array<int, 2> &y) {
-	return sqrt(1.0 * (x[0] - y[0]) * (x[0] - y[0]) + (x[1] - y[1]) * (x[1] - y[1]));
-}
+    }
+    inline void pushdown(Node &o,Node &ld,Node &rd){
+        fix(ld,o.add,o.mul);
+        fix(rd,o.add,o.mul);
+        o.add=0;
+        o.mul=1;
+    }
+    void build(int o,int l,int r){
+        t[o].l=l;t[o].r=r;t[o].add=0,t[o].mul=1;
+        if(l==r){t[o]={l,r,a[l],a[l]*a[l],0,1};return;}
+        int mid=(l+r)>>1;
+        build(LD,l,mid);
+        build(RD,mid+1,r);
+        pushup(t[o],t[LD],t[RD]);
+    }
+    void update(int o,int l,int r,int add,int mul){
+        if(l<=t[o].l&&t[o].r<=r){
+            fix(t[o],add,mul);
+            return;
+        }
+        pushdown(t[o],t[LD],t[RD]);
+        int mid=(t[o].l+t[o].r)>>1;
+        if(mid>=l)update(LD,l,r,add,mul);
+        if(mid<r)update(RD,l,r,add,mul);
+        pushup(t[o],t[LD],t[RD]);
+    }
+    int query(int o,int l,int r,int op){
+        if(l<=t[o].l&&t[o].r<=r) {
+            if(op==1){
+                return t[o].sum;
+            }
+            else return t[o].sum2;
+        }
+        pushdown(t[o],t[LD],t[RD]);
+        int ans=0,mid=(t[o].l+t[o].r)>>1;
+        if(mid>=l)ans+=query(LD,l,r,op);
+        if(mid<r)ans+=query(RD,l,r,op);
+        pushup(t[o],t[LD],t[RD]);
+        return ans;
+    }
+}A;
+signed main(){
+    int q;
+    cin>>n>>q;
+    for(int i=1;i<=n;i++)cin>>A.a[i];
+    A.build(1,1,n);
+    int ans=0;
+    while(q--){
+        int op,l,r,x;
+        cin>>op;
+        if(op==1){
+            cin>>l>>r;
+            cout<<A.query(1,l,r,1)<<endl;
+        }
+        else if(op==2){
+            cin>>l>>r;
+            cout<<A.query(1,l,r,2)<<endl;
+        }
+        else if(op==3){
+            cin>>l>>r>>x;
+            A.update(1,l,r,0,x);
+        }
+        else{
+            cin>>l>>r>>x;
+            A.update(1,l,r,x,1);
+        }
+    }
 
-int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(nullptr);
-	
-	int n, m, k;
-	cin >> n >> m >> k;
-	
-	int b, e;
-	cin >> b >> e;
-	
-	vector<array<int, 2>> loc(4), Stu(k);
-	for (auto &[x, y] : loc)
-		cin >> x >> y;
-	for (auto &[x, y] : Stu)
-		cin >> x >> y;
-	
-	vector<vector<int>> lu{
-		{3},
-		{0, 3}, {1, 3}, {2, 3},
-		{0, 1, 3}, {0, 2, 3},
-		{1, 0, 3}, {1, 2, 3},
-		{2, 0, 3}, {2, 1, 3},
-		{0, 1, 2, 3}, {0, 2, 1, 3},
-		{1, 0, 2, 3}, {1, 2, 0, 3},
-		{2, 0, 1, 3}, {2, 1, 0, 3},
-	};
-	int idx = 0;
-	vector res(k, vector<double>(4, 1e11));
-	for (auto &pos : Stu) {
-		for (int i = 0; i < 16; i ++) {
-			double sum = 0;
-			auto last = pos;
-			int s = lu[i].size() - 1;
-			for (auto j : lu[i]) {
-				sum += calc(last, loc[j]);
-				last = loc[j];
-			}
-			res[idx][s] = min(res[idx][s], sum);
-		}
-		idx ++;
-	}
-	
-	for (int i = 0; i < k; i ++) {
-		for (int j = 1; j <= 3; j ++) {
-			cout << res[i][j] << ' ';
-		}
-		cout << '\n';
-	}
-	
-	const int need = max((n + b - 1) / b, (m + e - 1) / e);
-	
-	vector<double> dp(need + 1, 1e9);
-	dp[0] = 0;
-	for (int i = 0; i < res.size(); i ++) {
-		for (int k = need; k >= 1; k --)  
-			for (int j = 0; j <= min(3, k); j ++)
-				dp[k] = min(dp[k], dp[k - j] + res[i][j]);
-	}
-	
-	printf("%.10lf\n", dp[need]);
-	
-	return 0;
+
+    return 0;
 }
