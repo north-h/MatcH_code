@@ -1,110 +1,89 @@
-/*
- * ==================================================================================
- * Author:  north_h
- * Time:    2024-05-10 09:20:29
- *
- * Problem: P4513 小白逛公园
- * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P4513
- * MemoryL: 128 MB
- * TimeL:   1000 ms
- * ==================================================================================
- */
-
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+#define int long long
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
-// #define LOCAL
-const int N = 100010;
+const int N = 200010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
-using ll = long long;
-
-template <class T>
-struct Seg {
-    struct Node { int l, r; T lazy, mx, lmx, rmx, sum; };
-    vector<Node> tr; vector<T> a; int n;
-    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n); }
-    void pushup(int u) {
-        tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
-    }
-    Node merge(Node t, Node l, Node r) {
-        t.lmx = max(l.lmx, l.sum + r.lmx);
-        t.rmx = max(r.rmx, r.sum + l.rmx);
-        t.sum = l.sum + r.sum;
-        t.mx = max(max(l.mx, r.mx), l.rmx + r.lmx);
-        return t;
-    }
-    void calc(Node &u, int lazy) {
-        // if (!lazy)return ;
-        u.lazy = u.mx = u.lmx = u.rmx = u.sum = lazy;
-    }
-    void pushdown(int u) {
-        auto [_1, _2, lazy, _3, _4, _5, _6] = tr[u];
-        calc(tr[u << 1], lazy);
-        calc(tr[u << 1 | 1], lazy);
-        tr[u].lazy = 0;
-    }
-    void build(int u, int l, int r) {
-        tr[u] = {l, r, 0, a[l], a[l], a[l], a[l]};
-        if (l >= r) return;
-        int mid = l + r >> 1;
-        // pushdown(u);
-        build(u << 1, l, mid);
-        build(u << 1 | 1, mid + 1, r);
-        pushup(u);
-    }
-    void modify(int u, int l, int r, T k) {
-        if (tr[u].l >= l && tr[u].r <= r) {
-            calc(tr[u], k);
-            return;
-        }
-        // pushdown(u);
-        int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid) modify(u << 1, l, r, k);
-        if (r > mid) modify(u << 1 | 1, l, r, k);
-        pushup(u);
-    }
-    Node query(int u, int l, int r) {
-        if (tr[u].l >= l && tr[u].r <= r) return tr[u];
-        // pushdown(u);
-        int mid = tr[u].l + tr[u].r >> 1;
-        if (r <= mid) return query(u << 1, l, r);
-        if (l > mid) return query(u << 1 | 1, l, r);
-        Node t = merge(t, query(u << 1, l, r), query(u << 1 | 1, l, r));
-        return t;
-    }
-};
 
 void solve() {
-    int n, m; cin >> n >> m;
-    Seg<ll> sg(n);
-    for (int i = 1, x; i <= n; i ++) {
-        cin >> sg.a[i];
+    int n, m, sq;
+    cin >> n >> m;
+    sq = sqrt(n);
+    vector<int> a(n + 1), st(sq + 1), ed(sq + 1), sum(sq + 1), mk(sq + 1), sz(sq + 1), belong(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i <= sq; i ++) {
+        st[i] = n / sq * (i - 1) + 1;
+        ed[i] = n / sq * i;
     }
-    sg.build(1, 1, n);
+    ed[sq] = n;
+    for (int i = 1; i <= sq; i ++) {
+        for (int j = st[i]; j <= ed[i]; j ++) {
+            sum[i] += a[j];
+            belong[j] = i;
+        }
+    }
+    for (int i = 1; i <= sq; i ++) {
+        sz[i] = ed[i] - st[i] + 1;
+    }
+    auto modify = [&] (int l, int r, int k) -> void{
+        if (belong[l] == belong[r]) {
+            for (int i = l; i <= r; i ++) {
+                a[i] += k;
+                sum[belong[i]] += k;
+            }
+            return ;
+        }
+        for (int i = l; i <= ed[belong[l]]; i ++) {
+            a[i] += k;
+            sum[belong[i]] += k;
+        }
+        for (int i = st[belong[r]]; i <= r; i ++) {
+            a[i] += k;
+            sum[belong[i]] += k;
+        }
+        for (int i = belong[l] + 1; i < belong[r]; i ++) {
+            mk[i] += k;
+        }
+    };
+
+    auto query = [&] (int l, int r) -> int {
+        int res = 0;
+        if (belong[l] == belong[r]) {
+            for (int i = l; i <= r; i ++) {
+                res += a[i] + mk[belong[i]];
+            }
+            return res;
+        }
+        for (int i = l; i <= ed[belong[l]]; i ++) {
+            res += a[i] + mk[belong[i]];
+        }
+        for (int i = st[belong[r]]; i <= r; i ++) {
+            res += a[i] + mk[belong[i]];
+        }
+        for (int i = belong[l] + 1; i < belong[r]; i ++) {
+            res += sum[i] + mk[i] * sz[i];
+        }
+        return res;
+    };
     while (m --) {
-        int op; cin >> op;
-        // debug1(op);
+        int op, x, y;
+        cin >> op >> x >> y;
         if (op == 1) {
-            int l, r; cin >> l >> r;
-            if (l > r) swap(l, r);
-            cout << sg.query(1, l, r).mx << '\n';
+            int k;
+            cin >> k;
+            modify(x, y, k);
         } else {
-            int x, k; cin >> x >> k;
-            sg.modify(1, x, x, k);
+            cout << query(x, y) << endl;
         }
     }
 }
 
+
 int32_t main() {
-#ifdef LOCAL
-    freopen("data.in", "r", stdin);
-    freopen("data.out", "w", stdout);
-#endif
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
     // cin >> h_h;

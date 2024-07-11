@@ -8,6 +8,7 @@ const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
+int n, m, p;
 
 template<class T>
 struct Seg {
@@ -15,18 +16,25 @@ struct Seg {
     vector<Node> tr; vector<T> a; int N;
     Seg(int n) { int N = n + 1; tr.resize(N * 4); a.resize(N); }
     Node merge(Node u, Node ls, Node rs) {
-        u.sum1 = ls.sum1 + rs.sum1;
-        u.sum2 = ls.sum2 + rs.sum2;
+        u.sum2 = (ls.sum1 * rs.sum1 % p + ls.sum2 + rs.sum2) % p;
+        u.sum1 = (ls.sum1 + rs.sum1) % p;
         return u;
     }
     void calc(Node &u, int add, int mul) {
         int lvl = u.r - u.l + 1;
-        int mul2 = mul * mul;
-        int add2 = add * add;
-        u.sum2 = u.sum2 * mul2 + 2 * u.sum1 * add * mul + lvl * add2;
-        u.sum1 = u.sum1 * mul + lvl * add;
-        u.add = u.add * mul + add;
-        u.mul = u.mul * mul;
+        int mul2 = mul * mul % p;
+        int add2 = add * add % p;
+        if (lvl != 1) {
+            int cnt = lvl * (lvl - 1) / 2;
+            u.sum2 = u.sum2 * mul2 % p + (lvl - 1) * u.sum1 % p * add % p * mul % p + cnt % p * add2 % p;
+            u.sum2 %= p;
+        }
+        u.sum1 = u.sum1 * mul % p + lvl * add % p;
+        u.sum1 %= p;
+        u.add = u.add * mul % p + add;
+        u.add %= p;
+        u.mul = u.mul * mul % p;
+        u, mul %= p;
     }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
@@ -39,7 +47,7 @@ struct Seg {
         tr[u].add = 0;
     }
     void build(int u, int l, int r) {
-        tr[u] = {l, r, 0, 1, a[l], a[l] * a[l]};
+        tr[u] = {l, r, 0, 1, a[l], 0};
         if (l == r) return ;
         int mid = l + r >> 1;
         build(u << 1, l, mid);
@@ -69,34 +77,40 @@ struct Seg {
     }
 };
 
-
 void solve() {
-    int n, m; cin >> n >> m;
-    Seg<int> sg(n + 1);
+    cin >> n >> m >> p;
+    Seg<int> seg(n + 1);
     for (int i = 1; i <= n; i ++) {
-        cin >> sg.a[i];
+        cin >> seg.a[i];
     }
-    sg.build(1, 1, n);
-    for (int i = 1; i <= 9; i ++)
-        cout << sg.tr[i].l << ' ' << sg.tr[i].r << ' ' << sg.tr[i].sum1 << ' ' << sg.tr[i].sum2 << '\n';
+    seg.build(1, 1, n);
+    // for (int i = 1; i <= 9; i ++)
+    //     cout << seg.tr[i].l << ' ' << seg.tr[i].r << ' ' << seg.tr[i].sum1 << ' ' << seg.tr[i].sum2 << '\n';
+    // for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i).sum1 << " \n"[i == n];
+    // for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i).sum2 << " \n"[i == n];
+    // cout << seg.query(1, 1, n).sum2 << '\n';
     while (m --) {
-        int op, l, r, x; cin >> op >> l >> r;
-        if (op == 1) cout << sg.query(1, l, r).sum1 << '\n';
-        else if (op == 2) cout << sg.query(1, l, r).sum2 << '\n';
-        else if (op == 3) {
-            cin >> x;
-            sg.modify(1, l, r, 0, x);
-        } else {
-            cin >> x;
-            sg.modify(1, l, r, x, 1);
-        }
+        int op, l, r, v; cin >> op >> l >> r;
+        if (op == 1) {
+            cin >> v;
+            seg.modify(1, l, r, v, 1);
+        } else if (op == 2) {
+            cin >> v;
+            seg.modify(1, l, r, 0, v);
+        } else cout << seg.query(1, l, r).sum2 << '\n';
+        // cout << seg.query(1, 1, n).sum2 << '\n';
+        // for (int i = 1; i <= 9; i ++)
+        //     cout << seg.tr[i].l << ' ' << seg.tr[i].r << ' ' << seg.tr[i].sum1 << ' ' << seg.tr[i].sum2 << '\n';
+        // for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i).sum1 << " \n"[i == n];
+        // for (int i = 1; i <= n; i ++) cout << seg.query(1, i, i).sum2 << " \n"[i == n];
+        // cout << "------------------" << '\n';
     }
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
