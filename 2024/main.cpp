@@ -1,79 +1,79 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
 #define int long long
-const int N = 100010;
-const int INF = 0x3f3f3f3f;
-
 using namespace std;
+const int N = 5e5 + 7;
 
-void solve() {
-    int n; cin >> n;
-    map<string, vector<string>> g;
-    set<string> st;
-    for (int i = 1; i <= n; i ++) {
-        string a, b, c , d;
-        cin >> a >> b >> c >> d;
-        string s1 = a + b, s2 = c + d;
-        g[s1].push_back(s2);
-        // g[s2].push_back(s1);
-        st.insert(s1);
-        st.insert(s2);
-    }
-    // for (auto [x, y] : g) {
-    //     cout << x << ':';
-    //     for (auto j : y) cout << j << ' ';
-    //     cout << '\n';
-    // }
-    bool ok;
-    vector<string> ans;
-    map<string, int> mp;
-    vector<vector<string>> ca;
-    auto dfs = [&](auto && dfs, string s) -> void {
-        // debug1(ans.size());
-        if (ans.size() > 1) {
-            string s1 = ans.front(), s2 = ans.back();
-            int n1 = s1.size(), n2 = s2.size();
-            if (n1 == n2 && s1.substr(0, n1 - 1) == s2.substr(0, n2 - 1) && s1.back() != s2.back()) {
-                ca.push_back(ans);
-                return ;
-            }
-        }
-        for (auto i : g[s]) {
-            ans.push_back(i);
-            mp[i] = 1;
-            dfs(dfs, i);
-            ans.pop_back();
-            mp[i] = 0;
-        }
-    };
-    for (auto i : st) {
-        vector<string>().swap(ans);
-        mp[i] = 1;
-        ans.push_back(i);
-        dfs(dfs, i);
-        ans.pop_back();
-        mp[i] = 0;
-    }
-    sort(ca.begin(), ca.end(), [&](vector<string> x, vector<string> y) {
-        return x.size() < y.size();
-    });
-    for (int i = 0; i < ca[0].size(); i ++) {
-        int n = ca[0].size() - 1;
-        cout << ca[0][i].substr(0, n - 1) << ' ' << ca[0][i].back() << ' ';
-    }
-    cout << "= ";
-    int nm = ca[0].front().size(), mn = ca[0].back().size();
-    cout << ca[0].front().substr(0, nm- 1) << ' ' << ca[0].back().back() << ' ';
-    cout << ca[0].back().substr(0, mn - 1) << ' ' << ca[0].back().back() << ' ';
+int a[N], n;
+
+struct info {
+    int ans1, la1, ra1, tot, ma1;
+    int ans2, la2, ra2, ma2, ans;
+};
+
+info operator + (const info &l, const info &r) {
+    info b;
+
+    b.tot = l.tot + r.tot;
+    b.la1 = max(l.la1, l.tot + r.la1);
+    b.ra1 = max(r.ra1, r.tot + l.ra1);
+    b.ma1 = max({l.ma1, r.ma1, l.ra1 + r.la1});
+    b.ans1 = max({l.ans1, r.ans1, b.tot, b.la1, b.ra1, b.ma1});
+
+    b.la2 = min(l.la2, l.tot + r.la2);
+    b.ra2 = min(r.ra2, r.tot + l.ra2);
+    b.ma2 = min({l.ma2, r.ma2, l.ra2 + r.la2});
+    b.ans2 = min({l.ans2, r.ans2, b.tot, b.la2, b.ra2, b.ma2});
+
+    return b;
 }
 
+struct node {
+    info s;
+} seg[N * 4];
+
+void update(int id) {
+    seg[id].s = seg[2 * id].s + seg[2 * id + 1].s;
+}
+
+void build(int id, int l, int r) {
+    if (l == r) {
+        seg[id].s = {a[l], a[l], a[l], a[l], a[l], a[l], a[l], a[l], a[l], a[l]};
+    } else {
+        int mid = (l + r) / 2;
+        build(id * 2, l, mid);
+        build(id * 2 + 1, mid + 1, r);
+        update(id);
+    }
+}
+
+info query(int id, int l, int r, int ql, int qr) {
+    if (l == ql && r == qr) {
+        return seg[id].s;
+    }
+    int mid = (l + r) / 2;
+    if (qr <= mid) {
+        return query(id * 2, l, mid, ql, qr);
+    } else if (ql > mid) {
+        return query(id * 2 + 1, mid + 1, r, ql, qr);
+    } else {
+        return query(id * 2, l, mid, ql, mid) + query(id * 2 + 1, mid + 1, r, mid + 1, qr);
+    }
+}
 int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    build(1, 1, n);
+    int q;
+    cin >> q;
+    while (q--) {
+        int l, r;
+        cin >> l >> r;
+        cout << max(query(1, 1, n, l, r).ans1, abs(query(1, 1, n, l, r).ans2)) << "\n";
+    }
     return 0;
 }

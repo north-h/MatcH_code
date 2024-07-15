@@ -1,0 +1,45 @@
+[
+	{
+		"correct_answers":
+		[
+			"1\n1\n3\n1 2 3 \n4\n6 10 12 14 \n5\n7 19 21 22 23",
+			"1\n1\n3\n1 2 3\n4\n4 10 12 14\n5\n7 18 21 22 23"
+		],
+		"test": "4\n1\n3\n14\n23\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1\n2"
+		],
+		"test": "1\n2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1\n8"
+		],
+		"test": "1\n8\n"
+	},
+	{
+		"correct_answers":
+		[
+			"3\n1 2 3"
+		],
+		"test": "1\n3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1\n16"
+		],
+		"test": "1\n16\n"
+	},
+	{
+		"correct_answers":
+		[
+			"1\n4"
+		],
+		"test": "1\n4\n"
+	}
+]
