@@ -1,72 +1,46 @@
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <cassert>
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <vector>
-#include <list>
-#include <stack>
-#include <queue>
-#include <deque>
-#include <set>
-#include <map>
-#include <tuple>
-#include <iterator>
+#include <bits/stdc++.h>
 
-using namespace std;
+using i64 = long long;
 
-int arr[200010];
-long long sum[200010];
-
-inline long long cal(long long a, long long b, long long c, long long d)
-{
-    return max({ a, b, c, d }) - min({ a, b, c, d });
+int luckiness(i64 x) {
+    auto s = std::to_string(x);
+    auto [pmin, pmax] = std::minmax_element(s.begin(), s.end());
+    return *pmax - *pmin;
 }
 
-int main()
-{
-    //freopen("in", "r", stdin);
-    //freopen("out", "w", stdout);
-
-    int n, i;
-    scanf("%d", &n);
-    for (i = 1; i <= n; i++)
-        scanf("%d", &arr[i]);
-
-    for (i = 1; i <= n; i++)
-        sum[i] = sum[i - 1] + arr[i];
-
-    int p, q;
-    p = 1;
-    q = 3;
-    for (i = 3; i <= n - 1; i++)
-        if (abs(sum[n] - sum[i] - (sum[i] - sum[2])) <= abs(sum[n] - sum[q] - (sum[q] - sum[2])))
-            q = i;
-
-    long long res = cal(arr[1], arr[2], sum[q] - sum[2], sum[n] - sum[q]);
-    for (i = 3; i <= n - 2; i++)
-    {
-        while (p < i - 1)
-        {
-            if (abs(sum[i] - sum[p + 1] - (sum[p + 1] - sum[0])) <= abs(sum[i] - sum[p] - (sum[p] - sum[0])))
-                p++;
-            else
-                break;
+void solve() {
+    i64 l, r;
+    std::cin >> l >> r;
+    
+    i64 ans = l;
+    i64 p = 1;
+    for (int i = 0; i <= 18; i++) {
+        for (int x = 0; x < 10; x++) {
+            i64 v = l / p * p + (p - 1) / 9 * x;
+            if (l <= v && v <= r && luckiness(v) < luckiness(ans)) {
+                ans = v;
+            }
+            v = r / p * p + (p - 1) / 9 * x;
+            if (l <= v && v <= r && luckiness(v) < luckiness(ans)) {
+                ans = v;
+            }
         }
-
-        while (q < n - 1)
-        {
-            if (abs(sum[n] - sum[q + 1] - (sum[q + 1] - sum[i])) <= abs(sum[n] - sum[q] - (sum[q] - sum[i])))
-                q++;
-            else
-                break;
-        }
-
-        res = min(cal(sum[p], sum[i] - sum[p], sum[q] - sum[i], sum[n] - sum[q]), res);
+        p *= 10;
     }
+    
+    std::cout << ans << "\n";
+}
 
-    printf("%lld\n", res);
+int main() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    
+    int t = 1;
+    // std::cin >> t;
+    
+    while (t--) {
+        solve();
+    }
+    
     return 0;
 }

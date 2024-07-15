@@ -4,15 +4,12 @@ struct Seg {
     vector<Node> tr; vector<T> a; int N;
     Seg(int n) { int N = n + 1; tr.resize(N * 4); a.resize(N); }
     Node merge(Node u, Node ls, Node rs) {
-        u.mx = max(ls.mx, rs.sum);
+        u.mx = max(ls.mx, rs.mx);
         return u;
     }
     void calc(Node &u, int add, int mul) {
         int lvl = u.r - u.l + 1;
-        int mul2 = mul * mul;
-        int add2 = add * add;
-        u.sum2 = u.sum2 * mul2 + 2 * u.sum1 * add * mul + lvl * add2;
-        u.sum1 = u.sum1 * mul + lvl * add;
+        u.mx = u.mx * mul + lvl * add;
         u.add = u.add * mul + add;
         u.mul = u.mul * mul;
     }
@@ -27,7 +24,7 @@ struct Seg {
         tr[u].add = 0;
     }
     void build(int u, int l, int r) {
-        tr[u] = {l, r, 0, 1, a[l], a[l] * a[l]};
+        tr[u] = {l, r, 0, 1, a[l]};
         if (l == r) return ;
         int mid = l + r >> 1;
         build(u << 1, l, mid);

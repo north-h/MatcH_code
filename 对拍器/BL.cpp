@@ -1,106 +1,53 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
-#define int long long
-const int N = 100010;
-const int INF = 0x3f3f3f3f;
-
 using namespace std;
+using ll=long long;
+using ull=unsigned long long;
+using PII=pair<ll,ll>;
 
-void solve() {
-    int n; cin >> n;
-    vector<int> a(n + 1), s(n + 1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-        s[i] = s[i - 1] + a[i];
-    }
-    int avg = s[n] / 4;
-    // for (int i = 1; i <= n; i ++) cout << s[i] << " \n"[i == n];
-    // debug1(avg);
-    int ans = LLONG_MAX;
-    for (int i = 2; i <= n - 2; i ++) {
-        int l = 1, r = i - 1, ans1 = i - 1, ans2 = n - 1;
-        while (l <= r) {
-            int mid = l + r >> 1;
-            if (s[mid] >= avg) r = mid - 1, ans1 = mid;
-            else l = mid + 1;
-        }
-
-        l = i + 1, r = n - 1;
-        while (l <= r) {
-            int mid = l + r >> 1;
-            if (s[mid] - s[i] >= avg) r = mid - 1, ans2 = mid;
-            else l = mid + 1;
-        }
-        
-        int s1 = s[ans1], s2 = s[i] - s[ans1], s3 = s[ans2] - s[i], s4 = s[n] - s[ans2];
-        int mx = max({s1, s2, s3, s4});
-        int mn = min({s1, s2, s3, s4});
-        ans = min(ans, mx - mn);
-
-        if (ans1 != 1) {
-            s1 = s[ans1 - 1], s2 = s[i] - s[ans1 - 1], s3 = s[ans2] - s[i], s4 = s[n] - s[ans2];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-        if (ans2 != i + 1) {
-            s1 = s[ans1], s2 = s[i] - s[ans1], s3 = s[ans2 - 1] - s[i], s4 = s[n] - s[ans2 - 1];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-
-        if (ans1 != i - 1) {
-            s1 = s[ans1 + 1], s2 = s[i] - s[ans1 + 1], s3 = s[ans2] - s[i], s4 = s[n] - s[ans2];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-        if (ans2 != n - 1) {
-            s1 = s[ans1], s2 = s[i] - s[ans1], s3 = s[ans2 + 1] - s[i], s4 = s[n] - s[ans2 + 1];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-
-        if (ans1 != 1 && ans1 != i + 1) {
-            s1 = s[ans1 - 1], s2 = s[i] - s[ans1 - 1], s3 = s[ans2 - 1] - s[i], s4 = s[n] - s[ans2 - 1];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-
-        if (ans1 != i - 1 && ans1 != n - 1) {
-            s1 = s[ans1 + 1], s2 = s[i] - s[ans1 + 1], s3 = s[ans2 + 1] - s[i], s4 = s[n] - s[ans2 + 1];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-
-        if (ans1 != 1 && ans1 != n - 1) {
-            s1 = s[ans1 - 1], s2 = s[i] - s[ans1 - 1], s3 = s[ans2 + 1] - s[i], s4 = s[n] - s[ans2 + 1];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-
-        if (ans1 != i - 1 && ans1 != i + 1) {
-            s1 = s[ans1 + 1], s2 = s[i] - s[ans1 + 1], s3 = s[ans2 - 1] - s[i], s4 = s[n] - s[ans2 - 1];
-            mx = max({s1, s2, s3, s4});
-            mn = min({s1, s2, s3, s4});
-            ans = min(ans, mx - mn);
-        }
-    }
-    cout << ans << '\n';
+const int N=3e5+10,M=210;
+const int mod=1e9+7;
+ll n;
+ll con(int a,int b,ll x){
+	ll res=0;
+	vector<int>ve;
+	while(x) ve.push_back(x%10),x/=10;
+	ve.push_back(0);
+	reverse(ve.begin(),ve.end());
+	bool if1=0;
+	if(ve[1]>b) return LLONG_MAX;
+	for(int i=1,sz=ve.size();i<sz;i++){
+		if(if1){res=res*10+a; continue;}
+		int num=ve[i];
+		if(num<a) res=res*10+a,if1=1;
+		else{
+			if(i<sz-1 && ve[i+1]>b){
+				if(num<b) res=res*10+num+1,if1=1;
+				else return LLONG_MAX;
+			}else res=res*10+num;
+		}
+	}
+	return res;
 }
-
-int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
-    return 0;
+void solve(){
+	ll l,r; cin >> l >> r;
+	ll ans=0,di=10;
+	for(int i=0;i<=9;i++){
+		for(int j=i;j<=9;j++){
+			ll res=con(i,j,l);
+			if(res<=r && j-i<di) di=j-i,ans=res;
+//			cout << i << " " << j << " " << res << "\n";
+		}
+	}
+//	if(ans==22252554622222222){cout << 22252555555555555 << "\n"; return ;}
+	cout << ans << "\n";
+//	cout << di;
 }
+int main(){
+	ios::sync_with_stdio(0),cin.tie(0),cout.tie(0);
+	int O_o=1;
+	// cin >> O_o;
+	while(O_o--) solve();
+	return 0;
+}
+//make it count
+//开ll plz

@@ -1,0 +1,1 @@
+[{"test": "20 30 10\nBlue\n", "correct_answers": ["20"]}, {"test": "100 100 100\nRed\n", "correct_answers": ["100"]}, {"test": "37 39 93\nBlue\n", "correct_answers": ["37"]}]

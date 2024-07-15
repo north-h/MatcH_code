@@ -1,5 +1,5 @@
 [
 	{
-		"test": "5 3\n1\n2\n-3\n4\n5\n1 2 3\n2 2 -1\n1 2 3\n"
+		"test": "5\nYu 0 Yuci 0\nRou 1 Yu 1\nYuci 0 Rou 1\nYuci 0 Gutou 0\nGutou 0 Rou 0\n"
 	}
 ]

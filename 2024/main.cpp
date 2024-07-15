@@ -1,87 +1,74 @@
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define int long long
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
-const int N = 200010;
+#define int long long
+const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
 void solve() {
-    int n, m, sq;
-    cin >> n >> m;
-    sq = sqrt(n);
-    vector<int> a(n + 1), st(sq + 1), ed(sq + 1), sum(sq + 1), mk(sq + 1), sz(sq + 1), belong(n + 1);
-    for (int i = 1; i <= n; i ++) cin >> a[i];
-    for (int i = 1; i <= sq; i ++) {
-        st[i] = n / sq * (i - 1) + 1;
-        ed[i] = n / sq * i;
+    int n; cin >> n;
+    map<string, vector<string>> g;
+    set<string> st;
+    for (int i = 1; i <= n; i ++) {
+        string a, b, c , d;
+        cin >> a >> b >> c >> d;
+        string s1 = a + b, s2 = c + d;
+        g[s1].push_back(s2);
+        // g[s2].push_back(s1);
+        st.insert(s1);
+        st.insert(s2);
     }
-    ed[sq] = n;
-    for (int i = 1; i <= sq; i ++) {
-        for (int j = st[i]; j <= ed[i]; j ++) {
-            sum[i] += a[j];
-            belong[j] = i;
-        }
-    }
-    for (int i = 1; i <= sq; i ++) {
-        sz[i] = ed[i] - st[i] + 1;
-    }
-    auto modify = [&] (int l, int r, int k) -> void{
-        if (belong[l] == belong[r]) {
-            for (int i = l; i <= r; i ++) {
-                a[i] += k;
-                sum[belong[i]] += k;
+    // for (auto [x, y] : g) {
+    //     cout << x << ':';
+    //     for (auto j : y) cout << j << ' ';
+    //     cout << '\n';
+    // }
+    bool ok;
+    vector<string> ans;
+    map<string, int> mp;
+    vector<vector<string>> ca;
+    auto dfs = [&](auto && dfs, string s) -> void {
+        // debug1(ans.size());
+        if (ans.size() > 1) {
+            string s1 = ans.front(), s2 = ans.back();
+            int n1 = s1.size(), n2 = s2.size();
+            if (n1 == n2 && s1.substr(0, n1 - 1) == s2.substr(0, n2 - 1) && s1.back() != s2.back()) {
+                ca.push_back(ans);
+                return ;
             }
-            return ;
         }
-        for (int i = l; i <= ed[belong[l]]; i ++) {
-            a[i] += k;
-            sum[belong[i]] += k;
-        }
-        for (int i = st[belong[r]]; i <= r; i ++) {
-            a[i] += k;
-            sum[belong[i]] += k;
-        }
-        for (int i = belong[l] + 1; i < belong[r]; i ++) {
-            mk[i] += k;
+        for (auto i : g[s]) {
+            ans.push_back(i);
+            mp[i] = 1;
+            dfs(dfs, i);
+            ans.pop_back();
+            mp[i] = 0;
         }
     };
-
-    auto query = [&] (int l, int r) -> int {
-        int res = 0;
-        if (belong[l] == belong[r]) {
-            for (int i = l; i <= r; i ++) {
-                res += a[i] + mk[belong[i]];
-            }
-            return res;
-        }
-        for (int i = l; i <= ed[belong[l]]; i ++) {
-            res += a[i] + mk[belong[i]];
-        }
-        for (int i = st[belong[r]]; i <= r; i ++) {
-            res += a[i] + mk[belong[i]];
-        }
-        for (int i = belong[l] + 1; i < belong[r]; i ++) {
-            res += sum[i] + mk[i] * sz[i];
-        }
-        return res;
-    };
-    while (m --) {
-        int op, x, y;
-        cin >> op >> x >> y;
-        if (op == 1) {
-            int k;
-            cin >> k;
-            modify(x, y, k);
-        } else {
-            cout << query(x, y) << endl;
-        }
+    for (auto i : st) {
+        vector<string>().swap(ans);
+        mp[i] = 1;
+        ans.push_back(i);
+        dfs(dfs, i);
+        ans.pop_back();
+        mp[i] = 0;
     }
+    sort(ca.begin(), ca.end(), [&](vector<string> x, vector<string> y) {
+        return x.size() < y.size();
+    });
+    for (int i = 0; i < ca[0].size(); i ++) {
+        int n = ca[0].size() - 1;
+        cout << ca[0][i].substr(0, n - 1) << ' ' << ca[0][i].back() << ' ';
+    }
+    cout << "= ";
+    int nm = ca[0].front().size(), mn = ca[0].back().size();
+    cout << ca[0].front().substr(0, nm- 1) << ' ' << ca[0].back().back() << ' ';
+    cout << ca[0].back().substr(0, mn - 1) << ' ' << ca[0].back().back() << ' ';
 }
-
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);

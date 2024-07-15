@@ -14,7 +14,6 @@ struct Seg {
         return t;
     }
     void calc(Node &u, int lazy) {
-        // if (!lazy)return ;
         u.lazy = u.mx = u.lmx = u.rmx = u.sum = lazy;
     }
     void pushdown(int u) {
@@ -27,7 +26,6 @@ struct Seg {
         tr[u] = {l, r, 0, a[l], a[l], a[l], a[l]};
         if (l >= r) return;
         int mid = l + r >> 1;
-        // pushdown(u);
         build(u << 1, l, mid);
         build(u << 1 | 1, mid + 1, r);
         pushup(u);
@@ -37,7 +35,6 @@ struct Seg {
             calc(tr[u], k);
             return;
         }
-        // pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (l <= mid) modify(u << 1, l, r, k);
         if (r > mid) modify(u << 1 | 1, l, r, k);
@@ -45,7 +42,6 @@ struct Seg {
     }
     Node query(int u, int l, int r) {
         if (tr[u].l >= l && tr[u].r <= r) return tr[u];
-        // pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
         if (r <= mid) return query(u << 1, l, r);
         if (l > mid) return query(u << 1 | 1, l, r);
