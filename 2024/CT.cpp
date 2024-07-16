@@ -6,110 +6,84 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define LOCAL
+#define int long long
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
-using ll = long long;
-using PII =  pair<int, int>;
 
 void solve() {
-    int n; cin >> n;
-    if (n == 0) cout << '#' << '\n';
-    if (n == 1) {
-        cout << "###\n" << "#.#\n" << "###\n";
-    } else {
-        int m = pow(3, n);
-        // debug1(m);
-        vector<vector<char>> g(m + 1, vector<char> (m + 1, '#'));
-        // for (int i = 1; i <= m; i ++) {
-        //     for (int j = 1; j <= m; j ++) {
-        //         cout << g[i][j] << ' ';
-        //     }
-        //     cout << '\n';
-        // }
-        for (int i = 2; i <= m; i += 3) {
-            for (int j = 2; j <= m; j += 3) {
-                g[i][j] = '.';
+    int n, k; cin >> n >> k;
+    vector<int> p(n + 1), c(n + 1);
+    int ans = LLONG_MIN;
+    for (int i = 1; i <= n; i ++) cin >> p[i];
+    for (int i = 1; i <= n; i ++) {
+        cin >> c[i];
+        ans = max(ans, c[i]);
+    }
+    vector<int> vis(n + 1);
+    map<int, vector<int>> mp;
+    int idx = 1;
+    for (int i = 1; i <= n; i ++) {
+        if (vis[i]) continue;
+        int j = i;
+        mp[idx].push_back(0);
+        while (!vis[j]) {
+            vis[j] = 1;
+            j = p[j];
+            mp[idx].push_back(c[j]);
+        }
+        idx ++;
+    }
+    // for (auto &[x, y] : mp) {
+    //     cout << x << ':';
+    //     for (auto j : y) cout << j << ' ';
+    //     cout << '\n';
+    // }
+    map<int, int> up;
+    for (auto &[x, y] : mp) {
+        // cout << x << ':';
+        int m = y.size();
+        up[x] = y.size() - 1;
+        for (int j = 1; j < m; j ++) y.push_back(y[j]);
+        for (int j = 1; j < (int)y.size(); j ++) y[j] += y[j - 1];
+        // for (auto j : y) cout << j << ' ';
+        // cout << '\n';
+    }
+    for (auto [x, y] : mp) {
+        int mn = up[x];
+        for (int len = 1; len <= min(mn - 1, k); len ++) {
+            for (int j = 1; j + len - 1 < (int)y.size(); j ++) {
+                int val = y[j + len - 1] - y[j - 1];
+                ans = max(val, ans);
             }
         }
-        for (int i = 4; i <= m; i += 9) {
-            for (int j = 4; j <= m; j += 9) {
-                for (int x = i; x < i + 3; x ++) {
-                    for (int y = j; y < j + 3; y ++) {
-                        g[x][y] = '.';
-                    }
+        // debug2(ans, mn);
+        if (k >= mn) {
+            int c1 = y[mn], c2 = LLONG_MIN;
+            int v1 = k / mn, v2 = k % mn;
+            for (int j = 1; j + v2 - 1 < (int)y.size(); j ++) {
+                c2 = max(c2, y[j + v2 - 1] - y[j - 1]);
+            }
+            int T = 0;
+            for (int len = 1; len <= mn; len ++) {
+                for (int j = 1; j + len - 1 < (int)y.size(); j ++) {
+                    int vl = y[j + len - 1] - y[j - 1];
+                    int vi = y[mn] - vl;
+                    // debug2(vi, vl);
+                    T = max(T, max(vi, vl));
                 }
             }
-        }
-
-        if (n >= 4) {
-            for (int i = 10; i <= m; i += 27) {
-                for (int j = 10; j <= m; j += 27) {
-                    // debug2(i, j);
-                    // g[i][j] = '.';
-                    for (int x = i; x < i + 9; x ++) {
-                        for (int y = j; y < j + 9; y ++) {
-                            g[x][y] = '.';
-                            // debug2(x, y);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (n >= 5) {
-            for (int i = 28; i <= m; i += 81) {
-                for (int j = 28; j <= m; j += 81) {
-                    // debug2(i, j);
-                    // g[i][j] = '.';
-                    for (int x = i; x < i + 27; x ++) {
-                        for (int y = j; y < j + 27; y ++) {
-                            g[x][y] = '.';
-                            // debug2(x, y);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (n >= 6) {
-            for (int i = 82; i <= m; i += 243) {
-                for (int j = 82; j <= m; j += 243) {
-                    // debug2(i, j);
-                    // g[i][j] = '.';
-                    for (int x = i; x < i + 81; x ++) {
-                        for (int y = j; y < j + 81; y ++) {
-                            g[x][y] = '.';
-                            // debug2(x, y);
-                        }
-                    }
-                }
-            }
-        }
-        // for (int i = 4; i <= m; i += 6) {
-        //     for (int j = 4; j <= m; j += 6) {
-        //         for (int x = i; x <= i + 3; x ++) {
-        //             for (int y = j; j <= i + 3; y ++) {
-        //                 g[i][j] = '.';
-        //             }
-        //         }
-        //     }
-        // }
-        int x = pow(3, n - 1);
-        // debug2(x, m);
-        for (int i = x + 1; i <= x + x; i ++) {
-            for (int j = x + 1; j <= x + x; j ++) {
-                g[i][j] = '.';
-            }
-        }
-        for (int i = 1; i <= m; i ++) {
-            for (int j = 1; j <= m; j ++) {
-                cout << g[i][j];
-            }
-            cout << '\n';
+            // debug2(c1, c2);
+            // debug2(v1, v2);
+            // debug1(T);
+            int res;
+            if (c2 == 0 && v1 > 1) res = c1 * (v1 - 1) + T;
+            else res = c1 * v1 + c2;
+            ans = max(ans, res);
         }
     }
+    cout << ans << '\n';
 }
 
 int32_t main() {

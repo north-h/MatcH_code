@@ -26,7 +26,7 @@ void solve() {
     queue<int> q;
     vector<int> vis(n + 1);
     for (int i = 1; i <= n; i ++) {
-        if (d[i] == 1) { 
+        if (d[i] == 1) {
             q.push(i);
             vis[i] = 1;
         }
@@ -53,28 +53,25 @@ void solve() {
     bool ok = true;
     int c = 0, C = 0;
     vector<int> vi(n + 1);
-    auto dfs = [&](auto &dfs, int u) -> void {
+    auto dfs = [&](auto & dfs, int u) -> void {
         vi[u] ++;
+        if (d[u] != 2) ok = false;
         for (auto v : g[u]) {
             if (vi[v] || vis[v]) continue;
             dfs(dfs, v);
         }
     };
-    int cv = 0;
     for (int i = 1; i <= n; i ++) {
         if (d[i] == 2) {
             c ++;
             if (!vi[i]) {
+                ok = true;
                 dfs(dfs, i);
-                C ++;
+                if (ok) C ++;
             }
-        } else if (d[i] > 2) {
-            ok = false;
-            cv += d[i] - 2;
         }
     }
-    if (!ok) C = max(0ll, C - cv);
-    if (C != 1 || !ok) {
+    if (C != 1) {
         cout << "No " << C << '\n';
     } else {
         cout << "Yes " << c << '\n';
