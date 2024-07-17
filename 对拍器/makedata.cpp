@@ -14,7 +14,7 @@ void makedata()
 
     std::uniform_int_distribution<int> distribution(1, 5);
 
-	int n, k; n = rand() % 5000 + 1; k = rand() % 1000000000 + 1;
+	int n, k; n = rand() % 3 + 1; k = rand() % 1000000000 + 1;
 	fout << n << ' ' << k << endl;
 	set<int> st;
 	vector<int> a;
@@ -31,7 +31,7 @@ void makedata()
 	fout << '\n';
 	// fout << "6 3 2 4 1 5" << endl;
 	for (int i = 1; i <= n; i ++) {
-		int x = rand() % 1000 - 1000;
+		int x = rand() % 1000 - 100000;
 		fout << x << ' ';
 	}
     cout << '\n';

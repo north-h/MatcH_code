@@ -20,66 +20,38 @@ void solve() {
         ans = max(ans, c[i]);
     }
     vector<int> vis(n + 1);
-    map<int, vector<int>> mp;
-    int idx = 1;
     for (int i = 1; i <= n; i ++) {
         if (vis[i]) continue;
-        int j = i;
-        mp[idx].push_back(0);
-        while (!vis[j]) {
-            vis[j] = 1;
-            j = p[j];
-            mp[idx].push_back(c[j]);
+        vector<int> T(1);
+        int root = i, len = 0;
+        while (!vis[root]) {
+            T.push_back(c[root]);
+            len ++;
+            vis[root] = 1;
+            root = p[root];
         }
-        idx ++;
-    }
-    // for (auto &[x, y] : mp) {
-    //     cout << x << ':';
-    //     for (auto j : y) cout << j << ' ';
-    //     cout << '\n';
-    // }
-    map<int, int> up;
-    for (auto &[x, y] : mp) {
-        // cout << x << ':';
-        int m = y.size();
-        up[x] = y.size() - 1;
-        for (int j = 1; j < m; j ++) y.push_back(y[j]);
-        for (int j = 1; j < y.size(); j ++) y[j] += y[j - 1];
-        // for (auto j : y) cout << j << ' ';
-        // cout << '\n';
-    }
-    for (auto [x, y] : mp) {
-        int m = y.size();
-        int mn = up[x];
-        for (int len = 1; len <= min(mn - 1, k); len ++) {
-            for (int j = 1; j + len - 1 < y.size(); j ++) {
-                int val = y[j + len - 1] - y[j - 1];
-                ans = max(val, ans);
-            }
-        }
-        // debug2(ans, mn);
-        if (k >= mn) {
-            int c1 = y[mn], c2 = LLONG_MIN;
-            int v1 = k / mn, v2 = k % mn;
-            for (int j = 1; j + v2 - 1 < y.size(); j ++) {
-                c2 = max(c2, y[j + v2 - 1] - y[j - 1]);
-            }
-            int T = max(c1, 0ll);
-            for (int len = 1; len < mn; len ++) {
-                for (int j = 1; j + len - 1 < y.size(); j ++) {
-                    int vl = y[j + len - 1] - y[j - 1];
-                    int vi = y[mn] - vl;
-                    // debug2(vi, vl);
-                    T = max(T, max(vi, vl));
+        for (int i = 1; i <= len; i ++) T.push_back(T[i]);
+        for (int i = 1; i < T.size(); i ++) T[i] += T[i - 1];
+        int v1 = k / len, v2 = k % len;
+        if (v2 == 0) {
+            int cv = LLONG_MIN;
+            for (int j = 1; j <= len; j ++) {
+                for (int k = 1; k + j - 1 <= len; k ++) {
+                    int l = j, r = j + k - 1;
+                    cv = max(cv, T[r] - T[l - 1]);
                 }
             }
-            // debug2(c1, c2);
-            // debug2(v1, v2);
-            // debug1(T);
-            int res;
-            if (c2 == 0 && v1 > 1) res = c1 * (v1 - 1) + T;
-            else res = c1 * v1 + c2;
-            ans = max(ans, res);
+            if (v1 > 1) {
+                ans = max(ans, (v1 - 1) * T[len] + max(0ll, cv));
+            } else {
+                ans = max(ans, cv);
+            }
+        } else {
+            int tv = LLONG_MIN;
+            for (int j = 1; j + v2 - 1 < T.size(); j ++) {
+                tv = max(tv, T[j + v2 - 1] - T[j - 1]);
+            }
+            ans = max(ans, tv + T[len] * v1);
         }
     }
     cout << ans << '\n';
