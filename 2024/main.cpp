@@ -1,52 +1,100 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include <bits/stdc++.h>
 #define int long long
+#define mod 1000000007
+#define PII pair<int,int>
+#define PIII pair<PII,int>
+#define double long double
+#define endl '\n'
+#pragma GCC optimize(3,"Ofast","inline")
+
+using namespace std;
+
+const int N = 2e5 + 5, SZ = N << 2;
+
+int a[N], vis[N];
+int c[N], fa[N];
+vector<int>g[N];
+int s1, s2;
+int mn = 0, ss1, ss2;
+int n, k, m;
+int t[10004], cnt[10004];
+set<PII>qqq;
+int qpow(int x, int y) {
+    int ans = 1;
+    while (y) {
+        if (y & 1)ans = (ans * x) % mod;
+        x = (x * x) % mod;
+        y >>= 1;
+    }
+    return ans;
+}
+vector<int>ans;
+
+int find(int x) {
+    return fa[x] == x ? x : find(fa[x]);
+}
+
+void join(int x, int y) {
+    int rx = find(x);
+    int ry = find(y);
+    if (rx != ry)
+        fa[rx] = ry;
+}
+
 void solve() {
-    int p, m;
-    cin >> p >> m;
-    priority_queue<int , vector<int>, less<int>>q; //大到小 xiao
-    priority_queue<int, vector<int>, greater<int>>g; //小到大 da
-    int tt = 0;
-    int a[10000];
-    for (int i = 0; i < m; i++) {
-        int x;
-        cin >> x;
-        if (!q.size() || x <= q.top()) q.push(x);
-        else g.push(x);
-        // cout << q.size() << " " << g.size() << endl;
-        while ((int)q.size() - (int)g.size() > 1 && q.size()) {
-            // cout << q.top() << '\n';
-            g.push(q.top());
-            q.pop();
-        }
-        while ((int)g.size() - (int)q.size() > 1 && g.size()) {
-            q.push(g.top());
-            g.pop();
-        }
-        if (x % 2 != 0) {
-            // tt++;
-            if (i == 1) a[tt++] = x;
-            else {
-                if (q.size() == g.size()) a[tt++] = (q.top() + g.top()) / 2;
-                else if (q.size() > g.size()) a[tt++] = q.top();
-                else a[tt++] = g.top();
+    cin >> n;
+    int mx = 0, s = 0;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 1; i <= n; i++) {
+        if (!c[i]) {
+            ans.clear();
+            int t = i;
+            while (!vis[t] && !c[t]) {
+                vis[t] = 1;
+                ans.emplace_back(t);
+                t = a[t];
+            }
+
+            reverse(ans.begin(), ans.end());
+            if (c[t]) {
+                vis[t] = 0;
+                for (int j = 0; j < ans.size(); j++) {
+                    vis[ans[j]] = 0;
+                    c[ans[j]] = c[t] + j + 1;
+                }
+            } else {
+                for (int i = 0; i < ans.size(); i++) {
+                    if (ans[i] == t) {
+                        for (int j = 0; j <= i; j++) {
+                            vis[j] = 0;
+                            c[ans[j]] = i + 1;
+                        }
+                        for (int j = i + 1; j < ans.size(); j++) {
+                            vis[j] = 0;
+                            c[ans[j]] = j + 1;
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
-    cout << p << " " << tt << endl;
-    for (int i = 0; i < tt; i++) {
-        if (a[i] == 0) continue;
-        cout << a[i] << " ";
+    for (int i = 1; i <= n; i++) {
+        mx = max(c[i], mx);
+//      cout<<c[i]<<" \n"[i==n];
     }
-    cout << endl;
+    cout << mx << endl;
 }
-signed main() {
-    ios::sync_with_stdio(false);
+
+int32_t main() {
+    std::ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    int t = 1;
-    cin >> t;
-    while (t--) {
+    int T = 1;
+    //cin >> T;
+    while (T--) {
         solve();
     }
     return 0;

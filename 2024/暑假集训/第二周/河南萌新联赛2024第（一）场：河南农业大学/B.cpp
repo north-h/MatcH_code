@@ -9,116 +9,70 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int a[N], vis[N], in[N], out[N];
+int a[N], vis[N], d[N], son[N], vi[N];
 vector<int> g[N];
-int ans, n;
+int ans, n, idx, cnt;
+map<int, vector<int>> mp;
 
 
 void topsort() {
     queue<int> q;
-    vector<int> vi;
     for (int i = 1; i <= n; i ++) {
-        if (!out[i]) q.push(i);
+        if (d[i] == 1) {
+            q.push(i);
+            vis[i] = 1;
+        }
     }
     while (q.size()) {
         auto t = q.front();
         q.pop();
-        for (auto i : g[t]) {
-            if (vis[i]) continue;
-            in[i] --;
-            out[t] --;
-            if (!out[i]) {
-                vis[i] = 1;
-                q.push(i);
-            }
+        if (vis[son[t]]) continue;
+        d[son[t]] --;
+        if (d[son[t]] == 1) {
+            q.push(son[t]);
+            vis[son[t]] = 1;
         }
     }
 }
+void dfs(int u) {
+    if (vi[u]) return ;
+    vi[u] = 1;
+    mp[idx].push_back(u);
+    dfs(son[u]);
+};
 
-struct DSU {
-    vector<int> fa, sz;
- 
-    DSU(int n) {
-        fa.resize(n + 1);
-        sz.resize(n + 1, 1);
-        iota(fa.begin(), fa.end(), 0);
+void dfs1(int u, int d) {
+    if (!g[u].size()) {
+        cnt = max(cnt, d);
     }
- 
-    int find(int x) {
-        if (fa[x] != x) fa[x] = find(fa[x]);
-        return fa[x];
-    }
- 
-    bool same(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        return px == py;
-    }
- 
-    void merge(int x, int y) {
-        int px = find(x);
-        int py = find(y);
-        if (px != py) {
-            fa[px] = py;
-            sz[py] += sz[px];
-        }
+    for (auto v : g[u]) {
+        if (vi[v]) continue;
+        dfs1(v, d + 1);
     }
 };
 
 void solve() {
     cin >> n;
     for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-        g[a[i]].push_back(i);
-        in[i] ++;
-        out[a[i]] ++;
-    }
-    // vector<int> iin = in;
-    for (int i = 1; i <= n; i++) {
-        cout << i << ":";
-        for (auto j : g[i]) cout << j << ' ';
-        cout << '\n';
+        cin >> son[i];
+        g[son[i]].push_back(i);
+        d[i] ++;
+        d[son[i]] ++;
     }
     topsort();
-    vector<int> ve(n + 1);
-    set<int> st;
-    int cnt = 0;
-    map<int, vector<int>> mp;
-    auto dfs = [&](auto &&dfs, int u) -> void {
-        ve[u] = 1;
-        st.insert(u);
-        for (auto v : g[u]) {
-            if (ve[v]) continue;
-            dfs(dfs, v);
-        }
-    };
-    int huan = 0;
     for (int i = 1; i <= n; i ++) {
-        if (in[i] == 1 && !ve[i]) {
+        if (d[i] == 2 && !vi[i]) dfs(i), idx ++;
+    }
+    for (auto [x, y] : mp) {
+        int len = 0;
+        for (auto j : y) {
             cnt = 0;
-            dfs(dfs, i);
-            huan = max(huan, cnt);
+            dfs1(j, 0);
+            len = max(len, cnt);
         }
+        ans = max(ans, (int)y.size() + len);
     }
-    int lian = 0;
-    auto dfs1 = [&](auto &&dfs, int u, int d) -> void {
-        for (auto v : g[u]) {
-            if (ve[u]) continue;
-            ve[v] = 1;
-            dfs(dfs, v, d + 1);
-            ve[v] = 0;
-        }
-        lian = max(lian, d);
-    };
-    for (int i = 1; i <= n; i ++) {
-        if (iin[i] == 1) {
-            ve[i] = 1;
-            dfs1(dfs1, i, 1);
-            ve[i] = 1;
-        }
-    }
-    debug2(huan, lian);
-    cout << huan + lian << '\n';
+    cout << ans << '\n';
 }
 
 int32_t main() {

@@ -14,27 +14,13 @@ void makedata()
 
     std::uniform_int_distribution<int> distribution(1, 5);
 
-	int n, k; n = rand() % 3 + 1; k = rand() % 1000000000 + 1;
-	fout << n << ' ' << k << endl;
-	set<int> st;
-	vector<int> a;
-	for (int i = 1; (int)st.size() < n;) {
-		int x = rand() % n + 1;
-		// cout << x << ' ' << i << '\n';
-		// cout << st.size() << '\n';
-		if (!st.count(x)) {
-			st.insert(x);
-			a.push_back(x);
-		}
-	}
-	for (auto x : a) fout << x << ' ';
-	fout << '\n';
-	// fout << "6 3 2 4 1 5" << endl;
+	int n, k; n = rand() % 10 + 1; k = rand() % 1000000000 + 1;
+	fout << n << endl;
 	for (int i = 1; i <= n; i ++) {
-		int x = rand() % 1000 - 100000;
+		int x = rand() % n + 1;
 		fout << x << ' ';
 	}
-    cout << '\n';
+	fout << '\n';
 	fout.close();
 }
 

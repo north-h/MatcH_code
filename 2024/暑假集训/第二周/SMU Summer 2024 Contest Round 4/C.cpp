@@ -15,10 +15,7 @@ void solve() {
     vector<int> p(n + 1), c(n + 1);
     int ans = LLONG_MIN;
     for (int i = 1; i <= n; i ++) cin >> p[i];
-    for (int i = 1; i <= n; i ++) {
-        cin >> c[i];
-        ans = max(ans, c[i]);
-    }
+    for (int i = 1; i <= n; i ++) cin >> c[i];
     vector<int> vis(n + 1);
     for (int i = 1; i <= n; i ++) {
         if (vis[i]) continue;
@@ -32,36 +29,23 @@ void solve() {
         }
         for (int i = 1; i <= len; i ++) T.push_back(T[i]);
         for (int i = 1; i < T.size(); i ++) T[i] += T[i - 1];
-        int v1 = k / len, v2 = k % len;
-        // if (n == 5 && k == 2) debug2(v1, v2);
-        if (v1 == 0) {
-            int cv = LLONG_MIN;
-            for (int j = 1; j <= k; j ++) {
-                for (int o = 1; o + j - 1 <= len; o ++) {
-                    int l = o, r = o + j - 1;
-                    cv = max(cv, T[r] - T[l - 1]);
+        int v1 = k / len, v2 = k % len, cv = LLONG_MIN;
+        auto get = [&](int m, int op) -> int {
+            int cc = 0;
+            if (op == 1) cc = LLONG_MIN;
+            for (int l = 1; l <= m; l ++) {
+                for (int j = 1; j + l - 1 < T.size(); j ++) {
+                    cc = max(cc, T[j + l - 1] - T[j - 1]);
                 }
             }
-        } if (v2 == 0) {
-            int cv = LLONG_MIN;
-            for (int j = 1; j <= len; j ++) {
-                for (int o = 1; o + j - 1 <= len; o ++) {
-                    int l = o, r = o + j - 1;
-                    cv = max(cv, T[r] - T[l - 1]);
-                }
-            }
-            // if (n == 5 && k == 2) debug1(cv);
-            if (v1 > 1) {
-                ans = max(ans, (v1 - 1) * T[len] + max(0ll, cv));
-            } else {
-                ans = max(ans, cv);
-            }
+            return cc;
+        };
+        if (T[len] > 0) {
+            if (v2 == 0) ans = max(ans, (v1 - 1) * T[len] + get(len, 0));
+            else ans = max(ans, v1 * T[len] + get(v2, 0));
         } else {
-            int tv = LLONG_MIN;
-            for (int j = 1; j + v2 - 1 < T.size(); j ++) {
-                tv = max(tv, T[j + v2 - 1] - T[j - 1]);
-            }
-            ans = max(ans, tv + T[len] * v1);
+            if (v1 == 0) ans = max(get(k, 1), ans);
+            else ans = max(get(len, 1), ans);
         }
     }
     cout << ans << '\n';

@@ -11,25 +11,14 @@ using namespace std;
 
 void solve() {
     int n; cin >> n;
-    if (n == 0) {
-        cout << 0 << '\n';
-        return ;
+    int ans = 0;
+    while (true) {
+        if (n == 2 || n == 0) break;
+        ans ++;
+        if (n & 1) n --;
+        else n /= 2;
     }
-    if (n == 1 || n == 2) {
-        cout << 1 << '\n';
-        return ;
-    }
-    int sum = n;
-    int ans = 1;
-    while (sum > 2) {
-        if (sum % 2) {
-            sum --;
-            ans ++;
-        } else {
-            ans ++;
-            sum /= 2;
-        }
-    }
+    if (n == 2) ans ++;
     cout << ans << '\n';
 }
 
