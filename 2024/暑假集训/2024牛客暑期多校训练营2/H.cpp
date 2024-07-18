@@ -24,10 +24,11 @@ void solve() {
     for (int i = 0; i < n; i ++) {
         if (s[i] == 'A') X --;
         else if (s[i] == 'D') X ++;
-        else if (s[i] == 'W') Y --;
-        else Y ++;
+        else if (s[i] == 'W') Y ++;
+        else Y --;
         int dx = X - x, dy = Y - y;
-        if (mp.count({ dx, dy})) ans += mp[ {dx, dy}] * (n - i);
+        ans += mp[ {dx, dy}] * (n - i);
+        // mp[ {dx, dy}] = 0;
         mp[ {X, Y}] ++;
     }
     cout << ans << '\n';

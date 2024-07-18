@@ -14,11 +14,12 @@ void makedata()
 
     std::uniform_int_distribution<int> distribution(1, 5);
 
-	int n, k; n = rand() % 10 + 1; k = rand() % 1000000000 + 1;
-	fout << n << endl;
+	int n, k; n = rand() % 10 + 1;
+	fout << n << ' ' << 2 << ' ' << 4 << endl;
+	string s = "AWSD";
 	for (int i = 1; i <= n; i ++) {
-		int x = rand() % n + 1;
-		fout << x << ' ';
+		int x = rand() % 4;
+		fout << s[x];
 	}
 	fout << '\n';
 	fout.close();
@@ -30,7 +31,7 @@ int32_t main() {
 	for (int i = 1; i <= n; i++) {
 		printf("Test#%lld\n", i);
 		makedata();
-		system("ZJ.exe < input.txt > ZJ_output.txt");
+		system("ZJ. < input.txt > ZJ_output.txt");
 		system("BL.exe < input.txt > BL_output.txt");
 
 		if (system("fc ZJ_output.txt BL_output.txt")) {
