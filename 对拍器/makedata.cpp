@@ -27,11 +27,11 @@ void makedata()
 
 int32_t main() {
 	int ans = 0;
-	int n = 1000;
+	int n = 10000;
 	for (int i = 1; i <= n; i++) {
 		printf("Test#%lld\n", i);
 		makedata();
-		system("ZJ. < input.txt > ZJ_output.txt");
+		system("ZJ.exe < input.txt > ZJ_output.txt");
 		system("BL.exe < input.txt > BL_output.txt");
 
 		if (system("fc ZJ_output.txt BL_output.txt")) {

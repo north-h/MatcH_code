@@ -10,32 +10,30 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, x; cin >> n >> x;
-    vector<int> a(n + 1), s(n + 1);
+    int n; cin >> n;
+    vector<int> a(n + 1);
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
-        s[i] = s[i - 1] + a[i];
     }
-    vector<int> dp(n + 3);
-    int ans = 0;
-    for (int i = n; i >= 1; i --) {
-        int l = i, r = n, res = -1;
-        while (l <= r) {
-            int mid = l + r >> 1;
-            if (s[mid] - s[i - 1] <= x) l = mid + 1, res = mid;
-            else r = mid - 1;
+    stack<array<int, 2>> stk;
+    int sum = 0;
+    for (int i = 1; i <= n; i ++) {
+        sum ++;
+        if (!stk.size()) stk.push({a[i], 1});
+        else {
+            if (stk.top()[0] == a[i]) stk.top()[1] ++;
+            else stk.push({a[i], 1});
+            auto [x, y] = stk.top();
+            if (x == y) stk.pop(), sum -= y;
         }
-        if (res == -1) dp[i] = dp[i + 1];
-        else dp[i] = (res - i + 1) + dp[res + 2];
-        ans += dp[i];
+        cout << sum << '\n';
     }
-    cout << ans << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -1,43 +1,43 @@
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+#define debug1(a) cout << #a << '=' << a << endl
+#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define lf(x) fixed << setprecision(x)
+#define int long long
+const int N = 100010;
+const int INF = 0x3f3f3f3f;
 
-using i64 = long long;
+using namespace std;
 
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    
-    int n, x, y;
-    std::cin >> n >> x >> y;
-    
-    std::string s;
-    std::cin >> s;
-    
-    std::vector<std::array<int, 2>> a(n + 1);
-    a[0] = {0, 0};
-    for (int i = 0; i < n; i++) {
-        a[i + 1] = a[i];
-        if (s[i] == 'W') {
-            a[i + 1][1]++;
-        } else if (s[i] == 'A') {
-            a[i + 1][0]--;
-        } else if (s[i] == 'S') {
-            a[i + 1][1]--;
-        } else {
-            a[i + 1][0]++;
-        }
+void solve() {
+    int n, x, y; cin >> n >> x >> y;
+    string s; cin >> s;
+    int X = 0, Y = 0;
+    map<pair<int, int>, int> mp;
+    if (x == 0 && y == 0) {
+        cout << n * (n + 1) / 2 << '\n';
+        return ;
     }
-    
-    i64 ans = 0;
-    std::map<std::array<int, 2>, int> idx;
-    for (int i = n; i >= 0; i--) {
-        idx[a[i]] = i;
-        if (idx.count({a[i][0] + x, a[i][1] + y})) {
-            int j = idx[{a[i][0] + x, a[i][1] + y}];
-            j = std::max(j, i + 1);
-            ans += n - j + 1;
-        }
+    int ans = 0;
+    mp[ {0, 0}] ++;
+    // debug1(n);
+    for (int i = 0; i < n; i ++) {
+        if (s[i] == 'A') X --;
+        else if (s[i] == 'D') X ++;
+        else if (s[i] == 'W') Y ++;
+        else Y --;
+        int dx = X - x, dy = Y - y;
+        ans += mp[ {dx, dy}] * (n - i);
+        mp[ {dx, dy}] = 0;
+        mp[ {X, Y}] ++;
     }
-    std::cout << ans << "\n";
-    
+    cout << ans << '\n';
+}
+
+int32_t main() {
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--)solve();
     return 0;
 }

@@ -1,43 +1,52 @@
-#include <bits/stdc++.h>
-
-using i64 = long long;
-
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    
-    int n, x, y;
-    std::cin >> n >> x >> y;
-    
-    std::string s;
-    std::cin >> s;
-    
-    std::vector<std::array<int, 2>> a(n + 1);
-    a[0] = {0, 0};
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int mxn = 1010;
+const int dx[] = {0, -1, 0, 1};
+const int dy[] = { -1, 0, 1, 0}; //方向数组
+map<string, bool> mp; //用一个map来记录这种涂法是否出现过
+char g[mxn][mxn];//地图
+int n, k, ans;
+void dfs(int res) {
+    // string s = "";
+    // for (int i = 0; i < n; i++)s += g[i]; //拼字符串
+    // if (mp[s])return;//判重
+    // mp[s] = 1;
+    if (!res) {
+        ans++;//这种涂法成立
+        mp[s] ++
+        return;
+    }
     for (int i = 0; i < n; i++) {
-        a[i + 1] = a[i];
-        if (s[i] == 'W') {
-            a[i + 1][1]++;
-        } else if (s[i] == 'A') {
-            a[i + 1][0]--;
-        } else if (s[i] == 'S') {
-            a[i + 1][1]--;
-        } else {
-            a[i + 1][0]++;
+        for (int j = 0; j < n; j++) {
+            if (g[i][j] == '.') {
+                for (int k = 0; k < 4; k++) {
+                    int nx = i + dx[k];
+                    int ny = j + dy[k];
+                    if (g[nx][ny] == 'r' && nx >= 0 && nx < n && ny >= 0 && ny < n) { //条件一个不能少
+                        g[i][j] = 'r';
+                        dfs(res - 1);
+                        g[i][j] = '.'; //回溯
+                    }
+                }
+            }
         }
     }
-    
-    i64 ans = 0;
-    std::map<std::array<int, 2>, int> idx;
-    for (int i = n; i >= 0; i--) {
-        idx[a[i]] = i;
-        if (idx.count({a[i][0] + x, a[i][1] + y})) {
-            int j = idx[{a[i][0] + x, a[i][1] + y}];
-            j = std::max(j, i + 1);
-            ans += n - j + 1;
+}
+signed main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+    cin >> n >> k;
+    for (int i = 0; i < n; i++)cin >> g[i]; //输入地图
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (g[i][j] == '.') {
+                g[i][j] = 'r';
+                dfs(k - 1);
+                g[i][j] = '.'; //起点回溯
+            }
         }
     }
-    std::cout << ans << "\n";
-    
+    cout << mp.size();
     return 0;
 }
