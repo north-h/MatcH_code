@@ -16,7 +16,6 @@ map<int, int> mp;
 int g[110][110];
 
 void solve() {
-    // cin >> n;
     y ++;
     if (y > n) x ++, y = 1;
     int a; cin >> a;
@@ -83,7 +82,6 @@ void solve() {
         for (int i = 1; i <= n; i ++) {
             for (int j = 1; j <= n; j ++) {
                 if (g[i][j] == 0) {
-                    // debug2(i, j);
                     if (i & 1) {
                         if (j & 1) {
                             cout << 1 << ' ' << i << ' ' << j << endl;
@@ -131,11 +129,7 @@ void solve() {
             }
             if (ok) break;
         }
-        // debug2(x, y);
     }
-    // debug1(a);
-    // cout << '\n';
-    // cout << "----------\n";
 }
 
 int32_t main() {
@@ -148,12 +142,5 @@ int32_t main() {
     cin >> n;
     int T = n * n;
     while (T --)solve();
-    // for (int i = 1; i <= n; i ++) {
-    //     for (int j = 1; j <= n; j ++) {
-    //         cout << g[i][j] << ' ';
-    //     }
-    //     cout << '\n';
-    // }
-    // cout << mp[1] << ' ' << mp[2] << ' ' << mp[3] << '\n';
     return 0;
 }

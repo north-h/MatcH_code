@@ -1,0 +1,37 @@
+[
+	{
+		"correct_answers":
+		[
+			"effwpnwipsusiwkzo"
+		],
+		"test": "17\nsnwfpfwipeusiwkzo\n"
+	},
+	{
+		"correct_answers":
+		[
+			"ab"
+		],
+		"test": "2\nab\n"
+	},
+	{
+		"correct_answers":
+		[
+			"acdb"
+		],
+		"test": "4\ndcab\n"
+	},
+	{
+		"correct_answers":
+		[
+			"aaaaaaabbbbcbbbc"
+		],
+		"test": "16\ncabaaabbbabcbaba\n"
+	},
+	{
+		"correct_answers":
+		[
+			"abbddhxsgc"
+		],
+		"test": "10\nabcdgsxhdb\n"
+	}
+]
