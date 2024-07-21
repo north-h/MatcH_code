@@ -22,8 +22,8 @@ void solve() {
         cout << 1 << '\n';
         return ;
     }
-    debug2(c1, c2);
-    debug1(c0);
+    // debug2(c1, c2);
+    // debug1(c0);
     int ans = n;
     if (c1 > c2) {
         c1 -= c2;
