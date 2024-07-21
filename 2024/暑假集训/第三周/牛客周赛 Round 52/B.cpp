@@ -1,16 +1,3 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-07-20 20:22:02 ms
- *
- * Problem: D - Palindromic Number
- * Contest: AtCoder - AtCoder Beginner Contest 363
- * URL:     https://atcoder.jp/contests/abc363/tasks/abc363_d
- * MemoryL: 1024 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
@@ -22,7 +9,17 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int a, b, n; cin >> a >> b >> n;
+    int c = b / 2, v = c * 3, cv;
+    if (v > n) {
+        cv = n - (c - 1) * 3;
+    } else {
+        cv = n - v;
+    }
+    if (cv > a) cout << "NO" << '\n';
+    else cout << "YES" << '\n';
+}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);

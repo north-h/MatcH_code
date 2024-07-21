@@ -1,16 +1,3 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-07-20 20:22:08 ms
- *
- * Problem: E - Sinking Land
- * Contest: AtCoder - AtCoder Beginner Contest 363
- * URL:     https://atcoder.jp/contests/abc363/tasks/abc363_e
- * MemoryL: 1024 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
@@ -22,12 +9,20 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    int n; cin >> n;
+    if (n == 2 || n == 1) {
+        cout << "NO" << '\n';
+    } else {
+        cout << "YES" << '\n';
+        cout << 1 << ' ' << n - 1 << '\n';
+    }
+}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

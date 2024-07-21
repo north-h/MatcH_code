@@ -11,22 +11,30 @@ using namespace std;
 
 void solve() {
     int n; cin >> n;
-    for (int i = 0; i < 64; i ++) {
-        if (n >> i & 1) {
-            int x = (1ll << i);
-            if (x != n) {
-                cout << (n ^ x) << '\n';
-                return ;
-            }
+    vector<string> a(n + 1);
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+    }
+    priority_queue<string> Q;
+    for (int i = 1; i <= n; i ++) {
+        Q.push(a[i]);
+    }
+    string s = "";
+    while (Q.size()) {
+        auto t = Q.top();
+        Q.pop();
+        s += t[0];
+        if (t.size() > 1) {
+            Q.push(t.substr(1));
         }
     }
-    cout << -1 << '\n';
+    cout << s << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

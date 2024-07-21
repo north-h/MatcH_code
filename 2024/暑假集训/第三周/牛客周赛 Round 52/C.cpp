@@ -10,25 +10,30 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, x, y; cin >> n >> x >> y;
-    string s; cin >> s;
-    int X = 0, Y = 0;
-    map<pair<int, int>, int> mp;
-    if (x == 0 && y == 0) {
-        cout << n * (n + 1) / 2 << '\n';
+    int n; cin >> n;
+    int c1 = 0, c2 = 0, c0 = 0;
+    for (int i = 1, x; i <= n; i ++) {
+        cin >> x;
+        if (x < 0) c1 ++;
+        else if (x == 0) c0 ++;
+        else c2 ++;
+    }
+    if (n == 1) {
+        cout << 1 << '\n';
         return ;
     }
-    int ans = 0;
-    mp[ {0, 0}] ++;
-    for (int i = 0; i < n; i ++) {
-        if (s[i] == 'A') X --;
-        else if (s[i] == 'D') X ++;
-        else if (s[i] == 'W') Y ++;
-        else Y --;
-        int dx = X - x, dy = Y - y;
-        ans += mp[ {dx, dy}] * (n - i);
-        mp[ {dx, dy}] = 0;
-        mp[ {X, Y}] ++;
+    debug2(c1, c2);
+    debug1(c0);
+    int ans = n;
+    if (c1 > c2) {
+        c1 -= c2;
+        ans -= c2 * 2;
+        ans -= (c1 / 2) * 2;
+        ans -= (c0 / 2) * 2;
+        if (c1 & 1 && c0 & 1) ans -= 2;
+    } else {
+        ans -= c1 * 2;
+        ans -= (c0 / 2) * 2;
     }
     cout << ans << '\n';
 }

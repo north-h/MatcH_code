@@ -1,0 +1,45 @@
+[
+	{
+		"correct_answers":
+		[
+			"9862"
+		],
+		"test": "2\n92 86\n"
+	},
+	{
+		"correct_answers":
+		[
+			"921512"
+		],
+		"test": "2\n912 215\n"
+	},
+	{
+		"correct_answers":
+		[
+			"456123"
+		],
+		"test": "2\n123 456\n"
+	},
+	{
+		"correct_answers":
+		[
+			"423156"
+		],
+		"test": "2\n156 423\n"
+	},
+	{
+		"correct_answers":
+		[
+			"425621",
+			"422561"
+		],
+		"test": "2\n256 421\n"
+	},
+	{
+		"correct_answers":
+		[
+			"333222111"
+		],
+		"test": "3\n111 222 333\n"
+	}
+]
