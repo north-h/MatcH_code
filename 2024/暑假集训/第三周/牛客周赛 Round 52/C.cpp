@@ -11,29 +11,23 @@ using namespace std;
 
 void solve() {
     int n; cin >> n;
-    int c1 = 0, c2 = 0, c0 = 0;
+    int c = 0;
+    map<int, int> mp;
     for (int i = 1, x; i <= n; i ++) {
         cin >> x;
-        if (x < 0) c1 ++;
-        else if (x == 0) c0 ++;
-        else c2 ++;
+        if (x < 0) c ++;
+        else mp[x] ++;
     }
-    if (n == 1) {
-        cout << 1 << '\n';
-        return ;
-    }
-    // debug2(c1, c2);
-    // debug1(c0);
     int ans = n;
-    if (c1 > c2) {
-        c1 -= c2;
-        ans -= c2 * 2;
-        ans -= (c1 / 2) * 2;
-        ans -= (c0 / 2) * 2;
-        if (c1 & 1 && c0 & 1) ans -= 2;
+    int cc = 0;
+    for (auto [x, y] : mp) {
+        ans -= (y / 2) * 2;
+        cc += y % 2;
+    }
+    if (c >= cc) {
+        ans -= cc * 2 + (c - cc) / 2 * 2;
     } else {
-        ans -= c1 * 2;
-        ans -= (c0 / 2) * 2;
+        ans -= c * 2;
     }
     cout << ans << '\n';
 }

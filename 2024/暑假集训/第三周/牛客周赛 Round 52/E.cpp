@@ -54,20 +54,17 @@ void solve() {
         vis[u] = 1;
         vis[v] = 1;
     }
+    vector<int> t;
     for (int i = 1; i <= n; i ++) {
         if (vis[i]) {
             int pi = dsu.find(i);
             mp[pi] = max(mp[pi], val[i]);
-        }
+        } else t.push_back(val[i]);
     }
-    vector<int> t;
     for (auto [x, y] : mp) {
         t.push_back(y);
     }
     int ans = 0;
-    for (int i = 1; i <= n; i ++) {
-        if (!vis[i]) t.push_back(val[i]);
-    }
     sort(t.begin(), t.end());
     for (int i = 1; i < t.size(); i ++) {
         ans += t[i];
