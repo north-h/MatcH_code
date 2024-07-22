@@ -9,74 +9,90 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-template <class T>
-struct Seg {
-#define lc u << 1
-#define rc u << 1 | 1
-    struct Node {
+template<class T>
+struct SegmentTree {
+#define ls u << 1
+#define rs u << 1 | 1
+    struct Info {
         int l, r;
-        T lazy, mx0, mx1, l0, l1, r0, r1;
+        int op;
+        T mx0, mx1;
+        T lsum0, lsum1;
+        T rsum0, rsum1;
     };
-    vector<Node> tr; vector<T> a; int n;
-    Seg(int N) { n = N + 1; tr.resize(n * 4); a.resize(n); }
-    void pushup(int u) {
-        tr[u] = merge(tr[u], tr[lc], tr[rc]);
+    vector<Info> tr;
+    vector<T> a;
+    SegmentTree(const vector<T> &init) {
+        int n = init.size() - 1;
+        tr.resize(n * 4 + 1);
+        a = init;
+        build(1, 1, n);
     }
-    Node merge(Node t, Node l, Node r) {
-        t.mx0 = max({l.mx0, r.mx0, l.r0 + r.l0});
-        t.mx1 = max({l.mx1, r.mx1, l.r1 + r.l1});
-        if (l.l0 == l.r - l.l + 1) t.l0 = l.l0 + r.l0;
-        else t.l0 = l.l0;
-        if (r.r0 == r.r - r.l + 1) t.r0 = l.r0 + r.r0;
-        else t.r0 = r.r0;
-        if (l.l1 == l.r - l.l + 1) t.l1 = l.l1 + r.l1;
-        else t.l1 = l.l1;
-        if (r.r1 == r.r - r.l + 1) t.r1 = l.r1 + r.r1;
-        else t.r1 = r.r1;
-        return t;
+    Info merge(Info &u, Info l, Info r) {
+        int lvl = l.r - l.l + 1;
+        int rvl = r.r - r.l + 1;
+
+        u.mx0 = max({l.mx0, r.mx0, l.rsum0 + r.lsum0});
+        u.mx1 = max({l.mx1, r.mx1, l.rsum1 + r.lsum1});
+
+        if (lvl == l.lsum0) u.lsum0 = l.lsum0 + r.lsum0;
+        else u.lsum0 = l.lsum0;
+        if (lvl == l.lsum1) u.lsum1 = l.lsum1 + r.lsum1;
+        else u.lsum1 = l.lsum1;
+
+        if (rvl == r.rsum0) u.rsum0 = l.rsum0 + r.rsum0;
+        else u.rsum0 = r.rsum0;
+        if (rvl == r.lsum1) u.rsum1 = l.rsum1 + r.rsum1;
+        else u.rsum1 = r.rsum1;
+
+        return u;
     }
-    void calc(Node &u) {
-        swap(u.l0, u.l1);
-        swap(u.r0, u.r1);
+    void calc(Info &u) {
         swap(u.mx0, u.mx1);
+        swap(u.lsum0, u.lsum1);
+        swap(u.rsum0, u.rsum1);
+        u.op ^= 1;
+    }
+    void pushup(int u) {
+        // debug1(u);
+        tr[u] = merge(tr[u], tr[ls], tr[rs]);
     }
     void pushdown(int u) {
-        auto [_1, _2, lazy, _3, _4, _5, _6, _7, _8] = tr[u];
-        if (lazy) calc(tr[lc]), tr[u].lazy ^= 1;
-        if (lazy) calc(tr[rc]), tr[u].lazy ^= 1;
+        auto [_, __, op, _1, _2, _3, _4, _5, _6] = tr[u];
+        if (op) {
+            calc(tr[ls]);
+            calc(tr[rs]);
+            tr[u].op ^= 1;
+        }
     }
     void build(int u, int l, int r) {
-        if (a[l] == 1) {
-            tr[u] = {l, r, 0, 0, 1, 0, 1, 0, 1};
-        } else {
-            tr[u] = {l, r, 0, 1, 0, 1, 0, 1, 0};
-        }
-        if (l >= r) return;
+        if (!a[l]) tr[u] = {l, r, 0, 1, 0, 1, 0, 1, 0};
+        else tr[u] = {l, r, 0, 0, 1, 0, 1, 0, 1};
+        if (l == r) return ;
         int mid = l + r >> 1;
-        build(lc, l, mid);
-        build(rc, mid + 1, r);
+        build(ls, l, mid);
+        build(rs, mid + 1, r);
         pushup(u);
     }
     void modify(int u, int l, int r) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            // calc(tr[u]);
-            tr[u].lazy ^= 1;
-            return;
+            calc(tr[u]);
+            return ;
         }
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid) modify(lc, l, r);
-        if (r > mid) modify(rc, l, r);
+        if (l <= mid) modify(ls, l, r);
+        if (r > mid) modify(rs, l, r);
         pushup(u);
     }
-    Node query(int u, int l, int r) {
+    Info query(int u, int l, int r) {
         if (tr[u].l >= l && tr[u].r <= r) return tr[u];
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (r <= mid) return query(lc, l, r);
-        if (l > mid) return query(rc, l, r);
-        // Node lt = query(lc, l, r), rt = query(rc, l, r);
-        Node t = merge(t, query(lc, l, r), query(rc, l, r));
+        if (r <= mid) return query(ls, l, r);
+        if (l > mid) return query(rs, l, r);
+        Info t = merge(t, query(ls, l, r), query(rs, l, r));
+        pushup(u);
         return t;
     }
 };
@@ -84,11 +100,11 @@ struct Seg {
 void solve() {
     int n, q; cin >> n >> q;
     string s; cin >> s;
-    Seg<int> sg(n + 1);
+    vector<int> a(n + 1);
     for (int i = 0; i < s.size(); i ++) {
-        sg.a[i + 1] = (s[i] == '1');
+        a[i + 1] = (s[i] == '1');
     }
-    sg.build(1, 1, n);
+    SegmentTree<int> sg(a);
     while (q --) {
         int c, l, r; cin >> c >> l >> r;
         if (c == 1) {
@@ -96,15 +112,6 @@ void solve() {
         } else {
             cout << sg.query(1, l, r).mx1 << '\n';
         }
-        for (int i = 1; i <= n; i ++) {
-            cout << sg.query(1, i, i).mx1 << ' ';
-        }
-        cout << '\n';
-        for (int i = 1; i <= n; i ++) {
-            cout << sg.query(1, i, i).mx0 << ' ';
-        }
-        cout << '\n';
-        cout << "---------------" << '\n';
     }
 }
 
