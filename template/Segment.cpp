@@ -4,52 +4,56 @@ struct SegmentTree {
 #define rs u << 1 | 1
     struct Info {
         int l, r;
-        T add;
-        T sum;
+        int op;
+        T mx0, mx1;
+        T lsum0, lsum1;
+        T rsum0, rsum1;
     };
     vector<Info> tr;
     vector<T> a;
     SegmentTree(const vector<T> &init) {
-        int n = init.size();
-        tr.resize(n * 4);
+        int n = init.size() - 1;
+        tr.resize(n * 4 + 1);
         a = init;
         build(1, 1, n);
     }
-    Info merge(Info u, Info l, Info r) {
-
+    Info merge(Info &u, Info l, Info r) {
+       
 
         return u;
     }
-    void calc(Info &u, int add) {
-        
-
+    void calc(Info &u) {
+   
     }
     void pushup(int u) {
-        tr[u] = merge(tr[u], tr[u << 1], tr[u << 1 | 1]);
+        tr[u] = merge(tr[u], tr[ls], tr[rs]);
     }
     void pushdown(int u) {
-        auto [_, __, a, _1] = tr[u];
-        calc(tr[ls], a);
-        calc(tr[rs], a);
-        tr[u].add = 0;
+        auto [_, __, op, _1, _2, _3, _4, _5, _6] = tr[u];
+        if (op) {
+            calc(tr[ls]);
+            calc(tr[rs]);
+            tr[u].op ^= 1;
+        }
     }
     void build(int u, int l, int r) {
-        tr[u] = {l, r, 0, a[l]};
+        if (!a[l]) tr[u] = {l, r, 0, 1, 0, 1, 0, 1, 0};
+        else tr[u] = {l, r, 0, 0, 1, 0, 1, 0, 1};
         if (l == r) return ;
         int mid = l + r >> 1;
         build(ls, l, mid);
         build(rs, mid + 1, r);
         pushup(u);
     }
-    void modify(int u, int l, int r, T add) {
+    void modify(int u, int l, int r) {
         if (tr[u].l >= l && tr[u].r <= r) {
-            calc(tr[u], add);
+            calc(tr[u]);
             return ;
         }
         pushdown(u);
         int mid = tr[u].l + tr[u].r >> 1;
-        if (l <= mid) modify(ls, l, r, add);
-        if (r > mid) modify(rs, l, r, add);
+        if (l <= mid) modify(ls, l, r);
+        if (r > mid) modify(rs, l, r);
         pushup(u);
     }
     Info query(int u, int l, int r) {

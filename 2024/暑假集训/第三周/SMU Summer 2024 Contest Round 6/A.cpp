@@ -15,7 +15,6 @@ void solve() {
     int ans = 0;
     for (int i = 0; i < (1 << n); i ++) {
         string str = s;
-        // debug1(i);
         int c = 0;
         for (int j = 0; j < n; j ++) {
             if (i >> j & 1) {
@@ -23,12 +22,10 @@ void solve() {
                 c ++;
             }
         }
-        // debug1(str);
         stack<int> stk;
         bool ok = false;
         for (int j = 0; j < str.size(); j ++) {
             int k = j;
-            // debug1(j);
             int sum = 0;
             if (str[j] >= '0' && str[j] <= '9') {
                 while (str[k] >= '0' && str[k] <= '9' && k < str.size()) {
@@ -36,7 +33,6 @@ void solve() {
                     k ++;
                 }
                 j = k - 1;
-                // debug1(sum);
                 stk.push(sum);
             }
             if (!ok) {
@@ -44,12 +40,10 @@ void solve() {
             } else {
                 int x = stk.top(); stk.pop();
                 int y = stk.top(); stk.pop();
-                // debug2(x, y);
                 stk.push(x + y);
                 ok = false;
             }
         }
-        // debug1(stk.top());
         ans += stk.top();
     }
     cout << ans << '\n';

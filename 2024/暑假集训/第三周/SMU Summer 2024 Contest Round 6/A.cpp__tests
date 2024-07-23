@@ -1,11 +1,23 @@
 [
 	{
+		"correct_answers":
+		[
+			"176"
+		],
 		"test": "125\n"
 	},
 	{
+		"correct_answers":
+		[
+			"17520"
+		],
 		"test": "12345\n"
 	},
 	{
+		"correct_answers":
+		[
+			"12656242944"
+		],
 		"test": "9999999999\n"
 	}
 ]

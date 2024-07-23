@@ -54,7 +54,6 @@ struct SegmentTree {
         u.op ^= 1;
     }
     void pushup(int u) {
-        // debug1(u);
         tr[u] = merge(tr[u], tr[ls], tr[rs]);
     }
     void pushdown(int u) {
