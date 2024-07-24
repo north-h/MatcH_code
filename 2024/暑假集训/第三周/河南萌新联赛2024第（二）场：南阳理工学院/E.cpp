@@ -9,9 +9,17 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
+struct Hash{
+    
+    Hash(string s) {
+
+    }
+};
+
 void solve() {
-    int a, b; cin >> a >> b;
-    cout << a * b << '\n';
+    int n; cin >> n;
+    string a, b; cin >> a >> b;
+    
 }
 
 int32_t main() {

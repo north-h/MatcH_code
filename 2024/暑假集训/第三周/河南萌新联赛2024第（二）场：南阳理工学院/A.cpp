@@ -10,8 +10,18 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b; cin >> a >> b;
-    cout << a * b << '\n';
+    int n, m, q; cin >> n >> m >> q;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    sort(a.begin() + 1, a.end());
+
+    for (int i = 1; i < m; i ++) {
+        int u, v; cin >> u >> v;
+    }
+    while (q --) {
+        int k; cin >> k;
+        cout << a[k] << '\n';
+    }
 }
 
 int32_t main() {

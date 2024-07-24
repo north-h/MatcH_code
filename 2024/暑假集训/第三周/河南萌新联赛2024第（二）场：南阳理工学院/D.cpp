@@ -28,34 +28,30 @@ string mul(string a, int b) {
 
 void solve() {
     string a, b; cin >> a >> b;
+    if (b[0] == '0' || a[0] == '0') {
+        cout << "0\n";
+        return ;
+    }
     string c = mul(a, b[0] - '0');
     int an = a.size(), cn = c.size(), bn = b.size();
     vector<int> pre(cn + 1);
     int len = cn + bn - 1;
-    // debug1(c);
     for (int i = 1; i <= cn; i ++) {
         pre[i] = pre[i - 1] + (c[i - 1] - '0');
     }
-    // for (int i = 1; i <= cn; i ++) {
-    //     cout << pre[i] << ' ';
-    // }
-    // cout << '\n';
     int jw = 0;
     string ans;
-    // debug1(len);
     for (int i = len; i >= 1; i --) {
         int l = max(1ll, cn - i + 1);
         int r = min(cn, cn - i + bn);
         l = cn - l + 1;
         r = cn - r + 1;
         swap(l, r);
-        // debug2(l, r);
         int x = pre[r] - pre[l - 1] + jw;
-        // debug2(x, jw);
         jw = x / 10;
         ans += ((x % 10) + '0');
     }
-    while (jw) ans += (jw % 10 + '0'), jw /= 10;
+    if (jw) ans += (jw + '0');
     reverse(ans.begin(), ans.end());
     cout << ans << '\n';
 }
@@ -63,7 +59,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

@@ -10,14 +10,14 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b; cin >> a >> b;
-    cout << a * b << '\n';
+    int n, m; cin >> n >> m;
+    cout << "DHY" << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

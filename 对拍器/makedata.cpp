@@ -8,20 +8,26 @@ using namespace std;
 void makedata()
 {
 	ofstream fout("input.txt");
-	srand(time(nullptr)); 
-	std::random_device rd;  
-    std::mt19937 gen(rd()); 
+	srand(time(nullptr));
+	std::random_device rd;
+	std::mt19937 gen(rd());
 
-    std::uniform_int_distribution<int> distribution(1, 5);
+	std::uniform_int_distribution<int> distribution(1, 5);
 
-	int n, k; n = rand() % 10 + 1;
-	fout << n << ' ' << 2 << ' ' << 4 << endl;
-	string s = "AWSD";
+	int n, m; n = rand() % 10000 + 1, m = rand() % 10000000 + 1;
+	// fout << n << ' ' << 2 << ' ' << 4 << endl;
+	string a = "", b = "";
 	for (int i = 1; i <= n; i ++) {
-		int x = rand() % 4;
-		fout << s[x];
+		int x = rand() % 10;
+		if (x == 0) x ++;
+		a += (x + '0');
 	}
-	fout << '\n';
+	int x = rand() % 10;
+	if (x == 0) x ++;
+	for (int i = 1; i <= m; i ++) {
+		b += (x + '0');
+	}
+	fout << a << ' ' << b << '\n';
 	fout.close();
 }
 

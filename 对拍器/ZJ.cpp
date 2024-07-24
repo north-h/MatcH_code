@@ -1,43 +1,67 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
 #define int long long
-const int N = 100010;
-const int INF = 0x3f3f3f3f;
-
 using namespace std;
-
-void solve() {
-    int n, x, y; cin >> n >> x >> y;
-    string s; cin >> s;
-    int X = 0, Y = 0;
-    map<pair<int, int>, int> mp;
-    if (x == 0 && y == 0) {
-        cout << n * (n + 1) / 2 << '\n';
+const int N = 2e6 + 5;
+string a;
+string b;
+int pr[N];
+void solve()
+{
+    cin >> a >> b;
+    if (b[0] == '0' || a[0] == '0') {
+        cout << "0\n";
         return ;
     }
-    int ans = 0;
-    mp[ {0, 0}] ++;
-    // debug1(n);
-    for (int i = 0; i < n; i ++) {
-        if (s[i] == 'A') X --;
-        else if (s[i] == 'D') X ++;
-        else if (s[i] == 'W') Y ++;
-        else Y --;
-        int dx = X - x, dy = Y - y;
-        ans += mp[ {dx, dy}] * (n - i);
-        mp[ {dx, dy}] = 0;
-        mp[ {X, Y}] ++;
+    reverse(a.begin(), a.end());
+    vector<int>v;
+    int p = 0;
+    int x = b[0] - '0';
+    for (int i = 0; i < a.length(); i++) {
+        int now = p + (a[i] - '0') * x;
+        v.push_back(now % 10);
+        p = now / 10;
     }
-    cout << ans << '\n';
-}
+    while (p) {
+        v.push_back(p % 10);
+        p /= 10;
+    }
+    reverse(v.begin(), v.end());
+    // for (auto i : v) cout << i << ' ';
+    // cout << '\n';
+    for (int i = 1; i <= v.size(); i++) {
+        // cout<<v[i-1];
+        pr[i] = pr[i - 1] + v[i - 1];
+    }
+    int n = v.size(), m = b.size();
+    vector<int>ans;
+    p = 0;
 
-int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+    for (int i = 1; i <= n + m - 1; i++) {
+        int r = min(n + m - 1 - i + 1, n);
+        int l = max(0ll, n - i);
+        int now = p + pr[r] - pr[l];
+        // if(i==1)cout<<r<<":"<<l<<" ";
+        ans.push_back(now % 10);
+        p = now / 10;
+    }
+    while (p) {
+        ans.push_back(p % 10);
+        p /= 10;
+    }
+    reverse(ans.begin(), ans.end());
+    for (auto it : ans)cout << it;
+    cout << "\n";
+    return ;
+}
+signed main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
+    int t = 1;
+    // cin >> t;
+    while (t--) {
+        solve();
+    }
     return 0;
 }

@@ -10,8 +10,13 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b; cin >> a >> b;
-    cout << a * b << '\n';
+    int n; cin >> n;
+    string s; cin >> s;
+    int ans = 0;
+    for (int i = 0; i < s.size(); i ++) {
+        if (s.substr(i, 5) == "chuan") ans ++;
+    }
+    cout << ans << '\n';
 }
 
 int32_t main() {
