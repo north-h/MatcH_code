@@ -32,7 +32,7 @@ void solve() {
     for (auto [val, l, r] : seg) {
         vector<int> dp(r - l + 1);
         for (int i = l; i <= r; i ++) {
-            
+            dp[i] = 
         }
     }
 }

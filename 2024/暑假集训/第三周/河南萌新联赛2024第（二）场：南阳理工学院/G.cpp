@@ -49,20 +49,23 @@ struct DSU {
 void solve() {
     int n, m; cin >> n >> m;
     int k = 0;
+    vector<array<int, 2>> zj;
+    map<array<int, 2>, int> id;
     vector<vector<char>> g(n + 1, vector<char>(m + 1));
     for (int i = 1; i <= n; i ++) {
         for (int j = 1; j <= m; j ++) {
             cin >> g[i][j];
-            if (g[i][j] == '.') k ++;
+            if (g[i][j] == '*') {
+                zj.push_back({i, j});
+                id[ {i, j}] = k ++;
+            }
         }
     }
-    vector<vector<int>> dis(n + 1, vector<int>(m + 1, INF));
     vector<S> edge;
     auto bfs = [&](int x, int y) -> void {
         vector<vector<int>> vis(n + 1, vector<int>(m + 1));
-        dis[x][y] = 0;
-        queue<array<int, 2>> q;
-        q.push({x, y});
+        queue<array<int, 3>> q;
+        q.push({x, y, 0});
         vis[x][y] = 1;
         while (q.size()) {
             auto t = q.front();
@@ -71,25 +74,19 @@ void solve() {
                 int tx = t[0] + dx[i];
                 int ty = t[1] + dy[i];
                 if (tx < 1 || ty < 1 || tx > n || ty > m) continue;
-                if (vis[tx][ty] || g[tx][ty] == '#' || dis[tx][ty] != INF) continue;
-                dis[tx][ty] = min(dis[t[0]][t[1]] + 1, dis[tx][ty]);
-                edge.push_back({(x - 1) * m + y, (tx - 1) * m + ty, dis[tx][ty]});
+                if (vis[tx][ty] || g[tx][ty] == '#') continue;
+                q.push({tx, ty, t[2] + 1});
+                vis[tx][ty] = 1;
+                if (g[tx][ty] == '*')
+                    edge.push_back({id[{x, y}], id[{tx, ty}], t[2] + 1});
             }
         }
     };
-    for (int i = 1; i <= n; i ++) {
-        for (int j = i + 1; j <= n; j ++) {
-            if (g[i][j] == '.') bfs(i, j);
-        }
-    }
-    cout << edge.size() << '\n';
+    for (auto [x, y] : zj) bfs(x, y);
     sort(edge.begin(), edge.end(), [&](S a, S b) {
         return a.w < b.w;
     });
-
-    DSU dsu(n * m + 1);
-
-
+    DSU dsu(k + 1);
     int cnt = 0, ans = 0;
     for (auto [u, v, w] : edge) {
         if (!dsu.same(u, v)) {
@@ -98,7 +95,6 @@ void solve() {
             dsu.merge(u, v);
         }
     }
-
     if (cnt < k - 1) cout << "No" << '\n';
     else cout << ans << '\n';
 }

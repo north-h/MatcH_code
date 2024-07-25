@@ -1,8 +1,16 @@
 [
 	{
+		"correct_answers":
+		[
+			"2"
+		],
 		"test": "6\nacabxb\neababf\n"
 	},
 	{
+		"correct_answers":
+		[
+			"1"
+		],
 		"test": "3\nabc\ncde\n"
 	}
 ]
