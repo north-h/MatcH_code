@@ -8,7 +8,7 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int n, zj, node, ok, ans;
+int n, zj, node, ok, ans, cnt;
 vector<vector<int>> g;
 vector<int> zjd, vis;
 
@@ -39,18 +39,20 @@ void dfs1(int u, int f, int d) {
 }
 
 void dfs2(int u, int f, int d) {
-    debug2(u, f);
+    // debug2(u, f);
+    // debug2(d, zj / 2);
     if (d == zj / 2) {
-        vis[u] = 1;
-        ans *= (g[f].size() + 1);
+        vis[f] = 2;
+        ans *= (int)g[f].size();
+        cnt += g[f].size() - 1;
         return ;
     }
     for (auto v : g[u]) {
+        // debug2(u, v);
         if (v == f || vis[v]) continue;
-        debug2(v, u);
         vis[v] = 1;
-        dfs(v, u, d + 1);
-        if (vis[u]) return ;
+        dfs2(v, u, d + 1);
+        if (vis[u] == 2) return ;
     }
 }
 
@@ -62,22 +64,22 @@ void solve() {
         g[u].push_back(v);
         g[v].push_back(u);
     }
-    for (int i = 1; i <= n; i ++) {
-        cout << i << ':';
-        for (auto j : g[i]) cout << j << ' ';
-        cout << '\n';
-    }
+    // for (int i = 1; i <= n; i ++) {
+    //     cout << i << ':';
+    //     for (auto j : g[i]) cout << j << ' ';
+    //     cout << '\n';
+    // }
     zj = 0;
     dfs(1, 0, 0);
     int root = node;
     dfs(node, 0, 0);
     zjd.push_back(root);
     ok = 0;
-    debug2(root, zj);
     dfs1(root, 0, 0);
-    for (auto i : zjd) cout << i << ' ';
-    cout << '\n';
-    cout << zjd.size() << '\n';
+    // debug2(root, zj);
+    // for (auto i : zjd) cout << i << ' ';
+    // cout << '\n';
+    // cout << zjd.size() << '\n';
     if (zjd.size() == 1) {
         cout << 0 << '\n';
     } else if (zjd.size() == 2) {
@@ -86,22 +88,30 @@ void solve() {
         int c = g[zjd[1]].size();
         cout << pow(2, c) - 1 - c << '\n';
     } else {
-        int n = zjd.size();
+        int N = zjd.size();
         int v1, v2;
         ans = 1;
         vector<int> (n + 1).swap(vis);
         if (zj % 2 == 0) {
-            v1 = zjd[n / 2 - 1];
+            v1 = zjd[N / 2];
+            // debug1(v1);
             vis[v1] = 1;
             dfs2(v1, 0, 0);
-        } else {
-            v1 = zjd[n / 2], v2 = zjd[n / 2 - 1];
-            vis[v1] = vis[v2] = 1;
-            debug2(v1, v2);
             dfs2(v1, 0, 0);
-            // dfs2(v2, 0, 0);
+        } else {
+            v1 = zjd[N / 2], v2 = zjd[N / 2 - 1];
+            vis[v1] = vis[v2] = 1;
+            // debug2(v1, v2);
+            // debug1(n);
+            // for (int i = 1; i <= n; i ++) cout << vis[i] << ' ';
+            // cout << '\n';
+            dfs2(v1, 0, 0);
+            // for (int i = 1; i <= n; i ++) cout << vis[i] << ' ';
+            // cout << '\n';
+            dfs2(v2, 0, 0);
         }
-        cout << ans << '\n';
+        // debug1(cnt);
+        cout << ans - 1 - cnt << '\n';
     }
 }
 
