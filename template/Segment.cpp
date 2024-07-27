@@ -4,10 +4,6 @@ struct SegmentTree {
 #define rs u << 1 | 1
     struct Info {
         int l, r;
-        int op;
-        T mx0, mx1;
-        T lsum0, lsum1;
-        T rsum0, rsum1;
     };
     vector<Info> tr;
     vector<T> a;
@@ -29,8 +25,8 @@ struct SegmentTree {
         tr[u] = merge(tr[u], tr[ls], tr[rs]);
     }
     void pushdown(int u) {
-        auto [_, __, op, _1, _2, _3, _4, _5, _6] = tr[u];
-        if (op) {
+        auto [_, __,] = tr[u];
+        if () {
             calc(tr[ls]);
             calc(tr[rs]);
             tr[u].op ^= 1;

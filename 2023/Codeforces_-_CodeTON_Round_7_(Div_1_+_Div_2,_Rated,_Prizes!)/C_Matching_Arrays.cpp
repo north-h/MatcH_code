@@ -50,11 +50,11 @@ void solve() {
     int n, x;
     cin >> n >> x;
     vector<PII> a(n), b(n);
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> a[i].fi;
         a[i].se = i;
     }
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> b[i].fi;
         b[i].se = i;
     }
@@ -65,23 +65,23 @@ void solve() {
     // cout << endl;
     // for(auto [x, y] : b)cout << x << ' ';
     // cout << endl;
-    for(int i = 0, j = x - 1; i < x; i++, j--) {
+    for (int i = 0, j = x - 1; i < x; i++, j--) {
         // debug2(a[i].fi, b[j].fi);
-        if(a[i].fi <= b[j].fi) {
+        if (a[i].fi <= b[j].fi) {
             cout << "NO" << endl;
             return ;
         }
         ans[a[i].se] = b[j].fi;
     }
-    for(int i = x, j = n - 1; i < n; i++, j--) {
-        if(b[i].fi < a[j].fi) {
+    for (int i = x, j = n - 1; i < n; i++, j--) {
+        if (b[i].fi < a[j].fi) {
             cout << "NO" << endl;
             return ;
         }
         ans[a[j].se] = b[i].fi;
     }
     cout << "YES" << endl;
-    for(auto i : ans)cout << i << ' ';
+    for (auto i : ans)cout << i << ' ';
     cout << endl;
 }
 

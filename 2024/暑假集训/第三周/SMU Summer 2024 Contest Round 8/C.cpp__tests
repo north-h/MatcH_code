@@ -1,0 +1,51 @@
+[
+	{
+		"correct_answers":
+		[
+			"2"
+		],
+		"test": "2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"0"
+		],
+		"test": "1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"54"
+		],
+		"test": "3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"974"
+		],
+		"test": "4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"14670"
+		],
+		"test": "5\n"
+	},
+	{
+		"correct_answers":
+		[
+			"199262"
+		],
+		"test": "6\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2531214"
+		],
+		"test": "7\n"
+	}
+]
