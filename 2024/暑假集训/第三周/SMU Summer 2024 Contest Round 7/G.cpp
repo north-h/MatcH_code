@@ -4,7 +4,7 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define lf(x) fixed << setprecision(x)
 #define int long long
-#define LOCAL
+// #define LOCAL
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
 

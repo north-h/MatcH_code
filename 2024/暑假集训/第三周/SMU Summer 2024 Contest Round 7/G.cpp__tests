@@ -16,8 +16,8 @@
 	{
 		"correct_answers":
 		[
-			"bbababbab",
-			"bbababb"
+			"bbababb",
+			"bbababbab"
 		],
 		"test": "4 3\nbba\nbbaba\nb\nb\n"
 	},
@@ -27,5 +27,12 @@
 			"a"
 		],
 		"test": "50 1\nbabbaaabaabbbabaababaaabbbabbaabbbabbaabbaabbbbbab\nbab\nabbbabbabaabababababaabbabbb\naaabbbbbaab\nbababbbbbabbbbbbba\nbbbbbbaaaabbbaaabbaababbabaaaabaaabbabbbaaaaaa\naaaaaaaaababbb\nabaababbbaaaaababaaabaaaaabbbabbbbb\nabbaabbaabbaaaababbbaabbabababba\nbaabbaabbbbbaaaabbbbbaaababababaaaabbbababaabababa\na\nabbbbbabbabbabaaabbaababbaaba\nbabbabbaaabbbbbbbaaabaaabbababbbaabaababaabbab\na\naabababbabbaabbbaabbbaaabaaaabbaa\nbabababb\nbaabababbaababbabaaaababbbababbbaaabaabaa\naaaaabababaab\nabbabbaaaabababaabbabaaaababa\nbabbba\nbbbaaaabbababaabbbabbb\nbaabaaababaaabbbba\naabaabbababaabbbbbaababbababbbaaaba\nbabaaaaabbbbbbaaab\nbaababbbaaaabbbabaaabaaaaaabbabababbbbbbbbbbaba\nbaabaaabbaaaabbbaaabbbba\nabbbbbaba\naabbbbaababbabbbbabbaababbbbabaab\naaabbbaaaabbaaaaab\nbaaaabaabaabbbbbbbabbbaabbbbbabababaaaaabbb\nbbbabbabbbaabbaaba\naaabbbaaaaabababbbab\nbabbabbabbaaaaaaabbaabbbaabaabbbabbaabbab\nbbaababaaba\naabaa\nab\nabaababaabaabaababbbbbbaabaaba\nbabaaabbbbbbaabaaaabbbbbbabbaaaaab\nabbbbaabbaaaa\nbbbbbabbabbababaababaaaababbab\nbabaabaaababbbbaaa\nabbaabaaaabbababbabbbbb\naaabbabaaaababaabbbbabbaabbaababababbbbabaabaabbba\nbaabaabaaababaabababbbaabaab\nbaabbababaaaaabbabaaaa\naaabbbaaaabbbbb\naaaaaaaaa\nbaaaabaabbbaa\nababbaaabbabbbbbbababaa\nbbbbbaaaabbbababbaa\n"
+	},
+	{
+		"correct_answers":
+		[
+			"bababababb"
+		],
+		"test": "4 3\nbababa\nbab\nb\nb\n"
 	}
 ]
