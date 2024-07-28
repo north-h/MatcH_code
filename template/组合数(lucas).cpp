@@ -3,9 +3,7 @@ int ksm(int a, int k) {
     int res = 1;
     while (k) {
         if (k & 1) res = (res * a) % mod;
-
         a = (a * a) % mod;
-
         k >>= 1;
     }
     return res;
