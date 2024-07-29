@@ -1,5 +1,7 @@
-int depth[N]
+int depth[N];
 int fa[N][25];
+vector<vector<int>> g;
+
 void dfs(int u, int f) {
     depth[u] = depth[f] + 1;
     fa[u][0] = f;
@@ -8,10 +10,11 @@ void dfs(int u, int f) {
     }
     for (auto v : g[u]) {
         if (v == f) continue;
-        dfs(dfs, v, u, d + 1);
+        dfs(v, u);
     }
 };
-void lca(int u, int v) {
+
+int lca(int u, int v) {
     if (depth[u] < depth[v]) swap(u, v);
     for (int i = 22; i >= 0; i --) {
         if (depth[fa[u][i]] >= depth[v]) {

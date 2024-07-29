@@ -5,30 +5,27 @@
 
 using namespace std;
 
-void makedata()
-{
+void makedata() {
 	ofstream fout("input.txt");
 	srand(time(nullptr));
-	std::random_device rd;
-	std::mt19937 gen(rd());
-
-	std::uniform_int_distribution<int> distribution(1, 5);
-
-	int n, m; n = rand() % 10000 + 1, m = rand() % 10000000 + 1;
-	// fout << n << ' ' << 2 << ' ' << 4 << endl;
+	int n, m; n = rand() % 10 + 1, m = rand() % 10 + 1;
+	fout << n << ' ' << m << endl;
 	string a = "", b = "";
 	for (int i = 1; i <= n; i ++) {
-		int x = rand() % 10;
-		if (x == 0) x ++;
-		a += (x + '0');
+		for (int i = 1; i <= n; i ++) {
+			for (int j = 1; j <= m; j ++) {
+				if (i == 1 && j == 1 || i == n && j == m) {
+					fout << '.';
+					continue;
+				}
+				int x = rand() % 2 + 1;
+				if (x == 1) fout << '.';
+				else fout << 'X';
+			}
+			fout << '\n';
+		}
+		fout.close();
 	}
-	int x = rand() % 10;
-	if (x == 0) x ++;
-	for (int i = 1; i <= m; i ++) {
-		b += (x + '0');
-	}
-	fout << a << ' ' << b << '\n';
-	fout.close();
 }
 
 int32_t main() {

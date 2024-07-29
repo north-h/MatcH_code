@@ -1,62 +1,71 @@
-#pragma GCC optimize("Ofast")
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
 #define int long long
-const int N = 100010;
+const int N = 1010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-string mul(string a, int b) {
-    vector<int> A, B;
-    for (int i = a.size() - 1; i >= 0; i--)A.push_back(a[i] - '0');
-    int t = 0;
-    for (int i = 0; i < A.size(); i++) {
-        t += A[i] * b;
-        B.push_back(t % 10);
-        t /= 10;
+int n, m, ans;
+char g[N][N];
+int dx[] = {0, 1, 0, -1};
+int dy[] = {1, 0, -1, 0};
+int vis[N][N][5][2];
+
+int bfs() {
+    vector<vector<int>> dis(n + 1, vector<int> (m + 1, INF));
+    memset(vis, 0, sizeof vis);
+    queue<array<int, 4>> q;
+    q.push({1, 1, 2, 1});
+    q.push({1, 1, 3, 1});
+    q.push({1, 1, 4, 0});
+    vis[1][1][2][1] = 1;
+    vis[1][1][3][1] = 1;
+    vis[1][1][4][0] = 1;
+    dis[1][1] = 0;
+    while (q.size()) {
+        auto t = q.front();
+        q.pop();
+        for (int i = 0; i < 4; i ++) {
+            if (i == t[2]) continue;
+            int tx = t[0] + dx[i];
+            int ty = t[1] + dy[i];
+            if (tx < 1 || ty < 1 || tx > n || ty > m) continue;
+            if (vis[tx][ty][t[2]][t[3]]) continue;
+            if (g[tx][ty] == 'X') {
+                if (t[3]) {
+                    vis[tx][ty][t[2]][t[3]] = 1;
+                    dis[tx][ty] = dis[t[0]][t[1]] + 1;
+                    q.push({tx, ty, t[2], 0});
+                }
+            } else {
+                vis[tx][ty][t[2]][t[3]] = 1;
+                dis[tx][ty] = dis[t[0]][t[1]] + 1;
+                q.push({tx, ty, t[2], t[3]});
+            }
+        }
     }
-    while (t)B.push_back(t % 10), t /= 10;
-    while (B.size() > 1 && B.back() == 0)B.pop_back();
-    string s1;
-    char op;
-    for (int i = B.size() - 1; i >= 0; i--)s1 += (B[i] + '0');
-    return s1;
+    // for (int i = 1; i <= n; i ++) {
+    //     for (int j = 1; j <= m; j ++) {
+    //         cout << dis[i][j] << ' ';
+    //     }
+    //     cout << '\n';
+    // }
+    // cout << "--------------" << '\n';
+    return dis[n][m];
 }
 
 void solve() {
-    string a, b; cin >> a >> b;
-    string c = mul(a, b[0] - '0');
-    int an = a.size(), cn = c.size(), bn = b.size();
-    vector<int> pre(cn + 1);
-    int len = cn + bn - 1;
-    // debug1(c);
-    for (int i = 1; i <= cn; i ++) {
-        pre[i] = pre[i - 1] + (c[i - 1] - '0');
+    cin >> n >> m;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            cin >> g[i][j];
+        }
     }
-    // for (int i = 1; i <= cn; i ++) {
-    //     cout << pre[i] << ' ';
-    // }
-    // cout << '\n';
-    int jw = 0;
-    string ans;
-    // debug1(len);
-    for (int i = len; i >= 1; i --) {
-        int l = max(1ll, cn - i + 1);
-        int r = min(cn, cn - i + bn);
-        l = cn - l + 1;
-        r = cn - r + 1;
-        swap(l, r);
-        // debug2(l, r);
-        int x = pre[r] - pre[l - 1] + jw;
-        // debug2(x, jw);
-        jw = x / 10;
-        ans += ((x % 10) + '0');
-    }
-    while (jw) ans += (jw % 10 + '0'), jw /= 10;
-    reverse(ans.begin(), ans.end());
+    ans = bfs();
+    if (ans == INF) ans = -1;
     cout << ans << '\n';
 }
 
