@@ -25,6 +25,7 @@ void solve() {
     for (auto [x, y] : mp) {
         seg.push_back({x, y[0], y[1]});
     }
+    seg.push_back({0, 0, 2 * n + 1});
     sort(seg.begin(), seg.end(), [&](array<int, 3> a, array<int, 3> b) {
         return (a[2] - a[1]) < (b[2] - b[1]);
     });
@@ -32,7 +33,7 @@ void solve() {
     for (auto [val, l, r] : seg) {
         vector<int> dp(r - l + 1);
         for (int i = l; i <= r; i ++) {
-            dp[i] = 
+            dp[i] = dp[i - 1] + val;
         }
     }
 }
