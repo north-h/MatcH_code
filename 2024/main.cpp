@@ -1,69 +1,26 @@
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+#define debug1(a) cout << #a << '=' << a << endl
+#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define lf(x) fixed << setprecision(x)
+// #define LOCAL
+const int N = 100010;
+const int INF = 0x3f3f3f3f;
+
 using namespace std;
-#define int long long
-#define endl "\n"
 
-int mod = 998244353;
-int n;
-int arr[105];
-
-void solve() {   ////L
-    cin >> n;
-    for (int i = 1; i <= n; i++) cin >> arr[i];
-    int i = 2, j = 1;
-    for (; i <= n; i ++) {
-        if (arr[i] < arr[i - 1]) {
-            int sum = 0, m = i - j, left = 0;
-            for (int k = j ; k < i; k ++) sum += arr[k];
-            int avg = sum / m;
-            for (int k = i - 1; k > j; k --) {
-                if (arr[k] >= avg) {
-                    left += arr[k] - avg;
-                    arr[k] = avg;
-                } else {
-                    arr[k] = avg;
-                    left -= avg - arr[k];
-                }
-                m --;
-                sum -= arr[k];
-                avg = sum / m;
-            }
-            arr[j] = avg;
-            j = i;
-        }
-    }
-    int sum = 0, m = i - j, left = 0;
-    for (int k = j ; k < i; k ++) sum += arr[k];
-    int avg = sum / m;
-    for (int k = i - 1; k > j; k --) {
-        if (arr[k] >= avg) {
-            left += arr[k] - avg;
-            arr[k] = avg;
-        } else {
-            arr[k] = avg;
-            left -= avg - arr[k];
-        }
-        m --;
-        sum -= arr[k];
-        avg = sum / m;
-    }
-    arr[j] = avg;
-    int ans = 1;
-    for (int k = 1; k <= n; k ++) {
-        ans *= arr[k];
-        ans %= mod;
-    }
-    // for (int i = 1; i <= n; i ++) cout << arr[i] << ' ';
-    // cout << '\n';
-    cout << ans << '\n';
+void solve() {
+    
 }
 
-signed main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
-    int t = 1;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+int32_t main() {
+#ifdef LOCAL
+    freopen("data.in", "r", stdin);
+    freopen("data.out", "w", stdout);
+#endif
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--)solve();
     return 0;
 }
