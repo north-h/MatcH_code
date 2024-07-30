@@ -14,15 +14,17 @@ void solve() {
         cout << "No\n";
         return ;
     }
-    if (!a && !b) {
-        if (n == 1 && m == 2 || n == 2 && m == 1) cout << "Yes\n";
-        else cout << "No\n";
-    }
-    else if (a && b) cout << "Yes\n";
-    else if (!a && b) {
+    if (n == 1 && m == 2 || n == 2 && m == 1) {
         cout << "Yes\n";
-    } else {
-        if (n == 1 && m % 2 == 0 || m == 1 && n % 2 == 0) cout << "Yes\n";
+        return ;
+    }
+    if (!a && !b) cout << "No\n";
+    else if (a && b) cout << "Yes\n";
+    else if (!a && b) {//短边不能接，长边可以接
+        if (n == 1 || m == 1) cout << "No\n";
+        else cout << "Yes\n";
+    } else {//长边不能接，短边可以接
+        if (n == 1 || m == 1) cout << "Yes\n";
         else cout << "No\n";
     }
 }

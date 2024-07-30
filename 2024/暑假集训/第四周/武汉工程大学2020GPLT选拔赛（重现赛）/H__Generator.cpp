@@ -71,26 +71,25 @@ int32_t main() {
     int h_h = 1;
     // cin >> h_h;
     while (h_h--) {
-        int x = 3;
+        int x = rng(1, 10);
         for (int i = 1; i <= x; i ++) {
             string s;
             s += (char)rng((int)'A', (int)'Z');
-            int l = rng(1, 5);
-            for (int j = 1; j <= l; j ++) {
-                s += (char)rng((int)'a', (int)'z');
-            }
+            s += (char)rng((int)'a', (int)'z');
+            s += (char)rng((int)'A', (int)'Z');
+            s += (char)rng((int)'a', (int)'z');
             s += '{';
             s += (rng(1, 5) + '0');
             s += '}';
             s += '(';
-            l = rng(1, 5);
+            int l = rng(2, 5);
             for (int j = 1; j <= l; j ++) {
                 s += (char)(rng((int)'A', (int)'Z'));
             }
             s += ')';
-            s += '{';
-            s += (rng(1, 5) + '0');
-            s += '}';
+            // s += '{';
+            // s += (rng(1, 5) + '0');
+            // s += '}';
 
             l = rng(1, 5);
             s += (char)(rng((int)'A', (int)'Z'));
