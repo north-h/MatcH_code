@@ -32,8 +32,9 @@ void solve() {
     vector<int> f(n + 1);
     for (auto [val, l, r] : seg) {
         vector<int> dp(r - l + 1);
-        for (int i = l; i <= r; i ++) {
-            dp[i] = dp[i - 1] + val;
+        for (int i = l + 1; i <= r; i ++) {
+            dp[i] = max(dp[i], dp[i - 1] + val);
+            if (mp[val][0] >= l && mp[val][1] <= i) dp[i] = max(dp[i], dp[l - 1] + f[val]);
         }
     }
 }

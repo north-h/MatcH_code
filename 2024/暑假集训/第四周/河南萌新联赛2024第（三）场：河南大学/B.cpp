@@ -2,7 +2,6 @@
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
 #define int long long
 const int N = 100010;
 const int INF = 0x3f3f3f3f;
@@ -10,23 +9,21 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, n; cin >> a >> b >> n;
-    int c = b / 2, v = c * 3, cv;
-    int cc = n / 3;
-    if (c >= cc) {
-        cv = n - cc * 3;
-    } else {
-        cv = n - v;
+    int n; cin >> n;
+    int ans = 0;
+    for (int i = 1; i <= n; i ++) {
+        int a, b, c, d;
+        scanf("%d.%d.%d.%d", &a, &b, &c, &d);
+        if (a >= 0 && a <= 255 && b >= 0 && b <= 255  && c >= 0 && c <= 255  && d >= 0 && d <= 255 )
+            ans ++;
     }
-    if (cv > a) cout << "NO" << '\n';
-    else cout << "YES" << '\n';
+    cout << ans << '\n';
 }
 
-
 int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
+    // ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

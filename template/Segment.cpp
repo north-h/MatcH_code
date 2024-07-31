@@ -14,27 +14,26 @@ struct SegmentTree {
         build(1, 1, n);
     }
     Info merge(Info &u, Info l, Info r) {
-       
+
 
         return u;
     }
     void calc(Info &u) {
-   
+
     }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[ls], tr[rs]);
     }
     void pushdown(int u) {
-        auto [_, __,] = tr[u];
+        auto [_, __] = tr[u];
         if () {
             calc(tr[ls]);
             calc(tr[rs]);
-            tr[u].op ^= 1;
         }
     }
     void build(int u, int l, int r) {
-        if (!a[l]) tr[u] = {l, r, 0, 1, 0, 1, 0, 1, 0};
-        else tr[u] = {l, r, 0, 0, 1, 0, 1, 0, 1};
+        if (!a[l]) tr[u] = {l, r};
+        else tr[u] = {l, r};
         if (l == r) return ;
         int mid = l + r >> 1;
         build(ls, l, mid);
