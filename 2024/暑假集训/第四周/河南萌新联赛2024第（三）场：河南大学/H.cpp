@@ -17,20 +17,21 @@ void solve() {
         }
     }
     vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(m + 1, vector<int>(h + 1, INF)));
-    dp[1][1][0] = 1;
+    dp[1][1][0] = 0;
     for (int i = 1; i <= n; i ++) {
         for (int j = 1; j <= m; j ++) {
+            if (i == 1 && j == 1) continue;
             for (int k = 0; k <= h; k ++) {
                 dp[i][j][k] = min(dp[i - 1][j][k] + 1, dp[i][j][k]);
                 dp[i][j][k] = min(dp[i][j - 1][k] + 1, dp[i][j][k]);
-                if (k > g[i][j]) {
+                if (k >= g[i][j]) {
                     dp[i][j][k] = min(dp[i - 1][j][k - g[i][j]], dp[i][j][k]);
                     dp[i][j][k] = min(dp[i][j - 1][k - g[i][j]], dp[i][j][k]);
                 }
             }
         }
     }
-    cout << dp[n][m][h] << '\n';
+    cout << dp[n][m][h - 1] << '\n';
 }
 
 int32_t main() {
