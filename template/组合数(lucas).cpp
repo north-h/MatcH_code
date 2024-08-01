@@ -1,4 +1,7 @@
-const int nod = 1e6;
+#include<bits/stdc++.h>
+using namespace std;
+
+const int mod = 1e6;
 int ksm(int a, int k) {
     int res = 1;
     while (k) {

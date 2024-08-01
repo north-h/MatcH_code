@@ -1,3 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+
 template<class T>
 struct SegmentTree {
 #define ls u << 1

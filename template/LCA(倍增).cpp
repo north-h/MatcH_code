@@ -1,3 +1,7 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
 int depth[N];
 int fa[N][25];
 vector<vector<int>> g;
