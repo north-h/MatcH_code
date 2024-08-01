@@ -28,6 +28,17 @@
 		"test": "Fmtr{5}(PNYL)Xifak Bbe{2}(OMG)Vo Icxgvs{1}(B)Xamtcz Tdpng{3}(WW)Scc\n"
 	},
 	{
-		"test": "aaaa{2}\n"
+		"correct_answers":
+		[
+			"FeFeSSOOSSCCScSc"
+		],
+		"test": "(FeSOSCSc){2}\n"
+	},
+	{
+		"correct_answers":
+		[
+			"CuOOOHHH"
+		],
+		"test": "Cu(OH){3}\n"
 	}
 ]

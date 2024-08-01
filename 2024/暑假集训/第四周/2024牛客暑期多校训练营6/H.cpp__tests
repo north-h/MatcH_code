@@ -1,0 +1,37 @@
+[
+	{
+		"correct_answers":
+		[
+			"invalid\nvalid\ninvalid\nvalid\nvalid"
+		],
+		"test": "5\n433333333334\n34343453434\n333335333335\nUUUUUUUUUU\n5U5U5U5U5U4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"valid"
+		],
+		"test": "1\nUUUUUUUUUU\n"
+	},
+	{
+		"correct_answers":
+		[
+			"valid"
+		],
+		"test": "1\n5U5U5U5U5U4\n"
+	},
+	{
+		"correct_answers":
+		[
+			"valid"
+		],
+		"test": "1\n34343453434\n"
+	},
+	{
+		"correct_answers":
+		[
+			"valid"
+		],
+		"test": "1\n5U53U5\n"
+	}
+]
