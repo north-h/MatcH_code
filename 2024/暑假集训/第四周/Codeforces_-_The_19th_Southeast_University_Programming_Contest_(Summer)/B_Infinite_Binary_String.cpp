@@ -16,7 +16,7 @@
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
-const int N = 100010;
+const int N = 300010;
 const int INF = 0x3f3f3f3f;
 
 using namespace std;
@@ -26,59 +26,61 @@ struct SegmentTree {
 #define ls tr[u].lid
 #define rs tr[u].rid
     struct Info {
-        int lid, rid, l, r;
+        int lid, rid;
         int ok = -1;
         T sum = 0;
     };
     int n, idx = 0, root = 0;
     vector<Info> tr;
     SegmentTree(int n) {
-        tr.resize(n * 2 + 1);
+        tr.resize(n + 1);
     };
     Info merge(Info &u, Info l, Info r) {
         u.sum = l.sum + r.sum;
         return u;
     }
-    void build(int &u, int l, int r) {
+    void build(int &u) {
         if (u) return ;
         u = ++ idx;
-        tr[u].l = l, tr[u].r = r;
-        
     }
     void pushup(int u) {
         tr[u] = merge(tr[u], tr[ls], tr[rs]);
     }
-    void calc(Info &u, int ok) {
-        u.ok = ok;        
+    void calc(Info &u, int ok, int l, int r) {
+        int lvl = r - l + 1;
+        if (ok == 0) u.sum = lvl;
+        else u.sum = 0;
+        u.ok = ok;
     }
-    void pushdown(int u) {
-        int add = tr[u].add;
-        if (!add) return ;
-        calc(tr[ls], add);
-        calc(tr[rs], add);
-        tr[u].add = 0;
+    void pushdown(int u, int l, int r) {
+        int ok = tr[u].ok;
+        if (~ok) return ;
+        build(ls); build(rs);
+        int mid = l + r >> 1;
+        calc(tr[ls], ok, l, mid);
+        calc(tr[rs], ok, mid + 1, r);
+        tr[u].ok = -1;
     }
     void modify(int &u, int l, int r, int L, int R, int ok) {
-        build(u, l, r);
+        build(u);
         if (l >= L && r <= R) {
-            calc(tr[u], ok);
+            calc(tr[u], ok, l, r);
             return ;
         }
-        pushdown(u);
+        pushdown(u, l, r);
         int mid = l + r >> 1;
         if (L <= mid) modify(ls, l, mid, L, R, ok);
         if (R > mid) modify(rs, mid + 1, r, L, R, ok);
         pushup(u);
     }
-    Info query(int &u, int l, int r, int L, int R) {
-        build(u, l, r);
-        if (l >= L && r <= R) return tr[u];
-        pushdown(u);
+    int query(int &u, int l, int r, int k) {
+        // build(u);
+        if (l == r ) return l + k - 1;
+        pushdown(u, l, r);
+        int cnt = tr[u].sum;
         int mid = l + r >> 1;
-        if (R <= mid) return query(ls, l, mid, L, R);
-        if (L > mid) return query(rs, mid + 1, r, L, R);
-        Info t = merge(t, query(ls, l, mid, L, R), query(rs, mid + 1, r, L, R));
-        return t;
+        if (cnt >= k) return query(ls, l, mid, k);
+        else return query(rs, mid + 1, r, k - cnt);
     }
 };
 
@@ -90,18 +92,23 @@ void solve() {
         int x1, x2, k;
         if (op == '+') {
             cin >> x1 >> x2;
+            sg.modify(sg.root, 1, , x1, x2, 1);
         } else if (op == '-') {
             cin >> x1 >> x2;
+            sg.modify(sg.root, 1, , x1, x2, 0);
         } else {
             cin >> k;
+            int x = 2e18;
+            cout << sg.query(sg.root, 1, x, k) << '\n';
         }
     }
+    cout << "--------" << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

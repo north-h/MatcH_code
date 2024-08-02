@@ -59,25 +59,27 @@ void dfs2(int u, int fa, bool flag) {
     // cout << u << " " << f[0][u] << " " << f[1][u] << endl;
 }
 void test() {
-    cin >> n;
-    for (int i = 1; i <= n; i++) {
-        e[i].clear();
-        f[0][i] = f[1][i] = 0;
-        cnt[0][i] = cnt[1][i] = 0;
-    }
-    for (int i = 1; i < n; i++) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        e[u].push_back(make_pair(v, w));
-        e[v].push_back(make_pair(u, w));
-    }
-    dfs1(1, 0, 0);
-    dfs2(1, 0, true);
-    printf("%0.12lf\n", f[1][1]);
+    // cin >> n;
+    // for (int i = 1; i <= n; i++) {
+    //     e[i].clear();
+    //     f[0][i] = f[1][i] = 0;
+    //     cnt[0][i] = cnt[1][i] = 0;
+    // }
+    // for (int i = 1; i < n; i++) {
+    //     int u, v, w;
+    //     cin >> u >> v >> w;
+    //     e[u].push_back(make_pair(v, w));
+    //     e[v].push_back(make_pair(u, w));
+    // }
+    // dfs1(1, 0, 0);
+    // dfs2(1, 0, true);
+    // printf("%0.12lf\n", f[1][1]);
+    // int n = -1;
+    // cout << !(~n) << '\n';
 }
 int main() {
-    int T;
-    cin >> T;
+    int T = 1;
+    // cin >> T;
     while (T--) {
         test();
     }
