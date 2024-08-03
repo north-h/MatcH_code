@@ -18,6 +18,7 @@
 #define int long long
 const int N = 300010;
 const int INF = 0x3f3f3f3f;
+const int maxn = 2e18;
 
 using namespace std;
 
@@ -41,6 +42,7 @@ struct SegmentTree {
     }
     void build(int &u) {
         if (u) return ;
+        debug2(u, idx);
         u = ++ idx;
     }
     void pushup(int u) {
@@ -52,7 +54,7 @@ struct SegmentTree {
         else u.sum = 0;
         u.ok = ok;
     }
-    void pushdown(int u, int l, int r) {
+    void pushdown(int &u, int l, int r) {
         int ok = tr[u].ok;
         if (~ok) return ;
         build(ls); build(rs);
@@ -64,7 +66,10 @@ struct SegmentTree {
     void modify(int &u, int l, int r, int L, int R, int ok) {
         build(u);
         if (l >= L && r <= R) {
+            debug2(l, r);
+            debug1(u);
             calc(tr[u], ok, l, r);
+            debug2(u, tr[u].sum);
             return ;
         }
         pushdown(u, l, r);
@@ -73,15 +78,29 @@ struct SegmentTree {
         if (R > mid) modify(rs, mid + 1, r, L, R, ok);
         pushup(u);
     }
-    int query(int &u, int l, int r, int k) {
-        // build(u);
-        if (l == r ) return l + k - 1;
+    Info query(int &u, int l, int r, int L, int R) {
+        build(u);
+        if (l >= L && r <= R) {
+            debug2(l, r);
+            debug2(u, tr[u].sum);
+            return tr[u];
+        }
         pushdown(u, l, r);
-        int cnt = tr[u].sum;
         int mid = l + r >> 1;
-        if (cnt >= k) return query(ls, l, mid, k);
-        else return query(rs, mid + 1, r, k - cnt);
+        if (R <= mid) return query(ls, l, mid, L, R);
+        if (L > mid) return query(rs, mid + 1, r, L, R);
+        Info t = merge(t, query(ls, l, mid, L, R), query(rs, mid + 1, r, L, R));
+        return t;
     }
+    // int query(int &u, int l, int r, int k) {
+    //     build(u);
+    //     if (l == r) return l + k - 1;
+    //     pushdown(u, l, r);
+    //     int cnt = tr[u].sum;
+    //     int mid = l + r >> 1;
+    //     if (cnt >= k) return query(ls, l, mid, k);
+    //     else return query(rs, mid + 1, r, k - cnt);
+    // }
 };
 
 void solve() {
@@ -92,16 +111,22 @@ void solve() {
         int x1, x2, k;
         if (op == '+') {
             cin >> x1 >> x2;
-            sg.modify(sg.root, 1, , x1, x2, 1);
+            x1 ++; x2 ++;
+            sg.modify(sg.root, 1, maxn, x1, x2, 1);
         } else if (op == '-') {
             cin >> x1 >> x2;
-            sg.modify(sg.root, 1, , x1, x2, 0);
+            x1 ++; x2 ++;
+            debug2(x1, x2);
+            sg.modify(sg.root, 1, maxn, x1, x2, 0);
+            cout << sg.tr[120].sum << ' ' << sg.tr[122].sum << '\n';
+            cout << sg.query(sg.root, 1, maxn, 1, 3).sum << '\n';
         } else {
             cin >> k;
             int x = 2e18;
-            cout << sg.query(sg.root, 1, x, k) << '\n';
+            // cout << sg.query(sg.root, 1, x, k) << '\n';
         }
     }
+    cout << sg.idx << '\n';
     cout << "--------" << '\n';
 }
 

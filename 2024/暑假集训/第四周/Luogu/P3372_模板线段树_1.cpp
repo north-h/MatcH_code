@@ -100,7 +100,7 @@ void solve() {
             sg.modify(sg.root, 1, n, l, r, k);
         } else cout << sg.query(sg.root, 1, n, l, r).sum << '\n';
     }
-    sg.modify(sg.root, 1, n, 1, 1, 2);
+    // cout << sg.idx << '\n';
 }
 
 int32_t main() {
