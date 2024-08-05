@@ -15,9 +15,10 @@ void solve() {
     n ++; m ++;
     // debug2(n, m);
     g[1][1] = min(n, m) - 1;
-    // int zz = min(n, m);
-    int x = (m + 1) / 2, y = (n + 1) / 2;
-    // debug2(x, y);
+    int zz = min(n, m);
+        
+    int x = (zz + 1) / 2, y = (zz + 1) / 2;
+    debug2(x, y);
     if (m % 2 == 0) {
         int vv = (x - 1) * 2;
         for (int i = 2; i <= x; i ++) g[1][i] = g[1][i - 1] + vv, vv -= 2;
@@ -52,28 +53,28 @@ void solve() {
             g[k][i] = g[j][i];
         }
     }
-    for (int i = 1; i <= n; i ++) {
-        for (int j = 1; j <= (m + 1) / 2; j ++) {
-            if (g[i][j] == 0)
-                g[i][j] = g[i][j - 1];
-        }
-        for (int j = m - 1; j > (m + 1) / 2; j --) {
-            if (g[i][j] == 0)
-                g[i][j] = g[i][j + 1];
-        }
-    }
-    for (int i = 1; i <= m; i ++) {
-        for (int j = 1; j <= (n + 1) / 2; j ++) {
-            if (g[j][i] == 0) {
-                // debug2(j, i);
-                g[j][i] = g[j - 1][i];
-            }
-        }
-        for (int j = n - 1; j > (n + 1) / 2; j --) {
-            if (g[j][i] == 0)
-                g[j][i] = g[j + 1][i];
-        }
-    }
+    // for (int i = 1; i <= n; i ++) {
+    //     for (int j = 1; j <= (m + 1) / 2; j ++) {
+    //         if (g[i][j] == 0)
+    //             g[i][j] = g[i][j - 1];
+    //     }
+    //     for (int j = m - 1; j > (m + 1) / 2; j --) {
+    //         if (g[i][j] == 0)
+    //             g[i][j] = g[i][j + 1];
+    //     }
+    // }
+    // for (int i = 1; i <= m; i ++) {
+    //     for (int j = 1; j <= (n + 1) / 2; j ++) {
+    //         if (g[j][i] == 0) {
+    //             // debug2(j, i);
+    //             g[j][i] = g[j - 1][i];
+    //         }
+    //     }
+    //     for (int j = n - 1; j > (n + 1) / 2; j --) {
+    //         if (g[j][i] == 0)
+    //             g[j][i] = g[j + 1][i];
+    //     }
+    // }
     for (int i = 1; i <= n; i ++) {
         for (int j = 1; j <= m; j ++) {
             cout << g[i][j] << ' ';

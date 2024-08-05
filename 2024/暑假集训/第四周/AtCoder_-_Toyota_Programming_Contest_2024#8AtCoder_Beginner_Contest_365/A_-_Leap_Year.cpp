@@ -17,6 +17,7 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
 const int N = 100010;
+
 const int INF = 0x3f3f3f3f;
 
 using namespace std;

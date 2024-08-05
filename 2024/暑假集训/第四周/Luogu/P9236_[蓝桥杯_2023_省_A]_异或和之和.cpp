@@ -1,13 +1,13 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-08-03 20:00:32 ms
+ * Time:    2024-08-05 10:44:09 ms
  *
- * Problem: E - Xor Sigma Problem
- * Contest: AtCoder - Toyota Programming Contest 2024#8（AtCoder Beginner Contest 365）
- * URL:     https://atcoder.jp/contests/abc365/tasks/abc365_e
- * MemoryL: 1024 MB
- * TimeL:   2000 ms
+ * Problem: P9236 [蓝桥杯 2023 省 A] 异或和之和
+ * Contest: Luogu
+ * URL:     https://www.luogu.com.cn/problem/P9236
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==============================================================
  */
 
@@ -31,16 +31,14 @@ void solve() {
         sum += x;
     }
     int ans = 0;
-    for (int j = 0; j < 31; j ++) {
+    for (int j = 0; j < 20; j ++) {
         int c[2] = {0, 0};
         for (int i = 0; i <= n; i ++) {
             c[pre[i] >> j & 1] ++;
         }
-        // debug2(c[0], c[1]);
-        // debug1(j);
         ans += (1ll << j) * c[1] * c[0];
     }
-    cout << ans - sum << '\n';
+    cout << ans << '\n';
 }
 
 int32_t main() {
