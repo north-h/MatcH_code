@@ -11,8 +11,8 @@ using namespace std;
 
 void solve() {
     int n; cin >> n;
-    vector<int> a(n * 2  + 1);
-    map<int, array<int, 2>> mp;
+    vector<int> a(n * 2  + 2);
+    unordered_map<int, array<int, 2>> mp;
     for (int i = 1; i <= n * 2; i ++) {
         cin >> a[i];
         if (!mp.count(a[i])) {
@@ -31,12 +31,16 @@ void solve() {
     });
     vector<int> f(n + 1);
     for (auto [val, l, r] : seg) {
-        vector<int> dp(r - l + 1);
+        vector<int> dp(r + 1, 0);
+        dp[l] = val;
         for (int i = l + 1; i <= r; i ++) {
+            int lo = mp[a[i]][0], hi = mp[a[i]][1];
             dp[i] = max(dp[i], dp[i - 1] + val);
-            if (mp[val][0] >= l && mp[val][1] <= i) dp[i] = max(dp[i], dp[l - 1] + f[val]);
+            if (lo > l && hi < r && i >= hi) dp[i] = max(dp[i], dp[lo - 1] + f[a[i]]);
         }
+        f[val] = dp[r];
     }
+    cout << f[0] << '\n';
 }
 
 int32_t main() {
