@@ -13,7 +13,7 @@ void solve() {
     int n, m, k; cin >> n >> m >> k;
     int x, y; char t; cin >> x >> y >> t;
     int smx = n + m, smn = n + m;
-    if (m & 1) smx += (m / 2) * (n / 2);
+    if (m & 1) smx += (m / 2 + 1) * (n / 2);
     else {
         int c1 = m / 2, c2 = c1 - 1;
         if (n & 1) smx += (c1 + c2) * (n / 2);
@@ -41,34 +41,9 @@ void solve() {
             else g[i][j] = 'A';
         }
     }
-    // debug2(smx, smn);
-    // for (int i = 1; i <= n; i ++) {
-    //     for (int j = 1; j <= m; j ++) {
-    //         cout << g[i][j];
-    //     }
-    //     cout << '\n';
-    // }
-    // cout << '\n';
     bool ok = false;
     int cnt = smx - k;
-    // debug1(cnt);
-    // if (g[1][1] == 'A') {
-    //     // cout << "----" << '\n';
-    //     for (int i = 2; i <= n; i ++) {
-    //         for (int j = 1; j < m; j ++) {
-    //             if (g[i][j] == 'A') {
-    //                 // debug2(i, j);
-    //                 g[i][j] = 'B';
-    //                 cnt --;
-    //                 if (cnt == 0) {
-    //                     ok = true;
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //         if (ok) break;
-    //     }
-    // } else {
+    // debug2(smn, smx);
     for (int i = 2; i <= n; i ++) {
         for (int j = 1; j < m; j ++) {
             if (g[i][j] == 'B') {
@@ -82,7 +57,6 @@ void solve() {
         }
         if (ok) break;
     }
-    // }
     cout << "Yes\n";
     for (int i = 1; i <= n; i ++) {
         for (int j = 1; j <= m; j ++) {
