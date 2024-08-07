@@ -10,13 +10,17 @@ using namespace std;
 
 void solve() {
     int n, m; cin >> n >> m;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) {
+    vector<int> a(n);
+    for (int i = 0; i < n; i ++) {
         cin >> a[i];
     }
-    for (int i = m - 1; i >= 0; i --) {
-        
+    sort(a.rbegin(), a.rend());
+    int ans = 0;
+    for (int i = 1; i < n; i ++) {
+        debug1(~(a[i] ^ a[i - 1]));
+        ans = max(ans, ~(a[i] ^ a[i - 1]));
     }
+    cout << ans << '\n';
 }
 
 int32_t main() {

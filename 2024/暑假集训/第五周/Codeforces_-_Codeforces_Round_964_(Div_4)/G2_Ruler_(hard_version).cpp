@@ -24,18 +24,17 @@ using namespace std;
 
 void solve() {
     int l = 1, r = 999, ans = -1;
-    while (l <= r) {
+    while (l < r) {
         int mid = l + r >> 1;
         int midl = l + (r - l) / 3;
         int midr = r - (r - l) / 3;
         cout << '?' << ' ' << midl << ' ' << midr << endl;
-        int s = midl * midr;
         int x; cin >> x;
-        if (x == midl * midr) l = midr + 1, ans = midr;
+        if (x == midl * midr) l = midr + 1;
         else if (x == (midl + 1) * (midr + 1)) r = midl - 1;
-        else l = midl + 1, r = midr - 1, ans = midl;
+        else l = midl, r = midr;
     }
-    cout << '!' << ' ' << ans + 1 << '\n';
+    cout << '!' << ' ' << l + 1 << endl;
 }
 
 int32_t main() {
