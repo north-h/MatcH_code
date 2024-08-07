@@ -12,24 +12,31 @@ using namespace std;
 void solve() {
     int n, m, k; cin >> n >> m >> k;
     int x, y; char t; cin >> x >> y >> t;
+    vector g(n + 1, vector<char>(m + 1));
+    if (t == 'A') {
+        if ((x & 1) == (y & 1)) g[1][1] = 'A';
+        else g[1][1] = 'B';
+    } else {
+        if ((x & 1) == (y & 1)) g[1][1] = 'B';
+        else g[1][1] = 'A';
+    }
+    // debug1(g[1][1]);
     int smx = n + m, smn = n + m;
-    if (m & 1) smx += (m / 2 + 1) * (n / 2);
+    if (m & 1) smx += (m / 2) * (n - 1);
     else {
-        int c1 = m / 2, c2 = c1 - 1;
+        int c1, c2;
+        if (g[1][1] == 'B') c2 = m / 2, c1 = c2 - 1;
+        else c1 = m / 2, c2 = c1 - 1;
+        // debug2(n, m);
+        // debug2(c1, c2);
         if (n & 1) smx += (c1 + c2) * (n / 2);
         else smx += (c1 + c2) * (n / 2 - 1) + c1;
     }
+    // debug2(smn, smx);
+    cout << smn << ' ' << smx << '\n';
     if (k < smn || k > smx) {
         cout << "No\n";
         return ;
-    }
-    vector g(n + 1, vector<char>(m + 1));
-    if (t == 'A') {
-        if (x * y & 1) g[1][1] = 'A';
-        else g[1][1] = 'B';
-    } else {
-        if (x * y & 1) g[1][1] = 'B';
-        else g[1][1] = 'A';
     }
     for (int i = 2; i <= m; i ++) {
         if (g[1][i - 1] == 'A') g[1][i] = 'B';
@@ -43,7 +50,6 @@ void solve() {
     }
     bool ok = false;
     int cnt = smx - k;
-    // debug2(smn, smx);
     for (int i = 2; i <= n; i ++) {
         for (int j = 1; j < m; j ++) {
             if (g[i][j] == 'B') {
