@@ -8,17 +8,35 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {
-    int n, m; cin >> n >> m;
-    vector<int> a(n);
-    for (int i = 0; i < n; i ++) {
-        cin >> a[i];
+int tr[N][2], vis[N][2];
+int n, m, idx;
+
+void insert(int x) {
+    int p = 0;
+    for (int i = m - 1; i >= 0; i --) {
+        int u = (x >> i & 1);
+        if (!tr[p][u]) tr[p][u] = ++idx;
+        p = tr[p][u];
     }
-    sort(a.rbegin(), a.rend());
+}
+
+int queyr(int x) {
+    int p = 0, res = 0;
+    for (int i = m - 1; i >= 0; i --) {
+        int u = (x >> i & 1);
+        if (tr[p][u]) res = res * 2 + 1, p = tr[p][u];
+        else res = res * 2, p = tr[p][u ^ 1];
+    }
+    return res;
+}
+
+void solve() {
+    cin >> n >> m;
     int ans = 0;
-    for (int i = 1; i < n; i ++) {
-        debug1(~(a[i] ^ a[i - 1]));
-        ans = max(ans, ~(a[i] ^ a[i - 1]));
+    for (int i = 0, x; i < n; i ++) {
+        cin >> x;
+        ans = max(ans, queyr(x));
+        insert(x);
     }
     cout << ans << '\n';
 }

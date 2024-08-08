@@ -34,42 +34,42 @@ void solve() {
     }
     // debug2(smn, smx);
     cout << smn << ' ' << smx << '\n';
-    // if (k < smn || k > smx) {
-    //     cout << "No\n";
-    //     return ;
-    // }
-    // for (int i = 2; i <= m; i ++) {
-    //     if (g[1][i - 1] == 'A') g[1][i] = 'B';
-    //     else g[1][i] = 'A';
-    // }
-    // for (int i = 2; i <= n; i ++) {
-    //     for (int j = 1; j <= m; j ++) {
-    //         if (g[i - 1][j] == 'A') g[i][j] = 'B';
-    //         else g[i][j] = 'A';
-    //     }
-    // }
-    // bool ok = false;
-    // int cnt = smx - k;
-    // for (int i = 2; i <= n; i ++) {
-    //     for (int j = 1; j < m; j ++) {
-    //         if (g[i][j] == 'B') {
-    //             g[i][j] = 'A';
-    //             cnt --;
-    //             if (cnt == 0) {
-    //                 ok = true;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     if (ok) break;
-    // }
-    // cout << "Yes\n";
-    // for (int i = 1; i <= n; i ++) {
-    //     for (int j = 1; j <= m; j ++) {
-    //         cout << g[i][j];
-    //     }
-    //     cout << '\n';
-    // }
+    if (k < smn || k > smx) {
+        cout << "No\n";
+        return ;
+    }
+    for (int i = 2; i <= m; i ++) {
+        if (g[1][i - 1] == 'A') g[1][i] = 'B';
+        else g[1][i] = 'A';
+    }
+    for (int i = 2; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            if (g[i - 1][j] == 'A') g[i][j] = 'B';
+            else g[i][j] = 'A';
+        }
+    }
+    bool ok = false;
+    int cnt = smx - k;
+    for (int i = 2; i <= n; i ++) {
+        for (int j = 1; j < m; j ++) {
+            if (g[i][j] == 'B') {
+                g[i][j] = 'A';
+                cnt --;
+                if (cnt == 0) {
+                    ok = true;
+                    break;
+                }
+            }
+        }
+        if (ok) break;
+    }
+    cout << "Yes\n";
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            cout << g[i][j];
+        }
+        cout << '\n';
+    }
 }
 
 int32_t main() {
