@@ -20,24 +20,6 @@ void solve() {
         if ((x & 1) == (y & 1)) g[1][1] = 'B';
         else g[1][1] = 'A';
     }
-    // debug1(g[1][1]);
-    int smx = n + m, smn = n + m;
-    if (m & 1) smx += (m / 2) * (n - 1);
-    else {
-        int c1, c2;
-        if (g[1][1] == 'B') c2 = m / 2, c1 = c2 - 1;
-        else c1 = m / 2, c2 = c1 - 1;
-        // debug2(n, m);
-        // debug2(c1, c2);
-        if (n & 1) smx += (c1 + c2) * (n / 2);
-        else smx += (c1 + c2) * (n / 2 - 1) + c1;
-    }
-    // debug2(smn, smx);
-    cout << smn << ' ' << smx << '\n';
-    if (k < smn || k > smx) {
-        cout << "No\n";
-        return ;
-    }
     for (int i = 2; i <= m; i ++) {
         if (g[1][i - 1] == 'A') g[1][i] = 'B';
         else g[1][i] = 'A';
@@ -48,20 +30,37 @@ void solve() {
             else g[i][j] = 'A';
         }
     }
-    bool ok = false;
-    int cnt = smx - k;
+    int smx = n + m, smn = n + m;
     for (int i = 2; i <= n; i ++) {
         for (int j = 1; j < m; j ++) {
             if (g[i][j] == 'B') {
-                g[i][j] = 'A';
-                cnt --;
-                if (cnt == 0) {
-                    ok = true;
-                    break;
+                smx ++;
+            }
+        }
+    }
+    if (k < smn || k > smx) {
+        cout << "No\n";
+        return ;
+    }
+    int cnt = smx - k;
+    if (t == 'A') {
+        for (int i = 2; i <= n && cnt > 0; i ++) {
+            for (int j = 1; j < m && cnt > 0; j ++) {
+                if (g[i][j] == 'B') {
+                    g[i][j] = 'A';
+                    cnt --;
                 }
             }
         }
-        if (ok) break;
+    } else {
+        for (int i = 2; i <= n && cnt > 0; i ++) {
+            for (int j = 2; j <= m && cnt > 0; j ++) {
+                if (g[i][j] == 'A') {
+                    g[i][j] = 'B';
+                    cnt --;
+                }
+            }
+        }
     }
     cout << "Yes\n";
     for (int i = 1; i <= n; i ++) {
@@ -75,7 +74,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

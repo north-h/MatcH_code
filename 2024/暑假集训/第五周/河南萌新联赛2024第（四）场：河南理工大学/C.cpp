@@ -8,22 +8,16 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int vis[100];
-
 void solve() {
-    int x, y; cin >> x >> y;
-    if (x % y == 0) cout << y << ' ' << x / y << '\n';
-    else if (y % x == 0) {
-        cout << y << ' ' << 1 << '\n';
-    } else {
-        cout << y << ' ' << x << '\n';
-    }
+    int n, m; cin >> n >> m;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

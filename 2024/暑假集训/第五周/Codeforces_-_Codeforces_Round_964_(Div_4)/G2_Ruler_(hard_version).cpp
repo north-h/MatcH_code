@@ -23,24 +23,24 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int l = 1, r = 999, ans = -1;
+    int l = 1, r = 999;
     while (l < r) {
         int mid = l + r >> 1;
         int midl = l + (r - l) / 3;
         int midr = r - (r - l) / 3;
         cout << '?' << ' ' << midl << ' ' << midr << endl;
         int x; cin >> x;
-        if (x == midl * midr) l = midr + 1;
-        else if (x == (midl + 1) * (midr + 1)) r = midl - 1;
-        else l = midl, r = midr;
+        if (x == midl * midr) l = midr;
+        else if (x == midl * (midr + 1)) l = midl, r = midr - 1;
+        else r = midl - 1, ans = midl;
     }
-    cout << '!' << ' ' << l + 1 << endl;
+    cout << '!' << ' ' << l + 1 << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
