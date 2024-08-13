@@ -18,7 +18,7 @@ void init() {
     fac[0] = inv[0] = 1;
     for (int i = 1; i < N; i++) {
         fac[i] = fac[i - 1] * i % mod;
-        inf[i] = inv[i - 1] * ksm(i, mod - 2) % mod;
+        inv[i] = inv[i - 1] * ksm(i, mod - 2) % mod;
     }
 }
 

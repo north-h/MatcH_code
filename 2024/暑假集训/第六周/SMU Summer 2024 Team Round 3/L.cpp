@@ -9,16 +9,13 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    string s; cin >> s;
-    for (int i = 0; i < s.size(); i ++) {
-        if (s.substr(i, 5) == "avava") i += 4;
-        else if (s.substr(i, 3) == "ava") i += 2;
-        else {
-            cout << "No\n";
+    int x; cin >> x;
+    for (int i = 2; i <= x + 1; i ++) {
+        if (x % i) {
+            cout << i << '\n';
             return ;
         }
     }
-    cout << "Yes\n";
 }
 
 int32_t main() {

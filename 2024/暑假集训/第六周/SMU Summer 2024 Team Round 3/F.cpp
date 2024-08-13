@@ -9,16 +9,14 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    string s; cin >> s;
-    for (int i = 0; i < s.size(); i ++) {
-        if (s.substr(i, 5) == "avava") i += 4;
-        else if (s.substr(i, 3) == "ava") i += 2;
-        else {
-            cout << "No\n";
-            return ;
-        }
+    int n; cin >> n;
+    vector<int> a(n);
+    int mx = 0;
+    for (int i = 0; i < n; i ++) {
+        cin >> a[i];
+        mx = max(mx, a[i]);
     }
-    cout << "Yes\n";
+    cout << mx << '\n';
 }
 
 int32_t main() {

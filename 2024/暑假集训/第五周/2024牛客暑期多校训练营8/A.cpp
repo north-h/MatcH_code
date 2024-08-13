@@ -8,23 +8,13 @@ const int INF = 0x3f3f3f3f;
 
 using namespace std;
 
-unordered_map<int, int> mp;
-int vis[N];
-
-
 void solve() {
     int n; cin >> n;
-    mp.clear();
+    vector<int> vis(N);
     int mx = 0;
     for (int i = 1, x; i <= n; i ++) {
         cin >> x;
-        // mp[x] = 1;
         vis[x] = 1;
-        mx = max(mx, x);
-    }
-    if (n == 1) {
-        cout << "Haitang\n";
-        return ;
     }
     int cnt = 0;
     for (int i = 1; i <= 1e5; i ++) {
@@ -37,7 +27,6 @@ void solve() {
     }
     if (cnt & 1) cout << "dXqwq\n";
     else cout << "Haitang\n";
-    for (int i = 1; i <= mx; i ++) vis[i] = 0;
 }
 
 int32_t main() {
