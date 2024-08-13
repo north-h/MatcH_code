@@ -9,10 +9,12 @@ const int INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int ans = 0;
-    string s; cin >> s;
-    for (auto i : s) ans = ans * 10 + (i - '0');
-    cout << ans << '\n';
+    string s; cin  >> s;
+    map<int, int> mp;
+    for (auto i : ans) mp[i] ++;
+    int mx = 0;
+    for (auto [x, y] : mp) mx = max(y, mx);
+    cout << s.size() - mx << '\n';
 }
 
 int32_t main() {
