@@ -27,8 +27,7 @@ i128 check1(i128 l, i128 r, i128 xx) {
         if (mid * mid >= xx) {
             res = mid;
             r = mid - 1;
-        }
-        else l = mid + 1;
+        } else l = mid + 1;
     }
     return res;
 }
@@ -41,21 +40,12 @@ i128 check2(i128 l, i128 r, i128 xx) {
         if (mid * mid <= xx) {
             res = mid;
             l = mid + 1;
-        }
-        else r = mid - 1;
+        } else r = mid - 1;
     }
     return res;
 }
 
 void solve() {
-<<<<<<< HEAD
-    string s; cin  >> s;
-    map<int, int> mp;
-    for (auto i : ans) mp[i] ++;
-    int mx = 0;
-    for (auto [x, y] : mp) mx = max(y, mx);
-    cout << s.size() - mx << '\n';
-=======
     cin >> n >> L >> R;
     for (int i = 0; i < n / 2; i++) {
         num1 = num1 * 10 + L[i] - '0';
@@ -105,7 +95,6 @@ void solve() {
         if (num1 != num3) ans += (cnt6 + 1);
     }    ////右固定
     write(ans);
->>>>>>> 2d23109194d3083facd43edbaffc5fe937408e74
 }
 
 int32_t main() {
