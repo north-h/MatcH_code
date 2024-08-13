@@ -71,9 +71,9 @@ int32_t main() {
     int h_h = 1;
     // cin >> h_h;
     string s = "AB";
-    cout << 1 << '\n';
+    // cout << 1 << '\n';
     while (h_h--) {
-        int n = rng(1, 800), m = rng(1, 800), k = rng(n + m, n + m + 5);
+        int n = rng(1, 8), m = rng(1, 8), k = rng(n + m, n + m + 5);
         cout << n << ' ' << m << ' ' << k << '\n';
         int x = rng(1, n), y = rng(1, m);
         cout << x << ' ' << y << ' ' << s[rng(0, 1)] << '\n';

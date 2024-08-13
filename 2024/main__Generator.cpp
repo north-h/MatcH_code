@@ -73,8 +73,17 @@ int32_t main() {
     int h_h = 1;
     // cin >> h_h;
     while (h_h--) {
-        int k = rng(1, 1000);
-        cout << rng(k, 1000) << ' ' << k << ' ' << rng(1, 100) << '\n';
+        int n;
+        while (true) {
+            n = rng(1, 17);
+            if (n % 2 == 0) break;
+        }
+        cout << n << '\n';
+        int l = 1, r = 9;
+        for (int i = 1; i < n; i ++) l = l * 10;
+        for (int i = 1; i < n; i ++) r = r * 10 + 9;
+        int li = rng(l, r);
+        cout << li << ' ' << rng(li, r) << '\n';
     }
     return 0;
 }
