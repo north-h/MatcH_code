@@ -1,8 +1,14 @@
 [
-<<<<<<< HEAD
-=======
 	{
-		"test": "4\n"
+		"test": "aabaaabaaabaaabaaabaaabaaabaaaba\n"
+	},
+	{
+		"test": "aabbaabbaabbaabbaabbaabbaabbaabb\n"
+	},
+	{
+		"test": "aabacadbbcbdccdd\n"
+	},
+	{
+		"test": "aabbccddaabbccdd\n"
 	}
->>>>>>> 69208ea7c5d2fe657913baff6f3b1d58a523f144
 ]

@@ -1,37 +1,36 @@
-#include<bits/stdc++.h>
-#define int long long
+#include <bits/stdc++.h>
+
 using namespace std;
-int ans;
-string s;
-int num = 0;
-int h;
-int n;
-void dfs(int i, int ji, int ou, int f) {
-    if (h)return;
-    if (ji > (n + 2) / 2 || ou > ((n + 2) / 2) - 1) {
-        return;
-    }
-    if (i == n) {
-        cout << s << endl;
-        num++;
-        if (num == 100)h = 1;
-        return;
-    }
-    s += "b";
-    dfs(i + 1, ji + f, ou + !f, f);
-    s.pop_back();
-    s += "r";
-    dfs(i + 1, ji + !f, ou + f, !f);
-    s.pop_back();
-}
-signed main()
-{
+
+using i32 = int32_t;
+using i64 = long long;
+
+#define int i64
+using vi = vector<int>;
+
+void solve() {
+    int n;
     cin >> n;
-    int x =  (n + 1) / 2;
-    if ( n % 2 == 0 )x++;
-    ans = (n + n % 2) * x / 2;
-    cout << ans << endl;
-    dfs(0, 0, 0, 0);
-    return 0;
+    vi a(n);
+    for (auto &i : a) cin >> i;
+    vi l(n), r(n);
+    for (auto &i : l) cin >> i;
+    for (auto &i : r) cin >> i;
+
+    vi f(n);
+    f[0] = 1;
+    for (int i = 1; i < n; i++) {
+        if (l[i] == r[i]) f[i] = a[i] + 1;
+        else f[i] = max(f[i - 1] + a[i] + 1 - abs(l[i] - r[i]), a[i] + 1 + abs(l[i] - r[i]));
+    }
+    cout << ranges::max(f) << "\n";
 }
 
+i32 main() {
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
+}

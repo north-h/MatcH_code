@@ -22,20 +22,50 @@ using namespace std;
 
 // abcd
 void solve() {
-    string s; cin >> s;
-    int ans = 0;
-    for (int i = 0; i < s.size() - 1; i ++) {
-        for (int j = i + 1; j < s.size() - 1; j ++) {
-            if (s[i] == s[j] && s[i + 1] == s[j + 1]) ans ++;
-        }
+    int n, k; cin >> n >> k;
+    if (k == 1) {
+        for (int i = 1; i <= n; i ++) cout << 'a';
+        return ;
     }
-    cout << ans << '\n';
+    if (k == 2) {
+        string s = "aabb";
+        for (int i = 1; i <= n / 4; i ++) cout << s;
+        for (int i = 1; i <= n % 4; i ++) cout << s[i - 1];
+        return ;
+    }
+    map<char, char> mp;
+    string s = "a";
+    char f = 'a';
+    for (int i = 2; i <= n; i ++) {
+        if (!mp.count(s.back())) {
+            mp[s.back()] = 'a';
+            s += 'a';
+        } else {
+            char op = mp[s.back()] + 1;
+            mp[s.back()] = op;
+            s += op;
+            if (op - 'a' + 1 == k && s.back() != f + 1) {
+                f ++;
+                mp[s.back()] = f;
+                s += f;
+            }
+        }
+        char tp = 'a' + k - 1;
+        if (mp.count(s.back()) && mp[s.back()] == tp) break;
+    }
+    int m = (int)s.size();
+    for (int i = 1; i <= n / m; i ++) cout << s;
+    for (int i = 1; i <= n % m; i ++) cout << s[i - 1];
+    cout << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
+
+// aabbaabbaabbaabbaabbaabbaabbaabb
+// aabaaabaaabaaabaaabaaabaaabaaaba
