@@ -45,7 +45,7 @@ void solve() {
         if (a[i] == b[i]) {
             dp[i] = abs(a[i] - b[i]) + 1 + c[i];
         } else {
-            dp[i] = max(dp[i - 1] - abs(a[i] - b[i] + 1) + 2 + c[i], abs(a[i] - b[i]) + 1 + c[i]);
+            dp[i] = c[i] + 1 + max(dp[i - 1] - abs(a[i] - b[i]), abs(a[i] - b[i]));
         }
         ans = max(ans, dp[i]);
     }
