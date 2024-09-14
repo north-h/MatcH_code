@@ -1,14 +1,5 @@
 [
 	{
-		"test": "aabaaabaaabaaabaaabaaabaaabaaaba\n"
-	},
-	{
-		"test": "aabbaabbaabbaabbaabbaabbaabbaabb\n"
-	},
-	{
-		"test": "aabacadbbcbdccdd\n"
-	},
-	{
-		"test": "aabbccddaabbccdd\n"
+		"test": "4\n3 3 5 4 \n-1 1 1 1 \n-1 2 1 5\n"
 	}
 ]

@@ -28,21 +28,14 @@ void solve() {
     for (int i = 1; i <= n; i ++) cin >> b[i];
     vector<int> dp(n + 1);
     int ans  = 0;
-    dp[1] = abs(a[2] - b[2]);
-    for (int i = 2; i < n; i ++) {
-        if (a[i + 1] == b[i + 1]) {
-            ans = max(dp[i - 1] + c[i] - 1 + 2, ans);
-            dp[i] = 0;
+    for (int i = 2; i <= n; i ++) {
+        if (a[i] == b[i]) {
+            dp[i] = abs(a[i] - b[i]) + 1 + c[i];
         } else {
-            dp[i] = dp[i - 1] + 2;
-            int cv;
-            if (a[i + 1] < b[i + 1]) cv = a[i + 1] - 1 + c[i] - b[i + 1];
-            else cv = b[i + 1] - 1 + c[i] - a[i + 1];
-            dp[i] += cv;
-            ans = max({ans, dp[i - 1] + c[i] - 1 + 2, dp[i]});
+            dp[i] = max(dp[i - 1] - (c[i] - abs(a[i] - b[i]) - 1), abs(a[i] - b[i]) + 1 + c[i]);
         }
+        ans = max(ans, dp[i]);
     }
-    ans = max(ans, dp[n - 1] + 2 + c[n] - 1);
     cout << ans << '\n';
 }
 
