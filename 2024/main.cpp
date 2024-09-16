@@ -1,48 +1,73 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-09-09 14:27:57
- *
- * Problem: B. Longest Simple Cycle
- * Contest: Codeforces - SMU Autumn 2024 Trial 1
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/548611/problem/B
- * MemoryL: 256 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define int long long
-const int N = 100010, INF = 0x3f3f3f3f;
-
 using namespace std;
+#define int long long
+//const int N = 2e5+10;
+//int n, k;
+//char ans[N];
+int numofword[16];
+int tongji[15];
+bool vis[15];
+int l; int ans;
+int n, w;
+int cnt = 1;
 
-void solve() {
-    int n; cin >> n;
-    vector<int> a(n + 1), b(n + 1), c(n + 1);
-    for (int i = 1; i <= n; i ++) cin >> c[i];
-    for (int i = 1; i <= n; i ++) cin >> a[i];
-    for (int i = 1; i <= n; i ++) cin >> b[i];
-    vector<int> dp(n + 1);
-    int ans  = 0;
-    for (int i = 2; i <= n; i ++) {
-        if (a[i] == b[i]) {
-            dp[i] = abs(a[i] - b[i]) + 1 + c[i];
-        } else {
-            dp[i] = max(dp[i - 1] - (c[i] - abs(a[i] - b[i]) - 1), abs(a[i] - b[i]) + 1 + c[i]);
-        }
-        ans = max(ans, dp[i]);
+void dfs(int now, int days, int numw) { //共学了now个，在第days天，马上要学numw个
+    //cout<<now<<" "<<days<<" "<<numw<<'\n';
+    if (now == cnt) {
+        ans = min(ans, days + (numw == 0 ? 0 : 1));
     }
-    cout << ans << '\n';
+    else {
+        if (days + (numw == 0 ? 0 : 1) >= ans) return;
+        bool flag = 1;
+        for (int i = 1; i <= cnt; i++) {
+            if (!vis[i]) {
+                if (numw + tongji[i] <= w) {
+                    vis[i] = 1;
+                    if (numw + tongji[i] == w) {
+                        dfs(now + 1, days + 1, 0);
+                    }
+                    else dfs(now + 1, days, numw + tongji[i]);
+                    vis[i] = 0;
+                    flag = 0;
+                }
+            }
+        }
+        if (flag) {
+            for (int i = 1; i <= cnt; i++) {
+                if (!vis[i]) {
+                    vis[i] = 1;
+                    dfs(now + 1, days + 1, tongji[i]);
+                    vis[i] = 0;
+                    return ;
+                }
+            }
+        }
+    }
 }
 
-int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+void solve() {
+    cin >> n >> w;
+    for (int i = 0; i < n; i++) {
+        cin >> l;
+        numofword[l]++;
+    }
+
+    for (int i = 1; i < 14; i++) {
+        if (numofword[i]) tongji[cnt++] = numofword[i];
+    }
+    //cout<<"cnt "<<cnt<<'\n';
+    ans = 0x3f3f3f3f;
+    dfs(0, 0, 0);
+    cout << ans;
+}
+
+signed main()
+{
+    ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+    int t = 1;
+//    cin>>t;
+    while (t--) {
+        solve();
+    }
     return 0;
 }

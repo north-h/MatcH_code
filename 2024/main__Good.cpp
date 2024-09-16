@@ -1,36 +1,58 @@
-#include <bits/stdc++.h>
-
+//#pragma GCC optimize("Ofast")
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
 using namespace std;
+using ll = long long;
+using ull = unsigned long long;
+using PII = pair<ll, ll>;
 
-using i32 = int32_t;
-using i64 = long long;
-
-#define int i64
-using vi = vector<int>;
-
+const int N = 1e5 + 10, M = 210;
+const int INF = 0x3f3f3f3f;
+const int mod = 998244353;
+ll n;
+int a[16];
+int s[N], idx, ned[N];
+ll dp[N], lef[N];
 void solve() {
-    int n;
-    cin >> n;
-    vi a(n);
-    for (auto &i : a) cin >> i;
-    vi l(n), r(n);
-    for (auto &i : l) cin >> i;
-    for (auto &i : r) cin >> i;
-
-    vi f(n);
-    f[0] = 1;
-    for (int i = 1; i < n; i++) {
-        if (l[i] == r[i]) f[i] = a[i] + 1;
-        else f[i] = max(f[i - 1] + a[i] + 1 - abs(l[i] - r[i]), a[i] + 1 + abs(l[i] - r[i]));
+    ll w; cin >> n >> w;
+    map<int, int> mp;
+    for (int i = 1; i <= n; i++) {
+        int len; cin >> len;
+        a[len - 1]++;
+        mp[len - 1] ++;
     }
-    cout << ranges::max(f) << "\n";
+    const int mm = 1 << (int)mp.size();
+    for (int mask = 0; mask < mm; mask++) {
+        int sum = 0;
+        for (int i = 0; i < (int)mp.size(); i++) if (mask & 1 << i) sum += a[i];
+        if (sum <= w) s[++idx] = mask, ned[idx] = sum;
+    }
+    memset(dp, 0x3f, sizeof dp);
+    for (int mask = 0; mask < mm; mask++) lef[mask] = w;
+    dp[0] = 1;
+    for (int mask = 0; mask < mm; mask++) {
+        for (int i = 1; i <= idx; i++) {              //1<<13 < 1e4
+            int nmask = mask | s[i];
+//          dp[nmask]=min(dp[mask]+cnt[i],dp[nmask]);
+            if (ned[i] <= lef[mask]) {
+//              if(dp[nmask]>dp[mask]) dp[nmask]=dp[mask],lef[nmask]-=ned[i];
+                if (dp[nmask] > dp[mask]) dp[nmask] = dp[mask], lef[nmask] = lef[mask] - ned[i];
+                else if (dp[nmask] == dp[mask]) lef[nmask] = max(lef[mask] - ned[i], lef[nmask]);
+            } else {
+                if (dp[nmask] > dp[mask] + 1) dp[nmask] = dp[mask] + 1, lef[nmask] = w - ned[i];
+                else if (dp[nmask] == dp[mask] + 1) lef[nmask] = max(w - ned[i], lef[nmask]);
+            }
+        }
+    }
+    cout << dp[mm - 1];
 }
-
-i32 main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int T = 1;
-    // cin >> T;
-    while (T--)
-        solve();
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    srand(time(0));
+    int O_o = 1;
+//  cin >> O_o;
+    while (O_o--) solve();
     return 0;
 }
+//make it count
+//开ll plz

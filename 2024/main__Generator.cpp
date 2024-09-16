@@ -65,16 +65,25 @@ void graph(int n, int m) {
 }
 
 void solve() {
-    int n = rng(3, 4);
-    cout << n << '\n';
-    vector<int> a(n + 1), b(n + 1), c(n + 1);
-    for (int i = 1; i <= n; i ++) c[i] = rng(1, 5), cout << c[i] << ' ';
+    int n = 100, w = 20;
+    cout << n << ' ' << w << '\n';
+    vector<int> data;
+    while (true) {
+        map<int, int> mp;
+        for (int i = 1; i <= n; i ++) {
+            int x = rng(1, 13);
+            mp[x] ++;
+            data.push_back(x);
+        }
+        bool ok = false;
+        for (auto [x, y] : mp) {
+            if (y > w) ok = true;
+        }
+        if (!ok) break;
+        data.clear();
+    }
+    for (auto i : data) cout << i << ' ';
     cout << '\n';
-    cout << -1 << ' ';
-    for (int i = 2; i <= n; i ++) a[i] = rng(1, c[i - 1]), cout << a[i] << ' ';
-    cout << '\n';
-    cout << -1 << ' ';
-    for (int i = 2; i <= n; i ++) b[i] = rng(1, c[i - 1]), cout << b[i] << ' ';
 }
 
 int32_t main() {
