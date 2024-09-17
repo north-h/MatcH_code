@@ -64,26 +64,8 @@ void graph(int n, int m) {
     }
 }
 
-void solve() {
-
-}
-
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--) {
-        int n;
-        while (true) {
-            n = rng(1, 17);
-            if (n % 2 == 0) break;
-        }
-        cout << n << '\n';
-        int l = 1, r = 9;
-        for (int i = 1; i < n; i ++) l = l * 10;
-        for (int i = 1; i < n; i ++) r = r * 10 + 9;
-        int li = rng(l, r);
-        cout << li << ' ' << rng(li, r) << '\n';
-    }
+    
     return 0;
 }

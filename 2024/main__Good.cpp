@@ -1,101 +1,58 @@
+//#pragma GCC optimize("Ofast")
 #include<bits/stdc++.h>
-#define int  long long
-#define x first
-#define y second
+#include<ext/pb_ds/assoc_container.hpp>
 using namespace std;
-inline void print(__int128 n) {
-    if (n < 0) {
-        putchar('-');
-        n *= -1;
-    }
-    if (n > 9) print(n / 10);
-    putchar(n % 10 + '0');
-}
-void solve()
-{
-    int n;
-    cin >> n;
-    string a, b;
-    cin >> a >> b;
-    __int128 l1 = 0 , r1 = 0, l2 = 0, r2 = 0 ;
-    __int128 M = 0 ;
-    for (int i = 0 ; i < n / 2; i ++)
-    {
-        M = M * 10 + 9 ;
-        l1 = l1 * 10 + a[i] - '0' ;
-        l2 = l2 * 10 + b[i] - '0' ;
-    }
-    for (int i = n / 2 ; i < n ; i ++)
-    {
-        r1 = r1 * 10 + a[i] - '0' ;
-        r2 = r2 * 10 + b[i] - '0' ;
-    }
-    print(l1); cout << ' ';
-    print(l2); cout << ' ';
-    print(r1); cout << ' ';
-    print(r2); cout << ' ';
-    cout << '\n';
-    auto get1 = [&](__int128 l , __int128 r , __int128 x)->__int128
-    {
-        while (l < r)
-        {
-            __int128 mid = l + r >> 1;
-            if (mid * mid >= x) r = mid;
-            else l = mid + 1;
-        }
-        return l  ;
-    };
-    auto get2 = [&](__int128 l , __int128 r , __int128 x)->__int128
-    {
-        while (l < r)
-        {
-            __int128 mid = l + r + 1 >> 1;
-            if (mid * mid <= x) l = mid;
-            else r = mid - 1;
-        }
-        return l  ;
-    };
-    __int128 ans = 0 , L = 0 , R = 1e16 ;
+using ll = long long;
+using ull = unsigned long long;
+using PII = pair<ll, ll>;
 
-    if (l1 == l2)
-    {
-        __int128 k = get1(L, R, l1) ;
-        if (k * k == l1)
-        {
-            __int128 l = get1(L, R, r1) , r = get2(L, R, r2) ;
-            ans = (r - l + 1) ;
+const int N = 1e5 + 10, M = 210;
+const int INF = 0x3f3f3f3f;
+const int mod = 998244353;
+ll n;
+int a[16];
+int s[N], idx, ned[N];
+ll dp[N], lef[N];
+void solve() {
+    ll w; cin >> n >> w;
+    map<int, int> mp;
+    for (int i = 1; i <= n; i++) {
+        int len; cin >> len;
+        a[len - 1]++;
+        mp[len - 1] ++;
+    }
+    const int mm = 1 << (int)mp.size();
+    for (int mask = 0; mask < mm; mask++) {
+        int sum = 0;
+        for (int i = 0; i < (int)mp.size(); i++) if (mask & 1 << i) sum += a[i];
+        if (sum <= w) s[++idx] = mask, ned[idx] = sum;
+    }
+    memset(dp, 0x3f, sizeof dp);
+    for (int mask = 0; mask < mm; mask++) lef[mask] = w;
+    dp[0] = 1;
+    for (int mask = 0; mask < mm; mask++) {
+        for (int i = 1; i <= idx; i++) {              //1<<13 < 1e4
+            int nmask = mask | s[i];
+//          dp[nmask]=min(dp[mask]+cnt[i],dp[nmask]);
+            if (ned[i] <= lef[mask]) {
+//              if(dp[nmask]>dp[mask]) dp[nmask]=dp[mask],lef[nmask]-=ned[i];
+                if (dp[nmask] > dp[mask]) dp[nmask] = dp[mask], lef[nmask] = lef[mask] - ned[i];
+                else if (dp[nmask] == dp[mask]) lef[nmask] = max(lef[mask] - ned[i], lef[nmask]);
+            } else {
+                if (dp[nmask] > dp[mask] + 1) dp[nmask] = dp[mask] + 1, lef[nmask] = w - ned[i];
+                else if (dp[nmask] == dp[mask] + 1) lef[nmask] = max(w - ned[i], lef[nmask]);
+            }
         }
-        print(ans) ;
-        return ;
     }
-    __int128 n1 = get1(L, R, l1) , n2 = get2(L, R, l2) ;
-    if (n1 * n1 == l1) n1 ++ ;
-    if (n2 * n2 == l2) n2 -- ;
-    if (n1 <= n2)
-        ans += (n2 - n1 + 1) * (get2(L, R, M) + 1) ;
-    if ((n1 - 1) * (n1 - 1) == l1)
-    {
-        int k = get2(L, R, M) - get1(L, R, r1) + 1;
-        ans += k ;
-    }
-    if ((n2 + 1) * (n2 + 1) == l2)
-    {
-        int k = get2(L, R, r2) + 1;
-        ans += k ;
-    }
-    print(ans) ;
+    cout << dp[mm - 1];
 }
-signed main()
-{
-    // ios::sync_with_stdio(0);
-    // cin.tie(0);
-    // cout.tie(0);
-    int T = 1;
-    //cin>>T;
-
-    while (T --)
-    {
-        solve();
-    }
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    srand(time(0));
+    int O_o = 1;
+//  cin >> O_o;
+    while (O_o--) solve();
     return 0;
 }
+//make it count
+//开ll plz
