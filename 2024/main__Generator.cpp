@@ -64,34 +64,8 @@ void graph(int n, int m) {
     }
 }
 
-void solve() {
-    int n = 100, w = 20;
-    cout << n << ' ' << w << '\n';
-    vector<int> data;
-    while (true) {
-        map<int, int> mp;
-        for (int i = 1; i <= n; i ++) {
-            int x = rng(1, 13);
-            mp[x] ++;
-            data.push_back(x);
-        }
-        bool ok = false;
-        for (auto [x, y] : mp) {
-            if (y > w) ok = true;
-        }
-        if (!ok) break;
-        data.clear();
-    }
-    for (auto i : data) cout << i << ' ';
-    cout << '\n';
-}
-
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--) {
-        solve();
-    }
+    
     return 0;
 }
