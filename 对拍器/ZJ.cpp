@@ -1,73 +1,52 @@
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define ll long long
+#define debug1(a) cout << #a << '=' << a << endl
+#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define lf(x) fixed << setprecision(x)
 #define int long long
-#define ull unsigned long long
-#define ft first
-#define sd second
-#define P pair<int, int>
-#define Ios ios::sync_with_stdio(false), cin.tie(0)
-using namespace std;
-const int N = 1e6 + 5;
-int mp[1005][1005];
-int dx[4] = {0, -1, 0, 1};
-int dy[4] = { -1, 0, 1, 0};
-int dp[N][3][2], d[N];
-struct ty {
-    int dis, dir, use, id;
-    bool operator>(const ty &b) const {
-//         if (dis == b.dis)
-//             return use > b.use;
-        return dis > b.dis;
-    }
-};
-void solve() {
-    int n, m;
-    cin >> n >> m;
-    char ch;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            cin >> ch;
-            mp[i][j] = ch == 'X';
-        }
-    }
-    memset(dp, 0x3f, sizeof(dp));
-    dp[0][0][0] = dp[0][1][0] = dp[0][2][0] = 0;
-    priority_queue<ty, vector<ty>, greater<ty>> q;
-    q.push({0, 0, 0, 0});
-    q.push({0, 1, 0, 0});
-    q.push({0, 2, 0, 0});
-    while (!q.empty()) {
-        ty now = q.top();
-        q.pop();
-        int id = now.id, dis = now.dis, use = now.use, dir = now.dir;
-        int x = id / m, y = id % m;
-        for (int i = 0; i < 4; i++) {
-            if (dir != 2 && dir == i)
-                continue;
-            int nx = x + dx[i], ny = y + dy[i];
-            if (nx < 0 || nx >= n || ny < 0 || ny >= m)
-                continue;
-            int nxt = nx * m + ny;
+const int N = 100010, INF = 0x3f3f3f3f;
 
-            if (mp[nx][ny]) {
-                if (dir < 2 && use == 0 && dp[nxt][dir][1] > dp[id][dir][0] + 1) {
-                    dp[nxt][dir][1] = dp[id][dir][0] + 1;
-                    q.push({dp[nxt][dir][1], dir, 1, nxt});
-                }
-            } else {
-                if (dp[nxt][dir][use] > dp[id][dir][use] + 1) {
-                    dp[nxt][dir][use] = dp[id][dir][use] + 1;
-                    q.push({dp[nxt][dir][use], dir, use, nxt});
-                }
-            }
+using namespace std;
+
+void solve() {
+    int n, m, q; cin >> n >> m >> q;
+    vector<int> ta;
+    for (int i = 0; i < m; i++) {
+        int x; cin >> x;
+        ta.push_back(x);
+    }
+    sort(ta.begin(), ta.end());
+    int t; cin >> t;
+    for (auto i : ta) {
+        if (i == t) {
+            cout << 10 << '\n';
+            return ;
         }
     }
-    int g = n * m - 1;
-    int dis = min({dp[g][0][1], dp[g][1][1], dp[g][2][0]});
-    cout << (dis >= n * m ? -1 : dis) << "\n";
+    if (t < ta[0]) {
+        int ans = t - 1, x = ta[0] - ans - 2;
+        ans += x + 1;
+        cout << ans << '\n';
+        return;
+    }
+    if (t > ta[m - 1]) {
+        int ans = n - t, x = n - 1 - (ta[m - 1] + ans);
+        ans += x + 1;
+        cout << ans << '\n';
+        return;
+    }
+    for (int i = 1; i < m; i ++) {
+        if (t >= ta[i - 1] && t <= ta[i]) {
+            cout << (ta[i] - ta[i - 1]) / 2 << '\n';
+            return;
+        }
+    }
 }
-signed main() {
-    Ios;
-    solve();
+
+int32_t main() {
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--)solve();
     return 0;
 }

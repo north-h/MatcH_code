@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     
-    {
-      "type": "java",
-      "name": "Main",
-      "request": "launch",
-      "mainClass": "Main",
-      "projectName": "Match_code_6829409"
-    },
+    // {
+    //   "type": "java",
+    //   "name": "Main",
+    //   "request": "launch",
+    //   "mainClass": "Main",
+    //   "projectName": "Match_code_6829409"
+    // },
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
@@ -16,8 +16,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/HM/Documents/Match_code/2024/NowCoder",
-      "program": "c:/Users/HM/Documents/Match_code/2024/NowCoder/build/Debug/outDebug",
+      "cwd": "c:/Users/HM/Documents/Match_code",
+      "program": "c:/Users/HM/Documents/Match_code/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

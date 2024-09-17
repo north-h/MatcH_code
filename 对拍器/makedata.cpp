@@ -8,24 +8,24 @@ using namespace std;
 void makedata() {
 	ofstream fout("input.txt");
 	srand(time(nullptr));
-	int n, m; n = rand() % 10 + 1, m = rand() % 10 + 1;
-	fout << n << ' ' << m << endl;
-	string a = "", b = "";
-	for (int i = 1; i <= n; i ++) {
-		for (int i = 1; i <= n; i ++) {
-			for (int j = 1; j <= m; j ++) {
-				if (i == 1 && j == 1 || i == n && j == m) {
-					fout << '.';
-					continue;
-				}
-				int x = rand() % 2 + 1;
-				if (x == 1) fout << '.';
-				else fout << 'X';
-			}
-			fout << '\n';
-		}
-		fout.close();
+	int n, m, q; n = rand() % 10 + 1, m = rand() % 10 + 1, q = rand() % 10 + 1;
+	fout << n << " " << m << " " << q << endl;
+	set<int> s;
+	for (int i = 1; i <= m; i++) {
+		int x = rand() % n + 1;
+		fout << x << " ";
+		s.insert(x);
 	}
+	fout << endl;
+	for (int i = 1; i <= q; i++) {
+		while (true) {
+			int t = rand() % n + 1;
+			if (s.count(t)) continue;
+			fout << t << endl;
+			break;
+		}
+	}
+	fout.close();
 }
 
 int32_t main() {
