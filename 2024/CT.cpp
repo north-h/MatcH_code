@@ -17,7 +17,7 @@ void solve() {
     for (int i = 1; i <= n; i ++) {
         int x, y; cin >> x >> y;
         mp[x].push_back(y);
-        if (y == 0) X.push_back(x), px[x] ++;
+        if (y == 0) X.push_back(x),px[x] ++;
         else  Y.push_back(x), py[x] ++;
     }
     int sum = 0;
