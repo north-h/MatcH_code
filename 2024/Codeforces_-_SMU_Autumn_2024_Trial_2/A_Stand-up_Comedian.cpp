@@ -30,8 +30,6 @@ void solve() {
     if (a2 > a3) swap(a2, a3);
     int ans = a1 + min(a2, a3) * 2;
     // debug1(ans);
-    if (a4 != 0) ans += min(a4, a1) + 1;
-    else if (max(a2, a3)) ans ++;
     cout << ans << '\n';
 }
 

@@ -1,45 +1,53 @@
-// #pragma GCC optimize("Ofast")
-#include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define lf(x) fixed << setprecision(x)
-#define int long long
-const int N = 100010;
-const int INF = 0x3f3f3f3f;
-
+//#pragma GCC optimize("Ofast")
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
 using namespace std;
+using ll = long long;
+using ull = unsigned long long;
+using PII = pair<ll, ll>;
 
+const int N = 3e5 + 10, M = 210;
+const int INF = 0x3f3f3f3f;
+const int mod = 998244353;
+ll n;
+int a[N], b[N];
 void solve() {
-    int n; cin >> n;
-    map<int , vector<int>> mp;
-    map<int, int> px, py;
-    vector<int> X, Y;;
-    for (int i = 1; i <= n; i ++) {
-        int x, y; cin >> x >> y;
-        mp[x].push_back(y);
-        if (y == 0) X.push_back(x), px[x] ++;
-        else  Y.push_back(x), py[x] ++;
+    string t; cin >> t;
+    string s;
+    for (auto i : t) {
+        if (i == ')' || i == '(') s.append("o");
+        else s.append("x");
     }
-    int sum = 0;
-    for (auto [x, y] : mp) {
-        if (y.size() == 2) sum += (n - 2);
+    if (s == "ooxx" || s == "xxoo") {cout << "Yes\n"; return ;}
+    if (s == "oxxoxoox" || s == "xooxoxxo") {cout << "Yes\n"; return ;}
+    n = s.size(); s = " " + s;
+    stack<char>sk;
+    map<char, int>mp;
+    char op = '#';
+    for (int i = 1; i <= n; i++) {
+        if (sk.empty() || sk.top() != s[i]) sk.push(s[i]);
+        else if (sk.size() == 1) {
+            mp[s[i]]++, sk.pop();
+            if (op == '#') op = s[i];
+            else if (op == s[i]) {cout << "No\n"; return ;}
+            else op = s[i];
+        } else {
+            if (op == '#') op = s[i];
+            else if (op == s[i]) {cout << "No\n"; return ;}
+            else op = s[i];
+            sk.pop();
+        }
     }
-    // debug1(sum);
-    sort(X.begin(), X.end());
-    sort(Y.begin(), Y.end());
-    for (auto i : X) {
-        if (py[i - 1] && py[i + 1]) sum ++;
-    }
-    for (auto i : Y) {
-        if (px[i - 1] && px[i + 1]) sum ++;
-    }
-    cout << sum << '\n';
+    for (auto [c, cnt] : mp) if (cnt > 1) {cout << "No\n"; return ;}
+    cout << "Yes\n";
 }
-
-int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    cin >> h_h;
-    while (h_h--)solve();
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    mt19937 rand(time(0));
+    int O_o = 1;
+    // cin >> O_o;
+    while (O_o--) solve();
     return 0;
 }
+//make it count
+//开ll plz

@@ -1,58 +1,79 @@
-//#pragma GCC optimize("Ofast")
-#include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-using namespace std;
-using ll = long long;
-using ull = unsigned long long;
-using PII = pair<ll, ll>;
+// #pragma GCC optimize("Ofast")
+#include <bits/stdc++.h>
+#define debug1(a) cout << #a << '=' << a << endl
+#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define int long long
+const int N = 100010, INF = 0x3f3f3f3f;
 
-const int N = 1e5 + 10, M = 210;
-const int INF = 0x3f3f3f3f;
-const int mod = 998244353;
-ll n;
-int a[16];
-int s[N], idx, ned[N];
-ll dp[N], lef[N];
-void solve() {
-    ll w; cin >> n >> w;
-    map<int, int> mp;
-    for (int i = 1; i <= n; i++) {
-        int len; cin >> len;
-        a[len - 1]++;
-        mp[len - 1] ++;
-    }
-    const int mm = 1 << (int)mp.size();
-    for (int mask = 0; mask < mm; mask++) {
-        int sum = 0;
-        for (int i = 0; i < (int)mp.size(); i++) if (mask & 1 << i) sum += a[i];
-        if (sum <= w) s[++idx] = mask, ned[idx] = sum;
-    }
-    memset(dp, 0x3f, sizeof dp);
-    for (int mask = 0; mask < mm; mask++) lef[mask] = w;
-    dp[0] = 1;
-    for (int mask = 0; mask < mm; mask++) {
-        for (int i = 1; i <= idx; i++) {              //1<<13 < 1e4
-            int nmask = mask | s[i];
-//          dp[nmask]=min(dp[mask]+cnt[i],dp[nmask]);
-            if (ned[i] <= lef[mask]) {
-//              if(dp[nmask]>dp[mask]) dp[nmask]=dp[mask],lef[nmask]-=ned[i];
-                if (dp[nmask] > dp[mask]) dp[nmask] = dp[mask], lef[nmask] = lef[mask] - ned[i];
-                else if (dp[nmask] == dp[mask]) lef[nmask] = max(lef[mask] - ned[i], lef[nmask]);
+using namespace std;
+
+int ans, n;
+string sans, t, s;
+
+bool check(string s) {
+    stack<int> stk;
+    for (auto i : s) {
+        if (stk.empty() || i == '(' || i == '[') stk.push(i);
+        else {
+            if (i == ']') {
+                if (stk.top() != '[') return false;
+                else stk.pop();
             } else {
-                if (dp[nmask] > dp[mask] + 1) dp[nmask] = dp[mask] + 1, lef[nmask] = w - ned[i];
-                else if (dp[nmask] == dp[mask] + 1) lef[nmask] = max(w - ned[i], lef[nmask]);
+                if (stk.top() != '(') return false;
+                else stk.pop();
             }
         }
     }
-    cout << dp[mm - 1];
+    if (stk.empty()) return true;
+    return false;
 }
-int main() {
-    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    srand(time(0));
-    int O_o = 1;
-//  cin >> O_o;
-    while (O_o--) solve();
+
+void dfs(int u) {
+    if (u == n) {
+        // debug1(sans);
+        if (check(sans)) ans ++;
+        return ;
+    }
+
+    if (s[u] == 'o') {
+        sans += '(';
+        dfs(u + 1);
+        sans.pop_back();
+        sans += ')';
+        dfs(u + 1);
+        sans.pop_back();
+    } else {
+        sans += '[';
+        dfs(u + 1);
+        sans.pop_back();
+        sans += ']';
+        dfs(u + 1);
+        sans.pop_back();
+    }
+}
+
+void solve() {
+    sans.clear();
+    s.clear();
+    ans = 0;
+    cin >> t;
+    for (auto i : t) {
+        if (i == ')' || i == '(') s.append("o");
+        else s.append("x");
+    }
+    // cout << s << '\n';
+    s = " " + s;
+    n = (int)s.size();
+    dfs(1);
+    // debug1(ans);
+    if (ans == 1) cout << "Yes\n";
+    else cout << "No\n";
+}
+
+int32_t main() {
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--)solve();
     return 0;
 }
-//make it count
-//开ll plz

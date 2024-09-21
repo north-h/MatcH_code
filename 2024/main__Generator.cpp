@@ -64,8 +64,35 @@ void graph(int n, int m) {
     }
 }
 
+bool check(string s) {
+    stack<int> stk;
+    for (auto i : s) {
+        if (stk.empty() || i == '(' || i == '[') stk.push(i);
+        else {
+            if (i == ']') {
+                if (stk.top() != '[') return false;
+                else stk.pop();
+            } else {
+                if (stk.top() != '(') return false;
+                else stk.pop();
+            }
+        }
+    }
+    if (stk.empty()) return true;
+    return false;
+}
+
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    
+    string ss = "()[]";
+    int n = rng(1, 10);
+    if (n & 1) n ++;
+    string s;
+    while (true) {
+        s.clear();
+        for (int i = 1; i <= n; i ++) s += ss[rng(0, 3)];
+        if (check(s)) break;
+    }
+    cout << s << '\n';
     return 0;
 }
