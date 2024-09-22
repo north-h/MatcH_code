@@ -16,48 +16,32 @@
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
-const int N = 100010, INF = 0x3f3f3f3f;
+const int N = 200010, INF = 0x3f3f3f3f;
 const int mod = 998244353;
 
 using namespace std;
 
-int ksm(int a, int b) {
-    int res = 1;
-    while (b) {
-        if (b & 1) res = res * a % mod;
-        b >>= 1;
-        a = a * a % mod;
-    }
-    return res;
-}
-
-bool check(int x) {
-    int y = (int) sqrt(x);
-    return x == y * y;
-}
+int up[N];
 
 void solve() {
-    int n, m; cin >> n >> m;
-    set<array<int, 2>> st;
-    for (int i = 1; i <= m; i ++) {
-        int l, r; cin >> l >> r;
-        if (l > r) swap(l, r);
-        st.insert({l, r});
+    int n; cin >> n;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i ++) {
+        cin >> a[i];
+        up[a[i]] = i;
     }
-    auto check = [&](int l, int r) -> bool {
-        for (int i = l; i <= r; i ++) {
-            for (int j = i; j <= r; j ++) {
-                // debug2(i, j);
-                if (st.count({i, j})) return false;
+    int ans = 0;
+    for (int i = 3; i < n * 2; i ++) {
+        int x = i;
+        for (int j = 1; j <= x / j; j ++) {
+            if (x % j == 0 && j != x / j) {
+                if (up[j] == 0 || up[x / j] == 0 || up[j] + up[x / j] != x) continue;
+                ans ++;
             }
         }
-        return true;
-    };
-    int ans = 0;
+    }
     for (int i = 1; i <= n; i ++) {
-        for (int j = i; j <= n; j ++) {
-            if (check(i, j)) ans ++;
-        }
+        up[a[i]] = 0;
     }
     cout << ans << '\n';
 }
@@ -65,7 +49,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

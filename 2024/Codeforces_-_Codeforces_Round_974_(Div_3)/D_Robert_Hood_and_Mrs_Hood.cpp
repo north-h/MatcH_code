@@ -23,7 +23,6 @@ using namespace std;
 void solve() {
     int n, d, k; cin >> n >> d >> k;
     vector<array<int, 2>> a(k + 1);
-    vector<int> s(n + 2);
     map<int, int> st, ed;
     for (int i = 1; i <= k; i ++) {
         cin >> a[i][0] >> a[i][1];

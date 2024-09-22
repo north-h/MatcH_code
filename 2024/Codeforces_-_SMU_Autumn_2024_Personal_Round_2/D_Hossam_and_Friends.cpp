@@ -30,20 +30,14 @@ void solve() {
     }
     for (auto &[x, y] : mp) {
         sort(y.begin(), y.end());
-        // cout << x << ": ";
-        // for (auto i : y) cout << i << ' ';
-        // cout << '\n';
     }
     int ans = 0, L = 0;
     for (int i = 1; i <= n; i ++) {
-        // debug1(mp[i].size());
         if (!mp[i].size()) ans += (i - L);
         else {
-            // debug2(i, mp[i].back());
             ans += (i - max(mp[i].back(), L));
             L = max(mp[i].back(), L);
         }
-        // debug2(ans, L);
     }
     cout << ans << '\n';
 }
@@ -51,7 +45,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
