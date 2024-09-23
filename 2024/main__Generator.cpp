@@ -64,6 +64,7 @@ void graph(int n, int m) {
     }
 }
 
+
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int n = rng(1, 20), m = rng(1, 4);

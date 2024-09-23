@@ -24,22 +24,10 @@ void solve() {
     int n, k; cin >> n >> k;
     vector<int> a(n + 1);
     for (int i = 1; i <= n; i ++) cin >> a[i], a[i] -= i;
-    if (n == 1) {
-        cout << 1 << '\n';
-        return ;
-    }
     int ans = 0;
     multiset<int> L, R;
     int lsum = 0, rsum = 0, cv = 0, mid;
-    for (int i = 1, j = 1; i <= n; i ++) {
-        if (L.size()) mid = *L.rbegin();
-        if (!L.size() || mid > a[i]) {
-            L.insert(a[i]);
-            lsum += a[i];
-        } else {
-            R.insert(a[i]);
-            rsum += a[i];
-        }
+    auto adjust = [&]() -> void {
         while ((int)L.size() - (int)R.size() > 1) {
             auto lt = *L.rbegin();
             R.insert(lt);
@@ -54,22 +42,34 @@ void solve() {
             lsum += rt;
             R.erase(R.begin());
         }
-        while (true) {
-            mid = *L.rbegin();
-            cv = abs((int)L.size() * mid - lsum);
-            cv += abs((int)R.size() * mid - rsum);
+    };
+    for (int i = 1, j = 1; i <= n; i ++) {
+        if (!L.size() || (*L.rbegin()) > a[i]) {
+            L.insert(a[i]);
+            lsum += a[i];
+        } else {
+            R.insert(a[i]);
+            rsum += a[i];
+        }
+        adjust();
+        while (j < i) {
+            int mid = *L.rbegin();
+            cv = (int)L.size() * mid - lsum;
+            cv += rsum - (int)R.size() * mid;
             if (cv <= k) break;
             if (L.count(a[j])) {
                 lsum -= a[j];
-                L.erase(L.find(a[j ++]));
+                L.erase(L.find(a[j]));
             } else {
                 rsum -= a[j];
-                R.erase(R.find(a[j ++]));
+                R.erase(R.find(a[j]));
             }
+            adjust();
+            j ++;
         }
-        ans = max(ans, j - i + 1);
+        ans = max(ans, i - j + 1);
     }
-    cout << ans << '\n';
+    cout << ans << '\n';    
 }
 
 int32_t main() {

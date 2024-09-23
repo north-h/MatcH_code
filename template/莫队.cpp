@@ -22,10 +22,8 @@ void del(int p) {
 void solve() {
     cin >> n;
     int sz = sqrt(n), block = (n + sz - 1) / sz;
-    for (int i = 1; i <= block; i ++) {
-        for (int j = (i - 1) * sz + 1; j <= i * sz; j ++) {
-            belong[j] = i;
-        }
+    for (int i = 1; i <= n; i ++) {
+        belong[i] = i / sz;
     }
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];

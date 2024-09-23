@@ -1,57 +1,71 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-09-22 14:22:54
- *
- * Problem: D. Hossam and Friends
- * Contest: Codeforces - SMU Autumn 2024 Personal Round 2
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/551809/problem/D
- * MemoryL: 256 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
-// #pragma GCC optimize("Ofast")
-#include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define int long long
-const int N = 100010, INF = 0x3f3f3f3f;
-
+#include <iostream>
+#include <sstream>
+#include <Windows.h>
+#include <ctime>
+#include <map>
+#include <string>
 using namespace std;
 
-void solve() {
-    int n, m; cin >> n >> m;
-    map<int, vector<int>> mp;
-    for (int i = 1; i <= m; i ++) {
-        int l, r; cin >> l >> r;
-        if (l > r) swap(l, r);
-        mp[r].push_back(l);
-    }
-    for (auto &[x, y] : mp) {
-        sort(y.begin(), y.end());
-        // cout << x << ": ";
-        // for (auto i : y) cout << i << ' ';
-        // cout << '\n';
-    }
-    int ans = 0, L = 0;
-    for (int i = 1; i <= n; i ++) {
-        // debug1(mp[i].size());
-        if (!mp[i].size()) ans += (i - L);
-        else {
-            // debug2(i, mp[i].back());
-            ans += (i - max(mp[i].back(), L));
-            L = max(mp[i].back(), L);
-        }
-        // debug2(ans, L);
-    }
-    cout << ans << '\n';
-}
+#define MAX_NUM 500000
 
-int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+int main()
+{
+    time_t tBegin, tEnd;//时间戳，计算代码段执行时间
+
+    //键值为int类型的map
+    map<int, int> mapInt;
+    for (int i = 0; i < MAX_NUM; i++)
+    {
+        mapInt.insert(make_pair(i, i));
+        //或mapInt[i] = i; 区别为遇到重复键时，insert不会覆盖值，[]会覆盖值
+    }
+
+    map<int, int>::iterator iterInt;
+    tBegin = clock();
+    for (int i = 0; i < MAX_NUM; i++)
+    {
+        iterInt = mapInt.find((MAX_NUM / 2));
+    }
+    tEnd = clock();
+    cout << "int-find  耗时" << (tEnd - tBegin) << "毫秒" << endl;
+
+    int nRtn = 0;
+    tBegin = clock();
+    for (int i = 0; i < MAX_NUM; i++)
+    {
+        nRtn = mapInt.count((MAX_NUM / 2));
+    }
+    tEnd = clock();
+    cout << "int-count 耗时" << (tEnd - tBegin) << "毫秒" << endl << endl;
+
+    //键值为string类型的map
+    map<string, string> mapString;
+    for (int i = 0; i < MAX_NUM; i++)
+    {
+        stringstream ss;
+        ss << i;
+        string str = ss.str();
+        str = "string" + str;
+        mapString[str] = str;//或mapString.insert(make_pair(str, str));
+    }
+
+    map<string, string>::iterator iterStr;
+    tBegin = clock();
+    for (int i = 0; i < MAX_NUM; i++)
+    {
+        iterStr = mapString.find("string250000");
+    }
+    tEnd = clock();
+    cout << "string-find  耗时" << (tEnd - tBegin) << "毫秒" << endl;
+
+    tBegin = clock();
+    for (int i = 0; i < MAX_NUM; i++)
+    {
+        nRtn = mapString.count("string250000");
+    }
+    tEnd = clock();
+    cout << "string-count 耗时" << (tEnd - tBegin) << "毫秒" << endl;
+
+    getchar();
     return 0;
 }

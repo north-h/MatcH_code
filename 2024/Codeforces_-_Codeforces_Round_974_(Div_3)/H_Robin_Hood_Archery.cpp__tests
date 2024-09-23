@@ -1,1 +1,37 @@
-[{"test": "2\n3 3\n1 2 2\n1 2\n1 3\n2 3\n5 3\n2 1 2 1 1\n1 2\n1 3\n4 5\n", "correct_answers": ["NO\nNO\nYES\nNO\nNO\nYES"]}]
+[
+	{
+		"correct_answers":
+		[
+			"NO\nNO\nYES\nNO\nNO\nYES"
+		],
+		"test": "2\n3 3\n1 2 2\n1 2\n1 3\n2 3\n5 3\n2 1 2 1 1\n1 2\n1 3\n4 5\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NO\nNO\nYES"
+		],
+		"test": "1\n3 3\n1 2 2\n1 2\n1 3\n2 3\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NO\nNO\nNO\nYES\nNO"
+		],
+		"test": "1\n4 5\n2 1 2 1\n3 3\n4 4\n3 4\n1 4\n2 2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"NO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nNO\nYES\nNO"
+		],
+		"test": "5\n2 5\n2 1\n2 2\n1 1\n1 2\n1 1\n2 2\n7 1\n2 2 2 1 1 1 2\n1 3\n6 5\n2 2 2 2 1 1\n3 5\n4 6\n6 6\n6 6\n6 6\n8 1\n1 1 2 2 1 1 1 1\n2 3\n4 5\n2 1 2 1\n3 3\n4 4\n3 4\n1 4\n2 2\n9 2\n2 2 2 2 1 1 2 2 2\n7 8\n1 8\n9 5\n1 1 1 2 2 1 1 1 1\n6 7\n3 9\n8 8\n4 9\n8 9\n"
+	},
+	{
+		"correct_answers":
+		[
+			"YES\nNO\nNO\nYES\nYES"
+		],
+		"test": "1\n9 5\n1 1 1 2 2 1 1 1 1\n6 7\n3 9\n8 8\n4 9\n8 9\n"
+	}
+]

@@ -16,7 +16,7 @@
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
-const int N = 200010, INF = 0x3f3f3f3f;
+const int N = 2000100, INF = 0x3f3f3f3f;
 
 using namespace std;
 
@@ -24,29 +24,32 @@ struct S {
     int l, r, id;
 } b[N];
 
-int a[N], belong[N], cnt[N], n, m, now, ans[N];
+int a[N], belong[N], n, m, now, ans[N], cnt[N], cv;
 
 void add(int p) {
-    if (cnt[a[p]] % 2 == 0) now ++;
+    if (!cnt[a[p]]) now ++;
     cnt[a[p]] ++;
+    if (cnt[a[p]] % 2 == 0) cv --;
+    else cv ++;
 }
 
 void del(int p) {
     cnt[a[p]] --;
-    if (cnt[a[p]] % 2) now --;
+    if (!cnt[a[p]]) now --;
+    if (cnt[a[p]] % 2 == 0) cv --;
+    else cv ++;
 }
 
 void solve() {
     cin >> n >> m;
-    now = 0;
     int sz = sqrt(n), block = (n + sz - 1) / sz;
-    for (int i = 1; i <= block; i ++) {
-        for (int j = (i - 1) * sz + 1; j <= i * sz; j ++) {
-            belong[j] = i;
-        }
+    for (int i = 1; i <= n; i ++) {
+        belong[i] = i / sz;
     }
+    int mx = 0;
     for (int i = 1; i <= n; i ++) {
         cin >> a[i];
+        mx = max(mx, a[i]);
     }
     for (int i = 1; i <= m; i ++) {
         cin >> b[i].l >> b[i].r;
@@ -55,7 +58,8 @@ void solve() {
     sort(b + 1, b + m + 1, [&](S a, S b) {
         if (belong[a.l] != belong[b.l]) return belong[a.l] < belong[b.l];
         else {
-            return a.r < b.r;
+            if (belong[a.l] & 1) return a.r < b.r;
+            return a.r > b.r;
         }
     });
     int l = 1, r = 0;
@@ -65,11 +69,15 @@ void solve() {
         while (l > ql) add(-- l);
         while (r < qr) add(++ r);
         while (r > qr) del(r --);
-        ans[qid] = now;
+        ans[qid] = (cv == 0);
     }
     for (int i = 1; i <= m; i ++) {
-        if (ans[i] % 2) cout << 
+        if (ans[i]) cout << "YES\n";
+        else cout << "NO\n";
     }
+    for (int i = 1; i <= mx; i ++) cnt[i] = 0;
+    now = cv = 0;
+    for (int i = 1; i <= n; i ++) ans[i] = a[i] = belong[i] = 0;
 }
 
 int32_t main() {
@@ -79,3 +87,4 @@ int32_t main() {
     while (h_h--)solve();
     return 0;
 }
+
