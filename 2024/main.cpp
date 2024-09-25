@@ -1,71 +1,46 @@
-#include <iostream>
-#include <sstream>
-#include <Windows.h>
-#include <ctime>
-#include <map>
-#include <string>
+//#pragma GCC optimize("Ofast")
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
 using namespace std;
+using ll = long long;
+using ull = unsigned long long;
+using PII = pair<ll, ll>;
+mt19937_64 rnd(time(0));
 
-#define MAX_NUM 500000
+const int N = 2e6 + 10, M = 1e4 + 10;
+const int INF = 0x3f3f3f3f;
+const int mod = 1e9 + 7;
+ll n;
+ll a[N];
 
-int main()
-{
-    time_t tBegin, tEnd;//时间戳，计算代码段执行时间
-
-    //键值为int类型的map
-    map<int, int> mapInt;
-    for (int i = 0; i < MAX_NUM; i++)
-    {
-        mapInt.insert(make_pair(i, i));
-        //或mapInt[i] = i; 区别为遇到重复键时，insert不会覆盖值，[]会覆盖值
+int value(int x, int y) {
+    int ans = 0;
+    for (int i = n, j = 1; i >= 1 && j <= n;) {
+        cout << '?' << ' ' << i << ' ' << j << endl;
+        int c; cin >> c;
+        if (c) ans += i, j ++;
+        else i ++;
     }
+    return ans ;
+}
 
-    map<int, int>::iterator iterInt;
-    tBegin = clock();
-    for (int i = 0; i < MAX_NUM; i++)
-    {
-        iterInt = mapInt.find((MAX_NUM / 2));
+void solve() {
+    int n, k; cin >> n >> k;
+    
+    int l = 1, r = n * n, ans = -1;
+    while (l <= r) {
+        int mid = l + r >> 1;
+
     }
-    tEnd = clock();
-    cout << "int-find  耗时" << (tEnd - tBegin) << "毫秒" << endl;
+    cout << '!' << ' ' << ans << endl;
+}
 
-    int nRtn = 0;
-    tBegin = clock();
-    for (int i = 0; i < MAX_NUM; i++)
-    {
-        nRtn = mapInt.count((MAX_NUM / 2));
-    }
-    tEnd = clock();
-    cout << "int-count 耗时" << (tEnd - tBegin) << "毫秒" << endl << endl;
-
-    //键值为string类型的map
-    map<string, string> mapString;
-    for (int i = 0; i < MAX_NUM; i++)
-    {
-        stringstream ss;
-        ss << i;
-        string str = ss.str();
-        str = "string" + str;
-        mapString[str] = str;//或mapString.insert(make_pair(str, str));
-    }
-
-    map<string, string>::iterator iterStr;
-    tBegin = clock();
-    for (int i = 0; i < MAX_NUM; i++)
-    {
-        iterStr = mapString.find("string250000");
-    }
-    tEnd = clock();
-    cout << "string-find  耗时" << (tEnd - tBegin) << "毫秒" << endl;
-
-    tBegin = clock();
-    for (int i = 0; i < MAX_NUM; i++)
-    {
-        nRtn = mapString.count("string250000");
-    }
-    tEnd = clock();
-    cout << "string-count 耗时" << (tEnd - tBegin) << "毫秒" << endl;
-
-    getchar();
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    int O_o = 1;
+//  cin >> O_o;
+    while (O_o--) solve();
     return 0;
 }
+//make it count
+//开ll plz
