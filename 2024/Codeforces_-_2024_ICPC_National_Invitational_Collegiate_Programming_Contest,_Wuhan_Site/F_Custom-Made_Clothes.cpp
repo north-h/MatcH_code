@@ -31,7 +31,7 @@ int check(int res) {
         else i --;
     }
     // debug2(ans, n * n - k + 1);
-    return ans >= k;
+    return ans < k;
 }
 
 void solve() {
@@ -40,8 +40,8 @@ void solve() {
     int l = 1, r = n * n, ans = -1;
     while (l <= r) {
         int mid = l + r >> 1;
-        if (check(mid)) r = mid - 1, ans = mid;
-        else l = mid + 1;
+        if (check(mid)) l = mid + 1;
+        else r = mid - 1, ans = mid;
     }
     cout << '!' << ' ' << ans << endl;
 }

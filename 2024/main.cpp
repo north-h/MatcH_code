@@ -1,46 +1,38 @@
-//#pragma GCC optimize("Ofast")
-#include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
+#include <iostream>
 using namespace std;
-using ll = long long;
-using ull = unsigned long long;
-using PII = pair<ll, ll>;
-mt19937_64 rnd(time(0));
+int n, k;
 
-const int N = 2e6 + 10, M = 1e4 + 10;
-const int INF = 0x3f3f3f3f;
-const int mod = 1e9 + 7;
-ll n;
-ll a[N];
-
-int value(int x, int y) {
-    int ans = 0;
-    for (int i = n, j = 1; i >= 1 && j <= n;) {
-        cout << '?' << ' ' << i << ' ' << j << endl;
-        int c; cin >> c;
-        if (c) ans += i, j ++;
-        else i ++;
+int query(int x) {
+    int ret = 0;
+    for (int i = 1, j = n ; i <= n; i++) {
+        bool f = 0;
+        j++;
+        while (!f && j) {
+            j--;
+            if (!j)
+                return ret;
+            cout << "? " << i << " " << j << " " << x << endl;
+            cout.flush();
+            cin >> f;
+        }
+        ret += j;
     }
-    return ans ;
-}
-
-void solve() {
-    int n, k; cin >> n >> k;
-    
-    int l = 1, r = n * n, ans = -1;
-    while (l <= r) {
-        int mid = l + r >> 1;
-
-    }
-    cout << '!' << ' ' << ans << endl;
+    return ret;
 }
 
 int main() {
-    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
-    int O_o = 1;
-//  cin >> O_o;
-    while (O_o--) solve();
+    cin >> n >> k;
+    int l = 1, r = n * n, ans = -1;
+    while (l <= r) {
+        int mid = (l + r) / 2;
+        if (query(mid) <= n * n - k + 1) {
+            l = mid + 1;
+            ans = mid;
+        }
+        else {
+            r = mid - 1 ;
+        }
+    }
+    cout << "! " << l << endl;
     return 0;
 }
-//make it count
-//开ll plz
