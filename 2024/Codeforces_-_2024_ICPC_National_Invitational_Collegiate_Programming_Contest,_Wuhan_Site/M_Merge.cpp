@@ -11,7 +11,7 @@
  * ==============================================================
  */
 
-// #pragma GCC optimize("Ofast")
+// #pragma GCC optimize(3,"Ofast","inline")
 #include <bits/stdc++.h>
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
@@ -23,46 +23,38 @@ using namespace std;
 void solve() {
     int n; cin >> n;
     vector<int> a(n + 1);
-    map<int, int> mp;
+    unordered_map<int, int> mp, vis;
     for (int i = 1; i <= n; i ++) cin >> a[i], mp[a[i]] ++;
     sort(a.begin() + 1, a.end());
-    map<int, int> vis;
     auto dfs = [&](auto dfs, int x) -> bool {
-        // cout << x << '\n';
         if (mp[x]) {
             vis[x] ++;
+            mp[x] --;
             return true;
         }
         if (x % 2 == 0 || x == 1) return false;
         bool ok = dfs(dfs, x / 2);
-        // cout << "----------" << '\n';
+        if (!ok) return ok;
         ok &= dfs(dfs, (x + 1) / 2);
         return ok;
     };
     vector<int> ans;
     for (int i = n; i >= 1; i --) {
         if (mp[a[i]] == 0) continue;
-        // for (auto [x, y] : mp) cout << x << ' ' << y << '\n';
-        // cout << '\n';
+        bool ok = false;
         if (dfs(dfs, a[i] * 2 + 1)) {
-            // cout << "--------" << '\n';
-            // for (auto [x, y] : vis) debug2(x, y);
             ans.push_back(a[i] * 2 + 1);
-            for (auto [x, y] : vis) mp[x] -= y;
-        }
-        // cout << "-++-\n";
+            vis.clear();
+            ok = true;
+        } else for (auto [x, y] : vis) mp[x] += y;
         vis.clear();
-        if (dfs(dfs, a[i] * 2 - 1)) {
-            // return ;
-            // cout << "--------" << '\n';
-            // for (auto [x, y] : vis) debug2(x, y);
+        if (!ok && dfs(dfs, a[i] * 2 - 1)) {
             ans.push_back(a[i] * 2 - 1);
-            for (auto [x, y] : vis) mp[x] -= y;
-        }
+            vis.clear();
+            ok = true;
+        } else for (auto [x, y] : vis) mp[x] += y;
         vis.clear();
-    }
-    for (int i = 1; i <= n; i ++) {
-        if (mp[i]) ans.push_back(a[i]);
+        if (!ok && mp[a[i]]) ans.push_back(a[i]), mp[a[i]] --;
     }
     sort(ans.rbegin(), ans.rend());
     cout << ans.size() << '\n';
