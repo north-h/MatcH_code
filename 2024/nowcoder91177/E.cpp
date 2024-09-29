@@ -25,8 +25,8 @@ void solve() {
     sort(qq.begin(), qq.end(), [&](array<int, 3> x, array<int, 3> y) {
         if (belong[x[0]] != belong[y[0]]) return belong[x[0]] < belong[y[0]];
         else {
-            if (belong[x[0]] & 1) return x[1] > y[1];
-            return x[1] < y[1];
+            if (belong[x[0]] & 1) return x[1] < y[1];
+            return x[1] > y[1];
         }
     });
     multiset<int> L, R;
@@ -49,24 +49,30 @@ void solve() {
             R.erase(R.begin());
         }
     };
+    for (int i = qq[0][0]; i <= qq[0][1]; i ++) {
+        add(i);
+        adjust();
+    }
     vector<int> ans(q);
-    int l = 1, r = 0;
-    for (int i = 0; i < q; i ++) {
+    ans[qq[0][2]] = (*L.rbegin());
+    // for (auto i : L) cout << i << ' ';
+    // cout << '\n';
+    // for (auto i : R) cout << i << ' ';
+    // cout << '\n';
+    int l = qq[0][0], r = qq[0][1];
+    for (int i = 1; i < q; i ++) {
         auto [ql, qr, id] = qq[i];
         // debug2(l, r);
-        // debug2(ql, qr);
-        // debug1(id);
-        while (qr > r) add(++ r), adjust();
-        while (qr < r) del(r --), adjust();
         while (ql > l) del(l ++), adjust();
+        while (qr > r) add(++ r), adjust();
         while (ql < l) add(-- l), adjust();
+        while (qr < r) del(r --), adjust();
         // debug2(l, r);
         // cout << (*L.rbegin()) << '\n';
         ans[id] = (*L.rbegin());
         // for (auto i : L) cout << i << ' ';
         // cout << '\n';
         // for (auto i : R) cout << i << ' ';
-        // cout << '\n';
         // cout << '\n';
     }
     for (auto i : ans) cout << i << '\n';
