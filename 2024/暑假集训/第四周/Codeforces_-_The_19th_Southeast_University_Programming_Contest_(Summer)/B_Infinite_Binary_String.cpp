@@ -16,7 +16,7 @@
 #define debug1(a) cout << #a << '=' << a << endl
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
-const int N = 50001000;
+const int N = 300010;
 const int INF = 0x3f3f3f3f;
 const int maxn = 2e18;
 
@@ -96,7 +96,7 @@ struct SegmentTree {
 };
 
 void solve() {
-    SegmentTree<int> sg(N);
+    SegmentTree<int> sg(N * 180);
     sg.modify(sg.root, 1, maxn, 1, maxn, 0);
     int n; cin >> n;
     for (int i = 1; i <= n; i ++) {

@@ -67,23 +67,11 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    set<pair<int, int>> st;
-    int n = rng(1, 10), q = rng(1, 2);
-    while (n % 2 == 0) n = rng(1, 6);
-    cout << n << ' ' << q << '\n';
+    int n = rng(1, 5), k = rng(1, 10);
+    cout << n << ' ' << k << "\n";
     for (int i = 1; i <= n; i ++) {
-        cout << rng(1, 6) << ' ';
+        cout << rng(1, 5) << ' ';
     }
     cout << '\n';
-    for (int i = 1; i <= q; i ++) {
-        int l = rng(1, n), r = rng(1, n);
-        if (l > r) swap(l, r);
-        if ((r - l + 1) % 2 == 0 || st.count({l, r})) {
-            i --;
-            continue;
-        }
-        st.insert({l, r});
-        cout << l << ' ' << r << '\n';
-    }
     return 0;
 }

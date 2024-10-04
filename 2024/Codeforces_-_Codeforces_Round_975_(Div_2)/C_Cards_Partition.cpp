@@ -34,9 +34,9 @@ void solve() {
         if (x == 1) return true;
         int cv = sum / x, vc = x - sum % x, ok = 0;
         cv += k / x;
-        // if (sum % x && k <= vc) ok = 0;
-        if (sum % x == 0) ok = 1;
+        k %= x;
         if (k >= vc) cv ++, vc = 0, k -= vc, ok = 1;
+        if (sum % x == 0) ok = 1;
         if (mx > cv || !ok) return false;
         return true;
     };
@@ -48,7 +48,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

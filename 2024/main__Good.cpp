@@ -1,52 +1,40 @@
-#include <bits/stdc++.h>
-#define int long long
+//#pragma GCC optimize("Ofast")
+#include<bits/stdc++.h>
+#include<ext/pb_ds/assoc_container.hpp>
 using namespace std;
-const int INF = 1e9;
+using ll = long long;
+using ull = unsigned long long;
+using PII = pair<ll, ll>;
+mt19937_64 rnd(time(0));
 
-int n, m, q, sz, blk[100010], mm, s[410][100010];
-int a[100010], b[100010], t[400010], l[100010], r[100010];
-vector <int> v[100010];
+const int N = 2e6 + 10, M = 1e4 + 10;
+const int INF = 0x3f3f3f3f;
+const int mod = 1e9 + 7;
+ll n;
 
-signed main(){
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(0);
-    cin >> n >> q;
-    for(int i = 1; i <= n; i++) 
-        cin >> a[i], b[i] = a[i];
-    sort(b + 1, b + n + 1);
-    m = unique(b + 1, b + n + 1) - b - 1;
-    sz = (int)sqrt(m);
-    for(int i = 1; i <= n; i++){
-        a[i] = lower_bound(b + 1, b + m + 1, a[i]) - b;
-        blk[i] = (i - 1) / sz + 1;
-        v[a[i]].push_back(i);
+void solve() {
+    ll k; cin >> n >> k;
+    ll ma = 0, sum = 0;
+    for (int i = 1; i <= n; i++) {
+        ll a; cin >> a;
+        ma = max(a, ma);
+        sum += a;
     }
-    mm = blk[n];
-    for(int i = 1; i <= n; i++)
-        s[blk[a[i]]][i]++;
-    for(int i = 1; i <= mm; i++)
-        for(int j = 1; j <= n; j++)
-            s[i][j] += s[i][j - 1];    
-    for(int i = 1, now, L, R; i <= n; i++){
-        cin >> l[i] >> r[i], now = 0;
-        for(int j = 1; j <= mm; j++){
-            now += s[j][r[i]] - s[j][l[i] - 1];
-            if(now > (r[i] - l[i] + 1) >> 1){
-                L = (j - 1) * sz + 1;
-                R = j * sz;
-                break;
-            }
-        }
-        if(now <= (r[i] - l[i] + 1) >> 1) continue;
-        for(int j = R, p1, p2; j >= L; j--){
-            p2 = upper_bound(v[j].begin(), v[j].end(), r[i]) - v[j].begin();
-            p1 = lower_bound(v[j].begin(), v[j].end(), l[i]) - v[j].begin();
-            now -= p2 - p1;
-            if(now <= (r[i] - l[i] + 1) >> 1){
-                printf("%d\n", b[j]);
-                break;
-            }
-        }
+    int ans = n;
+    while (ans > 1) {
+        if (sum + k < ma * ans) {ans--; continue;}
+        if (sum % ans == 0 && sum >= ma * ans) break;
+        else if ((sum + k) / ans > sum / ans && (sum + k) / ans >= ma) break;
+        ans--;
     }
+    cout << ans << "\n";
+}
+int main() {
+    ios::sync_with_stdio(0), cin.tie(0), cout.tie(0);
+    int O_o = 1;
+    // cin >> O_o;
+    while (O_o--) solve();
     return 0;
 }
+//make it count
+//开ll plz
