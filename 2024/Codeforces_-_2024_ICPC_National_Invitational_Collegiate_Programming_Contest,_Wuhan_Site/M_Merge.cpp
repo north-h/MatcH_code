@@ -28,7 +28,8 @@ void solve() {
     sort(a.begin() + 1, a.end());
     auto dfs = [&](auto dfs, int x) -> bool {
         if (mp[x]) {
-            vis[x] ++;
+            vis[x] ++;    vector<int> a(n + 1);
+
             mp[x] --;
             return true;
         }
