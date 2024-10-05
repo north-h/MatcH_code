@@ -29,15 +29,18 @@ void solve() {
         mx = max(mx, cc[i]);
         sum += cc[i];
     }
-    // debug2(mx, sum);
     auto check = [&](int x) -> bool {
         if (x == 1) return true;
-        int cv = sum / x, vc = x - sum % x, ok = 0;
-        cv += k / x;
-        k %= x;
-        if (k >= vc) cv ++, vc = 0, k -= vc, ok = 1;
-        if (sum % x == 0) ok = 1;
-        if (mx > cv || !ok) return false;
+        int cv, vc, tk = k;
+        if (sum % x) {
+            cv = sum / x, vc = x - sum % x;
+            if (tk >= vc) cv ++, tk -= vc;
+            else return false;
+            cv += tk / x;
+        } else {
+            cv = sum / x + tk / x;
+        }
+        if (mx > cv) return false;
         return true;
     };
     for (int i = n; i >= 1; i --) {

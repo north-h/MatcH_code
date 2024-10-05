@@ -67,10 +67,10 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int n = rng(1, 5), k = rng(1, 10);
+    int n = rng(1, 5), k = rng(1, 3);
     cout << n << ' ' << k << "\n";
     for (int i = 1; i <= n; i ++) {
-        cout << rng(1, 5) << ' ';
+        cout << rng(1, 10) << ' ';
     }
     cout << '\n';
     return 0;

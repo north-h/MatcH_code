@@ -1,5 +1,11 @@
 [
 	{
-		"test": "\ntemplate <class T>\nstruct BIT {\n    vector<T> sum1, sum2;\n    int n;\n    BIT(int N) {\n        n = N;\n        sum1.resize(n + 1);\n        sum2.resize(n + 1);\n    }\n    void add(int x, T k) {\n        for(int i = x; i <= n; i += (i & -i))\n            sum1[i] += k, sum2[i] += x * k;\n    }\n    void range_add(int l, int r, T x) {\n        add(l, x), add(r + 1, -x);\n    }\n    T query(int x) {\n        T res = 0;\n        for(int i = x; i > 0; i -= (i & -i))\n            res += (x + 1) * sum1[i] - sum2[i];\n        return res;\n    }\n    T range_query(int l, int r) {\n        return query(r) - query(l - 1);\n\n    }\n};"
+		"test": "5\n4 5\n10 10 3 1\n1 2\n1\n3 12\n10 10 29\n12 51\n5 74 89 45 18 69 67 67 11 96 23 59\n2 57\n85 60\n"
+	},
+	{
+		"test": "1\n4 5\n10 10 3 1\n"
+	},
+	{
+		"test": "1\n3 12\n10 10 29\n"
 	}
 ]
