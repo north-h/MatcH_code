@@ -18,7 +18,7 @@ struct string_hash {
             h[i] = (h[i - 1] * base % mod + s[i]) % mod;
         }
     }
-    int get_hash(int l, int r) {
+    int get(int l, int r) {
         return (h[r] - h[l - 1] * p[r - l + 1] % mod + mod) % mod;
     }
 };

@@ -1,71 +1,51 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-09-22 12:44:11
- *
- * Problem: C. Pleasant Pairs
- * Contest: Codeforces - SMU Autumn 2024 Personal Round 2
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/551809/problem/C
- * MemoryL: 256 MB
- * TimeL:   2000 ms
- * ==============================================================
- */
-
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cout << #a << '=' << a << endl
-#define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define int long long
-const int N = 100010, INF = 0x3f3f3f3f;
-const int mod = 998244353;
 
 using namespace std;
 
-int ksm(int a, int b) {
-    int res = 1;
-    while (b) {
-        if (b & 1) res = res * a % mod;
-        b >>= 1;
-        a = a * a % mod;
-    }
-    return res;
-}
+using i32 = int32_t;
+using i64 = long long;
 
-bool check(int x) {
-    int y = (int) sqrt(x);
-    return x == y * y;
-}
+#define int i64
 
-void solve() {
-    int n, m; cin >> n >> m;
-    set<array<int, 2>> st;
-    for (int i = 1; i <= m; i ++) {
-        int l, r; cin >> l >> r;
-        if (l > r) swap(l, r);
-        st.insert({l, r});
-    }
-    auto check = [&](int l, int r) -> bool {
-        for (int i = l; i <= r; i ++) {
-            for (int j = i; j <= r; j ++) {
-                // debug2(i, j);
-                if (st.count({i, j})) return false;
-            }
-        }
-        return true;
-    };
-    int ans = 0;
-    for (int i = 1; i <= n; i ++) {
-        for (int j = i; j <= n; j ++) {
-            if (check(i, j)) ans ++;
-        }
-    }
-    cout << ans << '\n';
-}
+using vi = vector<int>;
+using pii = pair<int, int>;
 
-int32_t main() {
+const i32 inf = INT_MAX / 2;
+
+const int mod = 1e9 + 7;
+
+i32 main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+    int n, m;
+    cin >> n >> m;
+
+    vector<int> a(n);
+    for (auto &i : a) cin >> i;
+
+    int sum = 0 , pre = 0 , res = 0, len = n;
+
+    for (auto i : a)
+        sum = (sum + i) % mod, res = (res + sum) % mod;
+
+    for (int i = 0; i < m; i++) {
+        res = (res * 2 + sum * len) % mod;
+        sum = sum * 2 % mod;
+        len = len * 2 % mod;
+    }
+
+    auto b = a;
+    ranges::reverse(a);
+    a.insert(a.end(), b.begin(), b.end());
+    int ret = 0;
+    sum = 0, len = n * 2;
+    for (auto i : a)
+        sum = (sum + i) % mod, ret = (ret + sum) % mod;
+    for (int i = 1; i < m; i++) {
+        ret = (ret * 2 + sum * len) % mod;
+        sum = sum * 2 % mod;
+        len = len * 2 % mod;
+    }
+    cout << max(res, ret);
     return 0;
 }
+
