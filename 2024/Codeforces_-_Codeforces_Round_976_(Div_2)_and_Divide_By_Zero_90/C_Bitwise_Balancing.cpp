@@ -1,12 +1,12 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-05 21:18:17
+ * Time:    2024-10-06 11:55:12
  *
- * Problem: D. Connect the Dots
+ * Problem: C. Bitwise Balancing
  * Contest: Codeforces - Codeforces Round 976 (Div. 2) and Divide By Zero 9.0
- * URL:     https://codeforces.com/contest/2020/problem/D
- * MemoryL: 512 MB
+ * URL:     https://codeforces.com/problemset/problem/2020/C
+ * MemoryL: 256 MB
  * TimeL:   2000 ms
  * ==============================================================
  */
@@ -21,9 +21,18 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n, m; cin >> n >> m;
-    vector<int> a(m + 1), d(m + 1), k(m + 1);
-    for (int i = 1; i <= m; i ++) cin >> a[i] >> d[i] >> k[i];
+    for (int i = 1; i <= 10; i ++) {
+        for (int j = 1; j <= 10; j ++) {
+            for (int k = 1; k <= 10; k ++) {
+                for (int l = 1; l <= 10000; l ++) {
+                    if ((l | i) - (l & j) == k) {
+                        cout << i << ' ' << j << ' ' << k << ':' << l << '\n';
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 int32_t main() {

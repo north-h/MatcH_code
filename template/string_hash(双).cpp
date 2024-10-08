@@ -21,7 +21,7 @@ struct string_hash {
             h2[i] = (h2[i - 1] * base2 % mod2 + s[i]) % mod2;
         }
     }
-    pair<int, int> get_hash(int l, int r) {
+    pair<int, int> get(int l, int r) {
         int res1 = (h1[r] - h1[l - 1] * p1[r - l + 1] % mod1 + mod1) % mod1;
         int res2 = (h2[r] - h2[l - 1] * p2[r - l + 1] % mod2 + mod2) % mod2;
         return {res1, res2};

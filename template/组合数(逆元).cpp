@@ -23,5 +23,6 @@ void init() {
 }
 
 int C(int n, int m) {
+    if (n < 0 || m < 0 || n < m) return 0;
     return fac[n] * inv[m] % mod * inv[n - m] % mod;
 }
