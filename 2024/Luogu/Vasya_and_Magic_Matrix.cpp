@@ -1,13 +1,13 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-09 15:23:32
+ * Time:    2024-10-09 21:14:18
  *
- * Problem: P6154 游走
+ * Problem: Vasya and Magic Matrix
  * Contest: Luogu
- * URL:     https://www.luogu.com.cn/problem/P6154
- * MemoryL: 125 MB
- * TimeL:   1000 ms
+ * URL:     https://www.luogu.com.cn/problem/CF1042E
+ * MemoryL: 250 MB
+ * TimeL:   3000 ms
  * ==============================================================
  */
 
@@ -16,21 +16,22 @@
 #define debug1(a) cerr << #a << '=' << a << endl
 #define debug2(a, b) cerr << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
-const int N = 100010, INF = 0x3f3f3f3f, mod = 1e9 + 7;
+const int N = 100010, INF = 0x3f3f3f3f;
 
 using namespace std;
 
-int ksm(int a, int b) {
-    int res = 1;
-    while (b) {
-        if (b & 1) res = res * a % mod;
-        b >>= 1;
-        a = a * a % mod;
-    }
-    return res;
-}
-
 void solve() {
+    int n, m; cin >> n >> m;
+    vector g(n + 1, vector<int>(m + 1));
+    map<int, vector<array<int, 2>>> mp;
+    for (int i = 1; i <= n; i ++) {
+        for (int j = 1; j <= m; j ++) {
+            cin >> g[i][j];
+            mp[g[i][j]].push_back({i, j});
+        }
+    }
+    int x, y; cin >> x >> y;
+    int ans = 0;
     
 }
 
