@@ -1,0 +1,17 @@
+[
+	{
+		"correct_answers":
+		[
+			"85.5555555556\nreselect",
+			"85.555555556\nreselect"
+		],
+		"test": "3 2 1\n30 40 50\n1 2 1\n"
+	},
+	{
+		"correct_answers":
+		[
+			"18.502514861\naccept\nreselect\naccept\nreselect"
+		],
+		"test": "3 6 4\n9 10 1\n1 2 4\n2 3 1\n1 2 3\n2 3 4\n"
+	}
+]
