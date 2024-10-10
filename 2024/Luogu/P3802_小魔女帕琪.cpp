@@ -21,20 +21,24 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    // int n, m; cin >> m >> n;
+    int n, m; cin >> m >> n;
     // vector<double> dp(n + 1);
     // dp[1] = n * (n + 1) / n * 2;
     // for (int i = 2; i <= n; i ++) {
     //     dp[i] = dp[i - 1] * i;
     // }
     // cout << fixed << setprecision(10) << dp[n] << '\n';
+    map<int, int> mp;
     for (int i = 1; i <= 6; i ++) {
         for (int j = 1; j <= 6; j ++) {
             for (int k = 1; k <= 6; k ++) {
                 cout << i << ' ' << j << ' ' << k << ':' << max({i, j, k}) << '\n';
+                mp[max({i, j, k})] ++;
             }
         }
     }
+    cout << mp.size() << '\n';
+    for (auto [x, y] : mp) cout << x << ' ' << y << '\n';
 }
 
 int32_t main() {
