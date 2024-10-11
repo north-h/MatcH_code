@@ -27,33 +27,43 @@ void solve() {
     for (int i = 1; i <= n; i ++) cin >> c[i];
     for (int i = 1; i <= n; i ++) cin >> d[i];
     for (int i = 1; i <= n; i ++) cin >> k[i];
-    vector g(v + 1, vector<int>(v + 1, INF));
+    vector f(v + 1, vector<double>(v + 1, INF));
     for (int i = 1; i <= e; i ++) {
-        int u, c, w; cin >> u >> v >> w;
-        g[u][v] = min(g[u][v], w);
-        g[v][u] = g[u][v];
-    }        
-    vector f(v + 1, vector<int> (v + 1));
+        int u, v, w; cin >> u >> v >> w;
+        f[u][v] = min(f[u][v], w * 1.0);
+        f[v][u] = f[u][v];
+        cout << f[u][v] << ' ';
+    }
+    cout << '\n';
     for (int k = 1; k <= v; k ++) {
         for (int i = 1; i <= v; i ++) {
-            for (int j = 1; j <= v; j ++) {
+            for (int j = 1; j < i; j ++) {
                 f[i][j] = min(f[i][j], f[i][k] + f[k][j]);
+                f[j][i] = f[i][j];
+                cout << f[i][j] << ' ';
             }
+            cout << '\n';
         }
     }
     vector dp(n + 1, vector<vector<double>>(m + 1, vector<double>(2, INF)));
-    dp[1][0][0] = dp[1][0][1] = 0;
+    dp[1][0][0] = dp[1][1][1] = 0;
     for (int i = 2; i <= n; i ++) {
         for (int j = 0; j <= min(i, m); j ++) {
-            // dp[i][j][0] = min(dp[i][j][0], dp[i - 1][j][0] + f[c[i - 1]][c[i]]);
-            // dp[i][j][0] = min(dp[i][j][0], dp[i - 1][j][1] + f[d[i - 1]][c[i]] * k[i - 1] + f[c[i - 1]][c[i]] * (1 - k[i - 1]));
-            // if (j) {
-            //     dp[i][j][1] = min(dp[i][j][1], dp[i - 1][j - 1][0] + f[c[i - 1]][d[i]] * k[i] + f[c[i - 1]][c[i]] * (1 - k[i]));
-            //     dp[i][j][1] = min(dp[i][j][1], dp[i - 1][j - 1][1] + f[c[i - 1]][c[i]] * (1 - k[i]) * (1 - k[i - 1])
-            //      + f[d[i - 1]][c[i]] * k[i - 1] * (1 - k[i]) + f[c[i - 1]][d[i]] * (1 - k[i - 1]) * k[i] 
-            //      + f[d[i - 1]][d[i]] * k[i - 1] * k[i]);
-            // }
-
+            dp[i][j][0] = min(dp[i][j][0], dp[i - 1][j][0]
+                              + f[c[i - 1]][c[i]]);
+            dp[i][j][0] = min(dp[i][j][0], dp[i - 1][j][1]
+                              + f[c[i - 1]][c[i]] * (1 - k[i - 1]))
+                              + f[d[i - 1]][c[i]] * k[i - 1];
+            if (j) {
+                dp[i][j][1] = min(dp[i][j][ 1], dp[i - 1][j - 1][0]
+                                  + f[c[i - 1]][d[i]] * k[i]
+                                  + f[c[i - 1]][c[i]] * (1 - k[i]));
+                dp[i][j][1] = min(dp[i][j][1], dp[i - 1][j - 1][1]
+                                  + f[c[i - 1]][c[i]] * (1 - k[i]) * (1 - k[i - 1])
+                                  + f[c[i - 1]][d[i]] * (1 - k[i - 1]) * k[i]
+                                  + f[d[i - 1]][c[i]] * k[i - 1] * (1 - k[i])
+                                  + f[d[i - 1]][d[i]] * k[i - 1] * k[i]);
+            }
         }
     }
     double ans = INF;
@@ -64,7 +74,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
