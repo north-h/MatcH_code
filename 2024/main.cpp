@@ -20,39 +20,41 @@ int main() {
     for (int i = 1; i <= e; i++) {
         int a, b, c; scanf("%d%d%d", &a, &b, &c);
         dis[a][b] = dis[b][a] = min(dis[a][b], 1.0 * c); //连边
-        cout << dis[a][b] << ' ';
+        // cout << dis[a][b] << ' ';
     }
-    cout << '\n';
+    // cout << '\n';
     for (int k = 1; k <= v; k++)        //Floyd求最短路
         for (int i = 1; i <= v; i++) {
             for (int j = 1; j < i; j++) {
                 if (dis[i][k] + dis[k][j] < dis[i][j])
                     dis[i][j] = dis[j][i] = dis[i][k] + dis[k][j];
-                cout << dis[i][j] << ' ';
+                // cout << dis[i][j] << ' ';
             }
-            cout << '\n';
+            // cout << '\n';
         }
 
     for (int i = 1; i <= n; i++)
         for (int j = 0; j <= m; j++)
             f[i][j][0] = f[i][j][1] = 2e9;
     f[1][0][0] = f[1][1][1] = 0;
-    for (int i = 2; i <= n; i++) {      //第i时段
-        for (int j = 0; j <= min(m, i); j++) { //已用了j次机会
-            f[i][j][0] = min(f[i - 1][j][0] //上次不换
+    for (int i = 2; i <= n; i ++) {
+        for (int j = 0; j <= min(i, m); j ++) {
+            f[i][j][0] = min(f[i - 1][j][0]
                              + dis[c[i - 1]][c[i]],
-                             f[i - 1][j][1]    //上次申请换
-                             + dis[c[i - 1]][c[i]] * (1 - p[i - 1])
-                             + dis[d[i - 1]][c[i]] * p[i - 1]);
-            if (j > 0)
-                f[i][j][1] = min(f[i - 1][j - 1][0] //上次不换
+                             f[i - 1][j][1]
+                             + dis[c[i - 1]][c[i]] * (1 - p[i - 1]))
+                         + dis[d[i - 1]][c[i]] * p[i - 1];
+            if (j) {
+                f[i][j][1] = min(f[i - 1][j - 1][0]
                                  + dis[c[i - 1]][c[i]] * (1 - p[i])
                                  + dis[c[i - 1]][d[i]] * p[i],
-                                 f[i - 1][j - 1][1] //上次申请换
-                                 + dis[c[i - 1]][c[i]] * (1 - p[i - 1]) * (1 - p[i])
+                                 f[i - 1][j - 1][1]
+                                 + dis[c[i - 1]][c[i]] * (1 - p[i]) * (1 - p[i - 1])
                                  + dis[c[i - 1]][d[i]] * (1 - p[i - 1]) * p[i]
                                  + dis[d[i - 1]][c[i]] * p[i - 1] * (1 - p[i])
                                  + dis[d[i - 1]][d[i]] * p[i - 1] * p[i]);
+            }
+            // cout << f[i][j][0] << ' ' << f[i][j][1] << '\n';
         }
     }
     double ans = 2e9;
