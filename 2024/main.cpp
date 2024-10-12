@@ -17,6 +17,12 @@ int main() {
     for (int i = 1; i <= v; i++)
         for (int j = 1; j < i; j++)
             dis[i][j] = dis[j][i] = 2e9;
+    for (int i = 1; i <= v; i++) {
+        for (int j = 1; j <= v; j++) {
+            cout << dis[i][j] << ' ';
+        }
+        cout << '\n';
+    }
     for (int i = 1; i <= e; i++) {
         int a, b, c; scanf("%d%d%d", &a, &b, &c);
         dis[a][b] = dis[b][a] = min(dis[a][b], 1.0 * c); //连边

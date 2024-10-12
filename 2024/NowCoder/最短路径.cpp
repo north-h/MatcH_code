@@ -16,11 +16,25 @@
 #define debug1(a) cerr << #a << '=' << a << endl
 #define debug2(a, b) cerr << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
-const int N = 100010, INF = 0x3f3f3f3f;
+const int N = 300010, INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+vector<vector<int>> g;
+int n, m, k;
+int vis[N][10][2], val[N], dis[N][10][2];
+
+void solve() {
+    cin >> n >> m >> k;
+    g.resize(n + 1);
+    for (int i = 1; i <= n; i ++) cin >> val[i];
+    for (int i = 1; i <= m; i ++) {
+        int u, v; cin >> u >> v;
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+    cout << 
+}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);

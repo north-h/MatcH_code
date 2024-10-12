@@ -27,30 +27,20 @@ void solve() {
     for (int i = 1; i <= n; i ++) cin >> c[i];
     for (int i = 1; i <= n; i ++) cin >> d[i];
     for (int i = 1; i <= n; i ++) cin >> k[i];
-    vector f(v + 1, vector<double>(v + 1));
-    for (int i = 1; i <= n; i ++) {
-        for (int j = 1; j < i; j ++) {
-            f[i][j] = INF;
-        }
-    }
+    vector f(v + 1, vector<double>(v + 1, INF));
+    for (int i = 1; i <= v; i ++) f[i][i] = 0;
     for (int i = 1; i <= e; i ++) {
         int u, v, w; cin >> u >> v >> w;
-        f[u][v] = min(f[u][v], w * 1.0);
-        f[v][u] = f[u][v];
-        // cout << f[u][v] << ' ';
+        f[u][v] = f[v][u] = min(f[u][v], w * 1.0);
     }
-    // cout << '\n';
     for (int k = 1; k <= v; k ++) {
         for (int i = 1; i <= v; i ++) {
-            for (int j = 1; j < i; j ++) {
+            for (int j = 1; j <= v; j ++) {
                 f[i][j] = min(f[i][j], f[i][k] + f[k][j]);
-                f[j][i] = f[i][j];
-                // cout << f[i][j] << ' ';
             }
-            // cout << '\n';
         }
     }
-    vector dp(n + 1, vector<vector<double>>(m + 1, vector<double>(2, INF)));
+    vector dp(n + 1, vector<vector<double>>(m + 2, vector<double>(2, INF)));
     dp[1][0][0] = dp[1][1][1] = 0;
     for (int i = 2; i <= n; i ++) {
         for (int j = 0; j <= min(i, m); j ++) {
@@ -70,7 +60,7 @@ void solve() {
             }
         }
     }
-    double ans = LLONG_MAX;
+    double ans = INF;
     for (int i = 0; i <= m; i ++) ans = min(min(dp[n][i][0], dp[n][i][1]), ans);
     cout << fixed << setprecision(2) << ans << '\n';
 }

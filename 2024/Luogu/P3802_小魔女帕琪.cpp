@@ -21,6 +21,7 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
+    
 }
 
 int32_t main() {
