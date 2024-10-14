@@ -1,11 +1,11 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-12 21:29:07
+ * Time:    2024-10-13 21:07:45
  *
- * Problem: 带富翁
+ * Problem: 筛子游戏
  * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/28263/C
+ * URL:     https://ac.nowcoder.com/acm/contest/28263/D
  * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==============================================================
@@ -21,23 +21,20 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n; cin >> n;
-    vector<int> a(n + 1);
-    vector<double> dp(n + 2);
-    for (int i = 1; i <= n; i ++) cin >> a[i];
-    dp[n] = a[n];
-    for (int i = n - 1; i >= 1; i --) {
-        dp[i] = a[i];
-        for (int j = 1; j <= 6; j ++) {
-            if (i + j <= n) {
-                // debug2(i, i + j);
-                dp[i] += dp[i + j] / min(6ll, n - i);
+    int n, k1, k2, k3, a, b, c;
+    cin >> n >> k1 >> k2 >> k3 >> a >> b >> c;
+    double cv = 0;
+    for (int i = 1; i <= k1; i ++) {
+        for (int j = 1; j <= k2; j ++) {
+            for (int k = 1; k <= k3; k ++) {
+                if (i == a || j == b || k == c) continue;
+                cv += (i + j + k);
             }
         }
     }
-    // for (int i = 1; i <= n; i ++) cout << dp[i] << ' ';
-    // cout << '\n';
-    cout << fixed << setprecision(10) << dp[1] << '\n';
+    cv /= (k1 * k2 * k3);
+    debug1(cv);
+    cout << fixed << setprecision(10) << n / cv << '\n';
 }
 
 int32_t main() {

@@ -1,51 +1,53 @@
+/*
+ * ==============================================================
+ * Author:  north_h
+ * Time:    2024-10-13 12:35:22
+ *
+ * Problem: E. Getting Zero
+ * Contest: Codeforces - SMU Autumn 2024 Personal Round 4
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/557729/problem/E
+ * MemoryL: 256 MB
+ * TimeL:   2000 ms
+ * ==============================================================
+ */
+
+// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
+#define debug1(a) cerr << #a << '=' << a << endl
+#define debug2(a, b) cerr << #a << '=' << a << ' ' << #b << '=' << b << endl
+#define int long long
+const int N = 100010, INF = 0x3f3f3f3f, M = 32768;
 
 using namespace std;
 
-using i32 = int32_t;
-using i64 = long long;
+vector g(M + 1, vector<int>());
+vector<int> d(M, -1);
+void solve() {
+    int n; cin >> n;
 
-#define int i64
-
-using vi = vector<int>;
-using pii = pair<int, int>;
-
-const i32 inf = INT_MAX / 2;
-
-const int mod = 1e9 + 7;
-
-i32 main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int n, m;
-    cin >> n >> m;
-
-    vector<int> a(n);
-    for (auto &i : a) cin >> i;
-
-    int sum = 0 , pre = 0 , res = 0, len = n;
-
-    for (auto i : a)
-        sum = (sum + i) % mod, res = (res + sum) % mod;
-
-    for (int i = 0; i < m; i++) {
-        res = (res * 2 + sum * len) % mod;
-        sum = sum * 2 % mod;
-        len = len * 2 % mod;
-    }
-
-    auto b = a;
-    ranges::reverse(a);
-    a.insert(a.end(), b.begin(), b.end());
-    int ret = 0;
-    sum = 0, len = n * 2;
-    for (auto i : a)
-        sum = (sum + i) % mod, ret = (ret + sum) % mod;
-    for (int i = 1; i < m; i++) {
-        ret = (ret * 2 + sum * len) % mod;
-        sum = sum * 2 % mod;
-        len = len * 2 % mod;
-    }
-    cout << max(res, ret);
-    return 0;
+    cout << d[n] << '\n';
 }
 
+int32_t main() {
+    ios::sync_with_stdio(false), cin.tie(nullptr);
+    int h_h = 1;
+    for (int i = 1; i < M; i ++) {
+        g[(i + 1) % M].push_back(i);
+        g[i * 2 % M].push_back(i);
+    }
+    queue<int> q;
+    d[0] = 0;
+    q.push(0);
+    while (q.size()) {
+        auto t = q.front();
+        q.pop();
+        for (auto i : g[t]) {
+            if (d[i] != -1) continue;
+            d[i] = d[t] + 1;
+            q.push(i);
+        }
+    }
+    // cin >> h_h;
+    while (h_h--)solve();
+    return 0;
+}

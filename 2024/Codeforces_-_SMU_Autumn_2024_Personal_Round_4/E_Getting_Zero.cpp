@@ -58,7 +58,7 @@ void solve() {
     //     dp[(i * 2 % M)][1] = min(dp[i][1], dp[i][0]) + 1;
     // }
     // cout << min(dp[0][0], dp[0][1]) << '\n';
-    // cout << d[xy] << '\n';
+    cout << d[xy] << '\n';
 }
 
 int32_t main() {
@@ -80,7 +80,7 @@ int32_t main() {
             q.push(i);
         }
     }
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
