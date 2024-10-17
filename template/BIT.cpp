@@ -3,15 +3,15 @@ using namespace std;
 
 template <class T>
 struct BIT {
-    vector<T> sum1, sum2;
     int n;
-    BIT(int N) {
-        n = N + 1;
+    vector<T> sum1, sum2;
+    BIT(int n) {
+        this -> n = n;
         sum1.resize(n);
         sum2.resize(n);
     }
     void add(int x, T k) {
-        for(int i = x; i <= n; i += (i & -i))
+        for(int i = x; i < n; i += (i & -i))
             sum1[i] += k, sum2[i] += x * k;
     }
     void range_add(int l, int r, T x) {
