@@ -1,11 +1,11 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-20 14:16:31
+ * Time:    2024-10-20 19:00:11
  *
- * Problem: 因子数小于等于4的个数
+ * Problem: 小红的对错判断
  * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/93674/C
+ * URL:     https://ac.nowcoder.com/acm/contest/92662/A
  * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==============================================================
@@ -21,17 +21,10 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, c, d; cin >> a >> b >> c >> d;
-    int ans = 0;
-    while (true) {
-        if (a && b) a--, b --, ans ++;
-        else if (a && c) a --, c --, ans ++;
-        else if (b && d) b --, d --, ans ++;
-        else if (c && d) c --, d --, ans ++;
-        else break;
-    }
-    if (ans & 1) cout << "kou\n";
-    else cout << "yukari\n";
+    string s; cin >> s;
+    for (auto &i : s) i = toupper(i);
+    if (s == "YES") cout << "accept\n";
+    else cout << "wrong answer\n";
 }
 
 int32_t main() {

@@ -1,11 +1,11 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-20 14:16:31
+ * Time:    2024-10-20 19:46:09
  *
- * Problem: 因子数小于等于4的个数
+ * Problem: 小红和小紫的博弈游戏
  * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/93674/C
+ * URL:     https://ac.nowcoder.com/acm/contest/92662/D
  * MemoryL: 524288 MB
  * TimeL:   2000 ms
  * ==============================================================
@@ -23,13 +23,13 @@ using namespace std;
 void solve() {
     int a, b, c, d; cin >> a >> b >> c >> d;
     int ans = 0;
-    while (true) {
-        if (a && b) a--, b --, ans ++;
-        else if (a && c) a --, c --, ans ++;
-        else if (b && d) b --, d --, ans ++;
-        else if (c && d) c --, d --, ans ++;
-        else break;
+    ans += min(a, b) + min(c, d);
+    if (a > b) {
+        if (c > d) ans += min(max(a, b) - min(a, b), max(c, d) - min(c, d));
+    } else {
+        if (c < d) ans += min(max(a, b) - min(a, b), max(c, d) - min(c, d));
     }
+    // debug1(ans);
     if (ans & 1) cout << "kou\n";
     else cout << "yukari\n";
 }
@@ -37,7 +37,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

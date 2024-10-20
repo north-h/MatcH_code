@@ -1,0 +1,9 @@
+[
+	{
+		"correct_answers":
+		[
+			"impossible\n1 0\n1 0 2\nimpossible"
+		],
+		"test": "4\n1\n2\n3\n4\n"
+	}
+]

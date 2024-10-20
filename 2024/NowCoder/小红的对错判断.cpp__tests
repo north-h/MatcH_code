@@ -1,0 +1,16 @@
+[
+	{
+		"correct_answers":
+		[
+			"accept"
+		],
+		"test": "yEs\n"
+	},
+	{
+		"correct_answers":
+		[
+			"wrong answer"
+		],
+		"test": "No\n"
+	}
+]

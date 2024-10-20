@@ -1,0 +1,79 @@
+[
+	{
+		"correct_answers":
+		[
+			"16\n=16^1\n=4^2\n=2^4"
+		],
+		"test": "16\n"
+	},
+	{
+		"correct_answers":
+		[
+			"27\n=27^1\n=3^3"
+		],
+		"test": "27\n"
+	},
+	{
+		"correct_answers":
+		[
+			"128\n=128^1\n=2^7"
+		],
+		"test": "128\n"
+	},
+	{
+		"correct_answers":
+		[
+			"32\n=32^1\n=2^5"
+		],
+		"test": "32\n"
+	},
+	{
+		"correct_answers":
+		[
+			"64\n=64^1\n=8^2\n=2^6"
+		],
+		"test": "64\n"
+	},
+	{
+		"correct_answers":
+		[
+			"625\n=625^1\n=25^2\n=5^4"
+		],
+		"test": "625\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2\n=2^1"
+		],
+		"test": "2\n"
+	},
+	{
+		"correct_answers":
+		[
+			"100000\n=100000^1"
+		],
+		"test": "100000\n"
+	},
+	{
+		"correct_answers":
+		[
+			"10201\n=10201^1\n=101^2"
+		],
+		"test": "10201\n"
+	},
+	{
+		"correct_answers":
+		[
+			"2401\n=2401^1\n=49^2\n=7^4"
+		],
+		"test": "2401\n"
+	},
+	{
+		"correct_answers":
+		[
+			"9999\n=9999^1"
+		],
+		"test": "9999\n"
+	}
+]
