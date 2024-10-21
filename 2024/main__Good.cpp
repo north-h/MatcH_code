@@ -1,13 +1,13 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-20 14:16:31
+ * Time:    2024-10-21 20:56:28
  *
- * Problem: 因子数小于等于4的个数
- * Contest: NowCoder
- * URL:     https://ac.nowcoder.com/acm/contest/93674/C
- * MemoryL: 524288 MB
- * TimeL:   2000 ms
+ * Problem: E. Relearn through Review
+ * Contest: Codeforces - SMU Autumn 2024 Team Round 8
+ * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/559336/problem/E
+ * MemoryL: 1024 MB
+ * TimeL:   3000 ms
  * ==============================================================
  */
 
@@ -21,17 +21,22 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int a, b, c, d; cin >> a >> b >> c >> d;
+    int n, k; cin >> n >> k;
+    vector<int> a(n + 1), pre(n + 1), suf(n + 2);
+    for (int i = 1; i <= n; i ++) cin >> a[i];
+    for (int i = 1; i <= n; i ++) pre[i] = __gcd(pre[i - 1], a[i]);
+    suf[n] = a[n];
+    for (int i = n - 1; i >= 1; i --) suf[i] = __gcd(suf[i + 1], a[i]);
     int ans = 0;
-    while (true) {
-        if (a && b) a--, b --, ans ++;
-        else if (a && c) a --, c --, ans ++;
-        else if (b && d) b --, d --, ans ++;
-        else if (c && d) c --, d --, ans ++;
-        else break;
+    for (int i = 1; i <= n; i ++) {
+        // if (pre[i] == pre[i - 1]) continue;
+        int gc = 0;
+        for (int j = i; j <= n; j ++) {
+            gc = __gcd(gc, a[j] + k);
+            ans = max(ans, __gcd(pre[i - 1], __gcd(suf[j + 1], gc)));
+        }
     }
-    if (ans & 1) cout << "kou\n";
-    else cout << "yukari\n";
+    cout << ans << '\n';
 }
 
 int32_t main() {

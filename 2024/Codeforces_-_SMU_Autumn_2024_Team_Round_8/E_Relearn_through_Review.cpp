@@ -25,9 +25,8 @@ void solve() {
     vector<int> a(n + 1), pre(n + 1), suf(n + 2);
     for (int i = 1; i <= n; i ++) cin >> a[i];
     for (int i = 1; i <= n; i ++) pre[i] = __gcd(pre[i - 1], a[i]);
-    suf[n] = a[n];
-    for (int i = n - 1; i >= 1; i --) suf[i] = __gcd(suf[i + 1], a[i]);
-    int ans = 0;
+    for (int i = n; i >= 1; i --) suf[i] = __gcd(suf[i + 1], a[i]);
+    int ans = pre[n];
     for (int i = 1; i <= n; i ++) {
         if (pre[i] == pre[i - 1]) continue;
         int gc = 0;
@@ -42,7 +41,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

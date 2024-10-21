@@ -1,13 +1,13 @@
 /*
  * ==============================================================
  * Author:  north_h
- * Time:    2024-10-21 20:56:28
+ * Time:    2024-10-21 21:39:21
  *
- * Problem: E. Relearn through Review
- * Contest: Codeforces - SMU Autumn 2024 Team Round 8
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/559336/problem/E
- * MemoryL: 1024 MB
- * TimeL:   3000 ms
+ * Problem: B. Buying Lemonade
+ * Contest: Codeforces - Codeforces Round 980 (Div. 2)
+ * URL:     https://codeforces.com/contest/2024/problem/B
+ * MemoryL: 256 MB
+ * TimeL:   1000 ms
  * ==============================================================
  */
 
@@ -22,18 +22,17 @@ using namespace std;
 
 void solve() {
     int n, k; cin >> n >> k;
-    vector<int> a(n + 1), pre(n + 1), suf(n + 2);
+    vector<int> a(n + 1);
     for (int i = 1; i <= n; i ++) cin >> a[i];
-    for (int i = 1; i <= n; i ++) pre[i] = __gcd(pre[i - 1], a[i]);
-    suf[n] = a[n];
-    for (int i = n - 1; i >= 1; i --) suf[i] = __gcd(suf[i + 1], a[i]);
-    int ans = 0;
+    sort(a.begin() + 1, a.end());
+    int ans = 0, sum = 0;
     for (int i = 1; i <= n; i ++) {
-        if (pre[i] == pre[i - 1]) continue;
-        int gc = 0;
-        for (int j = i; j <= n; j ++) {
-            gc = __gcd(gc, a[j] + k);
-            ans = max(ans, __gcd(pre[i - 1], __gcd(suf[j + 1], gc)));
+        if (a[i] * (n - i + 1) >= k) {
+            ans += k;
+            break;
+        } else {
+            k -= a[i];
+            ans += a[i] + 1;
         }
     }
     cout << ans << '\n';
@@ -42,7 +41,7 @@ void solve() {
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }

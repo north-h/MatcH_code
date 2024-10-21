@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define int long long
 const int N = 200010;
 const int mod = 1e9 + 7;
 using namespace std;
@@ -25,4 +26,8 @@ void init() {
 int C(int n, int m) {
     if (n < 0 || m < 0 || n < m) return 0;
     return fac[n] * inv[m] % mod * inv[n - m] % mod;
+}
+
+int32_t main() {
+    return 0;
 }

@@ -67,8 +67,11 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    string s = "abcdefghijklmnopqrstuvwyxz";
-    int a = rng(1, 10), b = rng(1, 10), c = rng(1, 10), d = rng(1, 10);
-    cout << a << ' ' << b << ' ' << c << ' ' << d << '\n';
+    int n = rng(1, 10), k = rng(1, 10);
+    cout << n << ' ' << k << '\n';
+    for (int i = 1; i <= n; i ++) {
+        cout << rng(1, 1000) << ' ';
+    }
+    cout << '\n';
     return 0;
 }
