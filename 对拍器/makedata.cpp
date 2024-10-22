@@ -63,24 +63,8 @@ void graph(int n, int m) {
 
 void makedata() {
 	ofstream fout("input.txt");
-	srand(time(nullptr));
-	int n, m, q; n = rand() % 10 + 1, m = rand() % 10 + 1, q = rand() % 10 + 1;
-	fout << n << " " << m << " " << q << endl;
-	set<int> s;
-	for (int i = 1; i <= m; i++) {
-		int x = rand() % n + 1;
-		fout << x << " ";
-		s.insert(x);
-	}
-	fout << endl;
-	for (int i = 1; i <= q; i++) {
-		while (true) {
-			int t = rand() % n + 1;
-			if (s.count(t)) continue;
-			fout << t << endl;
-			break;
-		}
-	}
+	int a = rng(1, 10), b = rng(1, 10);
+    fout << a << ' ' << b << '\n';
 	fout.close();
 }
 

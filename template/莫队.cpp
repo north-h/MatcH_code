@@ -36,7 +36,8 @@ void solve() {
     sort(b + 1, b + m + 1, [&](S a, S b) {
         if (belong[a.l] != belong[b.l]) return belong[a.l] < belong[b.l];
         else {
-            return a.r < b.r;
+            if (belong[a.l] & 1) return a.r < b.r;
+            return a.r > b.r;
         }
     });
     int l = 1, r = 0;

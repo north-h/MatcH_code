@@ -1,0 +1,3 @@
+C:/Users/asus/Documents/Match_code/cmake-build-debug/CMakeFiles/Match_code.dir
+C:/Users/asus/Documents/Match_code/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/asus/Documents/Match_code/cmake-build-debug/CMakeFiles/rebuild_cache.dir
