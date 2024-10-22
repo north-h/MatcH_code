@@ -31,7 +31,6 @@ ostream &operator<<(ostream &os, i128 n) {
     return os << s;
 }
 
-
 const double eps = 1e-8;    // 根据题目精度要求进行修改
 const double PI = acos(-1.0);   // pai, 3.1415916....
 int sgn(double x) { // 进行判断, 提高精度
@@ -98,17 +97,22 @@ void solve() {
     for (int i = 0; i < n; i ++) {
         cin >> vv[i].x >> vv[i].y;
     }
+    // cout << Dist_point_to_line(c.o, vv[0], vv[3]) << '\n';
     int ans = 0, area = 0;
     for (int i = 0, j = 1; i < n; i ++) {
-        area -= getArea(vv[j], vv[i], vv[(i + 1) % n]);
+        // debug2(i, j);
         if (j <= i) j = i + 1;
-        debug2(i, j);
-        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1) {
+        // debug2(i, j);
+        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1 && j != i) {
             area += getArea(vv[i], vv[j - 1], vv[j]);
             j = (j + 1) % n;
         }
+        j = (j - 1 + n) % n;
+        debug2(i, j);
         debug2(ans, area);
         ans = max(ans, area);
+        area -= getArea(vv[j], vv[i], vv[(i + 1) % n]);
+        // cerr << "-------------\n";
     }
     if (ans == 0) cout << 0 << '\n';
     else cout << ans << '\n';
