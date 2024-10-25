@@ -28,6 +28,7 @@ ostream &operator<<(ostream &os, i128 n) {
         n /= 10;
     }
     reverse(s.begin(), s.end());
+    if (s.size() == 0) s += '0';
     return os << s;
 }
 
@@ -39,7 +40,7 @@ int sgn(double x) { // 进行判断, 提高精度
 }
 
 struct Point {
-    double x, y;
+    int x, y;
     Point(double x = 0, double y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
     // 重载运算符
     // 点 - 点 = 向量(向量AB = B - A)
@@ -56,8 +57,8 @@ typedef Point Vector;
 
 struct Circle {
     Point o;
-    double r;
-    Circle(Point _o = Point(), double _r = 0) : o(_o), r(_r) {}
+    int r;
+    Circle(Point _o = Point(), int _r = 0) : o(_o), r(_r) {}
 
     // 圆的面积
     double Circle_S() { return PI * r * r; }
@@ -80,7 +81,7 @@ double len(Vector A) {
 
 double Dist_point_to_line(Point P, Point A, Point B) {
     Vector v1 = B - A, v2 = P - A;
-    return fabs((v1 ^ v2) / len(v1));
+    return fabs((v1 ^ v2) * 1.0 / len(v1));
 }
 
 
@@ -91,19 +92,18 @@ int getArea(Point a, Point b, Point c) {
 
 void solve() {
     int n; cin >> n;
-    Circle c;
-    cin >> c.o.x >> c.o.y >> c.r;
+    Circle c; cin >> c.o.x >> c.o.y >> c.r;
     vector<Point> vv(n);
     for (int i = 0; i < n; i ++) {
         cin >> vv[i].x >> vv[i].y;
     }
     // cout << Dist_point_to_line(c.o, vv[0], vv[3]) << '\n';
-    int ans = 0, area = 0;
+    i128 ans = 0, area = 0;
     for (int i = 0, j = 1; i < n; i ++) {
-        // debug2(i, j);
+        debug2(i, j);
         if (j <= i) j = i + 1;
-        // debug2(i, j);
-        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1 && j != i) {
+        debug2(i, j);
+        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1) {
             area += getArea(vv[i], vv[j - 1], vv[j]);
             j = (j + 1) % n;
         }
@@ -112,10 +112,9 @@ void solve() {
         debug2(ans, area);
         ans = max(ans, area);
         area -= getArea(vv[j], vv[i], vv[(i + 1) % n]);
-        // cerr << "-------------\n";
+        cerr << "-------------\n";
     }
-    if (ans == 0) cout << 0 << '\n';
-    else cout << ans << '\n';
+    cout << ans << '\n';
     // cerr << "-----------" << '\n';
 }
 
