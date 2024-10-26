@@ -90,6 +90,12 @@ int getArea(Point a, Point b, Point c) {
     return abs((ba ^ ca));
 }
 
+bool check(Point a, Point b, Point c, Point d) {
+    Vector da = d - a, ba = b - a, ca = c - a;
+    if (sgn(da ^ ba) == sgn(da ^ ca)) return true;
+    return false;
+}
+
 void solve() {
     int n; cin >> n;
     Circle c; cin >> c.o.x >> c.o.y >> c.r;
@@ -100,19 +106,21 @@ void solve() {
     // cout << Dist_point_to_line(c.o, vv[0], vv[3]) << '\n';
     i128 ans = 0, area = 0;
     for (int i = 0, j = 1; i < n; i ++) {
-        debug2(i, j);
+        // debug2(i, j);
         if (j <= i) j = i + 1;
-        debug2(i, j);
-        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1) {
+        // debug2(i, j);
+        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1 && 
+            check(vv[i], vv[j], vv[(j + 1) % n], c.o)) {
             area += getArea(vv[i], vv[j - 1], vv[j]);
             j = (j + 1) % n;
+            // debug1(j);
         }
         j = (j - 1 + n) % n;
-        debug2(i, j);
-        debug2(ans, area);
+        // debug2(i, j);
+        // debug2(ans, area);
         ans = max(ans, area);
         area -= getArea(vv[j], vv[i], vv[(i + 1) % n]);
-        cerr << "-------------\n";
+        // cerr << "-------------\n";
     }
     cout << ans << '\n';
     // cerr << "-----------" << '\n';
