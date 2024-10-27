@@ -96,7 +96,7 @@ struct seg_Tree {
 int yz[N];
 inline void ans() {
     auto [len, st] = tr.ask(n);
-    if (len == n) { cout << len << '\n'; return ;}
+    if (len == n) { cout << len << endl; return ;}
     cout << yz[tr.ask2(1, n - len).first] << endl;
 }
 
@@ -118,8 +118,8 @@ void solve() {
     while (q --) {
         int p, v; cin >> p >> v;
         a[p] = v;
-        for (int i = 1; i <= n; i ++) cout << a[i] << ' ';
-        cout << '\n';
+        // for (int i = 1; i <= n; i ++) cout << a[i] << ' ';
+        // cout << '\n';
         auto [nlen, nst] = tr.ask(p);
         if (nlen == 1) {
             if (p - 1 > 0 && a[p] >= a[p - 1]) {

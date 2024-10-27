@@ -1,16 +1,3 @@
-/*
- * ==============================================================
- * Author:  north_h
- * Time:    2024-10-21 20:56:28
- *
- * Problem: E. Relearn through Review
- * Contest: Codeforces - SMU Autumn 2024 Team Round 8
- * URL:     https://codeforces.com/group/L9GOcnr1dm/contest/559336/problem/E
- * MemoryL: 1024 MB
- * TimeL:   3000 ms
- * ==============================================================
- */
-
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cerr << #a << '=' << a << endl

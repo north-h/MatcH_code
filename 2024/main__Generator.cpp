@@ -67,25 +67,16 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int n = 12, q = rng(1, 10);
+    int n = rng(1, 20), q = rng(1, 10);
     cout << n << ' ' << q << '\n';
     vector<int> a(n + 1);
-    int idx = 1, ix = 1;
-    for (int i = 1; i <= 4; i ++) a[ix ++] = idx ++;
-    idx = 1;
-    for (int i = 1; i <= 4; i ++) a[ix ++] = idx ++;
-    idx = 1;
-    for (int i = 1; i <= 2; i ++) a[ix ++] = idx ++;
-    idx = 1;
-    for (int i = 1; i <= 2; i ++) a[ix ++] = idx ++;
-    idx = 1;
-    for (int i = 1; i <= n; i ++) cout << a[i] << ' ';
+    for (int i = 1; i <= n; i ++) cout << rng(1, 3) << ' ';
     cout << '\n';
-    int b = 10;
     for (int i = 1; i <= q; i ++) {
-        int p =  rng(1, n) , v = rng(1, 8);
+        int p =  rng(1, n) , v = rng(1, 3);
+        cout << p << ' ' << v << '\n';
         // b *= 10;
-        cout << p << ' ' << a[p] + v << '\n';
+        // cout << p << ' ' << a[p] + v << '\n';
     }
     return 0;
 }
