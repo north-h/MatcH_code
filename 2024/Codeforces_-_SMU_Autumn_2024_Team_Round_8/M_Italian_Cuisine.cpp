@@ -67,19 +67,9 @@ i128 operator^ (Vector &A, Vector &B) {
     return A.x * B.y - A.y * B.x;
 }
 
-double operator* (Vector &A, Vector &B) {
+i128 operator* (Vector &A, Vector &B) {
     return A.x * B.x + A.y * B.y;
 }
-
-double len(Vector A) {
-    return sqrt(A * A);
-}
-
-double Dist_point_to_line(Point P, Point A, Point B) {
-    Vector v1 = B - A, v2 = P - A;
-    return fabs((v1 ^ v2) * 1.0 / len(v1));
-}
-
 
 i128 aabs(i128 x) {
     if (x < 0) x = -x;
@@ -91,6 +81,12 @@ i128 getArea(Point a, Point b, Point c) {
     return aabs((ba ^ ca));
 }
 
+i128 Line_with_circle(Point A, Point B, Circle c) {
+    Vector v1 = B - A, v2 = c.o - A;
+    i128 len1 = v1 * v1, len2 = v2 * v2, m = v1 * v2;
+    return (len1 * len2 - m * m) >= len1 * c.r * c.r;
+}
+
 bool check(Point a, Point b, Point c, Point d) {
     Vector da = d - a, ba = b - a, ca = c - a;
     if (ba.x == 0 && ba.y == 0) return true;
@@ -99,31 +95,26 @@ bool check(Point a, Point b, Point c, Point d) {
 }
 
 void solve() {
-    // Point a(0, 0), b(2, 1), c(1, 2);
-    // Vector ba = b - a, ca = c - a;
-    // cout << (ca ^ ba) << '\n';
     int n; cin >> n;
     Circle c; cin >> c.o.x >> c.o.y >> c.r;
     vector<Point> vv(n);
     for (int i = 0; i < n; i ++) {
         cin >> vv[i].x >> vv[i].y;
     }
-    // cout << Dist_point_to_line(c.o, vv[0], vv[3]) << '\n';
     i128 ans = 0, area = 0;
     for (int i = 0, j = 1; i < n; i ++) {
-        if (j <= i) j = i + 1;
+        if (j <= i) j = (i + 1) % n;
         // debug2(i, j);
-        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1 &&
-                check(vv[i], vv[(j - 1 + n) % n], vv[j], c.o)) {
-            area += getArea(vv[i], vv[(j - 1 + n) % n], vv[j]);
+        while (Line_with_circle(vv[i], vv[j + 1], c) == 1 &&
+                check(vv[i], vv[j], vv[(j + 1) % n], c.o)) {
+            area += getArea(vv[i], vv[j], vv[(j + 1) % n]);
             j = (j + 1) % n;
-            // debug1(j);
         }
-        j = (j - 1 + n) % n;
         // debug2(i, j);
         // debug2(ans, area);
         ans = max(ans, area);
         area -= getArea(vv[j], vv[i], vv[(i + 1) % n]);
+        // debug2(ans, area);
         // cerr << "-------------\n";
     }
     cout << ans << '\n';
