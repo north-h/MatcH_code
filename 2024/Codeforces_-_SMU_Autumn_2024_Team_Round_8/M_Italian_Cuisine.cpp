@@ -32,22 +32,19 @@ ostream &operator<<(ostream &os, i128 n) {
     return os << s;
 }
 
-const double eps = 1e-8;    // 根据题目精度要求进行修改
-const double PI = acos(-1.0);   // pai, 3.1415916....
-int sgn(double x) { // 进行判断, 提高精度
-    if (fabs(x) < eps) return 0;    // x == 0, 精度范围内的近似相等
-    return x > 0 ? 1 : -1;          // 返回正负
+const double eps = 1e-8;
+const double PI = acos(-1.0);
+int sgn(double x) {
+    if (fabs(x) < eps) return 0;
+    return x > 0 ? 1 : -1;
 }
 
 struct Point {
     int x, y;
-    Point(double x = 0, double y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
-    // 重载运算符
-    // 点 - 点 = 向量(向量AB = B - A)
+    Point(double x = 0, double y = 0) : x(x), y(y) {}
     Point operator- (const Point &B) const {
         return Point(x - B.x, y - B.y);
     }
-    // 点 + 点 = 点, 点 + 向量 = 向量, 向量 + 向量 = 向量
     Point operator+ (const Point &B) const {
         return Point(x + B.x, y + B.y);
     }
@@ -66,13 +63,12 @@ struct Circle {
     double circle_C() { return 2 * PI * r; }
 };
 
-double operator* (Vector &A, Vector &B) {
-    return A.x * B.x + A.y * B.y;
+i128 operator^ (Vector &A, Vector &B) {
+    return A.x * B.y - A.y * B.x;
 }
 
-// 向量 × 向量 (叉积)
-double operator^ (Vector &A, Vector &B) {
-    return A.x * B.y - A.y * B.x;
+double operator* (Vector &A, Vector &B) {
+    return A.x * B.x + A.y * B.y;
 }
 
 double len(Vector A) {
@@ -85,18 +81,27 @@ double Dist_point_to_line(Point P, Point A, Point B) {
 }
 
 
-int getArea(Point a, Point b, Point c) {
+i128 aabs(i128 x) {
+    if (x < 0) x = -x;
+    return x;
+}
+
+i128 getArea(Point a, Point b, Point c) {
     Vector ba = b - a, ca = c - a;
-    return abs((ba ^ ca));
+    return aabs((ba ^ ca));
 }
 
 bool check(Point a, Point b, Point c, Point d) {
     Vector da = d - a, ba = b - a, ca = c - a;
-    if (sgn(da ^ ba) == sgn(da ^ ca)) return true;
+    if (ba.x == 0 && ba.y == 0) return true;
+    if (sgn(da ^ ba) == -1 && sgn(da ^ ca) == -1) return true;
     return false;
 }
 
 void solve() {
+    // Point a(0, 0), b(2, 1), c(1, 2);
+    // Vector ba = b - a, ca = c - a;
+    // cout << (ca ^ ba) << '\n';
     int n; cin >> n;
     Circle c; cin >> c.o.x >> c.o.y >> c.r;
     vector<Point> vv(n);
@@ -106,12 +111,11 @@ void solve() {
     // cout << Dist_point_to_line(c.o, vv[0], vv[3]) << '\n';
     i128 ans = 0, area = 0;
     for (int i = 0, j = 1; i < n; i ++) {
-        // debug2(i, j);
         if (j <= i) j = i + 1;
         // debug2(i, j);
-        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1 && 
-            check(vv[i], vv[j], vv[(j + 1) % n], c.o)) {
-            area += getArea(vv[i], vv[j - 1], vv[j]);
+        while (sgn(Dist_point_to_line(c.o, vv[i], vv[j]) - c.r) == 1 &&
+                check(vv[i], vv[(j - 1 + n) % n], vv[j], c.o)) {
+            area += getArea(vv[i], vv[(j - 1 + n) % n], vv[j]);
             j = (j + 1) % n;
             // debug1(j);
         }
