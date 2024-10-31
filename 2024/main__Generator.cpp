@@ -42,7 +42,7 @@ void graph(int n, int m) {
 // Generate an undirected graph with n vertices and m edges. There are no double edges or self-rings in the graph, and must be connected.
     std::vector<std::pair<int, int>> e;
     std::map<std::pair<int, int>, bool> f;
-    std::cout << n << " " << m << "\n";
+    // std::cout << n << " " << m << "\n";
     for (int i = 1; i < n; i++) {
         int p = rng(0, i - 1);
         e.push_back(std::make_pair(p, i));
@@ -60,23 +60,20 @@ void graph(int n, int m) {
     }
     std::shuffle(e.begin(), e.end(), rnd);
     for (auto [x, y] : e) {
-        std::cout << x + 1 << " " << y + 1 << "\n";
+        std::cout << x + 1 << " " << y + 1 << ' ' << rng(1, m) << ' ' << rng(1, 20) << "\n";
     }
 }
 
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int n = rng(1, 20), q = rng(1, 10);
-    cout << n << ' ' << q << '\n';
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i ++) cout << rng(1, 3) << ' ';
-    cout << '\n';
-    for (int i = 1; i <= q; i ++) {
-        int p =  rng(1, n) , v = rng(1, 3);
-        cout << p << ' ' << v << '\n';
-        // b *= 10;
-        // cout << p << ' ' << a[p] + v << '\n';
+    int n = rng(1, 5), m = rng(1, 10), k = 3;
+    cout << n << ' ' << m << ' ' << k << '\n';
+    for (int i = 1; i <= m; i ++) {
+        cout << rng(1, n) << ' ' << rng(1, n) << ' ' << rng(1, m) << ' ' << rng(1, 20) << '\n';
+    }
+    for (int i = 1; i <= k; i ++) {
+        cout << rng(1, m) << ' ' << rng(1, 20) << '\n';
     }
     return 0;
 }

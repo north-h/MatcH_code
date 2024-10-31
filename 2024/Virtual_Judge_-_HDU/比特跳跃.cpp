@@ -53,7 +53,7 @@ void solve() {
     }
     for (int i = 2; i <= n; i ++) {
         g[1].push_back({i, (1 | i) * k});
-        g[i].push_back({1, (1 | i) * k});
+        // g[i].push_back({1, (1 | i) * k});
     }
     dijkstra();
     auto nd = d;
@@ -63,11 +63,11 @@ void solve() {
         }
         d[i] = min(d[i], nd[i] + k * i);
     }
-    for (int i = n; i >= 2; i --) {
-        for (int j = i; j ; j = (j - 1) & i) {
-            d[i] = min(d[i], d[j] + k * i);
-        }
-    }
+    // for (int i = n; i >= 2; i --) {
+    //     for (int j = i; j ; j = (j - 1) & i) {
+    //         d[i] = min(d[i], d[j] + k * i);
+    //     }
+    // }
     dijkstra();
     for (int i = 2; i <= n; i ++) cout << d[i] << ' ';
     cout << '\n';

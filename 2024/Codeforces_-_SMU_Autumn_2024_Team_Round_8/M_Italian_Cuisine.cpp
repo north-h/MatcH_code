@@ -56,11 +56,6 @@ struct Circle {
     Point o;
     int r;
     Circle(Point _o = Point(), int _r = 0) : o(_o), r(_r) {}
-
-    // 圆的面积
-    double Circle_S() { return PI * r * r; }
-    // 圆的周长
-    double circle_C() { return 2 * PI * r; }
 };
 
 i128 operator^ (Vector &A, Vector &B) {
@@ -81,7 +76,7 @@ i128 getArea(Point a, Point b, Point c) {
     return aabs((ba ^ ca));
 }
 
-i128 Line_with_circle(Point A, Point B, Circle c) {
+bool Line_with_circle(Point A, Point B, Circle c) {
     Vector v1 = B - A, v2 = c.o - A;
     i128 len1 = v1 * v1, len2 = v2 * v2, m = v1 * v2;
     return (len1 * len2 - m * m) >= len1 * c.r * c.r;
@@ -103,22 +98,16 @@ void solve() {
     }
     i128 ans = 0, area = 0;
     for (int i = 0, j = 1; i < n; i ++) {
-        if (j <= i) j = (i + 1) % n;
-        // debug2(i, j);
-        while (Line_with_circle(vv[i], vv[j + 1], c) == 1 &&
+        if (j == i) j = (i + 1) % n;
+        while (Line_with_circle(vv[i], vv[(j + 1) % n], c) &&
                 check(vv[i], vv[j], vv[(j + 1) % n], c.o)) {
             area += getArea(vv[i], vv[j], vv[(j + 1) % n]);
             j = (j + 1) % n;
         }
-        // debug2(i, j);
-        // debug2(ans, area);
         ans = max(ans, area);
         area -= getArea(vv[j], vv[i], vv[(i + 1) % n]);
-        // debug2(ans, area);
-        // cerr << "-------------\n";
     }
     cout << ans << '\n';
-    // cerr << "-----------" << '\n';
 }
 
 int32_t main() {
