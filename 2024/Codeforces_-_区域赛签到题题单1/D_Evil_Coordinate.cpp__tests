@@ -1,1 +1,0 @@
-[{"test": "5\n1 1\nRURULLD\n0 5\nUUU\n0 3\nUUU\n0 2\nUUU\n0 0\nUUU\n", "correct_answers": ["LDLRUUR\nUUU\nImpossible\nImpossible\nImpossible"]}]

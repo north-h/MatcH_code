@@ -68,6 +68,8 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    tree(rng(1, 20));
+    int n = rng(3, 10);
+    cout << n << '\n';
+    for (int i = 1; i <= n; i ++) cout << rng(1, 101) << ' ';
     return 0;
 }

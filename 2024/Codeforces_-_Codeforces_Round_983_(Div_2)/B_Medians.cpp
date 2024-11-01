@@ -1,13 +1,13 @@
 /*
  * ==================================================================================
  * Author:  north_h
- * Time:    2024-11-01 22:59:44
+ * Time:    2024-11-01 22:45:19
  *
- * Problem: C. Trinity
+ * Problem: B. Medians
  * Contest: Codeforces - Codeforces Round 983 (Div. 2)
- * URL:     https://codeforces.com/contest/2032/problem/C
+ * URL:     https://codeforces.com/contest/2032/problem/B
  * MemoryL: 256 MB
- * TimeL:   2000 ms
+ * TimeL:   1000 ms
  * ==================================================================================
  */
 
@@ -21,18 +21,24 @@ const int N = 100010, INF = 0x3f3f3f3f;
 using namespace std;
 
 void solve() {
-    int n; cin >> n;
-    vector<int> a(n + 1);
-    priority_queue<int, vector<int>, greater<>>pq;
-    for (int i = 1; i <= n; i ++) cin >> a[i], pq.push(a[i]);
-    sort(a.begin() + 1, a.end());
-    for (int i = 1; i <= n; i ++)
+    int n, k; cin >> n >> k;
+    if (k == 1 && n == 1) cout << 1 << '\n' << 1 << '\n';
+    else if (k == 1 || k == n) cout << -1 << '\n';
+    else {
+        if (k % 2 == 0) {
+            cout << 3 << '\n';
+            cout << 1 << ' ' << k << ' ' << k + 1 << '\n';
+        } else {
+            cout << 5 << '\n';
+            cout << 1 << ' ' << 2 << ' ' << k << ' ' << k + 1 << ' ' << k + 2 << '\n';
+        }
+    }
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    // cin >> h_h;
+    cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
