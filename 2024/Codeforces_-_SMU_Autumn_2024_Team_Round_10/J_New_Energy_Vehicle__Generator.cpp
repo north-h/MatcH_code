@@ -32,7 +32,6 @@ void cand(int m, int n) { // Generate m cands from 1 to n
 }
 void tree(int n) { // Generate a tree with n vertices
     int m = 1E9;
-    cout << n << '\n';
     for (int i = 1; i < n; i++) {
         int p = rng(0, i - 1);
         int v = rng(1, m);
@@ -65,9 +64,23 @@ void graph(int n, int m) {
     }
 }
 
+void solve() {}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    tree(rng(1, 20));
-    return 0;
+    int h_h = 1;
+    // cin >> h_h;
+    while (h_h--) {
+        int n = rng(1, 5), m = rng(1, 3);
+        cout << n << ' ' << m << '\n';
+        for (int i = 1; i <= n; i ++) cout << rng(1, 10) << ' ';
+        cout << '\n';
+        int lst = 1;
+        for (int i = 1; i <= m; i ++) {
+            int x = lst + rng(1, 5), y = rng(1, n);
+            lst = x;
+            cout << x << ' ' << y << '\n';
+        }
+        return 0;
+    }
 }
