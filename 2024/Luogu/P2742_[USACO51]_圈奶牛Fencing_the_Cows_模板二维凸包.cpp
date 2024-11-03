@@ -1,3 +1,16 @@
+/*
+ * ==============================================================
+ * Author:  north_h
+ * Time:    2024-11-03 21:42:01
+ *
+ * Problem: P2742 [USACO5.1] 圈奶牛Fencing the Cows /【模板】二维凸包
+ * Contest: Luogu
+ * URL:     https://www.luogu.com.cn/problem/P2742
+ * MemoryL: 128 MB
+ * TimeL:   1000 ms
+ * ==============================================================
+ */
+
 // #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
 #define debug1(a) cerr << #a << '=' << a << endl
@@ -68,14 +81,16 @@ double operator^ (Vector &A, Vector &B) {
     return A.x * B.y - A.y * B.x;
 }
 
-int Cross(Point a, Point b, Point c) { 
-    return sgn((b - a) ^ (c - a)); 
+int Cross(Point a, Point b, Point c) {
+    return sgn((b - a) ^ (c - a));
 }
 
+Point s[N], p[N]; // 用来存凸包多边形的顶点
+int top = 0;
+
 // 点集 p[] 的下标从 1 开始, 长度为 n
-void Andrew(vector<int> &p, int n) {
-    vector<int> s;
-    sort(p.begin() + 1, p.end());
+void Andrew(Point *p, int n) {
+    sort(p + 1, p + n + 1);
     for (int i = 1; i <= n; i++) {  // 下凸包
         while (top > 1 && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
         s[++top] = p[i];
@@ -91,27 +106,25 @@ void Andrew(vector<int> &p, int n) {
 
 void solve() {
     int n; cin >> n;
-    vector<int> 
+    for (int i = 1; i <= n; i ++) cin >> p[i].x >> p[i].y;
+    Andrew(p, n);
+    // for (int i = 1; i <= top; i ++) cout << s[i].x << ' ' << s[i].y << '\n';
+    double ans = 0;
+    // debug1(top);
+    for (int i = 2; i <= top; i ++) {
+        auto [x1, y1] = s[i - 1];
+        auto [x2, y2] = s[i];
+        ans += sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        // debug1(ans);
+    }
+    ans += sqrt((s[1].x - s[top].x) * (s[1].x - s[top].x) + (s[1].y - s[top].y) * (s[1].y - s[top].y));
+    cout << fixed << setprecision(2) << ans << '\n';
 }
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
     int h_h = 1;
-    cin >> h_h;
+    // cin >> h_h;
     while (h_h--)solve();
     return 0;
 }
-
-// 2
-// 6
-// -2 0
-// 1 -2
-// 5 2
-// 0 4
-// 1 2
-// 3 1
-// 4
-// 0 0
-// 1 0
-// 0 1
-// 1 1
