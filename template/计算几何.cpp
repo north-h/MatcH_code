@@ -500,25 +500,31 @@ bool cmp(Point a, Point b) {
     return x < y;
 }
 
-// Need: (<), Cross()
 
-Point s[N]; // 用来存凸包多边形的顶点
-int top = 0;
-
-// 点集 p[] 的下标从 1 开始, 长度为 n
-void Andrew(Point *p, int n) {
-    sort(p + 1, p + n + 1);
-    for (int i = 1; i <= n; i++) {  // 下凸包
-        while (top > 1 && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
-        s[++top] = p[i];
+//给定一个点的集合，返回这个集合凸包上的点的集合
+vector<Point> Andrew(vector<Point> p) {
+    sort(p.begin() + 1, p.end());
+    vector<Point> s;
+    int sz, top;
+    for (int i = 1; i < (int)p.size(); i++) {  // 下凸包
+        sz = s.size();
+        while (sz > 1 && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
+            s.pop_back();
+            sz = s.size();
+        }
+        s.push_back(p[i]);
     }
-    int t = top;
-    for (int i = n - 1; i >= 1; i--) {  // 上凸包
-        while (top > t && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
-        s[++top] = p[i];
+    top = s.size();
+    for (int i = (int)p.size() - 1; i >= 1; i--) {  // 上凸包
+        sz = s.size();
+        while (sz > top && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
+            s.pop_back();
+            sz = s.size();
+        }
+        s.push_back(p[i]);
     }
-
-    top--;  // 因为首尾都会加一次第一个点, 所以去掉最后一个
+    s.pop_back();
+    return s;
 }
 
 // Need: (+, /), sgn(), dist(), get_circumcircle()

@@ -11,5 +11,6 @@ ostream &operator<<(ostream &os, i128 n) {
         n /= 10;
     }
     reverse(s.begin(), s.end());
+    if (!s.size()) s += '0';
     return os << s;
 }

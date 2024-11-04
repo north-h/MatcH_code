@@ -85,39 +85,46 @@ int Cross(Point a, Point b, Point c) {
     return sgn((b - a) ^ (c - a));
 }
 
-Point s[N], p[N]; // 用来存凸包多边形的顶点
-int top = 0;
-
-// 点集 p[] 的下标从 1 开始, 长度为 n
-void Andrew(Point *p, int n) {
-    sort(p + 1, p + n + 1);
-    for (int i = 1; i <= n; i++) {  // 下凸包
-        while (top > 1 && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
-        s[++top] = p[i];
+vector<Point> Andrew(vector<Point> p) {
+    sort(p.begin() + 1, p.end());
+    vector<Point> s;
+    int sz, top;
+    for (int i = 1; i < (int)p.size(); i++) {  // 下凸包
+        sz = s.size();
+        while (sz > 1 && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
+            s.pop_back();
+            sz = s.size();
+        }
+        s.push_back(p[i]);
     }
-    int t = top;
-    for (int i = n - 1; i >= 1; i--) {  // 上凸包
-        while (top > t && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
-        s[++top] = p[i];
+    top = s.size();
+    for (int i = (int)p.size() - 1; i >= 1; i--) {  // 上凸包
+        sz = s.size();
+        while (sz > top && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
+            s.pop_back();
+            sz = s.size();
+        }
+        s.push_back(p[i]);
     }
-
-    top--;  // 因为首尾都会加一次第一个点, 所以去掉最后一个
+    s.pop_back();
+    return s;
 }
 
 void solve() {
     int n; cin >> n;
+    vector<Point> p(n + 1);
     for (int i = 1; i <= n; i ++) cin >> p[i].x >> p[i].y;
-    Andrew(p, n);
-    // for (int i = 1; i <= top; i ++) cout << s[i].x << ' ' << s[i].y << '\n';
+    auto tb1 = Andrew(p);
     double ans = 0;
     // debug1(top);
-    for (int i = 2; i <= top; i ++) {
-        auto [x1, y1] = s[i - 1];
-        auto [x2, y2] = s[i];
+    for (int i = 1; i < tb1.size(); i ++) {
+        auto [x1, y1] = tb1[i - 1];
+        auto [x2, y2] = tb1[i];
         ans += sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
         // debug1(ans);
     }
-    ans += sqrt((s[1].x - s[top].x) * (s[1].x - s[top].x) + (s[1].y - s[top].y) * (s[1].y - s[top].y));
+    ans += sqrt((tb1.front().x - tb1.back().x) * (tb1.front().x - tb1.back().x) +
+                (tb1.front().y - tb1.back().y) * (tb1.front().y - tb1.back().y));
     cout << fixed << setprecision(2) << ans << '\n';
 }
 

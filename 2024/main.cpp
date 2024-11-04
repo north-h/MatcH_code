@@ -7,14 +7,27 @@ const int N = 100010, INF = 0x3f3f3f3f, eps = 1e-8;
 
 using namespace std;
 
+using i128 = __int128;
+
+ostream &operator<<(ostream &os, i128 n) {
+    std::string s;
+    while (n) {
+        s += '0' + n % 10;
+        n /= 10;
+    }
+    reverse(s.begin(), s.end());
+    if (!s.size()) s += '0';
+    return os << s;
+}
+
 int sgn(double x) { // 进行判断, 提高精度
     if (fabs(x) < eps) return 0;    // x == 0, 精度范围内的近似相等
     return x > 0 ? 1 : -1;          // 返回正负
 }
 
 struct Point {
-    double x, y;
-    Point(double x = 0, double y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
+    int x, y;
+    Point(int x = 0, int y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
     // 重载运算符
     // 点 - 点 = 向量(向量AB = B - A)
     Point operator- (const Point &B) const {
@@ -25,11 +38,11 @@ struct Point {
         return Point(x + B.x, y + B.y);
     }
     // 向量 × 向量 (叉积)
-    double operator^ (const Point &B) const {
+    int operator^ (const Point &B) const {
         return x * B.y - y * B.x;
     }
     // 向量 · 向量 (点积)
-    double operator* (const Point &B) const {
+    int operator* (const Point &B) const {
         return x * B.x + y * B.y;
     }
     // 点 * 数 = 点, 向量 * 数 = 向量
@@ -68,30 +81,95 @@ double operator^ (Vector &A, Vector &B) {
     return A.x * B.y - A.y * B.x;
 }
 
-int Cross(Point a, Point b, Point c) { 
-    return sgn((b - a) ^ (c - a)); 
+int Cross(Point a, Point b, Point c) {
+    return sgn((b - a) ^ (c - a));
 }
 
-// 点集 p[] 的下标从 1 开始, 长度为 n
-void Andrew(vector<int> &p, int n) {
-    vector<int> s;
+vector<Point> Andrew(vector<Point> p) {
     sort(p.begin() + 1, p.end());
-    for (int i = 1; i <= n; i++) {  // 下凸包
-        while (top > 1 && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
-        s[++top] = p[i];
+    vector<Point> s;
+    // return s;
+    int sz, top;
+    for (int i = 1; i < (int)p.size(); i++) {  // 下凸包
+        sz = s.size();
+        while (sz > 1 && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
+            s.pop_back();
+            sz = s.size();
+        }
+        s.push_back(p[i]);
     }
-    int t = top;
-    for (int i = n - 1; i >= 1; i--) {  // 上凸包
-        while (top > t && Cross(s[top - 1], s[top], p[i]) <= 0) top--;
-        s[++top] = p[i];
+    top = s.size();
+    for (int i = (int)p.size() - 1; i >= 1; i--) {  // 上凸包
+        sz = s.size();
+        while (sz > top && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
+            s.pop_back();
+            sz = s.size();
+        }
+        s.push_back(p[i]);
     }
+    s.pop_back();
+    return s;
+}
 
-    top--;  // 因为首尾都会加一次第一个点, 所以去掉最后一个
+i128 Triangle_area2(Point A, Point B, Point C) {
+    i128 res = (B - A) ^ (C - A);
+    if (res < 0) res = -res;
+    return res;
 }
 
 void solve() {
     int n; cin >> n;
-    vector<int> 
+    map<pair<int, int>, int> mp;
+    vector<Point> p(n + 1), pp(1);
+    for (int i = 1; i <= n; i ++) {
+        cin >> p[i].x >> p[i].y;
+        mp[ {p[i].x, p[i].y}] = 1;
+    }
+    auto tb1 = Andrew(p);
+    if (tb1.size() == n) {
+        cout << -1 << '\n';
+        return ;
+    }
+    // debug1(tb1.size());
+    // for (auto [x, y] : tb1) debug2(x, y);
+    i128 sum = 0;
+    for (int i = 2; i < tb1.size(); i ++) {
+        sum += Triangle_area2(tb1[0], tb1[i - 1], tb1[i]);
+        // debug1(sum);
+    }
+    // cout << "-----------" << '\n';
+    // debug1(sum);
+    for (auto [x, y] : tb1) mp[ {x, y}] = 0;
+    for (int i = 1; i <= n; i ++) {
+        if (mp[ {p[i].x, p[i].y}] == 0) continue;
+        pp.push_back(p[i]);
+    }
+    auto tb2 = Andrew(pp);
+    i128 ans = 0;
+    // debug1(tb2.size());
+    // for (auto [x, y] : tb2) debug2(x, y);
+    int sz2 = tb2.size(), sz1 = tb1.size();
+    if (tb2.size() <= 3) {
+        for (auto k : tb2) {
+            // cout << k.x << ' ' << k.y << '\n';
+            for (int i = 0; i < tb1.size(); i ++) {
+                ans = max(ans, sum - Triangle_area2(k, tb1[i], tb1[(i + 1) % sz1]));
+                // debug1(ans);
+            }
+        }
+    } else {
+        for (int i = 0, k = 0; i < tb1.size(); i ++) {
+            int j = (i + 1) % sz1;
+            i128 tp = Triangle_area2(tb2[k], tb1[i], tb1[j]);
+            ans = max(ans, sum - tp);
+            while (Triangle_area2(tb2[(k + 1) % sz2], tb1[i], tb1[j]) < tp) {
+                k = (k + 1) % sz2;
+                tp = Triangle_area2(tb2[k], tb1[i], tb1[j]);
+            }
+            ans = max(ans, sum - tp);
+        }
+    }
+    cout << ans << '\n';
 }
 
 int32_t main() {
