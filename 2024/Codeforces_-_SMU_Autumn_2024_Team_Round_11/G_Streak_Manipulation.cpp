@@ -20,7 +20,9 @@ const int N = 100010, INF = 0x3f3f3f3f;
 
 using namespace std;
 
-void solve() {}
+void solve() {
+    
+}
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);

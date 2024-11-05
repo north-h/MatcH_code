@@ -1,195 +1,193 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cerr << #a << '=' << a << endl
-#define debug2(a, b) cerr << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define int long long
-const int N = 100010, INF = 0x3f3f3f3f, eps = 1e-8;
-
 using namespace std;
+#define int long long
+//#define endl "\n"
+using PII = pair<int, int>;
 
-using i128 = __int128;
-
-ostream &operator<<(ostream &os, i128 n) {
-    std::string s;
-    while (n) {
-        s += '0' + n % 10;
-        n /= 10;
+const int N = 2e5 + 10;
+int n, q;
+int a[200005];
+struct seg_Tree {
+#define lc p<<1
+#define rc p<<1|1
+    struct nod {
+        int l, r;
+        int len, st;
+        int tag1, tag2;
+    } t[N << 2];
+    int ql, qr, qlen, qst, qp;
+    nod merge(nod a, nod b) {
+        nod res;
+        res.l = a.l, res.r = b.r;
+//        res.gcd=__gcd(a.gcd,b.gcd);
+        res.len = __gcd(a.len, b.len);
+        res.tag1 = res.tag2 = 0;
+        return res;
     }
-    reverse(s.begin(), s.end());
-    if (!s.size()) s += '0';
-    return os << s;
-}
-
-int sgn(double x) { // 进行判断, 提高精度
-    if (fabs(x) < eps) return 0;    // x == 0, 精度范围内的近似相等
-    return x > 0 ? 1 : -1;          // 返回正负
-}
-
-struct Point {
-    int x, y;
-    Point(int x = 0, int y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
-    // 重载运算符
-    // 点 - 点 = 向量(向量AB = B - A)
-    Point operator- (const Point &B) const {
-        return Point(x - B.x, y - B.y);
-    }
-    // 点 + 点 = 点, 点 + 向量 = 向量, 向量 + 向量 = 向量
-    Point operator+ (const Point &B) const {
-        return Point(x + B.x, y + B.y);
-    }
-    // 向量 × 向量 (叉积)
-    int operator^ (const Point &B) const {
-        return x * B.y - y * B.x;
-    }
-    // 向量 · 向量 (点积)
-    int operator* (const Point &B) const {
-        return x * B.x + y * B.y;
-    }
-    // 点 * 数 = 点, 向量 * 数 = 向量
-    Point operator* (const double &B) const {
-        return Point(x * B, y * B);
-    }
-    // 点 / 数 = 点, 向量 / 数 = 向量
-    Point operator/ (const double &B) const {
-        return Point(x / B, y / B);
-    }
-    // 判断大小, 一般用于排序
-    bool operator< (const Point &B) const {
-        return x < B.x || (x == B.x && y < B.y);
-    }
-    // 判断相等, 点 == 点, 向量 == 向量, 一般用于判断和去重
-    bool operator== (const Point &B) const {
-        return sgn(x - B.x) == 0 && sgn(y - B.y) == 0;
-    }
-    // 判断不相等, 点 != 点, 向量 != 向量
-    bool operator!= (const Point &B) const {
-        return sgn(x - B.x) || sgn(y - B.y);
-    }
-};
-
-// Need: sgn()
-
-typedef Point Vector;
-
-// 向量 · 向量 (点积)
-double operator* (Vector &A, Vector &B) {
-    return A.x * B.x + A.y * B.y;
-}
-
-// 向量 × 向量 (叉积)
-double operator^ (Vector &A, Vector &B) {
-    return A.x * B.y - A.y * B.x;
-}
-
-int Cross(Point a, Point b, Point c) {
-    return sgn((b - a) ^ (c - a));
-}
-
-vector<Point> Andrew(vector<Point> p) {
-    sort(p.begin() + 1, p.end());
-    vector<Point> s;
-    // return s;
-    int sz, top;
-    for (int i = 1; i < (int)p.size(); i++) {  // 下凸包
-        sz = s.size();
-        while (sz > 1 && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
-            s.pop_back();
-            sz = s.size();
+    void pushup(int p) {t[p] = merge(t[lc], t[rc]);}
+    void bd(int p, int l, int r) {
+        t[p] = {l, r, 0, 0, 0, 0};
+        if (l == r) {
+            return ;
         }
-        s.push_back(p[i]);
+        int mid = l + r >> 1;
+        bd(lc, l, mid);
+        bd(rc, mid + 1, r);
+        //
     }
-    top = s.size();
-    for (int i = (int)p.size() - 1; i >= 1; i--) {  // 上凸包
-        sz = s.size();
-        while (sz > top && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
-            s.pop_back();
-            sz = s.size();
+    void pushdn(int p) {
+        if (t[p].tag1) {
+            t[lc].len = t[p].tag1;
+            t[lc].tag1 = t[p].tag1;
+            t[rc].len = t[p].tag1;
+            t[rc].tag1 = t[p].tag1;
+            t[p].tag1 = 0;
         }
-        s.push_back(p[i]);
+        if (t[p].tag2) {
+            t[lc].st = t[p].tag2;
+            t[lc].tag2 = t[p].tag2;
+            t[rc].st = t[p].tag2;
+            t[rc].tag2 = t[p].tag2;
+            t[p].tag2 = 0;
+        }
     }
-    s.pop_back();
-    return s;
+    void update(int p) {
+        if (ql <= t[p].l && qr >= t[p].r) {
+            t[p].len = qlen, t[p].st = qst; //
+            t[p].tag1 = qlen, t[p].tag2 = qst;
+            return ;
+        }
+        int mid = t[p].l + t[p].r >> 1;
+        pushdn(p);
+        if (ql <= mid) update(lc);
+        if (qr > mid) update(rc);
+        pushup(p);
+    }
+    void updt(int l, int r, int len, int st) {
+        ql = l, qr = r;
+        qlen = len, qst = st;
+        update(1);
+    }
+    nod query(int p) {
+        if (qp == t[p].l && qp == t[p].r) return t[p];
+        int mid = t[p].l + t[p].r >> 1;
+        pushdn(p);
+        if (qp <= mid) return query(lc);
+        if (qp > mid) return query(rc);
+    }
+    PII ask(int p) {
+        qp = p;
+        nod res = query(1);
+        return {res.len, res.st};
+    }
+    nod query2(int p) {
+//        if(qp==t[p].l) return t[p];
+        if (ql <= t[p].l && qr >= t[p].r) return t[p];
+        int mid = t[p].l + t[p].r >> 1;
+        pushdn(p);
+        if (ql > mid) return query2(rc);
+        if (qr <= mid) return query2(lc);
+        return merge(query2(lc), query2(rc));
+    }
+    PII ask2(int l, int r) {
+        ql = l, qr = r;
+        nod res = query2(1);
+        return {res.len, res.st};
+    }
+} tr;
+int yz[N];
+inline void ans() {
+    auto [len, st] = tr.ask(n);
+    if (len == n) {cout << n << '\n'; return ;}
+    cout << yz[tr.ask2(1, n - len).first] << "\n";
 }
 
-i128 Triangle_area2(Point A, Point B, Point C) {
-    i128 res = (B - A) ^ (C - A);
-    if (res < 0) res = -res;
-    return res;
-}
 
 void solve() {
-    int n; cin >> n;
-    map<pair<int, int>, int> mp;
-    vector<Point> p(n + 1), pp(1);
-    for (int i = 1; i <= n; i ++) {
-        cin >> p[i].x >> p[i].y;
-        mp[ {p[i].x, p[i].y}] = 1;
+    cin >> n >> q;
+    int cnt = 0;
+    tr.bd(1, 1, n);
+    map<int, int> mp;
+    set<int> st;
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+        mp[a[i]] ++;
+        st.insert(a[i]);
+        if (a[i] >= a[i - 1]) cnt++;
+        else tr.updt(i - cnt, i - 1, cnt, i - cnt), cnt = 1;
     }
-    auto tb1 = Andrew(p);
-    if (tb1.size() == n) {
-        cout << -1 << '\n';
-        return ;
-    }
-    // debug1(tb1.size());
-    // for (auto [x, y] : tb1) debug2(x, y);
-    i128 sum = 0;
-    for (int i = 2; i < tb1.size(); i ++) {
-        sum += Triangle_area2(tb1[0], tb1[i - 1], tb1[i]);
-        // debug1(sum);
-    }
-    // cout << "-----------" << '\n';
-    // debug1(sum);
-    for (auto [x, y] : tb1) mp[ {x, y}] = 0;
-    for (int i = 1; i <= n; i ++) {
-        if (mp[ {p[i].x, p[i].y}] == 0) continue;
-        pp.push_back(p[i]);
-    }
-    auto tb2 = Andrew(pp);
-    i128 ans = 0;
-    // debug1(tb2.size());
-    // for (auto [x, y] : tb2) debug2(x, y);
-    int sz2 = tb2.size(), sz1 = tb1.size();
-    if (tb2.size() <= 3) {
-        for (auto k : tb2) {
-            // cout << k.x << ' ' << k.y << '\n';
-            for (int i = 0; i < tb1.size(); i ++) {
-                ans = max(ans, sum - Triangle_area2(k, tb1[i], tb1[(i + 1) % sz1]));
-                // debug1(ans);
+//    cout << cnt << ' ' << n - cnt + 1 << endl;
+    tr.updt(n - cnt + 1, n, cnt, n - cnt + 1);
+//    cout << "--------" << endl;
+//    cout << yz[tr.t[1].len] << "\n";
+    ans();
+    while (q--) {
+        int p, v; cin >> p >> v;
+        a[p] = v;
+        auto [nlen, nst] = tr.ask(p);
+        if (nlen == 1) {
+            if (p - 1 > 0 && a[p] >= a[p - 1]) {
+                auto [llen, lst] = tr.ask(p - 1);
+                tr.updt(lst, p, llen + 1, lst);
+            } else if (p + 1 <= n && a[p] <= a[p + 1]) {
+                auto [llen, lst] = tr.ask(p + 1);
+                tr.updt(p, p + llen, llen + 1, p);
             }
         }
-    } else {
-        for (int i = 0, k = 0; i < tb1.size(); i ++) {
-            int j = (i + 1) % sz1;
-            i128 tp = Triangle_area2(tb2[k], tb1[i], tb1[j]);
-            ans = max(ans, sum - tp);
-            while (Triangle_area2(tb2[(k + 1) % sz2], tb1[i], tb1[j]) < tp) {
-                k = (k + 1) % sz2;
-                tp = Triangle_area2(tb2[k], tb1[i], tb1[j]);
+        else if (p == nst) {
+            if (a[p] <= a[p + 1]) {
+                if (p - 1 > 0 && a[p] >= a[p - 1]) {
+                    auto [llen, lst] = tr.ask(p - 1);
+                    tr.updt(lst, p + nlen - 1, llen + nlen, lst);
+//                    tr.updt(lst,lst+llen+1,llen+nlen,lst);
+                }
+            } else if (p - 1 > 0 && a[p] >= a[p - 1]) {
+                auto [llen, lst] = tr.ask(p - 1);
+                tr.updt(lst, p, llen + 1, lst);
+                tr.updt(p + 1, p + nlen - 1, nlen - 1, p + 1);
+            } else {
+                tr.updt(p, p, 1, p);
+                tr.updt(p + 1, p + nlen - 1, nlen - 1, p + 1);
             }
-            ans = max(ans, sum - tp);
+        } else if (p == nst + nlen - 1) {
+            if (a[p] >= a[p - 1]) {
+                if (p + 1 <= n && a[p] <= a[p + 1]) {
+                    auto [llen, lst] = tr.ask(p + 1);
+                    tr.updt(nst, p + 1 + llen - 1, nlen + llen, nst);
+                }
+            }
+            else if (p + 1 <= n && a[p] <= a[p + 1]) {
+                tr.updt(nst, p - 1, nlen - 1, nst);
+                auto [llen, lst] = tr.ask(p + 1);
+                tr.updt(p, p + llen, llen + 1, p);
+            } else {
+                tr.updt(p, p, 1, p);
+                tr.updt(nst, p - 1, nlen - 1, nst);
+            }
+        } else {
+            if (a[p] >= a[p - 1] && a[p] <= a[p + 1]) {ans(); continue;}
+            if (a[p] > a[p + 1]) {
+                tr.updt(nst, p, p - nst + 1, nst);
+                tr.updt(p + 1, nst + nlen - 1, nlen - (p - nst + 1), p + 1);
+            } else if (a[p] < a[p - 1]) {
+                tr.updt(nst, p - 1, p - nst, nst);
+                tr.updt(p, nst + nlen - 1, nlen - (p - nst), p);
+            }
         }
+//        for(int i=1;i<=n;i++){
+//            cout << tr.ask(i).first << " \n"[i==n];
+//        }
+        ans();
     }
-    cout << ans << '\n';
 }
-
-int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    cin >> h_h;
-    while (h_h--)solve();
+signed main() {
+    ios::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
+    int t = 1;
+    cin >> t;
+    for (int i = 1; i <= 2e5 + 5; i++)
+        for (int j = i; j <= 2e5 + 5; j += i) yz[j]++;
+    while (t--) {
+        solve();
+    }
     return 0;
 }
-
-// 2
-// 6
-// -2 0
-// 1 -2
-// 5 2
-// 0 4
-// 1 2
-// 3 1
-// 4
-// 0 0
-// 1 0
-// 0 1
-// 1 1

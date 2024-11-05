@@ -68,17 +68,6 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int n = rng(3, 6);
-    cout << n << '\n';
-    set < pair<int, int>> st;
-    for (int i = 1; i <= n; i ++) {
-        int x = rng(-1000000000, 1000000000), y = rng(-1000000000, 1000000000);
-        if (st.count({x, y})) {
-            i --;
-            continue;
-        }
-        st.insert({x, y});
-        cout << x << ' ' << y << '\n';
-    }
+    cout << rng(1000, 10020) << '\n';
     return 0;
 }
