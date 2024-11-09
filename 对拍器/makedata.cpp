@@ -63,33 +63,12 @@ void graph(int n, int m) {
 
 void makedata() {
     ofstream fout("input.txt");
-    int n = rng(1, 10), m = rng(1, 10), k = 3;
-    fout << n << ' ' << m << ' ' << k << '\n';
-    vector<pair<int, int>> e;
-    map<pair<int, int>, bool> f;
-    for (int i = 1; i < n; i++) {
-        int p = rng(0, i - 1);
-        e.push_back(make_pair(p, i));
-        f[make_pair(p, i)] = f[make_pair(i, p)] = true;
+    int n = rng(1, 10), m = rng(1, 10);
+    fout << n << ' ' << m << '\n';
+    for (int i = 1; i <= m; i ++) {
+        cout << rng(1, n) << ' ' << rng(1, 6) << ' ' << rng(1, 10) << '\n';
     }
-    // debug(f);
-    for (int i = n; i <= m; i++) {
-        int x, y;
-        do {
-            x = rng(0, n - 1);
-            y = rng(0, n - 1);
-        } while (x == y || f.count(make_pair(x, y)));
-        e.push_back(make_pair(x, y));
-        f[make_pair(x, y)] = f[make_pair(y, x)] = true;
-    }
-    shuffle(e.begin(), e.end(), rnd);
-    for (auto [x, y] : e) {
-        fout << x + 1 << " " << y + 1 << "\n";
-    }
-    for (int i = 1; i <= k; i ++) {
-        fout << rng(1, m) << ' ' << rng(1, 20) << '\n';
-    }
-    fout.close();
+    
 }
 
 int32_t main() {

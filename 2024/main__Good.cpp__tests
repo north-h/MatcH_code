@@ -1,36 +1,5 @@
 [
 	{
-		"correct_answers":
-		[
-			"2026\n2027\n2029\n153181\n1317684570"
-		],
-		"test": "5\n2\n3\n4\n114514\n998244353\n"
-	},
-	{
-		"correct_answers":
-		[
-			"2026"
-		],
-		"test": "1\n2\n"
-	},
-	{
-		"correct_answers":
-		[
-			"2100"
-		],
-		"test": "1\n58\n"
-	},
-	{
-		"correct_answers":
-		[
-			"3002"
-		],
-		"test": "1\n742\n"
-	},
-	{
-		"test": "1\n6071\n"
-	},
-	{
-		"test": "1\n7291\n"
+		"test": "5 3\n5 1 1\n4 1 1\n3 2 10\n"
 	}
 ]

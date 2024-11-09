@@ -1,121 +1,185 @@
-#include<bits/stdc++.h>
+#pragma GCC optimize(3,"Ofast","inline")
+#include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-const ll MAXN = 5e5 + 5;
-const ll INF = 1e14;
-struct node {
-    ll col, u, v, w;
-};
-struct ds {
-    ll id, time, dist;
-};
-bool operator < (ds xx, ds yy) {
-    if (xx.time == yy.time) return xx.dist > yy.dist;
-    return xx.time > yy.time;
-}
-struct ST {
-    vector<vector<ll>> f;
-    ll len;
-    void init(vector<pair<ll, ll>> &a) {
-        f.resize(len + 5, vector<ll>(22, 0));
-        for (int i = 1; i <= len; i ++) {
-            f[i][0] = a[i].second;
-        }
-        for (int j = 1; j <= 20; j ++) {
-            for (int i = 1; i + (1 << j) - 1 <= len; i ++) {
-                f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
-            }
-        }
-    }
-    ll query(ll l, ll r) {
-        ll k = log2(r - l + 1);
-        return max(f[l][k], f[r - (1 << k) + 1][k]);
-    }
-} xm[MAXN];
-ll Tex, n, m, k;
-bool flag[MAXN];
-ll tis[MAXN];
-ll dis[MAXN];
-vector<node> mp[MAXN];
-vector<pair<ll, ll>> cp[MAXN];
-void dijkstra() {
-    priority_queue<ds> op;
-    op.push({1, 0, 0});
-    tis[1] = 0;
-    dis[1] = 0;
-    while (!op.empty()) {
-        ds qwq = op.top();
-        op.pop();
-        if (flag[qwq.id]) continue;
-        flag[qwq.id] = 1;
-        for (auto it : mp[qwq.id]) {
-            if (flag[it.v]) continue;
-            ll idx = lower_bound(cp[it.col].begin(), cp[it.col].end(), make_pair(qwq.time, 0ll)) - cp[it.col].begin();
-            if (idx == cp[it.col].size()) continue;
-            if (cp[it.col][idx].first == qwq.time) {
-                if (cp[it.col][idx].second >= qwq.dist + it.w) {
-                    tis[it.v] = qwq.time;
-                    dis[it.v] = qwq.dist + it.w;
-                    op.push({it.v, tis[it.v], dis[it.v]});
-                    continue;
+#define int long long
+//#define endl "\n"
+using ll=long long;
+
+//ll n;
+//void solve(){
+//    string s; cin >> n >> s; s=" "+s;
+//    string ans;
+//    for(int i=1;i<=n;i++){
+//        int g[27]={0},f[27]={0},cnt=0;
+////        if(i==3) cout << g[1] << g[3] << "\n";
+//        for(int j=i;j;j--) if(!f[s[j]-'a'+1]){
+//            g[s[j]-'a'+1]=cnt++;
+//            f[s[j]-'a'+1]=1;
+////            if(i==3) cout << s[j]-'a'+1 << "\n";
+//            if(cnt==26) break;
+//        }
+////        if(i==3) cout << g[1] << g[3] << "\n";
+//        string ts;
+//        for(int j=1;j<=i;j++) ts+=(char)('a'+g[s[j]-'a'+1]);
+//        ans=max(ts,ans);
+////        cout << ts << "\n";
+//    }
+//    cout << ans;
+//}
+
+const int N=1e5+10;
+//int dis[N];
+//void bfs(){
+//    memset(dis,-1,sizeof dis);
+//    queue<int>qu;
+//    qu.push(0);
+//    dis[0]=0;
+//    while(!qu.empty()){
+//        int num=qu.front(); qu.pop();
+//        int a[5]={0};
+//        int tnum=num;
+//        for(int i=4;i;i--) a[i]=tnum%10,tnum/=10;
+//        for(int i=1;i<=4;i++){
+//            for(int j=i;j<=4;j++){
+//                int num1=0,num2=0;
+//                for(int k=1;k<=4;k++){
+//                    if(k>=i && k<=j) num1=num1*10+(a[k]+1)%10,num2=num2*10+(a[k]+9)%10;
+//                    else num1=num1*10+a[k],num2=num2*10+a[k];
+//                }
+//                if(dis[num1]==-1) dis[num1]=dis[num]+1,qu.push(num1);
+//                if(dis[num2]==-1) dis[num2]=dis[num]+1,qu.push(num2);
+//            }
+//        }
+//    }
+//}
+//void solve(){
+//    bfs();
+//    int tc; cin >> tc;
+//    while(tc--){
+//        string s,tos; cin >> s >> tos;
+//        int a[5]={0},b[5]={0};
+//        for(int i=0;i<4;i++) a[i+1]=s[i]-'0'+1,b[i+1]=tos[i]-'0'+1;
+//        int num=0;
+//        for(int i=1;i<=4;i++) num=num*10+(b[i]-a[i]+10)%10;
+//        cout << dis[num] << "\n";
+////        cout << num << "\n";
+//    }
+////    cout << dis[7];
+//}
+
+int n, m;
+vector<pair<int, int>> g[N];
+int x[N * 2], y[N * 2], z[N * 2];
+int vis[N], vi[N];
+bool ok;
+
+int bfs(int u) {
+    vector<int> d(n + 1);queue<int> q;
+    q.push(u);vis[u] = 1;d[u] = 0;
+    while (q.size()) {
+        auto t = q.front(); q.pop();
+        for (auto [x, y] : g[t]) {
+            if (vis[x]) {
+                if (y == 1 && d[x] == d[t]) {
+                    ok = true;
+                    return -1;
+                } else if (y == 0 && d[x] != d[t]) {
+                    ok = true;
+                    return -1;
                 }
-                idx ++;
-            }
-            ll l = idx, r = cp[it.col].size();
-            while (l < r) {
-                ll mid = l + r >> 1;
-                if (xm[it.col].query(l, mid) >= it.w) r = mid;
-                else l = mid + 1;
-            }
-            if (cp[it.col].size() <= l) continue;
-            if (tis[it.v] < cp[it.col][l].first) continue;
-            if (xm[it.col].query(l, l) >= it.w) {
-                tis[it.v] = cp[it.col][l].first;
-                dis[it.v] = it.w;
-                op.push({it.v, tis[it.v], dis[it.v]});
+            } else {
+                if (y == 1) d[x] = d[t] ^ 1;
+                else d[x] = d[t];
+                q.push(x);
+                vis[x] = 1;
             }
         }
     }
-    for (int i = 1; i <= n; i ++) {
-        if (flag[i]) cout << 1;
-        else cout << 0;
-    }
-    cout << endl;
-    return;
+    int sum = 0;
+    for (int i = 1; i <= n; i ++) sum += d[i];
+    return sum;
 }
-void AC() {
-    cin >> n >> m >> k;
-    for (int i = 1; i <= n; i ++) {
-        mp[i].clear();
-        flag[i] = 0;
-        tis[i] = INF;
-        dis[i] = INF;
-    }
-    for (int i = 1; i <= m; i ++) {
-        cp[i].clear();
-        cp[i].push_back({ -1, -1});
-        ll x, y, col, z;
-        cin >> x >> y >> col >> z;
-        mp[x].push_back({col, x, y, z});
-        mp[y].push_back({col, y, x, z});
-    }
-    for (int i = 1; i <= k; i ++) {
-        ll col, dist;
-        cin >> col >> dist;
-        cp[col].push_back({i, dist});
-    }
-    for (int i = 1; i <= m; i ++) {
-        if (cp[i].size() > 1) {
-            xm[i].len = cp[i].size() - 1;
-            xm[i].init(cp[i]);
+
+int bfs1(int u) {
+    vector<int> d(n + 1);queue<int> q;
+    q.push(u);vi[u] = 1;d[u] = 1;
+    while (q.size()) {
+        auto t = q.front();q.pop();
+        for (auto [x, y] : g[t]) {
+            if (vi[x]) {
+                if (y == 1 && d[x] == d[t]) {
+                    ok = true;
+                    return -1;
+                } else if (y == 0 && d[x] != d[t]) {
+                    ok = true;
+                    return -1;
+                }
+            } else {
+                if (y == 1) d[x] = d[t] ^ 1;
+                else d[x] = d[t];
+                q.push(x);
+                vi[x] = 1;
+            }
         }
     }
-    dijkstra();
+    int sum = 0;
+    for (int i = 1; i <= n; i ++) sum += d[i];
+    return sum;
 }
-int main() {
-    ios::sync_with_stdio(false);
-    Tex = 1;
-    // cin >> Tex;
-    while (Tex --) AC();
+
+void solve() {
+    cin >> n >> m;
+//    map<pair<int, int>, int> mp;
+    unordered_map<int, unordered_map<int, int>> mp;
+    for (int i = 1; i <= m; i ++) {
+        int u, v, w; cin >> u >> v >> w;
+        x[i] = u, y[i] = v, z[i] = w;
+//        if (!mp.count({u, v})) mp[{u, v}] = w;
+//        else if (mp[{u, v}] != w) ok = true;
+            if (mp[u][v] == 0) mp[u][v] = w;
+            else if (mp[u][v] != w) ok = true;
+    }
+    if (ok) {
+        cout << -1 << '\n';
+        return ;
+    }
+    int ans = 0;
+    for (int i = 0; i < 30; i ++) {
+        for (int j = 1; j <= n; j ++) g[j].clear();
+        for (int j = 1; j <= m; j ++) {
+            int u = x[j], v = y[j], w = z[j];
+            if (w >> i & 1) {
+                g[u].push_back({v, 1});
+                g[v].push_back({u, 1});
+            } else {
+                g[u].push_back({v, 0});
+                g[v].push_back({u, 0});
+            }
+        }
+//        for (int j = 1; j <= n; j ++) {
+//            cout << j << ":\n";
+//            for (auto [x, y] : g[j]) cout << x << '|' << y << '\n';
+//        }
+        for (int j = 1; j <= n; j ++) vi[j] = vis[j] = 0;
+        for (int j = 1; j <= n; j ++) {
+            if (!vis[j]) {
+//                cout << bfs(j) << ' ' << bfs1(j) << '\n';
+                ans += min(bfs(j), bfs1(j)) * (1ll << i);
+                if (ok) {cout << -1 << '\n'; return ;}
+            }
+        }
+//        cout << i << ' ' << ans << ' ' << ok << endl;
+    }
+    if (ok) cout << -1 << '\n';
+    else cout << ans << '\n';
+}
+
+int32_t main() {
+    ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+    int t=1;
+//    cin>>t;
+    while(t--){
+        solve();
+    }
     return 0;
 }
