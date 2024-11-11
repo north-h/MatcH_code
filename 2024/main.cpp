@@ -154,14 +154,9 @@ void solve() {
     }
     int ans = cc - k;
     // debug2(cc, k);
-    if (ans > 0) {
-        for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
-        cout << '\n';
-        // cout << "Unhappy!" << ' ' << ans << '\n';
-    } else {
-        for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
-        cout << '\n';
-    }
+    for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
+    cout << ' ';
+    // if (ans > 0) cout << "Unhappy!" << ' ' << ans << '\n';
 }
 
 int32_t main() {

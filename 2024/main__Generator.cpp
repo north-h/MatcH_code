@@ -68,8 +68,8 @@ void graph(int n, int m) {
 
 int32_t main() {
     ios::sync_with_stdio(false), cin.tie(nullptr);
-    int k = rng(1, 10000);
-    int n = rng(1, k), m = rng(1, 50);
+    int k = rng(1, 1000);
+    int n = rng(1, k), m = rng(1, 5);
     int t = rng(1, m);
     cout << n << ' ' << m << ' ' << k << ' ' << t << '\n';  
     for (int i = 1; i <= k; i ++) {

@@ -30,9 +30,11 @@ const vector<vector<pair<int ,int>>> dir = { // 已经排好序的8种情况的�
     {{3,1},{3,2},{3,3}}     //7 8 9
 };
 
+
 void solve(){
     // t:luck
     int n,m,k,t;    cin>>n>>m>>k>>t;
+    int id = 0, cc = n;
     queue<int> a;       // 沸羊羊的盲盒队列
     queue<int>  got;    // 美羊羊获得的盲盒队列
     int chess[4][4];    memset(chess,-1,sizeof(chess)); // 棋盘
@@ -48,6 +50,8 @@ void solve(){
         a.pop();
     }
     while(1){   //游戏循环
+        cout << "id=" << id << ' ' << "cc=" << cc << '\n'; 
+        cout << "-----------------------" << '\n';
         //Step 1 放置盲盒
         int ok = 0,DidSth = 0;  // ok:是否拆出隐藏款 DidSth:是否有操作
         for(int i=1;i<=9&&(!got.empty());i++){  // 遍历每一个宫格
@@ -57,6 +61,7 @@ void solve(){
             DidSth = 1; // 有操作
             int x = got.front();    got.pop();  // 美羊羊取出一个盲盒
             chess[loc[i].first][loc[i].second] = x; // 放入宫格
+            id ++;
             if(x == t){ // 如果是幸运款
                 if(!a.empty()){ // 如果沸羊羊还有盲盒
                     got.push(a.front());    // 奖励一个盲盒
@@ -64,7 +69,9 @@ void solve(){
                 }else{  // 沸羊羊没有盲盒
                     res ++; // 缺少的盲盒数量+1
                 }
+                cc ++;
             }else if(x == 0){   // 如果是隐藏款
+                cc ++;
                 if(!a.empty()){ 
                     got.push(a.front());
                     a.pop();
@@ -80,6 +87,13 @@ void solve(){
         if(ok){ // 如果拆出隐藏款则跳过后面的步骤
             continue;
         }
+        for (int i = 1; i <= 3; i ++) {
+            for (int j = 1; j <= 3; j ++) {
+                cout << chess[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+        cout << '\n';
         //Step 2 判断是否9个盲盒均不同
         unordered_map<int ,int> count;
         for(int i=1;i<=3;i++)
@@ -91,6 +105,13 @@ void solve(){
             ans[chess[loc[1].first][loc[1].second]] ++; // 更新答案
             chess[loc[1].first][loc[1].second] = -1;
         }
+        for (int i = 1; i <= 3; i ++) {
+            for (int j = 1; j <= 3; j ++) {
+                cout << chess[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+        cout << '\n';
         //Step 3 按顺序检查8种三连珠情况
         int UseSpeFlag = 0; // 是否利用到特殊格
         vector<vector<int>> process;  // 存储有几种三连珠情况 & 每一种情况的三个盲盒的宫格号
@@ -127,6 +148,7 @@ void solve(){
                         res ++;
                     }
                 }
+                cc += 5;
                 for(int j=0;j<3;j++){   // 遍历三连珠的三个盲盒
                     if(i[j] == 1){    // 如果是特殊格
                         UseSpeFlag = 1;
@@ -138,6 +160,13 @@ void solve(){
                 }
             }
         }
+        for (int i = 1; i <= 3; i ++) {
+            for (int j = 1; j <= 3; j ++) {
+                cout << chess[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+        cout << '\n';
         //Step 4 顺序检查任意两种盲盒是否相同
         for(int i=1;i<=9;i++){
             for(int j=i;j<=9;j++){
@@ -180,15 +209,30 @@ void solve(){
                     }
                     ans[chess[x1][y1]] += 2;    // 更新答案
                     chess[x1][y1] = chess[x2][y2] = -1;
+                    cc ++;
                 }
             }
         }
+        for (int i = 1; i <= 3; i ++) {
+            for (int j = 1; j <= 3; j ++) {
+                cout << chess[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+        cout << '\n';
         //Step 5 判断是否利用到特殊格
         if(UseSpeFlag == 1){
             DidSth = 1;
             ans[chess[2][2]] ++;    // 更新答案
             chess[2][2] = -1;
         }
+        for (int i = 1; i <= 3; i ++) {
+            for (int j = 1; j <= 3; j ++) {
+                cout << chess[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+        cout << '\n';
         //Step 6 如果没有操作游戏结束
         if(!DidSth){
             break;
@@ -207,7 +251,20 @@ void solve(){
                     res ++;
                 }
             }
+            cc += 10;
         }
+        for (int i = 1; i <= 3; i ++) {
+            for (int j = 1; j <= 3; j ++) {
+                cout << chess[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+        cout << '\n';
+        for(int i = 0;i <= m;i ++){ // 输出每一种盲盒获得的数量
+            cout<<ans[i]<<" ";
+        }
+        cout << '\n';
+
     }
     // 游戏结束, 清理棋盘
     for(int i=1;i<=9;i++){
@@ -217,10 +274,10 @@ void solve(){
         }
     }
     for(int i = 0;i <= m;i ++){ // 输出每一种盲盒获得的数量
-        cout<<ans[i]<<" \n"[i==m];
+        cout<<ans[i]<<" ";
     }
     if(res != 0){   // 输出缺少的盲盒数量
-        // cout<<res<<endl;
+        // cout<<"Unhappy! "<<res<<endl;
     }
     return ;
 }

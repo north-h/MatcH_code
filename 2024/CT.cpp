@@ -37,11 +37,11 @@ void solve() {
     };
 
     while (true) {
-        bool f = false, fg = false;
-        // debug2(id, cc);
+        debug2(id, cc);
+        cout << "-------------------" << '\n';
+        bool f = false, fg = false, yc = false;
         //1
-        for (int i = 1; i <= 9; i ++) {
-            if (id >= k || id >= cc) break;
+        for (int i = 1; i <= 9 && id < min(k, cc); i ++) {
             if (wg[i] != -1) continue;
             fg = true;
             wg[i] = a[++ id];
@@ -51,34 +51,38 @@ void solve() {
                 cc ++;
                 cnt[0] ++;
                 wg[i] = -1;
-                i --;
-                continue;
+                yc = true;
+                break;
             }
         }
 
+        if (yc) continue;
 
-        // cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
-        // cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
-        // cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
-        // cout << '\n';
+
+        cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
+        cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
+        cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
+        cout << '\n';
 
 
         // 2
         set<int> st;
+        bool ok = false;
         for (int i = 1; i <= 9; i ++) {
-            if (wg[i] != -1) st.insert(wg[i]); 
+            if (wg[i] != -1) st.insert(wg[i]);
+            else ok = true; 
         }
-        if ((int)st.size() == 9) {
+        if ((int)st.size() == 9 && !ok) {
             cnt[wg[1]] ++;
             wg[1] = -1;
             fg = true;
             continue;
         }
 
-        // cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
-        // cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
-        // cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
-        // cout << '\n';
+        cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
+        cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
+        cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
+        cout << '\n';
 
         // debug1(cc);
 
@@ -94,10 +98,11 @@ void solve() {
             fg = true;
         }
 
-        // cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
-        // cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
-        // cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
-        // cout << '\n';
+        cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
+        cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
+        cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
+        cout << '\n';
+
 
 
         // 4
@@ -112,56 +117,48 @@ void solve() {
             fg = true;
         }
 
-            // return ;
-
-        // cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
-        // cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
-        // cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
-        // cout << '\n';
+        cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
+        cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
+        cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
+        cout << '\n';
 
         // 5
-        if (f) cnt[wg[1]] ++, wg[1] = -1;
+        if (f) cnt[wg[1]] ++, wg[1] = -1, fg = true;
 
-        // cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
-        // cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
-        // cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
-        // cout << '\n';
+        cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
+        cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
+        cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
+        cout << '\n';
 
 
         // 6
-        if (!fg) {
-            for (int i = 1; i <= 9; i ++) {
-                if (wg[i] != -1) cnt[wg[i]] ++; 
-            }
-            break;
-        } else {
-            bool tp = false;
-            for (int i = 1; i <= 9; i ++) {
-                if (wg[i] != -1) tp = true;
-            }
-            if (!tp) cc += 10;
+        if (!fg) break;
+
+        bool tp = false;
+        for (int i = 1; i <= 9; i ++) {
+            if (wg[i] != -1) tp = true;
         }
+        if (!tp) cc += 10;
 
-        // cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
-        // cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
-        // cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
-        // cout << '\n';
+        cout << wg[2] << ' ' << wg[3] << ' ' << wg[4] << '\n';
+        cout << wg[5] << ' ' << wg[1] << ' ' << wg[6] << '\n';
+        cout << wg[7] << ' ' << wg[8] << ' ' << wg[9] << '\n';
+        cout << '\n';
 
 
-        // for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
-        // cout << '\n';
-        // cout << "----------------\n";
+        for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
+        cout << '\n';
+    }
+    for (int i = 1; i <= 9; i ++) {
+        if (wg[i] != -1) cnt[wg[i]] ++; 
     }
     int ans = cc - k;
     // debug2(cc, k);
+        for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
+        cout << '\n';
     if (ans > 0) {
-        for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
-        cout << '\n';
         cout << "Unhappy!" << ' ' << ans << '\n';
-    } else {
-        for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
-        cout << '\n';
-    }
+    } 
 }
 
 int32_t main() {
@@ -171,3 +168,50 @@ int32_t main() {
     while (h_h--)solve();
     return 0;
 }
+
+
+// 0 1 5 4 1 2 5 1 0 
+// 4 3 3 2 0 2 5 4 5 
+// 3/ 2 0 2 2 3 1 0 4 
+// 0 0 4 0 0 0 2 2 1 
+// 5 5 1 5 5 0 2 5 1 
+// 2 0 1 5 4 2 4 5 5 
+// 0 4 4 5 4 5 1 0 5 
+// 1 2 0 2 3 2 0 5 5 
+// 2 4 2 1 5 0 4 3 3 
+// 5 0 4 5 0 0 3 0 0 
+// 1 4 2 2 3 3 2 1 3 
+// 4 3 1 1 5 4 4 2 5 
+// 1 0 4 4 4 0 0 4 4 
+// 1 4 4 2 0 0 5 1 1 
+// 1 5 4 4 0 1 0 3 4 
+// 4 0 5 3 4 1 4 1 2 
+// 0 2 3 3 5 3 3 4 4 
+// 0 2 0 2 1 1 3 4 4 
+// 5 5 5 1 3 1 3 1 5 
+// 3 4 3 5 2 2 4 3 2 
+// 0 1 1 2 3 5 2 5 3 
+// 3 3 1 0 3 3 0 2 1 
+// 1 2 3 3 3 3 3 1 5 
+// 3 3 0 2 4 3 2 1 1 
+// 1 4 1 5 4 3 3 5 0 
+// 3 4 4 2 1 0 3 2 3 
+// 3 5 5 2 0 3 1 2 5 
+// 5 4 0 0 1 3 4 3 0 
+// 4 4 5 5 0 0 1 4 4 
+// 0 0 5 3 0 0 1 1 5 
+// 1 0 5 0 5 0 5 1 5 
+// 2 3 0 2 3 5 0 1 4 
+// 4 2 3 2 0 5 4 1 0 
+// 5 0 3 2 0 3 3 5 4 
+// 5 0 2 4 2 1 5 5 0 
+// 0 2 2 3 3 3 4 2 3 
+// 0 2 5 0 3 0 2 1 4 
+// 5 1 1 2 0 2 0 2 3 
+// 2 4 4 1 1 2 5 1 4 
+// 1 1 2 5 2 5 5 4 1 
+// 4 0 2 4 0 4 5 3 1 
+// 0 2 0 2 5 0 0 0 2 
+// 3 3 2 1 3 3 5 2 0 
+// 3 5 1 3 3 2 2 0 3 
+// 3 4 3 3
