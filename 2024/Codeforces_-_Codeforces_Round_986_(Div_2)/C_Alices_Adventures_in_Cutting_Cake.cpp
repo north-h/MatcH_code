@@ -44,14 +44,12 @@ void solve() {
     tp.pop_back();
     for (int i = n; i >= 1; i --) {
         if (cv + a[i] < v) cv += a[i];
-        else {
-            if (tp.size() && tp.back() < i) {
-                ans = max(ans, s[i - 1] - s[tp.back()]);
-                tp.pop_back();
-                cv = 0;
-            }
-            else break;
+        else if (tp.size() && tp.back() < i) {
+            ans = max(ans, s[i - 1] - s[tp.back()]);
+            tp.pop_back();
+            cv = 0;
         }
+        else break;
     }
     cout << ans << '\n';
 }
