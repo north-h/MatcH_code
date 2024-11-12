@@ -1,118 +1,18 @@
-// #pragma GCC optimize("Ofast")
 #include <bits/stdc++.h>
-#define debug1(a) cerr << #a << '=' << a << endl
-#define debug2(a, b) cerr << #a << '=' << a << ' ' << #b << '=' << b << endl
-#define int long long
-const int N = 100010, INF = 0x3f3f3f3f;
-
 using namespace std;
+#define int long long
+#define endl "\n"
 
-void solve() {
-    int n, m, k, t; cin >> n >> m >> k >> t;
-    vector<int> a(k + 1);
-    for (int i = 1; i <= k; i ++) cin >> a[i];
-    vector<int> wg(10, -1), cnt(m + 1);
-
-    int id = 0, cc = n;
-
-    auto check = [&]() -> array<int, 3> {
-        if (wg[2] == wg[1] && wg[9] == wg[1] && wg[1] != -1) return {1, 2, 9};
-        if (wg[3] == wg[1] && wg[8] == wg[1] && wg[1] != -1) return {1, 3, 8};
-        if (wg[4] == wg[1] && wg[7] == wg[1] && wg[1] != -1) return {1, 4, 7};
-        if (wg[5] == wg[1] && wg[6] == wg[1] && wg[1] != -1) return {1, 5, 6};
-        if (wg[2] == wg[3] && wg[4] == wg[3] && wg[3] != -1) return {2, 3, 4};
-        if (wg[2] == wg[5] && wg[7] == wg[5] && wg[5] != -1) return {2, 5, 7};
-        if (wg[4] == wg[6] && wg[9] == wg[6] && wg[6] != -1) return {4, 6, 9};
-        if (wg[7] == wg[8] && wg[9] == wg[8] && wg[8] != -1) return {7, 8, 9};
-        return { -1, -1, -1};
-    };
-
-    auto check1 = [&]() -> array<int, 2> {
-        for (int i = 1; i <= 9; i ++) {
-            for (int j = i + 1; j <= 9; j ++) {
-                if (wg[i] == wg[j] && wg[j] != -1) return {i, j};
-            }
-        }
-        return { -1, -1};
-    };
-
-    while (true) {
-        bool f = false, fg = false, yc = false;
-        //1
-        for (int i = 1; i <= 9 && id < min(k, cc); i ++) {
-            if (wg[i] != -1) continue;
-            fg = true;
-            wg[i] = a[++ id];
-            if (a[id] == t) {
-                cc ++;
-            } else if (a[id] == 0) {
-                cc ++;
-                cnt[0] ++;
-                wg[i] = -1;
-                yc = true;
-                break;
-            }
-        }
-        if (yc) continue;
-        // 2
-        set<int> st;
-        bool ok = false;
-        for (int i = 1; i <= 9; i ++) {
-            if (wg[i] != -1) st.insert(wg[i]);
-            else ok = true;
-        }
-        if ((int)st.size() == 9 && !ok) {
-            cnt[wg[1]] ++;
-            wg[1] = -1;
-            fg = true;
-            continue;
-        }
-        // 3
-        while (true) {
-            auto [x, y, z] = check();
-            if (x == -1) break;
-            if (x == 1 || y == 1 || z == 1) f = true;
-            if (x != 1) cnt[wg[x]] ++, wg[x] = -1;
-            if (y != 1) cnt[wg[y]] ++, wg[y] = -1;
-            if (z != 1) cnt[wg[z]] ++, wg[z] = -1;
-            cc += 5;
-            fg = true;
-        }
-        // 4
-        while (true) {
-            auto [x, y] = check1();
-            if (x == -1) break;
-            if (x == 1 || y == 1) f = true;
-            if (x != 1) cnt[wg[x]] ++, wg[x] = -1;
-            if (y != 1) cnt[wg[y]] ++, wg[y] = -1;
-            cc ++;
-            fg = true;
-        }
-        // 5
-        if (f) cnt[wg[1]] ++, wg[1] = -1, fg = true;
-        // 6
-        if (!fg) break;
-        bool tp = false;
-        for (int i = 1; i <= 9; i ++) {
-            if (wg[i] != -1) tp = true;
-        }
-        if (!tp) cc += 10;
-    }
-    for (int i = 1; i <= 9; i ++) {
-        if (wg[i] != -1) cnt[wg[i]] ++;
-    }
-    int ans = cc - k;
-    for (int i = 0; i <= m; i ++) cout << cnt[i] << ' ';
-    cout << '\n';
-    if (ans > 0) {
-        cout << "Unhappy!" << ' ' << ans << '\n';
-    }
+void solve(){
+    cout << (1 << 19) * 19 * 6 << '\n';
 }
 
 int32_t main() {
-    ios::sync_with_stdio(false), cin.tie(nullptr);
-    int h_h = 1;
-    // cin >> h_h;
-    while (h_h--)solve();
+    ios::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+    int t=1;
+    // cin>>t;
+    while(t--){
+        solve();
+    }
     return 0;
 }

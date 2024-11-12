@@ -16,8 +16,8 @@ int sgn(double x) { // 进行判断, 提高精度
 }
 
 struct Point {
-    double x, y;
-    Point(double x = 0, double y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
+    int x, y;
+    Point(int x = 0, int y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
     // 重载运算符
     // 点 - 点 = 向量(向量AB = B - A)
     Point operator- (const Point &B) const {
@@ -28,11 +28,11 @@ struct Point {
         return Point(x + B.x, y + B.y);
     }
     // 向量 × 向量 (叉积)
-    double operator^ (const Point &B) const {
+    int operator^ (const Point &B) const {
         return x * B.y - y * B.x;
     }
     // 向量 · 向量 (点积)
-    double operator* (const Point &B) const {
+    int operator* (const Point &B) const {
         return x * B.x + y * B.y;
     }
     // 点 * 数 = 点, 向量 * 数 = 向量
@@ -62,12 +62,12 @@ struct Point {
 typedef Point Vector;
 
 // 向量 · 向量 (点积)
-double operator* (Vector &A, Vector &B) {
+int operator* (Vector &A, Vector &B) {
     return A.x * B.x + A.y * B.y;
 }
 
 // 向量 × 向量 (叉积)
-double operator^ (Vector &A, Vector &B) {
+int operator^ (Vector &A, Vector &B) {
     return A.x * B.y - A.y * B.x;
 }
 
