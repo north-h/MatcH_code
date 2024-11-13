@@ -24,6 +24,9 @@ int dx[] = {0, 1, 0, -1, -1, -1};
 int dy[] = {1, 0, -1, 0, 1, -1};
 int qx[] = {0, 2, 0, -2, -2, -2};
 int qy[] = {2, 0, -2, 0, 2, -2};
+int g[6][6], mp[6][6], idx = -1;
+pair<int, int> up[20];
+
 
 bool check(int x, int y) {
     if (x < 1 || y < 1 || x > 5) return false;
@@ -36,10 +39,24 @@ bool check(int x, int y) {
 }
 
 void solve() {
-    vector g(6, vector<char>(6));
-    vector mp(6, vector<int>(6));
-    vector<pair<int, int>> up(19);
-    int idx = -1;
+    vector<int> a;
+    for (int i = 0; i < M; i ++) a.push_back(i);
+    sort(a.begin(), a.end(), [](int x, int y) {
+        int cx = 0, cy = 0;
+        for (int i = 0; i < 19; i ++) {
+            if (x >> i & 1) cx ++;
+            if (y >> i & 1) cy ++;
+        }
+        if (cx == cy) return x < y;
+        return cx < cy;
+    });
+    // for (int i = 1; i < 100; i ++) {
+    //     cout << a[i] << ':';
+    //     for (int j = 18; j >= 0; j --) {
+    //         cout << (a[i] >> j & 1);
+    //     }
+    //     cout << '\n';
+    // }
     for (int i = 1; i <= 5; i ++) {
         for (int j = 1; j <= 5; j ++) {
             if (!check(i, j)) continue;
@@ -48,7 +65,8 @@ void solve() {
             up[idx] = {i, j};
         }
     }
-    vector<int> dp(M);
+    vector<int> dp(M + 10, -INF);
+    dp[0] = 0;
     // for (int i = 0; i < 19; i ++) {
     //     cout << i << ':' << up[i].first << ' ' << up[i].second << '\n';
     // }
@@ -58,23 +76,20 @@ void solve() {
     //         cout << i << ' ' << j << ':' << mp[i][j] << '\n';
     //     }
     // }
-    for (int i = M - 1; i >= 0; i --) {
+
+    for (int i = 1; i < M; i ++) {
         for (int j = 0; j < 19; j ++) {
-            if (i >> j & 1) continue;
+            if (!(a[i] >> j & 1)) continue;
             for (int k = 0; k < 6; k ++) {
                 auto [x, y] = up[j];
-                // debug2(x, y);
                 int tx = x + dx[k], ty = y + dy[k];
                 int Tx = x + qx[k], Ty = y + qy[k];
-                dp[i] = max(dp[i], dp[i ^ (1 << j)]);
+                dp[a[i]] = max(dp[a[i]], dp[a[i] ^ (1 << j)]);
                 if (check(tx, ty) && check(Tx, Ty)) {
                     auto idx = mp[tx][ty], IDX = mp[Tx][Ty];
-                    if (!(i >> idx & 1) && (i >> IDX & 1)) continue;
-                    // debug2(tx, ty);
-                    // debug2(Tx, Ty);
-                    // debug1(g[tx][ty]);
-                    int ni = i ^ (1 << IDX) ^ (1 << idx) ^ (1 << j);
-                    dp[i] = max(dp[ni] + g[tx][ty], dp[i]);
+                    if ((a[i] >> idx & 1) && !(a[i] >> IDX & 1)) continue;
+                    int ni = a[i] ^ (1 << IDX) ^ (1 << idx) ^ (1 << j);
+                    dp[a[i]] = max(dp[ni] + g[tx][ty], dp[a[i]]);
                 }
             }
         }
@@ -82,13 +97,13 @@ void solve() {
     int n; cin >> n;
     while (n --) {
         int st = 0;
-        for (int i = 1; i <= 19; i ++) {
+        for (int i = 0; i < 19; i ++) {
             char op; cin >> op;
-            if (op == '.') st *= 2;
-            else st = st * 2 + 1;
+            if (op == '#') st += (1 << i);
         }
+        cout << st << '\n';
         // cout << st << ' ' << (M - 1) << '\n';
-        cout << dp[st ^ (M - 1)] << '\n'; 
+        cout << dp[st] << '\n'; 
     }
 }
 
