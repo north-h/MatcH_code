@@ -20,21 +20,19 @@ const int N = 100010, INF = 0x3f3f3f3f, M = (1 << 19);
 
 using namespace std;
 
-int dx[] = {0, 1, 0, -1, -1, -1};
-int dy[] = {1, 0, -1, 0, 1, -1};
-int qx[] = {0, 2, 0, -2, -2, -2};
-int qy[] = {2, 0, -2, 0, 2, -2};
-int g[6][6], mp[6][6], idx = -1;
-pair<int, int> up[20];
-
+int dx[] = {0, 0, 1, -1, 1, -1};
+int dy[] = {2, -2, -1, 1, 1, -1};
+int g[10][10], mp[10][10];
+pair<int, int> up[20] = {
+    {1, 3}, {1, 5}, {1, 7},
+    {2, 2}, {2, 4}, {2, 6}, {2, 8},
+    {3, 1}, {3, 3}, {3, 5}, {3, 7}, {3, 9},
+    {4, 2}, {4, 4}, {4, 6}, {4, 8},
+    {5, 3}, {5, 5}, {5, 7}
+};
 
 bool check(int x, int y) {
-    if (x < 1 || y < 1 || x > 5) return false;
-    if (x == 1 && y > 3) return false;
-    if (x == 2 && y > 4) return false;
-    if (x == 3 && y > 5) return false;
-    if (x == 4 && y > 4) return false;
-    if (x == 5 && y > 3) return false;
+    if (x < 1 || y < 1 || mp[x][y] == -1) return false;
     return true;
 }
 
@@ -50,60 +48,39 @@ void solve() {
         if (cx == cy) return x < y;
         return cx < cy;
     });
-    // for (int i = 1; i < 100; i ++) {
-    //     cout << a[i] << ':';
-    //     for (int j = 18; j >= 0; j --) {
-    //         cout << (a[i] >> j & 1);
-    //     }
-    //     cout << '\n';
-    // }
-    for (int i = 1; i <= 5; i ++) {
-        for (int j = 1; j <= 5; j ++) {
-            if (!check(i, j)) continue;
-            cin >> g[i][j];
-            mp[i][j] = ++idx;
-            up[idx] = {i, j};
-        }
+    memset(mp, -1, sizeof mp);
+    for (int i = 0; i < 19; i ++) {
+        auto [x, y] = up[i];
+        mp[x][y] = i;
+        cin >> g[x][y];
     }
     vector<int> dp(M + 10, -INF);
     dp[0] = 0;
-    // for (int i = 0; i < 19; i ++) {
-    //     cout << i << ':' << up[i].first << ' ' << up[i].second << '\n';
-    // }
-    // for (int i = 1; i <= 5; i ++) {
-    //     for (int j = 1; j <= 5; j ++) {
-    //         if (!check(i, j)) continue;
-    //         cout << i << ' ' << j << ':' << mp[i][j] << '\n';
-    //     }
-    // }
-
-    for (int i = 1; i < M; i ++) {
+    for (int i = 1; i < 1 << 19; i ++) {
         for (int j = 0; j < 19; j ++) {
             if (!(a[i] >> j & 1)) continue;
+            auto [x, y] = up[j];
             for (int k = 0; k < 6; k ++) {
-                auto [x, y] = up[j];
-                int tx = x + dx[k], ty = y + dy[k];
-                int Tx = x + qx[k], Ty = y + qy[k];
+                int tx = x + dx[k], ty = y + dy[k], Tx = tx + dx[k], Ty = ty + dy[k];
                 dp[a[i]] = max(dp[a[i]], dp[a[i] ^ (1 << j)]);
-                if (check(tx, ty) && check(Tx, Ty)) {
-                    auto idx = mp[tx][ty], IDX = mp[Tx][Ty];
-                    if ((a[i] >> idx & 1) && !(a[i] >> IDX & 1)) continue;
-                    int ni = a[i] ^ (1 << IDX) ^ (1 << idx) ^ (1 << j);
-                    dp[a[i]] = max(dp[ni] + g[tx][ty], dp[a[i]]);
-                }
+                if (!check(tx, ty) || !check(Tx, Ty)) continue;
+                auto idx = mp[tx][ty], IDX = mp[Tx][Ty];
+                if (!(a[i] >> idx & 1) || (a[i] >> IDX & 1)) continue;
+                int ni = a[i] ^ (1 << IDX) ^ (1 << idx) ^ (1 << j);
+                dp[a[i]] = max(dp[ni] + g[tx][ty], dp[a[i]]);
             }
         }
     }
-    int n; cin >> n;
+    int n;
+    cin >> n;
     while (n --) {
         int st = 0;
         for (int i = 0; i < 19; i ++) {
-            char op; cin >> op;
+            char op;
+            cin >> op;
             if (op == '#') st += (1 << i);
         }
-        cout << st << '\n';
-        // cout << st << ' ' << (M - 1) << '\n';
-        cout << dp[st] << '\n'; 
+        cout << dp[st] << '\n';
     }
 }
 
