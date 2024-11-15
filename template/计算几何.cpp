@@ -4,92 +4,52 @@
 #define debug2(a, b) cout << #a << '=' << a << ' ' << #b << '=' << b << endl
 #define int long long
 const int N = 100010, INF = 0x3f3f3f3f;
-const double eps = 1e-8;    // 根据题目精度要求进行修改
-const double PI = acos(-1.0);   // pai, 3.1415916....
+const double eps = 1e-8;    
+const double PI = acos(-1.0);   
 
 using namespace std;
 
 
-int sgn(double x) { // 进行判断, 提高精度
-    if (fabs(x) < eps) return 0;    // x == 0, 精度范围内的近似相等
-    return x > 0 ? 1 : -1;          // 返回正负
+int sgn(double x) { 
+    if (fabs(x) < eps) return 0;    
+    return x > 0 ? 1 : -1;          
 }
 
 struct Point {
     int x, y;
-    Point(int x = 0, int y = 0) : x(x), y(y) {}  // 构造函数, 初始值为 0
-    // 重载运算符
-    // 点 - 点 = 向量(向量AB = B - A)
-    Point operator- (const Point &B) const {
-        return Point(x - B.x, y - B.y);
-    }
-    // 点 + 点 = 点, 点 + 向量 = 向量, 向量 + 向量 = 向量
-    Point operator+ (const Point &B) const {
-        return Point(x + B.x, y + B.y);
-    }
-    // 向量 × 向量 (叉积)
-    int operator^ (const Point &B) const {
-        return x * B.y - y * B.x;
-    }
-    // 向量 · 向量 (点积)
-    int operator* (const Point &B) const {
-        return x * B.x + y * B.y;
-    }
-    // 点 * 数 = 点, 向量 * 数 = 向量
-    Point operator* (const double &B) const {
-        return Point(x * B, y * B);
-    }
-    // 点 / 数 = 点, 向量 / 数 = 向量
-    Point operator/ (const double &B) const {
-        return Point(x / B, y / B);
-    }
-    // 判断大小, 一般用于排序
-    bool operator< (const Point &B) const {
-        return x < B.x || (x == B.x && y < B.y);
-    }
-    // 判断相等, 点 == 点, 向量 == 向量, 一般用于判断和去重
-    bool operator== (const Point &B) const {
-        return sgn(x - B.x) == 0 && sgn(y - B.y) == 0;
-    }
-    // 判断不相等, 点 != 点, 向量 != 向量
-    bool operator!= (const Point &B) const {
-        return sgn(x - B.x) || sgn(y - B.y);
-    }
+    Point(int x = 0, int y = 0) : x(x), y(y) {}  
+    Point operator- (const Point &B) const { return Point(x - B.x, y - B.y);}
+    Point operator+ (const Point &B) const { return Point(x + B.x, y + B.y);}
+    int operator^ (const Point &B) const {return x * B.y - y * B.x;}
+    int operator* (const Point &B) const {return x * B.x + y * B.y;}
+    Point operator* (const double &B) const {return Point(x * B, y * B);}
+    Point operator/ (const double &B) const {return Point(x / B, y / B);}
+    bool operator< (const Point &B) const {return x < B.x || (x == B.x && y < B.y);}
+    bool operator== (const Point &B) const {return sgn(x - B.x) == 0 && sgn(y - B.y) == 0;}
+    bool operator!= (const Point &B) const {return sgn(x - B.x) || sgn(y - B.y);}
 };
-
-// Need: sgn()
 
 typedef Point Vector;
 
-// 向量 · 向量 (点积)
 int operator* (Vector &A, Vector &B) {
     return A.x * B.x + A.y * B.y;
 }
 
-// 向量 × 向量 (叉积)
 int operator^ (Vector &A, Vector &B) {
     return A.x * B.y - A.y * B.x;
 }
-
-// Need: (-, *)
 
 double dist(Point a, Point b) { 
     return sqrt((a - b) * (a - b)); 
 }
 
-// Need: (*)
-
 double len(Vector A) { 
     return sqrt(A * A); 
 }
 
-// Need: (/), len()
-
 Vector norm(Vector A) { 
     return A / len(A); 
 }
-
-// Need: (*), len(), PI
 
 double Angle(Vector A, Vector B) {
     double t = acos((A * B) / len(A) / len(B));
@@ -509,8 +469,7 @@ vector<Point> Andrew(vector<Point> p) {
     for (int i = 1; i < (int)p.size(); i++) {  // 下凸包
         sz = s.size();
         while (sz > 1 && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
-            s.pop_back();
-            sz = s.size();
+            s.pop_back(); sz = s.size();
         }
         s.push_back(p[i]);
     }
@@ -518,8 +477,7 @@ vector<Point> Andrew(vector<Point> p) {
     for (int i = (int)p.size() - 1; i >= 1; i--) {  // 上凸包
         sz = s.size();
         while (sz > top && Cross(s[sz - 2], s[sz - 1], p[i]) <= 0) {
-            s.pop_back();
-            sz = s.size();
+            s.pop_back(); sz = s.size();
         }
         s.push_back(p[i]);
     }
